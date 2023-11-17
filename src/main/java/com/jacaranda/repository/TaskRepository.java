@@ -20,7 +20,7 @@ public class TaskRepository {
 	
 		transaction = session.beginTransaction();
 		try {
-			session.save(t);//Guardamos la nueva tarea
+			session.persist(t);//Guardamos la nueva tarea
 			transaction.commit();
 		} catch (IllegalStateException e) {
 			e.printStackTrace();

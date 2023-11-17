@@ -1,5 +1,7 @@
 package com.jacaranda.model;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 import com.jacaranda.exception.CharacterException;
@@ -25,7 +27,7 @@ public class Character {
 	private String characterSex;
 	
 	
-	private final static String CHARACTER_SEX_VALID_CHARACTERS = "HMO";
+	private final static List<String> CHARACTER_SEX_VALID_CHARACTERS = Arrays.asList("H","M","O");
 	private final static int CHARACTER_NAME_MAXIMUM_LENGTH = 25;
 	private final static int CHARACTER_NATIONALITY_MAXIMUM_LENGTH = 15;
 
@@ -102,30 +104,7 @@ public class Character {
 	 * @return
 	 */
 	public boolean isCharacterSexValid (String characterSex) {
-		
-		boolean isValid = false;
-		
-		
-		if ((characterSex != null) && (!characterSex.isEmpty()) 
-				&& (characterSex.length() == 1)) {
-
-			characterSex = characterSex.toUpperCase();
-				
-				
-			for (int i = 0; i < characterSex.length(); i++) {
-					
-				for (int j = 0; j < CHARACTER_SEX_VALID_CHARACTERS.length(); j++) {
-						
-					if (characterSex.charAt(i) == CHARACTER_SEX_VALID_CHARACTERS.charAt(j)) {
-						isValid = true;
-						j = CHARACTER_SEX_VALID_CHARACTERS.length();
-					}
-				}
-			}
-		}
-		
-		
-		return (isValid);
+		return CHARACTER_SEX_VALID_CHARACTERS.contains(characterSex.toUpperCase());
 	}
 
 	
