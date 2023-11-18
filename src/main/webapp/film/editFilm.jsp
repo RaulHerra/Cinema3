@@ -1,3 +1,4 @@
+<%@page import="com.jacaranda.repository.DbRepository"%>
 <%@page import="com.jacaranda.exception.FilmException"%>
 <%@page import="com.jacaranda.model.Film"%>
 <%@page import="com.jacaranda.repository.FilmRepository"%>
@@ -18,9 +19,9 @@
 		Film f = null;
 		try{
 			/*Compruebo que existe la pelicula que quiere editar*/
-			if(FilmRepository.getCipFilms().contains(request.getParameter("cip"))){
+			if(DbRepository.find(Film.class, request.getParameter("cip")) != null){
 				/*Obtengo la pelicula con su cip que lo he recogido de la lista*/
-				f = FilmRepository.getFilm(request.getParameter("cip"));
+				f = DbRepository.find(Film.class, request.getParameter("cip"));
 				if(request.getParameter("edit") != null){
 					/*Cuando le de al boton de editar, actualizo la pelicula con los nuevos datos introducidos*/
 					try{
@@ -30,7 +31,7 @@
 								,request.getParameter("budget")
 								,request.getParameter("duration"));
 						/*Llamo al metodo del repositorio que edita la pelicula*/
-						FilmRepository.editFilm(f);
+						DbRepository.editEntity(f);
 					}catch(FilmException e){
 						/*Si ocurre algun error creo una session que almacena el mensaje para despues
 							* comprobar si hay error y mostrarlo más abajo*/

@@ -1,3 +1,4 @@
+<%@page import="com.jacaranda.repository.DbRepository"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -33,7 +34,8 @@
 		Character c = null;
 	
 		try{
-			if (CharacterRepository.getCharactersNames().contains(request.getParameter("inputName"))) {
+			if (request.getParameter("inputName") != null 
+					&& DbRepository.find(Character.class, request.getParameter("inputName")) != null) {
 				session.setAttribute("error", "Error: a character with that name already exists in the database");
 				
 			}else {
@@ -43,7 +45,7 @@
 						if ((request.getParameter("submit") != null)) {
 							
 							c = new Character (request.getParameter("inputName"), request.getParameter("inputNationality"), request.getParameter("inputSex"));
-							CharacterRepository.addCharacter(c);
+							DbRepository.addEntity(c);
 						}
 							
 					}catch (CharacterException e) {

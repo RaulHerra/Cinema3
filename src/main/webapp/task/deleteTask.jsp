@@ -1,3 +1,4 @@
+<%@page import="com.jacaranda.repository.DbRepository"%>
 <%@page import="com.jacaranda.model.Task"%>
 <%@page import="com.jacaranda.repository.TaskRepository"%>
 <meta charset="UTF-8">
@@ -12,8 +13,8 @@
 	<%
 	Task t =null;
 	try{	
-		if(TaskRepository.getPrimaryKey().contains(request.getParameter("task"))){//Comprueba la tarea pasada por parametros si existe
-		 	t = TaskRepository.lookTask(request.getParameter("task"));//En el caso de que exista mostraran los valores
+		if(request.getParameter("task") != null && DbRepository.find(Task.class, request.getParameter("task")) != null){//Comprueba la tarea pasada por parametros si existe
+		 	t = DbRepository.find(Task.class, request.getParameter("task"));//En el caso de que exista mostraran los valores
 		}else{//En el caso de no existir nos mostrara el error correspondiente
 			session.setAttribute("error", "Error. This task does not exist");
 		}
@@ -70,7 +71,7 @@
 		<%//Si se da a confirmar se borra la tarea definitivamente
 	if(request.getParameter("comfirmSubmit")!=null){
 		try{
-		TaskRepository.deleteTask(request.getParameter("task"));
+			DbRepository.deleteEntity(t);
 		}catch(Exception e){
 			
 		}

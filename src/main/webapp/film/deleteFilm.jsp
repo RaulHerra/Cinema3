@@ -1,3 +1,4 @@
+<%@page import="com.jacaranda.repository.DbRepository"%>
 <%@page import="com.jacaranda.repository.FilmRepository"%>
 <%@page import="com.jacaranda.model.Film"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -18,9 +19,9 @@
 		Film f = null; 
 		try{
 			/*Si existe la pelicula que he recogio con el parametro cip que viene de la pagina de info*/
-			if(FilmRepository.getCipFilms().contains(request.getParameter("cip"))){
+			if(DbRepository.find(Film.class, request.getParameter("cip")) != null){
 				/*Recupero la pelicula que tiene el cip introducido*/
-				f = FilmRepository.getFilm(request.getParameter("cip"));
+				f = DbRepository.find(Film.class, request.getParameter("cip"));
 			}else{//Si no hay peliculas con el cip que he recogido le asigno a la session el mensaje de error
 				session.setAttribute("error", "Error there is no movie with the cip entered");
 			}
@@ -108,7 +109,7 @@
 							<%}%>
 							
 							<%if(request.getParameter("submit") != null){
-								FilmRepository.deleteFilm(request.getParameter("cip"));%>
+								DbRepository.deleteEntity(f);%>
 								<!-- Una vez que haya confirmado que borra la pelicula borro la pelicual y pongo un botón para que pueda volver a la lista de peliculas
 								para confirmar que se ha borrado -->
 								<a href="./listFilms.jsp"><button class="btn btn-primary btn-lg" id="submitButton" type="button">Return list</button></a>

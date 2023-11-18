@@ -1,3 +1,4 @@
+<%@page import="com.jacaranda.repository.DbRepository"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -31,11 +32,12 @@
 	Character c = null;
 	
 	try{
-		if (CharacterRepository.getCharactersNames().contains(request.getParameter("characterName"))) {
+		if (request.getParameter("characterName") != null 
+				&& DbRepository.find(Character.class, request.getParameter("characterName")) != null) {
 	
 			try {
 				
-				c = CharacterRepository.getCharacter(request.getParameter("characterName"));
+				c = DbRepository.find(Character.class, request.getParameter("characterName"));
 				
 			}catch (Exception e) {
 				session.setAttribute("error", "Error: the character that you selected doesn't exist");

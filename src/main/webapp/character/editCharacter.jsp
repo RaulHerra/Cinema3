@@ -1,3 +1,4 @@
+<%@page import="com.jacaranda.repository.DbRepository"%>
 <%@page import="com.jacaranda.exception.CharacterException"%>
 <%@page import="com.jacaranda.model.Character"%>
 <%@page import="com.jacaranda.repository.CharacterRepository"%>
@@ -24,10 +25,11 @@
 		Character c = null;
 		try{
 			/*I check if the character that I am going to edit exists*/
-			if(CharacterRepository.getCharactersNames().contains(request.getParameter("characterName"))){
+			if(request.getParameter("characterName") != null 
+					&& DbRepository.find(Character.class, request.getParameter("characterName")) != null){
 				
 				/*I obtain the character with the character's name that I received*/
-				c = CharacterRepository.getCharacter(request.getParameter("characterName"));
+				c = DbRepository.find(Character.class, request.getParameter("characterName"));
 				
 				if(request.getParameter("edit") != null){
 					
@@ -38,7 +40,7 @@
 								request.getParameter("characterNationality"),
 								request.getParameter("characterSex"));
 						/*I call the method of the repository that edits the character*/
-						CharacterRepository.editCharacter(c);
+						DbRepository.editEntity(c);
 					
 					}catch(CharacterException e){
 						/*If an error happens I create a session variable that contains 

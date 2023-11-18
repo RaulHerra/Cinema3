@@ -1,3 +1,5 @@
+<%@page import="com.jacaranda.repository.DbRepository"%>
+<%@page import="com.mysql.cj.xdevapi.DbDoc"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -33,7 +35,7 @@
 
 		try{
 			//I get a list of the characters from the data base
-			result = CharacterRepository.getCharacters();
+			result = DbRepository.findAll(Character.class);
 			
 		}catch(Exception e) {
 			response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");

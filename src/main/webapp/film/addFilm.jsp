@@ -1,3 +1,4 @@
+<%@page import="com.jacaranda.repository.DbRepository"%>
 <%@page import="com.jacaranda.exception.FilmException"%>
 <%@page import="com.jacaranda.repository.FilmRepository"%>
 <%@page import="com.jacaranda.model.Film"%>
@@ -17,7 +18,7 @@
 	<%
 	try{
 		/*Compruebo si ya hay alguna pelicula con el cip introducido*/
-		if(FilmRepository.getCipFilms().contains(request.getParameter("cip"))){
+		if(request.getParameter("cip") != null && DbRepository.find(Film.class, request.getParameter("cip")) != null){
 			/*Creo una session de error y le asigno el error correspondiente*/
 			session.setAttribute("error", "Error there is already a film with the cip entered");
 		}else{	
@@ -30,7 +31,7 @@
 							,request.getParameter("budget")
 							,request.getParameter("duration"));
 					/*Añado la pelicula la base de datos si se crea la pelicula con éxito*/
-					FilmRepository.addFilm(f);
+					DbRepository.addEntity(f);
 			}
 			}catch(FilmException e){
 				//Cuando se produzca un error le asigno el error a la session de error

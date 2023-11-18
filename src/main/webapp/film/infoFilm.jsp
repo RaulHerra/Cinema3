@@ -1,3 +1,4 @@
+<%@page import="com.jacaranda.repository.DbRepository"%>
 <%@page import="com.jacaranda.repository.FilmRepository"%>
 <%@page import="com.jacaranda.model.Film"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -16,8 +17,8 @@
 	<%		
 		Film f = null; 
 		try{
-			if(FilmRepository.getCipFilms().contains(request.getParameter("cip"))){
-				f = FilmRepository.getFilm(request.getParameter("cip"));
+			if(DbRepository.find(Film.class, request.getParameter("cip")) != null){
+				f = DbRepository.find(Film.class, request.getParameter("cip"));
 			}else{
 				session.setAttribute("error", "Error there is no task with the cip entered");
 			}

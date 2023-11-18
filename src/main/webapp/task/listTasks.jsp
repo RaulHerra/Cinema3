@@ -1,3 +1,4 @@
+<%@page import="com.jacaranda.repository.DbRepository"%>
 <%@page import="java.util.List"%>
 <%@page import="com.jacaranda.repository.TaskRepository"%>
 <%@page import="com.jacaranda.model.Task"%>
@@ -17,7 +18,7 @@
 	<% //Inicializamos una lista con todas las tareas
         List<Task> result = null;
         try{
-            result = TaskRepository.getTasks();
+            result = DbRepository.findAll(Task.class);
         }catch(Exception e){
     		response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
     		return;

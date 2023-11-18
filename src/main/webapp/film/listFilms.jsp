@@ -1,3 +1,4 @@
+<%@page import="com.jacaranda.repository.DbRepository"%>
 <%@page import="com.jacaranda.model.Film"%>
 <%@page import="java.util.List"%>
 <%@page import="com.jacaranda.repository.FilmRepository"%>
@@ -16,7 +17,7 @@
 	<% 
 	List<Film> result = null;
 	try{		
-		result = FilmRepository.getFilms(); //Recupero todas las peliculas de la base de datos			
+		result = DbRepository.findAll(Film.class);			
 	}catch(Exception e){
 		response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
 		return;

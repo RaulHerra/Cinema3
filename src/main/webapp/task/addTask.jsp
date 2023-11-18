@@ -1,3 +1,4 @@
+<%@page import="com.jacaranda.repository.DbRepository"%>
 <%@page import="com.jacaranda.exception.TaskException"%>
 <%@page import="org.hibernate.internal.build.AllowSysOut"%>
 <%@page import="com.jacaranda.repository.TaskRepository"%>
@@ -19,14 +20,13 @@
 	<%
 	Task t = null;
 	try{		
-		if(TaskRepository.getPrimaryKey().contains(request.getParameter("task"))){//Lo primero antes de añadir una tarea comprobamos que existe
+		if(request.getParameter("task") != null && DbRepository.find(Task.class, request.getParameter("task")) != null){//Lo primero antes de añadir una tarea comprobamos que existe
 			session.setAttribute("error", "Error. Repeated primary key");//Si existe mostrara el error
 		}else{	
 			try{
 				if(request.getParameter("save") != null){//En el caso de que no exista se crea
 					t = new Task(request.getParameter("task"),request.getParameter("sex"));
-					TaskRepository.addTask(t);
-				}
+					DbRepository.addEntity(t);				}
 			}catch(TaskException e){
 				session.setAttribute("error", e.getMessage());//Si hay algun campo no válido se mostrara el error
 			}

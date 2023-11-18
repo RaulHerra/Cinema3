@@ -1,3 +1,4 @@
+<%@page import="com.jacaranda.repository.DbRepository"%>
 <%@page import="com.jacaranda.repository.CharacterRepository"%>
 <%@page import="com.jacaranda.model.Character"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -20,9 +21,10 @@
 		Character c = null; 
 		try{
 			/*If the character with the name that I recovered from the parameter from the info page exists...*/
-			if(CharacterRepository.getCharactersNames().contains(request.getParameter("characterName"))){
+			if(request.getParameter("characterName") != null 
+					&& DbRepository.find(Character.class, request.getParameter("characterName")) != null){
 				/*I get the character with the name I received*/
-				c = CharacterRepository.getCharacter(request.getParameter("characterName"));
+				c = DbRepository.find(Character.class, request.getParameter("characterName"));
 			
 			}else{//If there isn't any characters, I assign to the session variable the text of the error
 				session.setAttribute("error", "Error there is no character with the character's name entered");
@@ -103,7 +105,7 @@
 							The "Confirm" and "Undo" buttons will disappear once "Confirm" is pressed, and the "Return to list" button will
 							appear-->
 			            	<%} else if (request.getParameter("submit") != null) {
-			            		CharacterRepository.deleteCharacter(request.getParameter("characterName"));%>
+			            		DbRepository.deleteEntity(c);%>
 				           		<a href="./listCharacters.jsp"><button class="btn btn-primary btn-lg" id="submitButton" type="button">Return to list</button></a>
 			            	<%}else if(session.getAttribute("error") != null){%>
         					    <a href="./listCharacters.jsp"><button class="btn btn-primary btn-lg" id="submitButton" type="button">Return to list</button></a>
