@@ -26,65 +26,38 @@
 </head>
 
 <body>
-	
+	<!-- ======= NAVBAR ======= -->
+	<%@include file="../nav.jsp"%>
 	<%
 		
 		Character c = null;
 	
-
-		if (CharacterRepository.getCharactersNames().contains(request.getParameter("inputName"))) {
-			session.setAttribute("error", "Error: a character with that name already exists in the database");
-			
-		}else {
+		try{
+			if (CharacterRepository.getCharactersNames().contains(request.getParameter("inputName"))) {
+				session.setAttribute("error", "Error: a character with that name already exists in the database");
 				
-				try {
+			}else {
 					
-					if ((request.getParameter("submit") != null)) {
+					try {
 						
-						c = new Character (request.getParameter("inputName"), request.getParameter("inputNationality"), request.getParameter("inputSex"));
-						CharacterRepository.addCharacter(c);
+						if ((request.getParameter("submit") != null)) {
+							
+							c = new Character (request.getParameter("inputName"), request.getParameter("inputNationality"), request.getParameter("inputSex"));
+							CharacterRepository.addCharacter(c);
+						}
+							
+					}catch (CharacterException e) {
+						session.setAttribute("error", e.getMessage());
 					}
-						
-				}catch (CharacterException e) {
-					session.setAttribute("error", e.getMessage());
 				}
-			}
-		
-		
+		}catch(Exception e){
+			response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
+			return;
+		}	
 	%>
 
 
 
-<!-- ======= NAVBAR ======= -->
-<nav class="navbar navbar-expand-lg navbar-light bg-primary ">
-	<a class="navbar-brand text-white" href="../index.jsp">Home</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	  <span class="navbar-toggler-icon"></span>
-	</button>
-	
-	<div class="collapse navbar-collapse" id="navbarSupportedContent">
-	  <ul class="navbar-nav mr-auto">
-	    <li class="nav-item">
-	      <a class="nav-link text-white" href=".././film/addFilm.jsp">Add film</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link text-white" href=".././film/listFilms.jsp">List films</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link text-white" href="./addCharacter.jsp">Add character</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link text-white" href="./listCharacters.jsp">List characters</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link text-white" href=".././task/addTask.jsp">Add task</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link text-white" href=".././task/listTasks.jsp">List tasks</a>
-	    </li>
-	  </ul>
-	</div>
-</nav>
 
 
 

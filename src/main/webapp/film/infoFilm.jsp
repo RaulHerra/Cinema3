@@ -12,43 +12,20 @@
 <link rel="stylesheet" href="../style/style.css">
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-primary">
-	  <a class="navbar-brand text-white" href="../index.jsp">Home</a>
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"></span>
-	  </button>
-	
-	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-	    <ul class="navbar-nav mr-auto">
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href="addFilm.jsp">Add film</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href="listFilms.jsp">List films</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href=".././character/addCharacter.jsp">Add character</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href=".././character/listCharacters.jsp">List characters</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href=".././task/addTask.jsp">Add task</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href=".././task/listTasks.jsp">List tasks</a>
-	      </li>
-	    </ul>
-	  </div>
-	</nav>
-
+	<%@include file="../nav.jsp"%>
 	<%		
 		Film f = null; 
-		if(FilmRepository.getCipFilms().contains(request.getParameter("cip"))){
-			f = FilmRepository.getFilm(request.getParameter("cip"));
-		}else{
-			session.setAttribute("error", "Error there is no task with the cip entered");
-		}%>
+		try{
+			if(FilmRepository.getCipFilms().contains(request.getParameter("cip"))){
+				f = FilmRepository.getFilm(request.getParameter("cip"));
+			}else{
+				session.setAttribute("error", "Error there is no task with the cip entered");
+			}
+		}catch(Exception e){
+			response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
+			return;
+		}
+%>
 	<div class="container px-5 my-5">
 			  <div class="row justify-content-center">
 			    <div class="col-lg-8">

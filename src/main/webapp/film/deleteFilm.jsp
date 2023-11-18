@@ -12,45 +12,21 @@
 <link rel="stylesheet" href="../style/style.css">
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-primary ">
-	  <a class="navbar-brand text-white" href="../index.jsp">Home</a>
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"></span>
-	  </button>
-	
-	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-	    <ul class="navbar-nav mr-auto">
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href="addFilm.jsp">Add film</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href="listFilms.jsp">List films</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href=".././character/addCharacter.jsp">Add character</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href=".././character/listCharacters.jsp">List characters</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href=".././task/addTask.jsp">Add task</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href=".././task/listTasks.jsp">List tasks</a>
-	      </li>
-	    </ul>
-	  </div>
-	</nav>
-	
+	<%@include file="../nav.jsp"%>	
 	<%	
 		/*Creo una pelicula nula*/
 		Film f = null; 
-		/*Si existe la pelicula que he recogio con el parametro cip que viene de la pagina de info*/
-		if(FilmRepository.getCipFilms().contains(request.getParameter("cip"))){
-			/*Recupero la pelicula que tiene el cip introducido*/
-			f = FilmRepository.getFilm(request.getParameter("cip"));
-		}else{//Si no hay peliculas con el cip que he recogido le asigno a la session el mensaje de error
-			session.setAttribute("error", "Error there is no movie with the cip entered");
+		try{
+			/*Si existe la pelicula que he recogio con el parametro cip que viene de la pagina de info*/
+			if(FilmRepository.getCipFilms().contains(request.getParameter("cip"))){
+				/*Recupero la pelicula que tiene el cip introducido*/
+				f = FilmRepository.getFilm(request.getParameter("cip"));
+			}else{//Si no hay peliculas con el cip que he recogido le asigno a la session el mensaje de error
+				session.setAttribute("error", "Error there is no movie with the cip entered");
+			}
+		}catch(Exception e){
+			response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
+			return;
 		}%>
 			<div class="container px-5 my-5">
 			  <div class="row justify-content-center">
@@ -114,19 +90,21 @@
 			            el mensaje de éxito*/
 			            }else if(request.getParameter("submit") != null && session.getAttribute("error") == null){%>
 			            	<textarea class="textAreaInfoSuccesfull ml-25" readonly>Film deleted successfully!</textarea>
-			            <%}session.removeAttribute("error"); /*Cuando pase todo esto dejo el error en nulo para que se reinicie por si ocurre otro error cuando envíe de nuevo el formulario */
+			            <%}
 			            %>
 			            <!-- Submit button -->
 			            <div class="d-grid">
 							<%
 							/*Y aqui borro el cine con el cip que hemos recogido */
-							if(request.getParameter("delete") == null && request.getParameter("submit") == null){ /*Esto lo hago para que cuando pulse confirm se oculte el confirm ya que no será nulo*/%>
+							if(request.getParameter("delete") == null && request.getParameter("submit") == null && session.getAttribute("error") == null){ /*Esto lo hago para que cuando pulse confirm se oculte el confirm ya que no será nulo*/%>
 				            	<button class="btn btn-primary btn-lg" id="submitButton" type="submit" name="delete">Are you sure you want to delete it?</button>
-							<%}else if(request.getParameter("delete") != null ){%>
+							<%}else if(request.getParameter("delete") != null){%>
 								<!--Aquí cuando le de a borrar, le pongo otro botón para que me confirme que quiere borrar y le doy la opción
 								de que volver atrás para que no se realize en borrado -->
 								<button class="btn btn-danger btn-lg" id="submitButton" type="submit" name="submit">Confirm</button>
 				            	<a href="./infoFilm.jsp?cip=<%=request.getParameter("cip")%>"><button class="btn btn-primary btn-lg" id="submitButton" type="button" name="undo">Undo</button></a>
+							<%}else if(session.getAttribute("error") != null){%>
+								<a href="./listFilms.jsp"><button class="btn btn-primary btn-lg" id="submitButton" type="button">Return list</button></a>
 							<%}%>
 							
 							<%if(request.getParameter("submit") != null){

@@ -10,49 +10,26 @@
 <link rel="stylesheet" href="../style/style.css">
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-primary">
-	  <a class="navbar-brand text-white" href=".././index.jsp">Home</a>
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"></span>
-	  </button>
-	
-	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-	    <ul class="navbar-nav mr-auto">
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href=".././film/addFilm.jsp">Add film</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href=".././film/listFilms.jsp">List films</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href=".././character/addCharacter.jsp">Add character</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href=".././character/listCharacters.jsp">List characters</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href="addTask.jsp">Add task</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href="listTasks.jsp">List tasks</a>
-	      </li>
-	    </ul>
-	  </div>
-	</nav>
+	<%@include file="../nav.jsp"%>
 	<%
 	Task t =null;
-	if(TaskRepository.getPrimaryKey().contains(request.getParameter("task"))){//Comprueba la tarea pasada por parametros si existe
-		 t = TaskRepository.lookTask(request.getParameter("task"));	//En el caso de que exista mostraran los valores
-		 if(request.getParameter("comfirmSubmit")!=null){//Si se le da a confirmar se cambian y cargan los nuevos valores
-			 try{
-				 t = new Task(request.getParameter("task"),request.getParameter("sex"));
-				 TaskRepository.editTask(t);				 
-			 }catch(TaskException e){
-				 session.setAttribute("error", e.getMessage());
+	try{
+		if(TaskRepository.getPrimaryKey().contains(request.getParameter("task"))){//Comprueba la tarea pasada por parametros si existe
+			 t = TaskRepository.lookTask(request.getParameter("task"));	//En el caso de que exista mostraran los valores
+			 if(request.getParameter("comfirmSubmit")!=null){//Si se le da a confirmar se cambian y cargan los nuevos valores
+				 try{
+					 t = new Task(request.getParameter("task"),request.getParameter("sex"));
+					 TaskRepository.editTask(t);				 
+				 }catch(TaskException e){
+					 session.setAttribute("error", e.getMessage());
+				 }
 			 }
-		 }
-	} else {//En el caso de no existir nos mostrara el error correspondiente
-		session.setAttribute("error", "Error. This task does not exist");
+		} else {//En el caso de no existir nos mostrara el error correspondiente
+			session.setAttribute("error", "Error. This task does not exist");
+		}
+	}catch(Exception e){
+		response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
+		return;
 	}
 	%>
 	<div class="container px-5 my-5">

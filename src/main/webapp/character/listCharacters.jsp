@@ -26,50 +26,18 @@
 
 
 <!-- ======= NAVBAR ======= -->
-<nav class="navbar navbar-expand-lg navbar-light bg-primary ">
-	<a class="navbar-brand text-white" href="../index.jsp">Home</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	  <span class="navbar-toggler-icon"></span>
-	</button>
-	
-	<div class="collapse navbar-collapse" id="navbarSupportedContent">
-	  <ul class="navbar-nav mr-auto">
-	    <li class="nav-item">
-	      <a class="nav-link text-white" href=".././film/addFilm.jsp">Add film</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link text-white" href=".././film/listFilms.jsp">List films</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link text-white" href="./addCharacter.jsp">Add character</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link text-white" href="./listCharacters.jsp">List characters</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link text-white" href=".././task/addTask.jsp">Add task</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link text-white" href=".././task/listTasks.jsp">List tasks</a>
-	    </li>
-	  </ul>
-	</div>
-</nav>
-
-
-
+<%@include file="../nav.jsp"%>
 <% 
 		//A list variable with Characters is created with null value
 		List<Character> result = null;
-
 
 		try{
 			//I get a list of the characters from the data base
 			result = CharacterRepository.getCharacters();
 			
 		}catch(Exception e) {
-			//It shouldn't have errors, even if there is no characters in the data base. 
-			//It just shows whatever you have in the Character table from the data base, 100 or 0 characters.
+			response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
+			return;
 		}
 	%>
 

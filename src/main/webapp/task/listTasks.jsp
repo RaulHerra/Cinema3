@@ -13,41 +13,14 @@
 <title>List Task</title>
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-primary">
-	  <a class="navbar-brand text-white" href=".././index.jsp">Home</a>
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"></span>
-	  </button>
-	
-	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-	    <ul class="navbar-nav mr-auto">
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href=".././film/addFilm.jsp">Add film</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href=".././film/listFilms.jsp">List films</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href=".././character/addCharacter.jsp">Add character</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href=".././character/listCharacters.jsp">List characters</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href="addTask.jsp">Add task</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href="listTasks.jsp">List tasks</a>
-	      </li>
-	    </ul>
-	  </div>
-	</nav>
+	<%@include file="../nav.jsp"%>
 	<% //Inicializamos una lista con todas las tareas
         List<Task> result = null;
         try{
             result = TaskRepository.getTasks();
         }catch(Exception e){
-
+    		response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
+    		return;
         }
     %>
 

@@ -8,41 +8,18 @@
 <link rel="stylesheet" href="../style/style.css">
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-primary">
-	  <a class="navbar-brand text-white" href=".././index.jsp">Home</a>
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"></span>
-	  </button>
-	
-	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-	    <ul class="navbar-nav mr-auto">
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href=".././film/addFilm.jsp">Add film</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href=".././film/listFilms.jsp">List films</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href=".././character/addCharacter.jsp">Add character</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href=".././character/listCharacters.jsp">List characters</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href="addTask.jsp">Add task</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href="listTasks.jsp">List tasks</a>
-	      </li>
-	    </ul>
-	  </div>
-	</nav>
+	<%@include file="../nav.jsp"%>
 	<%
 	Task t =null;
-	if(TaskRepository.getPrimaryKey().contains(request.getParameter("task"))){//Comprueba la tarea pasada por parametros si existe
-	 	t = TaskRepository.lookTask(request.getParameter("task"));//En el caso de que exista mostraran los valores
-	}else{//En el caso de no existir nos mostrara el error correspondiente
-		session.setAttribute("error", "Error. This task does not exist");
+	try{	
+		if(TaskRepository.getPrimaryKey().contains(request.getParameter("task"))){//Comprueba la tarea pasada por parametros si existe
+		 	t = TaskRepository.lookTask(request.getParameter("task"));//En el caso de que exista mostraran los valores
+		}else{//En el caso de no existir nos mostrara el error correspondiente
+			session.setAttribute("error", "Error. This task does not exist");
+		}
+	}catch(Exception e){
+		response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
+		return;
 	}
 
 	 %>
@@ -71,18 +48,18 @@
 			            <%//En el caso de que no haya errores y se le de a confirmar se muestra el mensaje de exito
 			            }else if(request.getParameter("comfirmSubmit") != null && session.getAttribute("error") == null){%>
 			            	<textarea class="textAreaInfoSuccesfull ml-25" readonly>Task delete successfully!</textarea>
-			            <%}session.removeAttribute("error");//Borramos la session para que no arrastre errores 
+			            <%} 
 			            %>
 			            <div class="d-grid">
-			            	<%if(request.getParameter("deleteSubmit")==null && request.getParameter("comfirmSubmit")==null){ //Preguntamos si se desea eliminar%>
+			            	<%if(request.getParameter("deleteSubmit")==null && request.getParameter("comfirmSubmit")==null && session.getAttribute("error") == null){ //Preguntamos si se desea eliminar%>
 			              		<button class="btn btn-primary btn-lg" id="submitButton" type="submit" name="deleteSubmit">Are you sure you want to delete it?</button>
 				            <%}if(request.getParameter("deleteSubmit")!=null){//Se muestra el boton para confirmar%>
 				            	<button class="btn btn-danger btn-lg" id="submitButton" type="submit" name="comfirmSubmit">Confirm</button>
 				            	<a href="infoTask.jsp?task=<%=request.getParameter("task")%>"><button class="btn btn-primary btn-lg" id="submitButton" type="button" name="undo">Undo</button></a>
 				            	
-				            <%} else if(request.getParameter("comfirmSubmit")!=null){//Una vez eliminado se da la opcion de volver a la lista de las demas tareas%>
+				            <%} else if(request.getParameter("comfirmSubmit")!=null || session.getAttribute("error") != null){//Una vez eliminado se da la opcion de volver a la lista de las demas tareas%>
 				            	<a href="listTasks.jsp"><button class="btn btn-primary btn-lg" id="submitButton" type="button">Return List</button></a>
-				            <%}%>
+				            <%}session.removeAttribute("error");//Borramos la session para que no arrastre errores%>
 			            </div>
 			          </form>	
 			        </div>

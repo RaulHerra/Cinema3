@@ -13,66 +13,39 @@
 <link rel="stylesheet" href="../style/style.css">
 </head>
 <body>
-	
-	<nav class="navbar navbar-expand-lg navbar-light bg-primary ">
-	  <a class="navbar-brand text-white" href="../index.jsp">Home</a>
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"></span>
-	  </button>
-	
-	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-	    <ul class="navbar-nav mr-auto">
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href="addFilm.jsp">Add film</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href="listFilms.jsp">List films</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href=".././character/addCharacter.jsp">Add character</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href=".././character/listCharacters.jsp">List characters</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href=".././task/addTask.jsp">Add task</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href=".././task/listTasks.jsp">List tasks</a>
-	      </li>
-	    </ul>
-	  </div>
-	</nav>
-
+		<%@include file="../nav.jsp"%>
 		<%
 		Film f = null;
-		/*Compruebo que existe la pelicula que quiere editar*/
-		if(FilmRepository.getCipFilms().contains(request.getParameter("cip"))){
-			/*Obtengo la pelicula con su cip que lo he recogido de la lista*/
-			f = FilmRepository.getFilm(request.getParameter("cip"));
-			if(request.getParameter("edit") != null){
-				/*Cuando le de al boton de editar, actualizo la pelicula con los nuevos datos introducidos*/
-				try{
-					f = new Film(request.getParameter("cip"),request.getParameter("titleF")
-							,request.getParameter("productionYear")
-							,request.getParameter("titleS"),request.getParameter("nationality")
-							,request.getParameter("budget")
-							,request.getParameter("duration"));
-					/*Llamo al metodo del repositorio que edita la pelicula*/
-					FilmRepository.editFilm(f);%>
-				<%}catch(FilmException e){
-					/*Si ocurre algun error creo una session que almacena el mensaje para despues
-						* comprobar si hay error y mostrarlo más abajo*/
-					session.setAttribute("error", e.getMessage());
+		try{
+			/*Compruebo que existe la pelicula que quiere editar*/
+			if(FilmRepository.getCipFilms().contains(request.getParameter("cip"))){
+				/*Obtengo la pelicula con su cip que lo he recogido de la lista*/
+				f = FilmRepository.getFilm(request.getParameter("cip"));
+				if(request.getParameter("edit") != null){
+					/*Cuando le de al boton de editar, actualizo la pelicula con los nuevos datos introducidos*/
+					try{
+						f = new Film(request.getParameter("cip"),request.getParameter("titleF")
+								,request.getParameter("productionYear")
+								,request.getParameter("titleS"),request.getParameter("nationality")
+								,request.getParameter("budget")
+								,request.getParameter("duration"));
+						/*Llamo al metodo del repositorio que edita la pelicula*/
+						FilmRepository.editFilm(f);
+					}catch(FilmException e){
+						/*Si ocurre algun error creo una session que almacena el mensaje para despues
+							* comprobar si hay error y mostrarlo más abajo*/
+						session.setAttribute("error", e.getMessage());
+					}
 				}
+			/*Si no existe ninguna pelicula con el cip que le hemos pasado por parametro a la session de error
+			 * le asigno el error de que no hay niguna pelicula con ese cip*/
+			}else{
+				session.setAttribute("error", "Error there is no movie with the cip entered");
 			}
-		%>
-		<%
-		/*Si no existe ninguna pelicula con el cip que le hemos pasado por parametro a la session de error
-		 * le asigno el error de que no hay niguna pelicula con ese cip*/
-		}else{
-			session.setAttribute("error", "Error there is no movie with the cip entered");
-		}%>
+		}catch(Exception e){
+			response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
+			return;
+		}%>	
 			<div class="container px-5 my-5">
 			  <div class="row justify-content-center">
 			    <div class="col-lg-8">
@@ -133,7 +106,7 @@
 			            	<!-- Este botón no es necesario, pero si me da algún error que no se quede solo con el error, le he puesto un botón para 
 			            	que reintente editar la pelicula si quiere-->
 			            	<div class="d-grid">
-			            		<a href="editFilm.jsp"><button class="btn btn-primary btn-lg" id="submitButton" type="button">Retry</button></a>
+			            		<a href="editFilm.jsp?cip=<%=request.getParameter("cip")%>"><button class="btn btn-primary btn-lg" id="submitButton" type="button">Retry</button></a>
 			            	</div>
 			            <%/*Y aqui si se ha enviado el edit y en valor de la session es nulo significa que se ha editado correctamente, entoces muestro
 			            el mensaje de éxito*/

@@ -17,69 +17,43 @@
 
 <body>
 	
-<nav class="navbar navbar-expand-lg navbar-light bg-primary ">
-	<a class="navbar-brand text-white" href="../index.jsp">Home</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	  <span class="navbar-toggler-icon"></span>
-	</button>
-	
-	<div class="collapse navbar-collapse" id="navbarSupportedContent">
-	  <ul class="navbar-nav mr-auto">
-	    <li class="nav-item">
-	      <a class="nav-link text-white" href=".././film/addFilm.jsp">Add film</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link text-white" href=".././film/listFilms.jsp">List films</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link text-white" href="./addCharacter.jsp">Add character</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link text-white" href="./listCharacters.jsp">List characters</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link text-white" href=".././task/addTask.jsp">Add task</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link text-white" href=".././task/listTasks.jsp">List tasks</a>
-	    </li>
-	  </ul>
-	</div>
-</nav>
+		<%@include file="../nav.jsp"%>
+
 		<%
 		
 		Character c = null;
-		
-		/*I check if the character that I am going to edit exists*/
-		if(CharacterRepository.getCharactersNames().contains(request.getParameter("characterName"))){
-			
-			/*I obtain the character with the character's name that I received*/
-			c = CharacterRepository.getCharacter(request.getParameter("characterName"));
-			
-			if(request.getParameter("edit") != null){
+		try{
+			/*I check if the character that I am going to edit exists*/
+			if(CharacterRepository.getCharactersNames().contains(request.getParameter("characterName"))){
 				
-				/*When I push the edit button, I create a new character with the new data*/
-				try{
+				/*I obtain the character with the character's name that I received*/
+				c = CharacterRepository.getCharacter(request.getParameter("characterName"));
+				
+				if(request.getParameter("edit") != null){
 					
-					c = new Character(request.getParameter("characterName"),
-							request.getParameter("characterNationality"),
-							request.getParameter("characterSex"));
-					/*I call the method of the repository that edits the character*/
-					CharacterRepository.editCharacter(c);%>
-				
-				<%}catch(CharacterException e){
-					/*If an error happens I create a session variable that contains 
-					the message to check if there is an error and show it below*/
-					session.setAttribute("error", e.getMessage());
+					/*When I push the edit button, I create a new character with the new data*/
+					try{
+						
+						c = new Character(request.getParameter("characterName"),
+								request.getParameter("characterNationality"),
+								request.getParameter("characterSex"));
+						/*I call the method of the repository that edits the character*/
+						CharacterRepository.editCharacter(c);
+					
+					}catch(CharacterException e){
+						/*If an error happens I create a session variable that contains 
+						the message to check if there is an error and show it below*/
+						session.setAttribute("error", e.getMessage());
+					}
 				}
+			/*If not a single character exists with the name of the parameter, 
+			I assign to the session variable an error message saying that there is no character with that name*/
+			}else{
+				session.setAttribute("error", "Error there is no character with such a name");
 			}
-		%>
-		
-		<%
-		/*If not a single character exists with the name of the parameter, 
-		I assign to the session variable an error message saying that there is no character with that name*/
-		}else{
-			session.setAttribute("error", "Error there is no character with such a name");
+		}catch(Exception e){
+			response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
+			return;
 		}%>
 			<div class="container px-5 my-5">
 			  <div class="row justify-content-center">

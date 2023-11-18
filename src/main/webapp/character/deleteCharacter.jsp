@@ -13,47 +13,25 @@
 <link rel="stylesheet" href="../style/style.css">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-primary ">
-	<a class="navbar-brand text-white" href="../index.jsp">Home</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	  <span class="navbar-toggler-icon"></span>
-	</button>
-	
-	<div class="collapse navbar-collapse" id="navbarSupportedContent">
-	  <ul class="navbar-nav mr-auto">
-	    <li class="nav-item">
-	      <a class="nav-link text-white" href=".././film/addFilm.jsp">Add film</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link text-white" href=".././film/listFilms.jsp">List films</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link text-white" href="./addCharacter.jsp">Add character</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link text-white" href="./listCharacters.jsp">List characters</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link text-white" href=".././task/addTask.jsp">Add task</a>
-	    </li>
-	    <li class="nav-item">
-	      <a class="nav-link text-white" href=".././task/listTasks.jsp">List tasks</a>
-	    </li>
-	  </ul>
-	</div>
-</nav>
-	
+		<%@include file="../nav.jsp"%>
+
 		<%
 		/*I create a new Character with null value*/
 		Character c = null; 
-		/*If the character with the name that I recovered from the parameter from the info page exists...*/
-		if(CharacterRepository.getCharactersNames().contains(request.getParameter("characterName"))){
-			/*I get the character with the name I received*/
-			c = CharacterRepository.getCharacter(request.getParameter("characterName"));
-		
-		}else{//If there isn't any characters, I assign to the session variable the text of the error
-			session.setAttribute("error", "Error there is no character with the character's name entered");
-		}%>
+		try{
+			/*If the character with the name that I recovered from the parameter from the info page exists...*/
+			if(CharacterRepository.getCharactersNames().contains(request.getParameter("characterName"))){
+				/*I get the character with the name I received*/
+				c = CharacterRepository.getCharacter(request.getParameter("characterName"));
+			
+			}else{//If there isn't any characters, I assign to the session variable the text of the error
+				session.setAttribute("error", "Error there is no character with the character's name entered");
+			}
+		}catch(Exception e){
+			response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
+			return;
+		}
+%>
 			<div class="container px-5 my-5">
 			  <div class="row justify-content-center">
 			    <div class="col-lg-8">
@@ -97,7 +75,7 @@
 			            }else if(request.getParameter("submit") != null && session.getAttribute("error") == null){%>
 			            	<textarea class="textAreaInfoSuccesfull ml-25" readonly>Character deleted successfully!</textarea>
 			            
-			            <%}session.removeAttribute("error"); /*When all of this happens, I set the error value null to reset it if another error occurs when the form is sent again*/
+			            <%}
 			            %>
 			            
 			            
@@ -107,7 +85,7 @@
 			            	
 			            	<!--  This button is the one that will appear at first, telling you if you are sure of deleting the character.
 			            	When pressed, it will appear the red "Confirm" button, and the "Undo" one. -->
-			            	<% if ((request.getParameter("delete") == null) && (request.getParameter("submit") == null)) { %>
+			            	<% if ((request.getParameter("delete") == null) && (request.getParameter("submit") == null) && (session.getAttribute("error") == null)) { %>
 			            		<button class="btn btn-primary btn-lg" id="submitButton" type="submit" name="delete"> Are you sure you want to delete it?</button>
 			            	
 				            
@@ -127,7 +105,10 @@
 			            	<%} else if (request.getParameter("submit") != null) {
 			            		CharacterRepository.deleteCharacter(request.getParameter("characterName"));%>
 				           		<a href="./listCharacters.jsp"><button class="btn btn-primary btn-lg" id="submitButton" type="button">Return to list</button></a>
-			            	<%}%>
+			            	<%}else if(session.getAttribute("error") != null){%>
+        					    <a href="./listCharacters.jsp"><button class="btn btn-primary btn-lg" id="submitButton" type="button">Return to list</button></a>
+		            		<%}session.removeAttribute("error"); /*When all of this happens, I set the error value null to reset it if another error occurs when the form is sent again*/
+		            		%>
 			            	
 			            	
 			       

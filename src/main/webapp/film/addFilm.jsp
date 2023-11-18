@@ -13,57 +13,35 @@
 <link rel="stylesheet" href="../style/style.css">
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-primary ">
-	  <a class="navbar-brand text-white" href="../index.jsp">Home</a>
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"></span>
-	  </button>
-	
-	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-	    <ul class="navbar-nav mr-auto">
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href="addFilm.jsp">Add film</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href="listFilms.jsp">List films</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href=".././character/addCharacter.jsp">Add character</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href=".././character/listCharacters.jsp">List characters</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href=".././task/addTask.jsp">Add task</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link text-white" href=".././task/listTasks.jsp">List tasks</a>
-	      </li>
-	    </ul>
-	  </div>
-	</nav>
+	<%@include file="../nav.jsp"%>
 	<%
-	/*Compruebo si ya hay alguna pelicula con el cip introducido*/
-	if(FilmRepository.getCipFilms().contains(request.getParameter("cip"))){
-		/*Creo una session de error y le asigno el error correspondiente*/
-		session.setAttribute("error", "Error there is already a film with the cip entered");
-	}else{	
-		/*Si no hay fallo intento creo una pelicula cuando el formulario se envie*/
-		try{
-			if(request.getParameter("submit") != null){
-				Film f = new Film(request.getParameter("cip"),request.getParameter("titleF")
-						,request.getParameter("productionYear")
-						,request.getParameter("titleS"),request.getParameter("nationality")
-						,request.getParameter("budget")
-						,request.getParameter("duration"));
-				/*Añado la pelicula la base de datos si se crea la pelicula con éxito*/
-				FilmRepository.addFilm(f);
+	try{
+		/*Compruebo si ya hay alguna pelicula con el cip introducido*/
+		if(FilmRepository.getCipFilms().contains(request.getParameter("cip"))){
+			/*Creo una session de error y le asigno el error correspondiente*/
+			session.setAttribute("error", "Error there is already a film with the cip entered");
+		}else{	
+			/*Si no hay fallo intento creo una pelicula cuando el formulario se envie*/
+			try{
+				if(request.getParameter("submit") != null){
+					Film f = new Film(request.getParameter("cip"),request.getParameter("titleF")
+							,request.getParameter("productionYear")
+							,request.getParameter("titleS"),request.getParameter("nationality")
+							,request.getParameter("budget")
+							,request.getParameter("duration"));
+					/*Añado la pelicula la base de datos si se crea la pelicula con éxito*/
+					FilmRepository.addFilm(f);
+			}
+			}catch(FilmException e){
+				//Cuando se produzca un error le asigno el error a la session de error
+				session.setAttribute("error", e.getMessage());
+			}
 		}
-		}catch(FilmException e){
-			//Cuando se produzca un error le asigno el error a la session de error
-			session.setAttribute("error", e.getMessage());
-		}
+	}catch(Exception e){
+		response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
+		return;
 	}
+
 
 		%>
 
