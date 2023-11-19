@@ -16,7 +16,7 @@
 		<mapping class="com.jacaranda.model.Task"/>
 		<mapping class="com.jacaranda.model.Character"/>
 		<mapping class="com.jacaranda.model.Film"/>
-		<mapping class="com.jacaranda.model.CharacterFilm"/>
+		<mapping class="com.jacaranda.model.Work"/>
 		
 	</session-factory>
 	

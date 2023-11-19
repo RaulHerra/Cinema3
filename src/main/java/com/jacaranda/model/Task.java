@@ -1,6 +1,7 @@
 package com.jacaranda.model;
 
 
+import java.util.List;
 import java.util.Objects;
 
 import com.jacaranda.exception.TaskException;
@@ -8,7 +9,9 @@ import com.jacaranda.exception.TaskException;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,8 +27,6 @@ public class Task {
 	
 	@Column(name="sexo_tarea")
 	private String sex;
-	
-	
 	
 	//Constructores
 	public Task(String task, String sex) throws TaskException {

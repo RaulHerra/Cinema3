@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="com.jacaranda.model.Character" %>
+<%@ page import="com.jacaranda.model.Work" %>
 <%@ page import="com.jacaranda.model.Film" %>
 <%@ page import="java.util.*" %>
 <%@ page import="com.jacaranda.repository.CharacterRepository" %>
@@ -9,7 +10,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Character</title>
 <!-- ======= LINKS BOOTSTRAP NAVBAR ======= -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -22,14 +23,43 @@
 </head>
 <body>
 
+<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+	  <a class="navbar-brand text-white" href="../index.jsp">Home</a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+	
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	    <ul class="navbar-nav mr-auto">
+	      <li class="nav-item">
+	        <a class="nav-link text-white" href="addFilm.jsp">Add film</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link text-white" href="listFilms.jsp">List films</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link text-white" href=".././character/addCharacter.jsp">Add character</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link text-white" href=".././character/listCharacters.jsp">List characters</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link text-white" href=".././task/addTask.jsp">Add task</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link text-white" href=".././task/listTasks.jsp">List tasks</a>
+	      </li>
+	    </ul>
+	  </div>
+</nav>
+
 <%
 
 	Character c = null;
-	List<Film>films = new ArrayList<>();
 
 	try{
 		 c = CharacterRepository.getCharacter(request.getParameter("characterFilms"));
-		 films = c.getFilms();
+		 
  	}catch(Exception e){
 		session.setAttribute("error", "Error: the character that you selected doesn't exist");
 		return;
@@ -43,9 +73,9 @@
 	
 		<tr>
 		
-			<td>Title</td>
-			<td>Release year</td>
-			<td>Character's rol</td>
+			<td scope="col">Title</td>
+			<td scope="col">Release year</td>
+			<td scope="col">Character's rol</td>
 			
 		</tr>
 	
@@ -53,11 +83,11 @@
 	
 	<tbody>
 	
-		<%for(Film f : films){%>
+		<%for(Work w : c.getFilms()){%>
 			<tr>
-				<td><%=f.getTitleP()%></td>
-				<td><%=f.getYearProduction() %></td>
-				<td><%=c.getCharacterName() %></td>
+				<td scope="col"><%=w.getFilm().getTitleP()%></td>
+				<td scope="col"><%=w.getFilm().getYearProduction()%></td>
+				<td scope="col"><%=c.getCharacterNationality()%></td>
 			</tr>
 		<%}%>
 	</tbody>

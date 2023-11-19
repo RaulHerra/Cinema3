@@ -1,7 +1,7 @@
-<%@page import="com.jacaranda.repository.FilmRepository"%>
-<%@page import="com.jacaranda.model.Film"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@page import="com.jacaranda.repository.FilmRepository"%>
+<%@page import="com.jacaranda.model.Film"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -108,16 +108,21 @@
 			              	<button class="btn btn-primary btn-lg" id="submitButton" value="edit" type="submit" name="edit">Edit</button>
 			              	<button class="btn btn-primary btn-lg" id="submitButton" value="delete" type="submit" name="delete">Delete</button>
 			            </div>
-			          </form>
+			          </form><br>
+			          <form method="post" action="./filmCharacters.jsp"><button class="btn btn-primary btn-lg" id="submitButton" name="filmCharacters" value="<%=f.getCip()%>">See the repart</button></form> 
 			          <%}%>
-			          <form method="post" action="./filmCharacters.jsp"><button class="btn btn-primary btn-lg" id="submitButton" name="filmCharacters" value="<%=f.getCip()%>">See the repart</button></form>
 			          <%
-			           	/*Cuando el valor de la sessión no se nulo es que se ha producido un error entonces muestro
-			           	el textarea que tengo abajo con el valor de la sesión que será el mensaje de error correspondiente*/
-			      		if(session.getAttribute("error") != null){%>
+				           	/*Cuando el valor de la sessión no se nulo es que se ha producido un error entonces muestro
+				           	el textarea que tengo abajo con el valor de la sesión que será el mensaje de error correspondiente*/
+				      		if(session.getAttribute("error") != null){
+			      	   %>
 			            	<textarea class="textAreaInfoError ml-25" readonly><%=session.getAttribute("error")%></textarea>
 			            	<a href="./listFilms.jsp"><button class="btn btn-primary btn-lg" id="submitButton" type="button">Return list</button></a>
-			       		<%}session.removeAttribute("error");%>
+			       		<%}
+			          
+			          		session.removeAttribute("error");
+			          		
+			          	%>
 			          <!-- End of contact form -->
 			        </div>
 			      </div>

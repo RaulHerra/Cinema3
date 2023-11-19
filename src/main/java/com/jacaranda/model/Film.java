@@ -8,6 +8,7 @@ import com.jacaranda.exception.FilmException;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
@@ -37,9 +38,8 @@ public class Film {
 	@Column(name="duracion")
 	private int duration;
 	
-	@OneToMany
-	@JoinColumn(name="film")
-	private List<CharacterFilm>characters;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "film")
+	private List<Work>characters;
 	
 	public Film(String cip, String titleP, String yearProduction, String titleS, String nationality, String budget,
 			String duration) throws FilmException {
@@ -179,11 +179,11 @@ public class Film {
 		this.duration = duration;
 	}
 
-	public List<CharacterFilm> getCharacters() {
+	public List<Work> getCharacters() {
 		return characters;
 	}
 
-	public void setCharacters(List<CharacterFilm> characters) {
+	public void setCharacters(List<Work> characters) {
 		this.characters = characters;
 	}
 
