@@ -117,7 +117,7 @@
 			            <!-- Submit button -->
 			            <div class="d-grid">
 			             	<%if(request.getParameter("edit") == null && session.getAttribute("error") == null){ /*Esto lo hago para que cuando pulse confirm se oculte el confirm ya que no será nulo*/%>
-			             		<button class="btn btn-danger btn-lg" id="submitButton" value="edit" type="submit" name="edit">Confirm</button></a>
+			             		<button class="btn btn-danger btn-lg" id="submitButton" value="edit" type="submit" name="edit">Confirm</button>
 					     	<%}else if(request.getParameter("edit") != null && session.getAttribute("error") == null){ %>
 					     		<!-- Y cuando le haya dado a confirmar y no haya ningún error le muestro este botón para que pueda ver los detalles de la pelicula -->
 					     		<a href="infoFilm.jsp?cip=<%=request.getParameter("cip")%>"><button class="btn btn-primary btn-lg" id="submitButton" type="button">Show film</button></a>

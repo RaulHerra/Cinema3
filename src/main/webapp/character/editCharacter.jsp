@@ -107,7 +107,7 @@
 			            	<!-- This button will appear the moment you enter the page. When I press "Confirm", it will edit the character. There 
 			            	must not have errors, so if it detects that the session variable is not null, it will not appear -->
 			            	<% if(request.getParameter("edit") == null && session.getAttribute("error") == null){ %>
-			             		<button class="btn btn-danger btn-lg" id="submitButton" value="edit" type="submit" name="edit">Confirm</button></a>
+			             		<button class="btn btn-danger btn-lg" id="submitButton" value="edit" type="submit" name="edit">Confirm</button>
 					     	
 					     	<!-- When the "Confirm" button is pressed, this one will appear, and it will redirect to the character that you 
 					     	edited. The button takes the character's name from this page, and it will send it to "infoCharacter" to show the 

@@ -43,11 +43,11 @@
 	%>
 
 	<table class="table">
-		<thread>
+		<thead>
 			<tr>
 				<th scope="col">Name</th>
 			</tr>
-		</thread>
+		</thead>
 		
 		<!-- With the list full of the Characters from the database, we go throught all of it using a For loop. 
 		For every Character, it will create a row and two columns. 

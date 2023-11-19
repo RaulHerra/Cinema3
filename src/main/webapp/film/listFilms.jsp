@@ -24,11 +24,11 @@
 	%>
 
 	<table class="table">
-		<thread>
+		<thead>
 			<tr>
 				<th scope="col">Title</th>
 			</tr>
-		</thread>
+		</thead>
 		<%/*Recorro las peliculas y por cada una creo una columa de la tabla que tengo aqui
 		   * y creo un botón de info que cuando le demos nos lleva a la pagina de info de pelicula
 		   * enviado el cip de la pelicula para despues poder recuperarlo en la página de info*/ 
