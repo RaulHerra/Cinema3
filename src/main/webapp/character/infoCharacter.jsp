@@ -129,7 +129,7 @@
 					<div class="d-grid">
 					    <button class="btn btn-primary btn-lg" id="submitButton" value="edit" type="submit" name="edit">Edit</button>
 			            <button class="btn btn-primary btn-lg" id="submitButton" value="delete" type="submit" name="delete">Delete</button>
-			            
+			          	  
 					</div>
 					
 				  </div>
@@ -141,8 +141,9 @@
 					  
 				  <% }session.removeAttribute("error");%>
 				  
-			    </form>
+			    </form><br>
 			    <%} %>
+			    <form method="post" action="./characterFilms.jsp"><button class="btn btn-primary btn-lg" id="submitButton" value="<%=c.getCharacterName()%>" name="characterFilms">See Filmography</button></form>
 			</div>
 	      </div>
 	    </div>

@@ -9,6 +9,8 @@ import com.jacaranda.exception.CharacterException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -26,6 +28,9 @@ public class Character {
 	@Column (name = "sexo_persona")
 	private String characterSex;
 	
+	@OneToMany
+	@JoinColumn(name="character")
+	private List<CharacterFilm>films;
 	
 	private final static List<String> CHARACTER_SEX_VALID_CHARACTERS = Arrays.asList("H","M","O");
 	private final static int CHARACTER_NAME_MAXIMUM_LENGTH = 25;
@@ -140,9 +145,15 @@ public class Character {
 		this.characterSex = characterSex;
 	}
 
+	public List<CharacterFilm> getFilms() {
+		return films;
+	}
 
-	
-	
+
+	public void setFilms(List<CharacterFilm> films) {
+		this.films = films;
+	}
+
 	/* ================= HASH CODE / EQUALS ================= */
 	@Override
 	public int hashCode() {

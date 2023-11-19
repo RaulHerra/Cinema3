@@ -1,6 +1,7 @@
 package com.jacaranda.model;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 import com.jacaranda.exception.FilmException;
@@ -8,6 +9,8 @@ import com.jacaranda.exception.FilmException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -33,6 +36,10 @@ public class Film {
 	private int budget;
 	@Column(name="duracion")
 	private int duration;
+	
+	@OneToMany
+	@JoinColumn(name="film")
+	private List<CharacterFilm>characters;
 	
 	public Film(String cip, String titleP, String yearProduction, String titleS, String nationality, String budget,
 			String duration) throws FilmException {
@@ -170,6 +177,14 @@ public class Film {
 
 	public void setDuration(int duration) {
 		this.duration = duration;
+	}
+
+	public List<CharacterFilm> getCharacters() {
+		return characters;
+	}
+
+	public void setCharacters(List<CharacterFilm> characters) {
+		this.characters = characters;
 	}
 
 	@Override

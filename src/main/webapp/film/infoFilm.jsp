@@ -110,6 +110,7 @@
 			            </div>
 			          </form>
 			          <%}%>
+			          <form method="post" action="./filmCharacters.jsp"><button class="btn btn-primary btn-lg" id="submitButton" name="filmCharacters" value="<%=f.getCip()%>">See the repart</button></form>
 			          <%
 			           	/*Cuando el valor de la sessión no se nulo es que se ha producido un error entonces muestro
 			           	el textarea que tengo abajo con el valor de la sesión que será el mensaje de error correspondiente*/
