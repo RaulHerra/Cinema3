@@ -87,5 +87,23 @@ public class DbRepository {
 		session.close();
 	}
 	
+	
+	public static <T> T find(Class<T> objectClass, Object id) throws Exception {
+		Session session;
+		T result;
+		try {
+			session = BdUtil.getSessionFactory().openSession();
+		} catch (Exception e) {
+			throw new Exception("Error al conectar a la bbdd");
+		}
+
+		try {
+			result = session.find(objectClass, id);
+		} catch (Exception e) {
+			throw new Exception("Exception on find");
+
+		}
+		return result;
+	}
 
 }

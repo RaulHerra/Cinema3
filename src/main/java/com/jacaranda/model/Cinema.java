@@ -24,8 +24,8 @@ public class Cinema {
 	@Column(name = "direccion_cine")
 	private String addressCinema;
 	
-	//@OneToMany(mappedBy = "cinema")
-	//private List<Room> rooms;
+	@OneToMany(mappedBy = "cinema")
+	private List<Room> rooms;
 	
 	public Cinema(String cinema, String cityCinema, String addressCinema) throws CinemaException {
 		super();
@@ -92,5 +92,15 @@ public class Cinema {
 	public String toString() {
 		return "Cinema [cinema=" + cinema + ", cityCinema=" + cityCinema + ", addressCinema=" + addressCinema + "]";
 	}
+
+	public List<Room> getRooms() {
+		return rooms;
+	}
+
+	public void setRooms(List<Room> rooms) {
+		this.rooms = rooms;
+	}
+	
+	
 	
 }
