@@ -3,7 +3,6 @@
     pageEncoding="UTF-8"%>
     
 <%@ page import="com.jacaranda.model.Character" %>
-<%@ page import="com.jacaranda.repository.CharacterRepository" %>
 <%@ page import="com.jacaranda.exception.CharacterException" %>
 
 

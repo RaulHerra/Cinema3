@@ -1,5 +1,4 @@
 <%@page import="com.jacaranda.repository.DbRepository"%>
-<%@page import="com.jacaranda.repository.FilmRepository"%>
 <%@page import="com.jacaranda.model.Film"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>

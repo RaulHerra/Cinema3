@@ -1,6 +1,5 @@
 <%@page import="com.jacaranda.repository.DbRepository"%>
 <%@page import="com.jacaranda.model.Task"%>
-<%@page import="com.jacaranda.repository.TaskRepository"%>
 <%@page import="com.jacaranda.exception.TaskException"%>
 
 <meta charset="UTF-8">

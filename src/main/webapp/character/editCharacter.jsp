@@ -1,7 +1,6 @@
 <%@page import="com.jacaranda.repository.DbRepository"%>
 <%@page import="com.jacaranda.exception.CharacterException"%>
 <%@page import="com.jacaranda.model.Character"%>
-<%@page import="com.jacaranda.repository.CharacterRepository"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 

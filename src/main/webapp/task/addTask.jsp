@@ -1,7 +1,6 @@
 <%@page import="com.jacaranda.repository.DbRepository"%>
 <%@page import="com.jacaranda.exception.TaskException"%>
 <%@page import="org.hibernate.internal.build.AllowSysOut"%>
-<%@page import="com.jacaranda.repository.TaskRepository"%>
 <%@page import="com.jacaranda.model.Task"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
