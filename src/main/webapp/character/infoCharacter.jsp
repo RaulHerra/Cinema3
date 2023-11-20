@@ -82,7 +82,6 @@
 				  <!-- Div of the submit button and redirect to list button  -->
 					    <button class="btn btn-warning" id="submitButton" value="edit" type="submit" name="edit">Edit</button>
 			            <button class="btn btn-danger" id="submitButton" value="delete" type="submit" name="delete">Delete</button>
-			    <%} %>
 				  
 				  <% if (session.getAttribute("error") != null) {%>
 					  <div class="textAreaInfoError" > <%= session.getAttribute("error") %> </div>
@@ -90,6 +89,7 @@
 				  <% }session.removeAttribute("error");%>
 				  
 			    </form><br>
+			    <%} %>
 				<% if (c != null) { %>
 				    <form method="post" action="./characterFilms.jsp"><button class="btn btn-primary " id="submitButton" value="<%=c.getCharacterName()%>" name="characterFilms">See Filmography</button></form>
 				<%} %>

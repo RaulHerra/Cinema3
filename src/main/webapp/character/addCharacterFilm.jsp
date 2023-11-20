@@ -40,7 +40,12 @@
 			Character character = DbRepository.find(Character.class, request.getParameter("characters"));
 			Task task = DbRepository.find(Task.class, request.getParameter("task"));
 			
-			w = new Work(character,film,task);
+			if(film==null  || character==null || task==null){
+				session.setAttribute("error", "No puede haber valores nulos");
+			}else{
+				w = new Work(character,film,task);
+			}
+			
 			
 			DbRepository.addEntity(w);
 			
@@ -63,7 +68,7 @@
 					  <div class="mb-3">
 					    <label for="films" class="form-label">Films</label> 
 					    <div class="mb-3">
-					      <select id="films" name="films" class="custom-select">
+					      <select id="films" name="films" class="form-select" required>
 					      	<%for(Film f : films){ %>
 					      		<option></option>
 					        	<option value="<%=f.getCip()%>"><%=f.getTitleP() %></option>
@@ -74,7 +79,7 @@
 					  <div class="mb-3">
 					    <label for="characters" class="form-label">Characters</label> 
 					    <div class="mb-3">
-					      <select id="characters" name="characters" class="custom-select">
+					      <select id="characters" name="characters" class="form-select" required>
 					        <%for(Character c : characters){ %>
 					        	<option></option>
 					        	<option value="<%=c.getCharacterName()%>"><%=c.getCharacterName() %></option>
@@ -85,18 +90,23 @@
 					  <div class="mb-3">
 					    <label for="task" class="form-label">Tasks</label> 
 					    <div class="mb-3">
-					      <select id="task" name="task" class="custom-select">
+					      <select id="task" name="task" class="form-select" required>
 					      	<%for(Task t : tasks){ %>
 					      		<option></option>
 					        	<option value="<%=t.getTask()%>"><%=t.getTask()%></option>
 					        <%} %>
 					      </select>
 					    </div>
-					  </div> 
+					  </div>
+			          <%
+				        /*Cuando el valor de la sessi�n no se nulo es que se ha producido un error entonces muestro
+				        el textarea que tengo abajo con el valor de la sesi�n que ser� el mensaje de error correspondiente*/
+				      	if(session.getAttribute("error") != null){%>
+				            <div class="textAreaInfoError" ><%=session.getAttribute("error")%></div>
+				       	<%}session.removeAttribute("error");%>
+				         <!-- End of contact form -->
 					  <div class="mb-3">
-					    <div class="offset-4 col-8">
-					      <button name="submit" type="submit" class="btn btn-primary">Add</button>
-					    </div>
+					      <button name="submit" type="submit" class="btn btn-success">Save</button>
 					  </div>
 					</form>
 			   </div>

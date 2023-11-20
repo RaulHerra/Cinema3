@@ -92,16 +92,19 @@
 			            <!-- Submit button -->
 			              	<button class="btn btn-warning " id="submitButton" value="edit" type="submit" name="edit">Edit</button>
 			              	<button class="btn btn-danger " id="submitButton" value="delete" type="submit" name="delete">Delete</button>
+				          <%
+				           	/*Cuando el valor de la sessi�n no se nulo es que se ha producido un error entonces muestro
+				           	el textarea que tengo abajo con el valor de la sesi�n que ser� el mensaje de error correspondiente*/
+				      		if(session.getAttribute("error") != null){%>
+				            	<div class="textAreaInfoError" ><%=session.getAttribute("error")%></div>
+				            	<a href="./listFilms.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
+				       		<%}session.removeAttribute("error");%>
+				          <!-- End of contact form -->
 			          </form>
 			          <%}%>
-			          <%
-			           	/*Cuando el valor de la sessi�n no se nulo es que se ha producido un error entonces muestro
-			           	el textarea que tengo abajo con el valor de la sesi�n que ser� el mensaje de error correspondiente*/
-			      		if(session.getAttribute("error") != null){%>
-			            	<div class="textAreaInfoError" ><%=session.getAttribute("error")%></div>
-			            	<a href="./listFilms.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
-			       		<%}session.removeAttribute("error");%>
-			          <!-- End of contact form -->
+			          <% if (f != null) { %>
+				    	<form method="post" action="./filmCharacters.jsp"><button class="btn btn-primary " id="submitButton" value="<%=f.getCip()%>" name="filmCharacters">See Filmography</button></form>
+					  <%} %>
 			        </div>
 			      </div>
 			    </div>
