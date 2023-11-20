@@ -87,7 +87,7 @@
 			<tr>
 				<td scope="col"><%=w.getFilm().getTitleP()%></td>
 				<td scope="col"><%=w.getFilm().getYearProduction()%></td>
-				<td scope="col"><%=c.getCharacterNationality()%></td>
+				<td scope="col"><%=w.getTask()%></td>
 			</tr>
 		<%}%>
 	</tbody>

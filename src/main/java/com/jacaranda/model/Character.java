@@ -39,9 +39,6 @@ public class Character {
 	private final static int CHARACTER_NATIONALITY_MAXIMUM_LENGTH = 15;
 
 	
-	
-	
-	
 	/* ================= CONSTRUCTORS ================= */
 	
 	//1º constructor

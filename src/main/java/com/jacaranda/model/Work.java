@@ -22,6 +22,10 @@ public class Work {
 	@JoinColumn(name="cip")
 	private Film film;
 
+	@Id
+	@JoinColumn(name="tarea")
+	private Task task;
+	
 	public Work() {
 		super();
 	}
@@ -46,6 +50,14 @@ public class Work {
 
 	public void setFilm(Film film) {
 		this.film = film;
+	}
+	
+	public Task getTask() {
+		return task;
+	}
+
+	public void setTask(Task task) {
+		this.task = task;
 	}
 
 	@Override

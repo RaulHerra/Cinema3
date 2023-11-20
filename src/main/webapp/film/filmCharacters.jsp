@@ -87,7 +87,7 @@
 				<tr>
 				
 					<td scope="col"><%=w.getCharacter().getCharacterName() %></td>
-					<td scope="col"><%=w.getCharacter().getCharacterNationality()%></td>
+					<td scope="col"><%=w.getTask()%></td>
 				
 				</tr>
 				
