@@ -87,11 +87,11 @@
 			           	/*Cuando el valor de la sessión no se nulo es que se ha producido un error entonces muestro
 			           	el textarea que tengo abajo con el valor de la sesión que será el mensaje de error correspondiente*/
 			            if(session.getAttribute("error") != null){%>
-			            	<textarea class="textAreaInfoError ml-25" readonly><%=session.getAttribute("error")%></textarea> <br>
+			            	<div class="textAreaInfoError"  ><%=session.getAttribute("error")%></div> 
 			            <%/*Y aqui si se ha enviado el submit y en valor de la session es nulo significa que se ha borrado correctamente, entoces muestro
 			            el mensaje de éxito*/
 			            }else if(request.getParameter("submit") != null && session.getAttribute("error") == null){%>
-			            	<textarea class="textAreaInfoSuccesfull ml-25" readonly>Film deleted successfully!</textarea> <br>
+			            	<div class="textAreaInfoSuccesfull">Film deleted successfully!</div>
 			            <%}
 			            %>
 			            	
@@ -106,14 +106,14 @@
 								<button class="btn btn-danger" id="submitButton" type="submit" name="submit">Confirm</button>
 				            	<a href="./infoFilm.jsp?cip=<%=request.getParameter("cip")%>"><button class="btn btn-primary  " id="submitButton" type="button" name="undo">Undo</button></a>
 							<%}else if(session.getAttribute("error") != null){%>
-								<a href="./listFilms.jsp"><button class="btn btn-primary  " id="submitButton" type="button">Return list</button></a>
+								<a href="./listFilms.jsp"><button class="btn btn-primary" id="submitButton" type="button">Return list</button></a>
 							<%}%>
 							
-							<%if(request.getParameter("submit") != null){
+							<%if(request.getParameter("submit") != null && session.getAttribute("error") == null){
 								DbRepository.deleteEntity(f);%>
 								<!-- Una vez que haya confirmado que borra la pelicula borro la pelicual y pongo un botón para que pueda volver a la lista de peliculas
 								para confirmar que se ha borrado -->
-								<a href="./listFilms.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
+								<a href="./listFilms.jsp"><button class="btn btn-primary" id="submitButton" type="button">Return list</button></a>
 							<%}session.removeAttribute("error");%>
 			          </form>
 			        </div>

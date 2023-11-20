@@ -94,11 +94,11 @@
 				            /*When the value of the session variable is not null, it is because an error happened. So I show the 
 				            textarea that I have below with the value of the session variable, that has the fitting error message*/
 				            if(session.getAttribute("error") != null){%>
-				            	<textarea class="textAreaInfoError ml-25" readonly><%=session.getAttribute("error")%></textarea><br>
+				            	<div class="textAreaInfoError"><%=session.getAttribute("error")%></div>
 				            <%/*Here, if the submit is sent, and the value of the session variable is null, that means that was edited correctly. Then, I show
 				            the success message*/
 				            }else if(request.getParameter("edit") != null && session.getAttribute("error") == null) {%>
-				            	<textarea class="textAreaInfoSuccesfull ml-25" readonly> Character edited successfully!</textarea><br>
+				            	<div class="textAreaInfoSuccesfull"> Character edited successfully!</div>
 				            <%}session.removeAttribute("error"); /*When all of this happens, I set the error value null to reset it if another error occurs when the form is sent again*/
 				            %>
 				            

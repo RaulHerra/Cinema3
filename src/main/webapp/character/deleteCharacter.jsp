@@ -72,13 +72,13 @@
 			            /*When the value of the session variable is null is when an error occured, so I show a textarea
 			            with the value of the session variable with the error message*/
 			            if(session.getAttribute("error") != null){%>
-			            	<textarea class="textAreaInfoError ml-25" readonly><%=session.getAttribute("error")%></textarea> <br>
+			            	<div class="textAreaInfoError " s><%=session.getAttribute("error")%></div>
 			            <%
 			            
 			            /*And here if it is sent the submit, and the value of the session variable 
 			            is null, that means that the character was deleted, so I show the success message*/
 			            }else if(request.getParameter("submit") != null && session.getAttribute("error") == null){%>
-			            	<textarea class="textAreaInfoSuccesfull ml-25" readonly>Character deleted successfully!</textarea> <br>
+			            	<div class="textAreaInfoSuccesfull " >Character deleted successfully!</div>
 			            
 			            <%}
 			            %>

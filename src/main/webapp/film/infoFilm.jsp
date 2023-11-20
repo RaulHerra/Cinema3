@@ -18,10 +18,15 @@
 	<%		
 		Film f = null; 
 		try{
-			if(DbRepository.find(Film.class, request.getParameter("cip")) != null){
+			
+			if( request.getParameter("cip") != null){
 				f = DbRepository.find(Film.class, request.getParameter("cip"));
+				if(f == null){
+					session.setAttribute("error", "Error there is no task with the cip entered");
+				}
 			}else{
-				session.setAttribute("error", "Error there is no task with the cip entered");
+				session.setAttribute("error", "Not cip found in the uri");
+
 			}
 		}catch(Exception e){
 			response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
@@ -91,7 +96,7 @@
 			           	/*Cuando el valor de la sessión no se nulo es que se ha producido un error entonces muestro
 			           	el textarea que tengo abajo con el valor de la sesión que será el mensaje de error correspondiente*/
 			      		if(session.getAttribute("error") != null){%>
-			            	<textarea class="textAreaInfoError ml-25" readonly><%=session.getAttribute("error")%></textarea><br>
+			            	<div class="textAreaInfoError" ><%=session.getAttribute("error")%></div>
 			            	<a href="./listFilms.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
 			       		<%}session.removeAttribute("error");%>
 			          <!-- End of contact form -->

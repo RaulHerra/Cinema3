@@ -38,8 +38,8 @@ public class Room {
 
 	public Room(Cinema cinema, int roomNumber, int capacity) throws RoomException {
 		super();
-		this.cinema = cinema;
-		this.roomNumber = roomNumber;
+		setCinema(cinema);
+		setRoomNumber(roomNumber);
 		setCapacity(capacity);
 	}
 
@@ -54,7 +54,8 @@ public class Room {
 
 
 
-	public void setCinema(Cinema cinema) {
+	public void setCinema(Cinema cinema) throws RoomException {
+		if(cinema == null) throw new RoomException("El cine no puede ser nulo");
 		this.cinema = cinema;
 	}
 
@@ -66,7 +67,8 @@ public class Room {
 
 
 
-	public void setRoomNumber(int roomNumber) {
+	public void setRoomNumber(int roomNumber) throws RoomException {
+		if(roomNumber < 0 ) throw new RoomException("");
 		this.roomNumber = roomNumber;
 	}
 
@@ -79,12 +81,9 @@ public class Room {
 
 
 	public void setCapacity(int capacity) throws RoomException {
-		if(capacity < 1) throw new RoomException("Capacidad de la sala no valida");
+		if(capacity <= 20) throw new RoomException("Capacidad de la sala no valida");
 		this.capacity = capacity;			
 	}
-	
-	
-	
 	
 
 	@Override

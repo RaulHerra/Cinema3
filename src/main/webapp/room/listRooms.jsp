@@ -10,21 +10,29 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Room list</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- ======= LINKS BOOTSTRAP ======= -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+<!-- ======= LINK CSS ======= -->
 <link rel="stylesheet" href="../style/style.css">
+
 
 </head>
 <body>
 	<%@include file="../nav.jsp"%>
 	<% 
 	List<Room> result = null;
-	
+	String cinemaId = null;
 	try{		
-		String cinemaId = request.getParameter("cinema");
-		cinemaId="La Catilica";
 		Cinema tmpCinema = (Cinema)DbRepository.find(Cinema.class, cinemaId);
 		result = tmpCinema.getRooms();
+		
+		try{
+			cinemaId="La Catilica";//ESTO ES SOOLO PARA PRUEBAS
+			
+			cinemaId = request.getParameter("cinema");
+			
+		}catch(Exception e){}
 		
 		
 	}catch(Exception e){
@@ -51,6 +59,6 @@
 		
 
 		<% }%>
-	</table>
+    </table>
 </body>
 </html>

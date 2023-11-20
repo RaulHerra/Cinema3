@@ -104,16 +104,14 @@
 			           	/*Cuando el valor de la sessión no se nulo es que se ha producido un error entonces muestro
 			           	el textarea que tengo abajo con el valor de la sesión que será el mensaje de error correspondiente*/
 			            if(session.getAttribute("error") != null){%>
-			            	<textarea class="textAreaInfoError ml-25" readonly><%=session.getAttribute("error")%></textarea>
+			            	<div class="textAreaInfoError " ><%=session.getAttribute("error")%></div>
 			            	<!-- Este botón no es necesario, pero si me da algún error que no se quede solo con el error, le he puesto un botón para 
 			            	que reintente editar la pelicula si quiere-->
-			            	<div class="d-grid">
 			            		<a href="editFilm.jsp?cip=<%=request.getParameter("cip")%>"><button class="btn btn-primary " id="submitButton" type="button">Retry</button></a>
-			            	</div>
 			            <%/*Y aqui si se ha enviado el edit y en valor de la session es nulo significa que se ha editado correctamente, entoces muestro
 			            el mensaje de éxito*/
 			            }else if(request.getParameter("edit") != null && session.getAttribute("error") == null){%>
-			            	<textarea class="textAreaInfoSuccesfull ml-25" readonly>Film edited successfully!</textarea> <br>
+			            	<div class="textAreaInfoSuccesfull " >Film edited successfully!</div> 
 			            <%} /*Cuando pase todo esto dejo el error en nulo para que se reinicie por si ocurre otro error cuando envíe de nuevo el formulario */
 			            %>
 			           
@@ -125,7 +123,7 @@
 					     		<a href="infoFilm.jsp?cip=<%=request.getParameter("cip")%>"><button class="btn btn-primary " id="submitButton" type="button">Show film</button></a>
 			            	<%}session.removeAttribute("error");%>
 			          </form>
-			          <!-- End of contact form -->
+
 			        </div>
 			      </div>
 			    </div>

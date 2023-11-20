@@ -45,24 +45,24 @@
 	          <%if(t != null){%>
 	          <form id="editTask" action="editTask.jsp" method="get">
 	            <div class=" mb-3">
-	              <label for="task" class="form-label">Task:</label>
+	              <label for="task" class="form-label">Task</label>
 	              <input class="form-control" name="task" type="text" value='<%=t.getTask()%>' readonly>
 	            </div>
 	            <div class=" mb-3">
-	              <label for="task" class="form-label">Sex:</label>
+	              <label for="task" class="form-label">Sex</label>
 		          <input class="form-control" name="sex" type="text"  pattern="[H,M,O]" placeholder="Enter task's sex (H, M, or O)" value='<%=t.getSex()%>' required>
 	            </div>
 	            <%}%>
+	            
 	            <%//Si hay errores se muestran
 	            if(session.getAttribute("error") != null){%>
-	            	<textarea class="textAreaInfoError ml-25" readonly><%=session.getAttribute("error")%></textarea><br>
+	            	<div class="textAreaInfoError " ><%=session.getAttribute("error")%></div>
 		            <%//Si da algun error tiene la opcion de volver a editar%>
-		            <div class="d-grid">
 		            	<a href="editTask.jsp?task=<%=request.getParameter("task")%>"><button class="btn btn-primary " id="submitButton" type="button">Retry</button></a>
-	            	</div>
+	            	
 	            <%//En el caso de que no haya errores y se le de a confirmar se muestra el mensaje de exito
 	            }else if(request.getParameter("comfirmSubmit") != null && session.getAttribute("error") == null){%>
-	            	<textarea class="textAreaInfoSuccesfull ml-25" readonly>Task edited successfully!</textarea><br>
+	            	<div class="textAreaInfoSuccesfull" >Task edited successfully!</div>
 	            <%}
 	            %>
 	            

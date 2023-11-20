@@ -62,63 +62,38 @@
 				
 				<% if (c != null) { %>
 					
-				  <!-- Div of the input of the character's name  -->
-				  <div>
-				  
+				  <!-- Div of the input of the character's name  -->				  
 				    <div  class=" mb-3">
 					    <label for="exampleInputEmail1" class="form-label">Character's name</label>
 					    <input type="text" class="form-control" id="inputName" name="inputName" value= '<%=c.getCharacterName() %>' readonly required>
 					</div>
-					
-				  </div>
-				  
-				  
 				  <!-- Div of the input of the character's nationality  -->
-				  <div>
-				    
 				    <div class=" mb-3">
 					    <label for="exampleInputEmail1" class="form-label">Character's nationality </label>
 					    <input type="text" class="form-control" id="inputName" name="inputNationality" value= '<%=c.getCharacterNationality() %>' readonly required>
-					</div>
-					
-				  </div>
-				  
-				  
+					</div>			  
 				  <!-- Div of the input of the character's sex  -->
-				  <div>
-				   
 				    <div class=" mb-3">
 					    <label for="exampleInputEmail1" class="form-label">Character's sex</label>
 					    <input type="text" class="form-control" id="inputSex" name="inputSex" value="<%= c.getCharacterSex() %>" readonly required>
-					</div>
-					
-				  </div> 
-				  
-				  
+					</div>				
 				  <!-- Div of the submit button and redirect to list button  -->
-				  <div>
-				  
+				   <div class=" mb-3">
 					    <button class="btn btn-warning" id="submitButton" value="edit" type="submit" name="edit">Edit</button>
 			            <button class="btn btn-danger" id="submitButton" value="delete" type="submit" name="delete">Delete</button>
-			            
-					
 				  </div>
-				  
+			    <%} %>
 				  
 				  <% if (session.getAttribute("error") != null) {%>
-					  <br> <textarea class="textAreaInfoError ml-25" readonly> <%= session.getAttribute("error") %> </textarea>
-					  <a href="./listCharacters.jsp"> <button class="btn btn-primary btn-lg" id="submitButton" type="button"> Return list </button></a>
-					  
+					  <div class="textAreaInfoError" > <%= session.getAttribute("error") %> </div>
+					  <a href="./listCharacters.jsp"> <button class="btn btn-primary " id="submitButton" type="button"> Return list </button></a>
 				  <% }session.removeAttribute("error");%>
-				  
+			  
 			    </form>
-			    <%} %>
 			</div>
 	      </div>
 	    </div>
 	  </div>
-	</div>
-
 	<%
 			if (request.getParameter("edit") != null) {
 				response.sendRedirect("editCharacter.jsp?characterName=" + request.getParameter("inputName"));
@@ -127,6 +102,8 @@
 				response.sendRedirect("deleteCharacter.jsp?characterName=" + request.getParameter("inputName"));
 			}
 	%>
+	</div>
+
 
 </body>
 </html>

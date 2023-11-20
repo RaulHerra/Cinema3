@@ -105,21 +105,19 @@
 	           	/*Cuando el valor de la sessión no se nulo es que se ha producido un error entonces muestro
 	           	el textarea que tengo abajo con el valor de la sesión que será el mensaje de error correspondiente*/
 	            if(session.getAttribute("error") != null){%>
-	            	<textarea class="textAreaInfoError ml-25" readonly><%=session.getAttribute("error")%></textarea>
+	            	<div class="textAreaInfoError " ><%=session.getAttribute("error")%></div>
 	            <%/*Y aqui si se ha enviado el submit y en valor de la session es nulo significa que se ha creado correctamente, entoces muestro
 	            el mensaje de éxito*/
 	            }else if(request.getParameter("submit") != null && session.getAttribute("error") == null){%>
-	            	<textarea class="textAreaInfoSuccesfull ml-25" readonly>Film created successfully!</textarea>
+	            	<div class="textAreaInfoSuccesfull " >Film created successfully!</div>
 	            <%} /*Cuando pase todo esto dejo el error en nulo para que se reinicie por si ocurre otro error cuando envíe de nuevo el formulario */
 	            %>
 	            <!-- Submit button -->
-	            <div class="d-grid">
-	              	<button class="btn btn-success " id="submitButton" type="submit" name="submit">Save</button>
-	              	<%if(request.getParameter("submit") != null && session.getAttribute("error") == null){%>
-				     	<!-- Cuando añada la pelicula sin ningún error pongo la opción para que pueda ver la pelicula recién creada -->
-				     	<a href="infoFilm.jsp?cip=<%=request.getParameter("cip")%>"><button class="btn btn-primary" id="submitButton" type="button">Show film</button></a>
-	              	<%}session.removeAttribute("error");%>
-	            </div>
+              	<button class="btn btn-success " id="submitButton" type="submit" name="submit">Save</button>
+              	<%if(request.getParameter("submit") != null && session.getAttribute("error") == null){%>
+			     	<!-- Cuando añada la pelicula sin ningún error pongo la opción para que pueda ver la pelicula recién creada -->
+			     	<a href="infoFilm.jsp?cip=<%=request.getParameter("cip")%>"><button class="btn btn-primary" id="submitButton" type="button">Show film</button></a>
+              	<%}session.removeAttribute("error");%>
 	          </form>
 	          <!-- End of contact form -->
 	        </div>

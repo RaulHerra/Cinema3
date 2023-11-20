@@ -48,16 +48,16 @@
 			              <label for="task" class="form-label">Sex</label>
 			              <input class="form-control" name="sex" type="text" value='<%=t.getSex()%>' readonly>
 			            </div>
-			             <%
-			      		if(session.getAttribute("error") != null){//En el caso de que no exista se muestra el valor y da la opcion al usuario de volver a la lista de tareas
-			      		%>
-			            	<textarea class="textAreaInfoError ml-25" readonly><%=session.getAttribute("error")%></textarea>
-			            	<a href="listTasks.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
-			       		<%}session.removeAttribute("error");//Borramos la session para que no arrastre errores
-			       		%>
 			              <button class="btn btn-warning " id="submitButton" type="submit" name="editSubmit">Edit</button>
 			              <button class="btn btn-danger " id="submitButton" type="submit" name="deleteSubmit">Delete</button>			            
 			            <% } %>
+			             <%
+			      		if(session.getAttribute("error") != null){//En el caso de que no exista se muestra el valor y da la opcion al usuario de volver a la lista de tareas
+			      		%>
+			            	<div class="textAreaInfoError" ><%=session.getAttribute("error")%></div>
+			            	<a href="listTasks.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
+			       		<%}session.removeAttribute("error");//Borramos la session para que no arrastre errores
+			       		%>
 			          </form>
 			        </div>
 			      </div>

@@ -57,10 +57,11 @@
 	            
 	            <% //Mensaje de error que salta si anteriormente ha saltado alguna excepcion.Mostrara el mensaje correspondiente
 	            if(session.getAttribute("error") != null){%>
-	            	<textarea class="textAreaInfoError ml-25" readonly><%=session.getAttribute("error")%></textarea>
+	            	<div class="textAreaInfoError"><%=session.getAttribute("error")%></div>
+	            	
 	            <%//Mensaje de exito que salta en el caso de que se crea con exito la tarea
 	            }else if(request.getParameter("save") != null && session.getAttribute("error") == null){%>
-	            	<textarea class="textAreaInfoSuccesfull ml-25" readonly>Task created successfully!</textarea>
+		            <div class="textAreaInfoSuccesfull">Task created successfully!</div>
 	            <%} 
 	            %>
 	            

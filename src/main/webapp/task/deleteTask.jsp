@@ -43,16 +43,19 @@
 			              <input class="form-control" name="sex" type="text" value='<%=t.getSex()%>' readonly>
 			            </div>
 			             <%}%>
-			             
-			            <%//Si hay errores se muestran
+
+
+			            <% //Mensaje de error que salta si anteriormente ha saltado alguna excepcion.Mostrara el mensaje correspondiente
 			            if(session.getAttribute("error") != null){%>
-			            	<textarea class="textAreaInfoError ml-25" readonly><%=session.getAttribute("error")%></textarea> <br>
-			            <%//En el caso de que no haya errores y se le de a confirmar se muestra el mensaje de exito
-			            }else if(request.getParameter("comfirmSubmit") != null && session.getAttribute("error") == null){%>
-			            	<textarea class="textAreaInfoSuccesfull ml-25" readonly>Task delete successfully!</textarea> <br>
+			            	<div class="textAreaInfoError"><%=session.getAttribute("error")%></div>
+			            	
+			            <%//Mensaje de exito que salta en el caso de que se borre con exito la tarea
+			            }else if(request.getParameter("save") != null && session.getAttribute("error") == null){%>
+				            <div class="textAreaInfoSuccesfull">Task delete successfully!</div>
 			            <%} 
-			            %>
+			            %>			
 			            
+			                        
 			            	<%if(request.getParameter("deleteSubmit")==null && request.getParameter("comfirmSubmit")==null && session.getAttribute("error") == null){ //Preguntamos si se desea eliminar%>
 			              		<button class="btn btn-danger " id="submitButton" type="submit" name="deleteSubmit">Are you sure you want to delete it?</button>
 				            <%}if(request.getParameter("deleteSubmit")!=null){//Se muestra el boton para confirmar%>

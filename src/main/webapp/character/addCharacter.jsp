@@ -104,15 +104,14 @@
 				  
 
 				  <% if (session.getAttribute("error") != null) {%>
-					  <br> <textarea class="textAreaInfoError ml-25" readonly > <%= session.getAttribute("error") %> </textarea>
+					   <div class="textAreaInfoError "  > <%= session.getAttribute("error") %> </div>
 					  
 				  <% }else if ((request.getParameter("submit") != null) && (session.getAttribute("error") == null)) {%>
-					  <br> <textarea class="textAreaInfoSuccesfull ml-25" readonly > Character created successfully! </textarea>
+					   <div class="textAreaInfoSuccesfull "  > Character created successfully! </div>
 				  <% } %>
 				  
 				  			  
 				  <!-- Div of the submit button and redirect to list button  -->
-				  <div class="d-grid">
 				  	
 				  	<button class="btn btn-primary btn-success" id="submitButton" type="submit" name="submit"> Save </button>
 				  	
@@ -120,7 +119,6 @@
 						<a href="infoCharacter.jsp?characterName=<%=c.getCharacterName()%> "> 
 							<button class="btn btn-primary" id="submitButton" type="button"> Show character </button> 
 						</a>
-				  </div>
 				  <%} session.setAttribute("error", null);%>
 				  
 				  
