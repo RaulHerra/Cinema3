@@ -109,7 +109,7 @@ public class Film {
 			throw new FilmException("The cip must have a size between 0 and 10,and cannot be empty");
 		}else if(titleP == null || titleP.equals(" ") || titleP.length() > MAX_LENGTH_TITLE_P || titleP.length() < 0) {
 			throw new FilmException("The main title must have a length between 0 and 45, and cannot be empty");
-		}else if(yearProduction <= 1985 || yearProduction > LocalDate.now().getYear()) {
+		}else if(yearProduction < 1890 || yearProduction > LocalDate.now().getYear()) {
 			throw new FilmException("You must enter a valid year on the release date");
 		}else if(titleS == null || titleS.length() > MAX_LENGTH_TITLE_S || titleS.length() < 0) {
 			throw new FilmException("The secondary"

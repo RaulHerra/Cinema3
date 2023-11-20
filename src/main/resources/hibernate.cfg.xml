@@ -18,6 +18,8 @@
 		<mapping class="com.jacaranda.model.Film"/>
 		<mapping class="com.jacaranda.model.Work"/>
 		
+		<mapping class="com.jacaranda.model.Cinema"/>
+		<mapping class="com.jacaranda.model.Room"/>
 	</session-factory>
 	
 </hibernate-configuration>
