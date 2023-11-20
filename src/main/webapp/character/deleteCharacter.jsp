@@ -42,7 +42,6 @@
 			      <div class="card border-0 rounded-3 shadow-lg">
 			        <div class="card-body p-4">
 			          <div class="text-center">
-			        
 			            <h1>Delete Character</h1>
 			          </div>
 					
@@ -50,19 +49,19 @@
 			          <%if(c != null){ /*This if shows the character*/ %>
 			            <!-- Character's name Input -->
 			            <div class=" mb-3">
-			    			<label for="exampleInputEmail1" class="form-label">Character's name</label>
+			    			<label for="characterName" class="form-label">Character's name</label>
 			    			<input type="text" class="form-control" id="characterName" name="characterName" value='<%= c.getCharacterName() %>'readonly required>
 			            </div>
 			
 			            <!-- Character's nationality Input -->
 			            <div class="mb-3">
-			                <label for="exampleInputEmail1" class="form-label">Character's nationality</label>
+			                <label for="characterNationality" class="form-label">Character's nationality</label>
 			    			<input type="text" class="form-control" id="characterNationality" name="characterNationality" placeholder="Enter Character Nationality" value="<%= c.getCharacterNationality() %>" readonly required>
 			            </div>
 			
 			            <!-- Character's sex Input -->
 			            <div class=" mb-3">
-							<label for="exampleInputEmail1" class="form-label">Character's sex</label>
+							<label for="characterSex" class="form-label">Character's sex</label>
 			    			<input type="text" step="1" class="form-control" id="characterSex" name="characterSex" placeholder="Enter Character Sex" value="<%= c.getCharacterSex() %>" readonly required>
 			            </div>
 			            
@@ -72,7 +71,7 @@
 			            /*When the value of the session variable is null is when an error occured, so I show a textarea
 			            with the value of the session variable with the error message*/
 			            if(session.getAttribute("error") != null){%>
-			            	<div class="textAreaInfoError " s><%=session.getAttribute("error")%></div>
+			            	<div class="textAreaInfoError "><%=session.getAttribute("error")%></div>
 			            <%
 			            
 			            /*And here if it is sent the submit, and the value of the session variable 

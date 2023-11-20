@@ -2,8 +2,6 @@
 <%@page import="com.jacaranda.model.Film"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@page import="com.jacaranda.repository.FilmRepository"%>
-<%@page import="com.jacaranda.model.Film"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -90,25 +88,17 @@
 			            
 
 			            <!-- Submit button -->
-			            <div class="d-grid">
-			              	<button class="btn btn-primary btn-lg" id="submitButton" value="edit" type="submit" name="edit">Edit</button>
-			              	<button class="btn btn-primary btn-lg" id="submitButton" value="delete" type="submit" name="delete">Delete</button>
-			            </div>
-			          </form><br>
-			          <form method="post" action="./filmCharacters.jsp"><button class="btn btn-primary btn-lg" id="submitButton" name="filmCharacters" value="<%=f.getCip()%>">See the repart</button></form> 
+			              	<button class="btn btn-warning " id="submitButton" value="edit" type="submit" name="edit">Edit</button>
+			              	<button class="btn btn-danger " id="submitButton" value="delete" type="submit" name="delete">Delete</button>
+			          </form>
 			          <%}%>
 			          <%
-				           	/*Cuando el valor de la sessiï¿½n no se nulo es que se ha producido un error entonces muestro
-				           	el textarea que tengo abajo con el valor de la sesiï¿½n que serï¿½ el mensaje de error correspondiente*/
-				      		if(session.getAttribute("error") != null){
-			      	   %>
-			            	<textarea class="textAreaInfoError ml-25" readonly><%=session.getAttribute("error")%></textarea>
-			            	<a href="./listFilms.jsp"><button class="btn btn-primary btn-lg" id="submitButton" type="button">Return list</button></a>
-			       		<%}
-			          
-			          		session.removeAttribute("error");
-			          		
-			          	%>
+			           	/*Cuando el valor de la sessión no se nulo es que se ha producido un error entonces muestro
+			           	el textarea que tengo abajo con el valor de la sesión que será el mensaje de error correspondiente*/
+			      		if(session.getAttribute("error") != null){%>
+			            	<div class="textAreaInfoError" ><%=session.getAttribute("error")%></div>
+			            	<a href="./listFilms.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
+			       		<%}session.removeAttribute("error");%>
 			          <!-- End of contact form -->
 			        </div>
 			      </div>
@@ -118,12 +108,12 @@
 		<%
 		
 			if(request.getParameter("edit") != null){
-				/*Cuando le de a editar la pelicula que quiere lo redirijo a la pï¿½gina de 
-				editar pasandole el cip para que pueda motrar la pelicula en la otra pï¿½gina*/
+				/*Cuando le de a editar la pelicula que quiere lo redirijo a la página de 
+				editar pasandole el cip para que pueda motrar la pelicula en la otra página*/
 				response.sendRedirect("editFilm.jsp?cip="+f.getCip());
 			}else if(request.getParameter("delete") != null){
-				/*Cuando le de a borrar la pelicula que quiere lo redirijo a la pï¿½gina de 
-				editar pasandole el cip para que pueda motrar la pelicula en la otra pï¿½gina*/
+				/*Cuando le de a borrar la pelicula que quiere lo redirijo a la página de 
+				editar pasandole el cip para que pueda motrar la pelicula en la otra página*/
 				response.sendRedirect("deleteFilm.jsp?cip="+f.getCip());
 			}
 		%>

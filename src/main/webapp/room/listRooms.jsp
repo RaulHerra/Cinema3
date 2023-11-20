@@ -28,7 +28,7 @@
 		result = tmpCinema.getRooms();
 		
 		try{
-			cinemaId="La Catilica";//ESTO ES SOOLO PARA PRUEBAS
+			cinemaId="La Catilica";//ESTO ES SOLO PARA PRUEBAS
 			
 			cinemaId = request.getParameter("cinema");
 			

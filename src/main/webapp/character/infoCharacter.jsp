@@ -27,18 +27,20 @@
 	Character c = null;
 	
 	try{
-		if (request.getParameter("characterName") != null 
-				&& DbRepository.find(Character.class, request.getParameter("characterName")) != null) {
+		if (request.getParameter("characterName") != null){
+				
+			c = DbRepository.find(Character.class, request.getParameter("characterName"));
 	
-			try {
-				
-				c = DbRepository.find(Character.class, request.getParameter("characterName"));
-				
-			}catch (Exception e) {
+			if(c==null){
 				session.setAttribute("error", "Error: the character that you selected doesn't exist");
-	
 			}
-		}		
+			
+			
+		}else{
+			session.setAttribute("error", "Error: character not found in the uri");
+
+		}
+			
 	}catch(Exception e){
 		response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
 		return;
@@ -64,24 +66,22 @@
 					
 				  <!-- Div of the input of the character's name  -->				  
 				    <div  class=" mb-3">
-					    <label for="exampleInputEmail1" class="form-label">Character's name</label>
+					    <label for="inputName" class="form-label">Character's name</label>
 					    <input type="text" class="form-control" id="inputName" name="inputName" value= '<%=c.getCharacterName() %>' readonly required>
 					</div>
 				  <!-- Div of the input of the character's nationality  -->
 				    <div class=" mb-3">
-					    <label for="exampleInputEmail1" class="form-label">Character's nationality </label>
-					    <input type="text" class="form-control" id="inputName" name="inputNationality" value= '<%=c.getCharacterNationality() %>' readonly required>
+					    <label for="inputNationality" class="form-label">Character's nationality </label>
+					    <input type="text" class="form-control" id="inputNationality" name="inputNationality" value= '<%=c.getCharacterNationality() %>' readonly required>
 					</div>			  
 				  <!-- Div of the input of the character's sex  -->
 				    <div class=" mb-3">
-					    <label for="exampleInputEmail1" class="form-label">Character's sex</label>
+					    <label for="inputSex" class="form-label">Character's sex</label>
 					    <input type="text" class="form-control" id="inputSex" name="inputSex" value="<%= c.getCharacterSex() %>" readonly required>
 					</div>				
 				  <!-- Div of the submit button and redirect to list button  -->
-				   <div class=" mb-3">
 					    <button class="btn btn-warning" id="submitButton" value="edit" type="submit" name="edit">Edit</button>
 			            <button class="btn btn-danger" id="submitButton" value="delete" type="submit" name="delete">Delete</button>
-				  </div>
 			    <%} %>
 				  
 				  <% if (session.getAttribute("error") != null) {%>
@@ -90,8 +90,9 @@
 				  <% }session.removeAttribute("error");%>
 				  
 			    </form><br>
-			    <%} %>
-			    <form method="post" action="./characterFilms.jsp"><button class="btn btn-primary btn-lg" id="submitButton" value="<%=c.getCharacterName()%>" name="characterFilms">See Filmography</button></form>
+				<% if (c != null) { %>
+				    <form method="post" action="./characterFilms.jsp"><button class="btn btn-primary " id="submitButton" value="<%=c.getCharacterName()%>" name="characterFilms">See Filmography</button></form>
+				<%} %>
 			</div>
 	      </div>
 	    </div>

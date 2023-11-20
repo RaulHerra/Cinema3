@@ -39,17 +39,17 @@
 			          <form>
 			          <%if(cinema != null){%>
 				           <div class=" mb-3">
-				   				<label for="exampleInputEmail1" class="form-label">Cinema</label>
+				   				<label for="cinema" class="form-label">Cinema</label>
 				   				<input type="text" class="form-control" id="cinema" name="cinema" value="<%=cinema.getCinema()%>" required readonly>
 				           </div>
 				
 				           <div class=" mb-3">
-				           		<label for="exampleInputEmail1" class="form-label">Cinema city</label>
+				           		<label for="cinemaCity" class="form-label">Cinema city</label>
 				   				<input type="text" class="form-control" id="cinemaCity" name="cinemaCity" value="<%=cinema.getCityCinema()%>" required readonly>
 				           </div>
 				
 				           <div class=" mb-3">
-								<label for="exampleInputEmail1" class="form-label">Cinema address</label>
+								<label for="cinemaAddress" class="form-label">Cinema address</label>
 				   				<input type="text" step="1" class="form-control" id="cinemaAddress" name="cinemaAddress" value="<%=cinema.getAddressCinema()%>" required readonly>
 				           </div>
 			            <%}%>
@@ -57,11 +57,11 @@
 			           	/*Cuando el valor de la sessión no se nulo es que se ha producido un error entonces muestro
 			           	el textarea que tengo abajo con el valor de la sesión que será el mensaje de error correspondiente*/
 			            if(session.getAttribute("error") != null){%>
-			            	<textarea class="textAreaInfoError ml-25" readonly><%=session.getAttribute("error")%></textarea> <br>
+			            	<div class="textAreaInfoError " ><%=session.getAttribute("error")%></div> 
 			            <%/*Y aqui si se ha enviado el submit y en valor de la session es nulo significa que se ha borrado correctamente, entoces muestro
 			            el mensaje de éxito*/
 			            }else if(request.getParameter("submit") != null && session.getAttribute("error") == null){%>
-			            	<textarea class="textAreaInfoSuccesfull ml-25" readonly>Cinema deleted successfully!</textarea> <br>
+			            	<div class="textAreaInfoSuccesfull " >Cinema deleted successfully!</div> 
 			            <%}
 			            %>
 			            	
@@ -73,7 +73,7 @@
 								<button class="btn btn-danger" id="submitButton" type="submit" name="submit">Confirm</button>
 				            	<a href="./infoCinema.jsp?cinema=<%=request.getParameter("cinema")%>"><button class="btn btn-primary  " id="submitButton" type="button" name="undo">Undo</button></a>
 							<%}else if(session.getAttribute("error") != null){%>
-								<a href="./listCinemas.jsp"><button class="btn btn-primary" id="submitButton" type="button">Rety</button></a>
+								<a href="./listCinemas.jsp"><button class="btn btn-primary" id="submitButton" type="button">Retry</button></a>
 							<%}%>
 							
 							<%if(request.getParameter("submit") != null){
