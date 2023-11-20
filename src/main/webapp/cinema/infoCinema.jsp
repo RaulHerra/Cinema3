@@ -1,6 +1,5 @@
 <%@page import="com.jacaranda.model.Cinema"%>
 <%@page import="com.jacaranda.repository.DbRepository"%>
-<%@page import="com.jacaranda.model.Film"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>

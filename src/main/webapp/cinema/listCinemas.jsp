@@ -1,5 +1,4 @@
 <%@page import="com.jacaranda.model.Cinema"%>
-<%@page import="com.jacaranda.model.Film"%>
 <%@page import="com.jacaranda.repository.DbRepository"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -38,12 +37,12 @@
 		<%/*Recorro las peliculas y por cada una creo una columa de la tabla que tengo aqui
 		   * y creo un botón de info que cuando le demos nos lleva a la pagina de info de pelicula
 		   * enviado el cip de la pelicula para despues poder recuperarlo en la página de info*/ 
-		for (Cinema c: cinemas){%>
+		for (Cinema cinema: cinemas){%>
 				<tr>
-					<td><%=c.getCinema()%></td>
+					<td><%=cinema.getCinema()%></td>
 					<td>
 						<form action="infoCinema.jsp">
-							<input type="text" name="cinema" value='<%=c.getCinema()%>' hidden>
+							<input type="text" name="cinema" value='<%=cinema.getCinema()%>' hidden>
 							<button type="submit" class="btn btn-primary">Info</button>
 						</form>
 					</td>

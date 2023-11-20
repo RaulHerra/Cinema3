@@ -24,6 +24,7 @@ public class DbRepository {
 		} catch (Exception e) {
 			throw new Exception("Error al obtener la entidad");
 		}
+		session.close();
 		return result;
 	}
 	
@@ -41,6 +42,7 @@ public class DbRepository {
 		} catch (Exception e) {
 			throw new Exception("Error al obtener la entidad");
 		}
+		session.close();
 		return resultList;
 	}
 	
@@ -72,7 +74,7 @@ public class DbRepository {
 		session.close();
 	}
 	
-	public static <T> void deleteEntity(T entity){
+	public static <T> void deleteEntity(T entity) throws Exception{
 		Transaction transaction = null;
 		Session session = BdUtil.getSessionFactory().openSession();
 		
@@ -82,6 +84,7 @@ public class DbRepository {
 			transaction.commit();			
 		}catch (Exception e) {
 			transaction.rollback();
+			throw new Exception(e);
 		}
 
 		session.close();
@@ -103,6 +106,7 @@ public class DbRepository {
 			throw new Exception("Error al obtener la entidad");
 
 		}
+		session.close();
 		return result;
 	}
 
