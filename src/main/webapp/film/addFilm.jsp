@@ -8,8 +8,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Add Film</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- ======= LINKS BOOTSTRAP ======= -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+<!-- ======= LINK CSS ======= -->
 <link rel="stylesheet" href="../style/style.css">
 </head>
 <body>
@@ -52,51 +54,52 @@
 	      <div class="card border-0 rounded-3 shadow-lg">
 	        <div class="card-body p-4">
 	          <div class="text-center">
-	            <div class="h1 fw-light">Add Film</div>
+	            <h1>Add Film</h1>
 	          </div>
 	
 	          <form method="get">
 	
 	            <!-- Cip Input -->
-	            <div class="form-floating mb-3">
-	    			<label for="exampleInputEmail1" class="form-label">Cip</label>
-	    			<input type="text" class="form-control" id="cip" name="cip" placeholder="Enter cip" required>
+	            <div class=" mb-3">
+	    			<label for="cip" class="form-label">Cip</label>
+	    			<input type="text" class="form-control" id="cip" name="cip" placeholder="Enter cip" required >
 	            </div>
 	
 	            <!-- Film title Input -->
-	            <div class="form-floating mb-3">
-	                <label for="exampleInputEmail1" class="form-label">Film title</label>
+	            <div class=" mb-3">
+	                <label for="titleF" class="form-label">Film title</label>
 	    			<input type="text" class="form-control" id="titleF" name="titleF" placeholder="Enter Film Title" required>
 	            </div>
 	
 	            <!-- Production year Input -->
-	            <div class="form-floating mb-3">
-					<label for="exampleInputEmail1" class="form-label">Production year</label>
-	    			<input type="number" step="1" class="form-control" id="productionYear" name="productionYear" placeholder="Enter Production Year" required>
+	            <div class=" mb-3">
+					<label for="productionYear" class="form-label">Production year</label>
+					<!-- La primera pelicula de la historia hecha en 1895 asi que un minimo de 1890 es suficiente-->
+	    			<input type="number" step="1" class="form-control" id="productionYear" name="productionYear" placeholder="Enter Production Year" required min="1890">
 	            </div>
 	            
 	            <!-- Secundary title Input -->
-	            <div class="form-floating mb-3">
-					<label for="exampleInputEmail1" class="form-label">Secundary title</label>
+	            <div class=" mb-3">
+					<label for="titleS" class="form-label">Secundary title</label>
 	    			<input type="text" class="form-control" id="titleS" name="titleS" placeholder="Enter Secundary Title">
 	            </div>
 	            
 	            <!-- Nationality Input -->
-	            <div class="form-floating mb-3">
-					<label for="exampleInputEmail1" class="form-label">Nationality</label>
+	            <div class=" mb-3">
+					<label for="nationality" class="form-label">Nationality</label>
 	    			<input type="text" class="form-control" id="nationality" name="nationality" placeholder="Enter Nationality">
 	            </div>
 	            
 	            <!-- Budget Input -->
-	            <div class="form-floating mb-3">
-					 <label for="exampleInputEmail1" class="form-label">Budget</label>
-	    			<input type="number" step="1" class="form-control" id="budget" name="budget" placeholder="Enter Budget">
+	            <div class=" mb-3">
+					 <label for="budget" class="form-label">Budget</label>
+	    			<input type="number" step="1" class="form-control" id="budget" name="budget" placeholder="Enter Budget" min="1">
 	            </div>
 	            
 	            <!-- Duration Input -->
-	            <div class="form-floating mb-3">
-					<label for="exampleInputEmail1" class="form-label">Duration</label>
-	    			<input type="number" step="1" class="form-control" id="duration" name="duration" placeholder="Enter Duration">
+	            <div class=" mb-3">
+					<label for="duration" class="form-label">Duration</label>
+	    			<input type="number" step="1" class="form-control" id="duration" name="duration" placeholder="Enter Duration" min="1">
 	            </div>
 	            <%
 	           	/*Cuando el valor de la sessión no se nulo es que se ha producido un error entonces muestro
@@ -111,10 +114,10 @@
 	            %>
 	            <!-- Submit button -->
 	            <div class="d-grid">
-	              	<button class="btn btn-primary btn-lg" id="submitButton" type="submit" name="submit">Save</button>
+	              	<button class="btn btn-success " id="submitButton" type="submit" name="submit">Save</button>
 	              	<%if(request.getParameter("submit") != null && session.getAttribute("error") == null){%>
 				     	<!-- Cuando añada la pelicula sin ningún error pongo la opción para que pueda ver la pelicula recién creada -->
-				     	<a href="infoFilm.jsp?cip=<%=request.getParameter("cip")%>"><button class="btn btn-primary btn-lg" id="submitButton" type="button">Show film</button></a>
+				     	<a href="infoFilm.jsp?cip=<%=request.getParameter("cip")%>"><button class="btn btn-primary" id="submitButton" type="button">Show film</button></a>
 	              	<%}session.removeAttribute("error");%>
 	            </div>
 	          </form>

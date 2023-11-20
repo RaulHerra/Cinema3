@@ -11,12 +11,8 @@
 <title>Info Character</title>
 </head>
 
-<!-- ======= LINKS BOOTSTRAP NAVBAR ======= -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-<!-- ======= LINKS BOOTSTRAP FORM ======= -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- ======= LINKS BOOTSTRAP ======= -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
 <!-- ======= LINK CSS ======= -->
 <link rel="stylesheet" href="../style/style.css">
@@ -59,7 +55,7 @@
 	      <div class="card border-0 rounded-3 shadow-lg">
 	        <div class="card-body p-4">
 	          <div class="text-center">
-	            <div class="h1 fw-light">Info Character</div>
+	            <h1>Info Character</h1>
 	          </div>
 
 				<form method="get">
@@ -69,7 +65,7 @@
 				  <!-- Div of the input of the character's name  -->
 				  <div>
 				  
-				    <div class="form-floating mb-3">
+				    <div  class=" mb-3">
 					    <label for="exampleInputEmail1" class="form-label">Character's name</label>
 					    <input type="text" class="form-control" id="inputName" name="inputName" value= '<%=c.getCharacterName() %>' readonly required>
 					</div>
@@ -80,7 +76,7 @@
 				  <!-- Div of the input of the character's nationality  -->
 				  <div>
 				    
-				    <div class="form-floating mb-3">
+				    <div class=" mb-3">
 					    <label for="exampleInputEmail1" class="form-label">Character's nationality </label>
 					    <input type="text" class="form-control" id="inputName" name="inputNationality" value= '<%=c.getCharacterNationality() %>' readonly required>
 					</div>
@@ -91,7 +87,7 @@
 				  <!-- Div of the input of the character's sex  -->
 				  <div>
 				   
-				    <div class="form-floating mb-3">
+				    <div class=" mb-3">
 					    <label for="exampleInputEmail1" class="form-label">Character's sex</label>
 					    <input type="text" class="form-control" id="inputSex" name="inputSex" value="<%= c.getCharacterSex() %>" readonly required>
 					</div>
@@ -102,11 +98,9 @@
 				  <!-- Div of the submit button and redirect to list button  -->
 				  <div>
 				  
-					<div class="d-grid">
-					    <button class="btn btn-primary btn-lg" id="submitButton" value="edit" type="submit" name="edit">Edit</button>
-			            <button class="btn btn-primary btn-lg" id="submitButton" value="delete" type="submit" name="delete">Delete</button>
+					    <button class="btn btn-warning" id="submitButton" value="edit" type="submit" name="edit">Edit</button>
+			            <button class="btn btn-danger" id="submitButton" value="delete" type="submit" name="delete">Delete</button>
 			            
-					</div>
 					
 				  </div>
 				  

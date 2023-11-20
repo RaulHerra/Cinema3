@@ -12,6 +12,8 @@
 <title>Room list</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../style/style.css">
+
 </head>
 <body>
 	<%@include file="../nav.jsp"%>
@@ -35,14 +37,19 @@
 	<table class="table">
 		<thead>
 			<tr>
+				<th scope="col">Sala</th>
 				<th scope="col">Capacidad</th>
 			</tr>
+
 		</thead>
 		<%
 		for (Room room: result){%>
-				<tr>
-					<td><%=room.getCapacity()%></td>
-				</tr>
+			<tr>
+				<td><%=room.getRoomNumber()%></td>
+				<td><%=room.getCapacity()%></td>
+			</tr> 
+		
+
 		<% }%>
 	</table>
 </body>

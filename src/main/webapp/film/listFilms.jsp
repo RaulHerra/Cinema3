@@ -8,8 +8,13 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>List Films</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- ======= LINKS BOOTSTRAP ======= -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+<!-- ======= LINK CSS ======= -->
+<link rel="stylesheet" href="../style/style.css">
+
 </head>
 <body>
 	<%@include file="../nav.jsp"%>
@@ -38,7 +43,7 @@
 					<td>
 						<form action="infoFilm.jsp">
 							<input type="text" name="cip" value='<%=f.getCip()%>' hidden>
-							<button type="submit" class="btn btn-primary btn-lg">Info</button>
+							<button type="submit" class="btn btn-primary">Info</button>
 						</form>
 					</td>
 				</tr>

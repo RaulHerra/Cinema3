@@ -94,13 +94,13 @@ public class DbRepository {
 		try {
 			session = BdUtil.getSessionFactory().openSession();
 		} catch (Exception e) {
-			throw new Exception("Error al conectar a la bbdd");
+			throw new Exception("Error en la base de datos");
 		}
 
 		try {
 			result = session.find(objectClass, id);
 		} catch (Exception e) {
-			throw new Exception("Exception on find");
+			throw new Exception("Error al obtener la entidad");
 
 		}
 		return result;

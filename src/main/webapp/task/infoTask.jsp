@@ -7,13 +7,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Info Task</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- ======= LINKS BOOTSTRAP ======= -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+<!-- ======= LINK CSS ======= -->
 <link rel="stylesheet" href="../style/style.css">
 </head>
 <body>
-	<%@include file="../nav.jsp"%>
+		<%@include file="../nav.jsp"%>
+	
 	<%
 		Task t =null;
 		try{	
@@ -34,29 +36,27 @@
 			      <div class="card border-0 rounded-3 shadow-lg">
 			        <div class="card-body p-4">
 			          <div class="text-center">
-			            <div class="h1 fw-light">Info Task</div>        
+			            <h1>Info Task</h1>   
 			          </div>
 			          <form>
 			          <%if(t!=null) {%>
-			            <div class="form-floating mb-3">
-			              <label for="task">Task:</label>
+			            <div class=" mb-3">
+			              <label for="task" class="form-label">Task</label>
 			              <input class="form-control" name="task" type="text" value='<%=t.getTask()%>' readonly>
 			            </div>
-			            <div class="form-floating mb-3">
-			              <label for="task">Sex:</label>
+			            <div class=" mb-3" >
+			              <label for="task" class="form-label">Sex</label>
 			              <input class="form-control" name="sex" type="text" value='<%=t.getSex()%>' readonly>
 			            </div>
 			             <%
 			      		if(session.getAttribute("error") != null){//En el caso de que no exista se muestra el valor y da la opcion al usuario de volver a la lista de tareas
 			      		%>
 			            	<textarea class="textAreaInfoError ml-25" readonly><%=session.getAttribute("error")%></textarea>
-			            	<a href="listTasks.jsp"><button class="btn btn-primary btn-lg" id="submitButton" type="button">Return list</button></a>
+			            	<a href="listTasks.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
 			       		<%}session.removeAttribute("error");//Borramos la session para que no arrastre errores
 			       		%>
-			            <div class="d-grid">
-			              <button class="btn btn-primary btn-lg" id="submitButton" type="submit" name="editSubmit">Edit</button>
-			              <button class="btn btn-primary btn-lg" id="submitButton" type="submit" name="deleteSubmit">Delete</button>			            
-			             </div>
+			              <button class="btn btn-warning " id="submitButton" type="submit" name="editSubmit">Edit</button>
+			              <button class="btn btn-danger " id="submitButton" type="submit" name="deleteSubmit">Delete</button>			            
 			            <% } %>
 			          </form>
 			        </div>

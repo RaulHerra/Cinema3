@@ -8,8 +8,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Edit Film</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- ======= LINKS BOOTSTRAP ======= -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+<!-- ======= LINK CSS ======= -->
 <link rel="stylesheet" href="../style/style.css">
 </head>
 <body>
@@ -52,50 +54,50 @@
 			      <div class="card border-0 rounded-3 shadow-lg">
 			        <div class="card-body p-4">
 			          <div class="text-center">
-			            <div class="h1 fw-light">Edit Film</div>
+			            <h1>Edit Film</h1>
 			          </div>
 					<%if(f != null){/*Si el cine que hemos introducido es diferente a null muestro la informacion del cine*/ %>
 			          <form>
 			            <!-- Cip Input -->
-			            <div class="form-floating mb-3">
-			    			<label for="exampleInputEmail1" class="form-label">Cip</label>
+			            <div class="  mb-3">
+			    			<label for="cip" class="form-label">Cip</label>
 			    			<input type="text" class="form-control" id="cip" name="cip" value='<%=f.getCip()%>'readonly required>
 			            </div>
 			
 			            <!-- Film title Input -->
-			            <div class="form-floating mb-3">
-			                <label for="exampleInputEmail1" class="form-label">Film title</label>
+			            <div class="  mb-3">
+			                <label for="titleF" class="form-label">Film title</label>
 			    			<input type="text" class="form-control" id="titleF" name="titleF" placeholder="Enter Film Title" value="<%=f.getTitleP()%>" required>
 			            </div>
 			
 			            <!-- Production year Input -->
-			            <div class="form-floating mb-3">
-							<label for="exampleInputEmail1" class="form-label">Production year</label>
-			    			<input type="number" step="1" class="form-control" id="productionYear" name="productionYear" placeholder="Enter Production Year" value="<%=f.getYearProduction()%>" required>
+			            <div class="  mb-3">
+							<label for="productionYear" class="form-label">Production year</label>
+			    			<input type="number" step="1" class="form-control" id="productionYear" name="productionYear" placeholder="Enter Production Year" value="<%=f.getYearProduction()%>" required min="1890">
 			            </div>
 			            
 			            <!-- Secundary title Input -->
-			            <div class="form-floating mb-3">
-							<label for="exampleInputEmail1" class="form-label">Secundary title</label>
+			            <div class="  mb-3">
+							<label for="titleS" class="form-label">Secundary title</label>
 			    			<input type="text" class="form-control" id="titleS" name="titleS" placeholder="Enter Secundary Title" value="<%=f.getTitleS()%>">
 			            </div>
 			            
 			            <!-- Nationality Input -->
-			            <div class="form-floating mb-3">
-							<label for="exampleInputEmail1" class="form-label">Nationality</label>
+			            <div class="  mb-3">
+							<label for="nationality" class="form-label">Nationality</label>
 			    			<input type="text" class="form-control" id="nationality" name="nationality" placeholder="Enter Nationality" value="<%=f.getNationality()%>">
 			            </div>
 			            
 			            <!-- Budget Input -->
-			            <div class="form-floating mb-3">
-							 <label for="exampleInputEmail1" class="form-label">Budget</label>
-			    			<input type="number" step="1" class="form-control" id="budget" name="budget" placeholder="Enter Budget" value="<%=f.getBudget()%>">
+			            <div class="  mb-3">
+							 <label for="budget" class="form-label">Budget</label>
+			    			<input type="number" step="1" class="form-control" id="budget" name="budget" placeholder="Enter Budget" value="<%=f.getBudget()%>" min="1">
 			            </div>
 			            
 			            <!-- Duration Input -->
-			            <div class="form-floating mb-3">
-							<label for="exampleInputEmail1" class="form-label">Duration</label>
-			    			<input type="number" step="1" class="form-control" id="duration" name="duration" placeholder="Enter Duration" value="<%=f.getDuration()%>">
+			            <div class="  mb-3">
+							<label for="duration" class="form-label">Duration</label>
+			    			<input type="number" step="1" class="form-control" id="duration" name="duration" placeholder="Enter Duration" value="<%=f.getDuration()%>" min="1">
 			            </div>
 			            <%}%>
 			            <%
@@ -106,23 +108,22 @@
 			            	<!-- Este botón no es necesario, pero si me da algún error que no se quede solo con el error, le he puesto un botón para 
 			            	que reintente editar la pelicula si quiere-->
 			            	<div class="d-grid">
-			            		<a href="editFilm.jsp?cip=<%=request.getParameter("cip")%>"><button class="btn btn-primary btn-lg" id="submitButton" type="button">Retry</button></a>
+			            		<a href="editFilm.jsp?cip=<%=request.getParameter("cip")%>"><button class="btn btn-primary " id="submitButton" type="button">Retry</button></a>
 			            	</div>
 			            <%/*Y aqui si se ha enviado el edit y en valor de la session es nulo significa que se ha editado correctamente, entoces muestro
 			            el mensaje de éxito*/
 			            }else if(request.getParameter("edit") != null && session.getAttribute("error") == null){%>
-			            	<textarea class="textAreaInfoSuccesfull ml-25" readonly>Film edited successfully!</textarea>
+			            	<textarea class="textAreaInfoSuccesfull ml-25" readonly>Film edited successfully!</textarea> <br>
 			            <%} /*Cuando pase todo esto dejo el error en nulo para que se reinicie por si ocurre otro error cuando envíe de nuevo el formulario */
 			            %>
+			           
 			            <!-- Submit button -->
-			            <div class="d-grid">
 			             	<%if(request.getParameter("edit") == null && session.getAttribute("error") == null){ /*Esto lo hago para que cuando pulse confirm se oculte el confirm ya que no será nulo*/%>
-			             		<button class="btn btn-danger btn-lg" id="submitButton" value="edit" type="submit" name="edit">Confirm</button>
+			             		<button class="btn btn-danger " id="submitButton" value="edit" type="submit" name="edit">Confirm</button>
 					     	<%}else if(request.getParameter("edit") != null && session.getAttribute("error") == null){ %>
 					     		<!-- Y cuando le haya dado a confirmar y no haya ningún error le muestro este botón para que pueda ver los detalles de la pelicula -->
-					     		<a href="infoFilm.jsp?cip=<%=request.getParameter("cip")%>"><button class="btn btn-primary btn-lg" id="submitButton" type="button">Show film</button></a>
+					     		<a href="infoFilm.jsp?cip=<%=request.getParameter("cip")%>"><button class="btn btn-primary " id="submitButton" type="button">Show film</button></a>
 			            	<%}session.removeAttribute("error");%>
-			            </div>
 			          </form>
 			          <!-- End of contact form -->
 			        </div>

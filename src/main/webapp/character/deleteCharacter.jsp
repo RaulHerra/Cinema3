@@ -8,9 +8,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Delete Character</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- ======= LINKS BOOTSTRAP ======= -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+<!-- ======= LINK CSS ======= -->
 <link rel="stylesheet" href="../style/style.css">
+
 </head>
 <body>
 		<%@include file="../nav.jsp"%>
@@ -39,25 +42,26 @@
 			      <div class="card border-0 rounded-3 shadow-lg">
 			        <div class="card-body p-4">
 			          <div class="text-center">
-			            <div class="h1 fw-light">Delete Character</div>
+			        
+			            <h1>Delete Character</h1>
 			          </div>
 					
-			          <form>
+			          <form method="get">
 			          <%if(c != null){ /*This if shows the character*/ %>
 			            <!-- Character's name Input -->
-			            <div class="form-floating mb-3">
+			            <div class=" mb-3">
 			    			<label for="exampleInputEmail1" class="form-label">Character's name</label>
 			    			<input type="text" class="form-control" id="characterName" name="characterName" value='<%= c.getCharacterName() %>'readonly required>
 			            </div>
 			
 			            <!-- Character's nationality Input -->
-			            <div class="form-floating mb-3">
+			            <div class="mb-3">
 			                <label for="exampleInputEmail1" class="form-label">Character's nationality</label>
 			    			<input type="text" class="form-control" id="characterNationality" name="characterNationality" placeholder="Enter Character Nationality" value="<%= c.getCharacterNationality() %>" readonly required>
 			            </div>
 			
 			            <!-- Character's sex Input -->
-			            <div class="form-floating mb-3">
+			            <div class=" mb-3">
 							<label for="exampleInputEmail1" class="form-label">Character's sex</label>
 			    			<input type="text" step="1" class="form-control" id="characterSex" name="characterSex" placeholder="Enter Character Sex" value="<%= c.getCharacterSex() %>" readonly required>
 			            </div>
@@ -68,13 +72,13 @@
 			            /*When the value of the session variable is null is when an error occured, so I show a textarea
 			            with the value of the session variable with the error message*/
 			            if(session.getAttribute("error") != null){%>
-			            	<textarea class="textAreaInfoError ml-25" readonly><%=session.getAttribute("error")%></textarea>
+			            	<textarea class="textAreaInfoError ml-25" readonly><%=session.getAttribute("error")%></textarea> <br>
 			            <%
 			            
 			            /*And here if it is sent the submit, and the value of the session variable 
 			            is null, that means that the character was deleted, so I show the success message*/
 			            }else if(request.getParameter("submit") != null && session.getAttribute("error") == null){%>
-			            	<textarea class="textAreaInfoSuccesfull ml-25" readonly>Character deleted successfully!</textarea>
+			            	<textarea class="textAreaInfoSuccesfull ml-25" readonly>Character deleted successfully!</textarea> <br>
 			            
 			            <%}
 			            %>
@@ -82,21 +86,20 @@
 			            
 			            
 			            <!-- All of the buttons -->
-			            <div class="d-grid">
 			            	
 			            	<!--  This button is the one that will appear at first, telling you if you are sure of deleting the character.
 			            	When pressed, it will appear the red "Confirm" button, and the "Undo" one. -->
 			            	<% if ((request.getParameter("delete") == null) && (request.getParameter("submit") == null) && (session.getAttribute("error") == null)) { %>
-			            		<button class="btn btn-primary btn-lg" id="submitButton" type="submit" name="delete"> Are you sure you want to delete it?</button>
+			            		<button class="btn btn-danger" id="submitButton" type="submit" name="delete"> Are you sure you want to delete it?</button>
 			            	
 				            
 				            <!-- The buttons "Confirm" and "Undo" will appear after the first one, and when "Confirm" is pressed to delete
 			            	the character, it will disappear because this 'if' detects if the "Are you sure" button is pressed because it has
 			            	the "submit" value in it. The "Undo" button will send you back to the infoCharacter.jsp page -->	
 			            	<%} else if (request.getParameter("delete") != null) { %>
-			            		<button class="btn btn-danger btn-lg" id="submitButton" type="submit" name="submit">Confirm</button>
+			            		<button class="btn btn-danger " id="submitButton" type="submit" name="submit">Confirm</button>
 				        	    <a href="./infoCharacter.jsp?characterName=<%=request.getParameter("characterName")%>"> 
-				        	    	<button class="btn btn-primary btn-lg" id="submitButton" type="button" name="undo">Undo</button>
+				        	    	<button class="btn btn-primary " id="submitButton" type="button" name="undo">Undo</button>
 				        	    </a>
 				            	
 				            
@@ -105,18 +108,14 @@
 							appear-->
 			            	<%} else if (request.getParameter("submit") != null) {
 			            		DbRepository.deleteEntity(c);%>
-				           		<a href="./listCharacters.jsp"><button class="btn btn-primary btn-lg" id="submitButton" type="button">Return to list</button></a>
+				           		<a href="./listCharacters.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return to list</button></a>
 			            	<%}else if(session.getAttribute("error") != null){%>
-        					    <a href="./listCharacters.jsp"><button class="btn btn-primary btn-lg" id="submitButton" type="button">Return to list</button></a>
+        					    <a href="./listCharacters.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return to list</button></a>
 		            		<%}session.removeAttribute("error"); /*When all of this happens, I set the error value null to reset it if another error occurs when the form is sent again*/
 		            		%>
-			            	
-			            	
-			       
 							
-			            </div>
 			          </form>
-			          <!-- End of contact form -->
+
 			        </div>
 			      </div>
 			    </div>

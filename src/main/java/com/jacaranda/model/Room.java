@@ -2,6 +2,8 @@ package com.jacaranda.model;
 
 import java.util.Objects;
 
+import com.jacaranda.exception.RoomException;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -34,11 +36,11 @@ public class Room {
 
 
 
-	public Room(Cinema cinema, int roomNumber, int capacity) {
+	public Room(Cinema cinema, int roomNumber, int capacity) throws RoomException {
 		super();
 		this.cinema = cinema;
 		this.roomNumber = roomNumber;
-		this.capacity = capacity;
+		setCapacity(capacity);
 	}
 
 
@@ -76,8 +78,9 @@ public class Room {
 
 
 
-	public void setCapacity(int capacity) {
-		this.capacity = capacity;
+	public void setCapacity(int capacity) throws RoomException {
+		if(capacity < 1) throw new RoomException("Capacidad de la sala no valida");
+		this.capacity = capacity;			
 	}
 	
 	
@@ -102,4 +105,13 @@ public class Room {
 		Room other = (Room) obj;
 		return capacity == other.capacity && Objects.equals(cinema, other.cinema);
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "Room [cinema=" + cinema.getCinema() + ", roomNumber=" + roomNumber + ", capacity=" + capacity + "]";
+	}
+	
+	
 }
