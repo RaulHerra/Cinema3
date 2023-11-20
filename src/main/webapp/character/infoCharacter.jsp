@@ -90,7 +90,6 @@
 				  <% }session.removeAttribute("error");%>
 				  
 			    </form><br>
-			    <%} %>
 			    <form method="post" action="./characterFilms.jsp"><button class="btn btn-primary btn-lg" id="submitButton" value="<%=c.getCharacterName()%>" name="characterFilms">See Filmography</button></form>
 			</div>
 	      </div>

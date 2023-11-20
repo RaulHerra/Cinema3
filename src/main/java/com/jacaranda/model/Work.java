@@ -23,6 +23,7 @@ public class Work {
 	private Film film;
 
 	@Id
+	@ManyToOne
 	@JoinColumn(name="tarea")
 	private Task task;
 	
@@ -30,10 +31,11 @@ public class Work {
 		super();
 	}
 
-	public Work(Character character, Film film) {
+	public Work(Character character, Film film, Task task) {
 		super();
 		this.character = character;
 		this.film = film;
+		this.task = task;
 	}
 
 	public Character getCharacter() {

@@ -28,6 +28,9 @@ public class Task {
 	@Column(name="sexo_tarea")
 	private String sex;
 	
+	@OneToMany(mappedBy="task")
+	private List<Work>tasks;
+	
 	//Constructores
 	public Task(String task, String sex) throws TaskException {
 		super();

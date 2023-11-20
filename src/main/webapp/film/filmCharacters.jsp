@@ -3,8 +3,7 @@
 <%@ page import="com.jacaranda.model.Work" %>
 <%@ page import="com.jacaranda.model.Film" %>
 <%@ page import="java.util.*" %>
-<%@ page import="com.jacaranda.repository.CharacterRepository" %>
-<%@ page import="com.jacaranda.repository.FilmRepository" %>
+<%@ page import="com.jacaranda.repository.DbRepository" %>
 <%@ page import="org.hibernate.Hibernate" %>
 <!DOCTYPE html>
 <html>
@@ -59,7 +58,7 @@
 	Film f = null;
 	
 	try{
-		f = FilmRepository.getFilm(request.getParameter("filmCharacters"));
+		f = DbRepository.find(Film.class, request.getParameter("filmCharacters"));
 	}catch(Exception e){
 		session.setAttribute("error", "Error: the character that you selected doesn't exist");
 		return;
@@ -87,7 +86,7 @@
 				<tr>
 				
 					<td scope="col"><%=w.getCharacter().getCharacterName() %></td>
-					<td scope="col"><%=w.getTask()%></td>
+					<td scope="col"><%=w.getTask().getTask()%></td>
 				
 				</tr>
 				
