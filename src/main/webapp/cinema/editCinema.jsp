@@ -49,17 +49,17 @@
 					<%if(cinema != null){ %>
 			          <form>
 		            	<div class=" mb-3">
-			   				<label for="exampleInputEmail1" class="form-label">Cinema</label>
+			   				<label for="cinema" class="form-label">Cinema</label>
 			   				<input type="text" class="form-control" id="cinema" name="cinema" value="<%=cinema.getCinema()%>" required readonly>
 			           </div>
 			
 			           <div class=" mb-3">
-			           		<label for="exampleInputEmail1" class="form-label">Cinema city</label>
+			           		<label for="cinemaCity" class="form-label">Cinema city</label>
 			   				<input type="text" class="form-control" id="cinemaCity" name="cinemaCity" value="<%=cinema.getCityCinema()%>" required>
 			           </div>
 			
 			           <div class=" mb-3">
-							<label for="exampleInputEmail1" class="form-label">Cinema address</label>
+							<label for="cinemaAddress" class="form-label">Cinema address</label>
 			   				<input type="text" step="1" class="form-control" id="cinemaAddress" name="cinemaAddress" value="<%=cinema.getAddressCinema()%>" required>
 			           </div>
 			            <%}%>
@@ -67,14 +67,12 @@
 			           	/*Cuando el valor de la sessión no se nulo es que se ha producido un error entonces muestro
 			           	el textarea que tengo abajo con el valor de la sesión que será el mensaje de error correspondiente*/
 			            if(session.getAttribute("error") != null){%>
-			            	<textarea class="textAreaInfoError ml-25" readonly><%=session.getAttribute("error")%></textarea>
-			            	<div class="d-grid">
+			            	<div class="textAreaInfoError " ><%=session.getAttribute("error")%></div>
 			            		<a href="listCinemas.jsp"><button class="btn btn-primary " id="submitButton" type="button">Retry</button></a>
-			            	</div>
 			            <%/*Y aqui si se ha enviado el edit y en valor de la session es nulo significa que se ha editado correctamente, entoces muestro
 			            el mensaje de éxito*/
 			            }else if(request.getParameter("edit") != null && session.getAttribute("error") == null){%>
-			            	<textarea class="textAreaInfoSuccesfull ml-25" readonly>Cinema edited successfully!</textarea> <br>
+			            	<div class="textAreaInfoSuccesfull " >Cinema edited successfully!</div> 
 			            <%} /*Cuando pase todo esto dejo el error en nulo para que se reinicie por si ocurre otro error cuando envíe de nuevo el formulario */
 			            %>
 			           

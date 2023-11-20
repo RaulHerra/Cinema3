@@ -6,18 +6,16 @@
 	<session-factory>
 	
 		<property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/Peliculas?useSSL=false</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/peliculas?useSSL=false</property>
 		<property name="hibernate.connection.username">jacaranda</property>
 		<property name="hibernate.connection.password">jacaranda</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 		<property name="hibernate.show_sql">true</property>
 		<property name="hibernate.format_sql">true</property>
-
 		<mapping class="com.jacaranda.model.Task"/>
 		<mapping class="com.jacaranda.model.Character"/>
 		<mapping class="com.jacaranda.model.Film"/>
 		<mapping class="com.jacaranda.model.Work"/>
-		
 		<mapping class="com.jacaranda.model.Cinema"/>
 		<mapping class="com.jacaranda.model.Room"/>
 	</session-factory>

@@ -90,25 +90,17 @@
 			            
 
 			            <!-- Submit button -->
-			            <div class="d-grid">
-			              	<button class="btn btn-primary btn-lg" id="submitButton" value="edit" type="submit" name="edit">Edit</button>
-			              	<button class="btn btn-primary btn-lg" id="submitButton" value="delete" type="submit" name="delete">Delete</button>
-			            </div>
-			          </form><br>
-			          <form method="post" action="./filmCharacters.jsp"><button class="btn btn-primary btn-lg" id="submitButton" name="filmCharacters" value="<%=f.getCip()%>">See the repart</button></form> 
+			              	<button class="btn btn-warning " id="submitButton" value="edit" type="submit" name="edit">Edit</button>
+			              	<button class="btn btn-danger " id="submitButton" value="delete" type="submit" name="delete">Delete</button>
+			          </form>
 			          <%}%>
 			          <%
-				           	/*Cuando el valor de la sessi�n no se nulo es que se ha producido un error entonces muestro
-				           	el textarea que tengo abajo con el valor de la sesi�n que ser� el mensaje de error correspondiente*/
-				      		if(session.getAttribute("error") != null){
-			      	   %>
-			            	<textarea class="textAreaInfoError ml-25" readonly><%=session.getAttribute("error")%></textarea>
-			            	<a href="./listFilms.jsp"><button class="btn btn-primary btn-lg" id="submitButton" type="button">Return list</button></a>
-			       		<%}
-			          
-			          		session.removeAttribute("error");
-			          		
-			          	%>
+			           	/*Cuando el valor de la sessi�n no se nulo es que se ha producido un error entonces muestro
+			           	el textarea que tengo abajo con el valor de la sesi�n que ser� el mensaje de error correspondiente*/
+			      		if(session.getAttribute("error") != null){%>
+			            	<div class="textAreaInfoError" ><%=session.getAttribute("error")%></div>
+			            	<a href="./listFilms.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
+			       		<%}session.removeAttribute("error");%>
 			          <!-- End of contact form -->
 			        </div>
 			      </div>

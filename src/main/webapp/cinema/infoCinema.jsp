@@ -39,17 +39,17 @@
 			          <form>
 			          <%if(c != null){ %>
 			            <div class=" mb-3">
-			    			<label for="exampleInputEmail1" class="form-label">Cinema</label>
+			    			<label for="cinema" class="form-label">Cinema</label>
 			    			<input type="text" class="form-control" id="cinema" name="cinema" value='<%=c.getCinema()%>'readonly required>
 			            </div>
 			
 			            <div class=" mb-3">
-			                <label for="exampleInputEmail1" class="form-label">Cinema city</label>
+			                <label for="cinemaCity" class="form-label">Cinema city</label>
 			    			<input type="text" class="form-control" id="cinemaCity" name="cinemaCity" value="<%=c.getCityCinema()%>" readonly required>
 			            </div>
 			
 			            <div class=" mb-3">
-							<label for="exampleInputEmail1" class="form-label">Cinema address</label>
+							<label for="cinemaAddress" class="form-label">Cinema address</label>
 			    			<input type="text" step="1" class="form-control" id="cinemaAddress" name="cinemaAddress" value="<%=c.getAddressCinema()%>" readonly required>
 			            </div>
 			            
@@ -61,7 +61,7 @@
 			          <%}%>
 			          <%
 			      		if(session.getAttribute("error") != null){%>
-			            	<textarea class="textAreaInfoError ml-25" readonly><%=session.getAttribute("error")%></textarea><br>
+			            	<div class="textAreaInfoError " ><%=session.getAttribute("error")%></div><br>
 			            	<a href="./listCinemas.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
 			       		<%}session.removeAttribute("error");%>
 			          <!-- End of contact form -->

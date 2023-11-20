@@ -52,34 +52,34 @@
 	
 	          <form method="get">
 		           <div class=" mb-3">
-		   			<label for="exampleInputEmail1" class="form-label">Cinema</label>
+		   			<label for="cinema" class="form-label">Cinema</label>
 		   			<input type="text" class="form-control" id="cinema" name="cinema" placeholder="Enter cinema name" required>
 		           </div>
 		
 		           <div class=" mb-3">
-		               <label for="exampleInputEmail1" class="form-label">Cinema city</label>
+		               <label for="cinemaCity" class="form-label">Cinema city</label>
 		   			<input type="text" class="form-control" id="cinemaCity" name="cinemaCity" placeholder="Enter cinema city" required>
 		           </div>
 		
 		           <div class=" mb-3">
-					<label for="exampleInputEmail1" class="form-label">Cinema address</label>
+					<label for="cinemaAddress" class="form-label">Cinema address</label>
 		   			<input type="text" step="1" class="form-control" id="cinemaAddress" name="cinemaAddress" placeholder="Enter cinema address" required>
 		           </div>
-	            <%
-	            if(session.getAttribute("error") != null){%>
-	            	<textarea class="textAreaInfoError ml-25" readonly><%=session.getAttribute("error")%></textarea>
-	            <%
-	            }else if(request.getParameter("submit") != null && session.getAttribute("error") == null){%>
-	            	<textarea class="textAreaInfoSuccesfull ml-25" readonly>Cinema created successfully!</textarea>
-	            <%} 
-	            %>
+		            <%
+		            if(session.getAttribute("error") != null){%>
+		            	<div class="textAreaInfoError " ><%=session.getAttribute("error")%></div>
+		            <%
+		            }else if(request.getParameter("submit") != null && session.getAttribute("error") == null){%>
+		            	<div class="textAreaInfoSuccesfull " >Cinema created successfully!</div>
+		            <%} 
+		            %>
 	            <!-- Submit button -->
-	            <div class="d-grid">
+	  
 	              	<button class="btn btn-success " id="submitButton" type="submit" name="submit">Save</button>
 	              	<%if(request.getParameter("submit") != null && session.getAttribute("error") == null){%>
 				     	<a href="infoCinema.jsp?cinema=<%=request.getParameter("cinema")%>"><button class="btn btn-primary" id="submitButton" type="button">Show cinema</button></a>
 	              	<%}session.removeAttribute("error");%>
-	            </div>
+
 	          </form>
 	          <!-- End of contact form -->
 	        </div>
