@@ -40,6 +40,13 @@
 		        <a class="nav-link text-white" href="/CinemaTeam/task/listTasks.jsp">List tasks</a>
 		      </li>
 		      
+		      <li class="nav-item">
+		        <a class="nav-link text-white" href="/CinemaTeam/cinema/listCinemas.jsp">List cinemas</a>
+		      </li>
+		      
+		      <li class="nav-item">
+		        <a class="nav-link text-white" href="/CinemaTeam/cinema/addCinema.jsp">Add cinema</a>
+		      </li>
 		    </ul>
 		    
 		  </div>
