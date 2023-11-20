@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Delete Film</title>
+<title>Delete Cinema</title>
 <!-- ======= LINKS BOOTSTRAP ======= -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
@@ -16,14 +16,11 @@
 <body>
 	<%@include file="../nav.jsp"%>	
 	<%	
-		/*Creo una pelicula nula*/
 		Cinema cinema = null; 
 		try{
-			/*Si existe la pelicula que he recogio con el parametro cip que viene de la pagina de info*/
 			if(DbRepository.find(Cinema.class, request.getParameter("cinema")) != null){
-				/*Recupero la pelicula que tiene el cip introducido*/
 				cinema = DbRepository.find(Cinema.class, request.getParameter("cinema"));
-			}else{//Si no hay peliculas con el cip que he recogido le asigno a la session el mensaje de error
+			}else{
 				session.setAttribute("error", "Error there is no cinema with the name entered");
 			}
 		}catch(Exception e){
@@ -40,7 +37,7 @@
 			          </div>
 					
 			          <form>
-			          <%if(cinema != null){ /*Coloco este if aqui para que cuando tenga unas pelicula me lo muestre*/ %>
+			          <%if(cinema != null){%>
 				           <div class=" mb-3">
 				   				<label for="exampleInputEmail1" class="form-label">Cinema</label>
 				   				<input type="text" class="form-control" id="cinema" name="cinema" value="<%=cinema.getCinema()%>" required readonly>
@@ -76,7 +73,7 @@
 								<button class="btn btn-danger" id="submitButton" type="submit" name="submit">Confirm</button>
 				            	<a href="./infoCinema.jsp?cinema=<%=request.getParameter("cinema")%>"><button class="btn btn-primary  " id="submitButton" type="button" name="undo">Undo</button></a>
 							<%}else if(session.getAttribute("error") != null){%>
-								<a href="./listCinemas.jsp"><button class="btn btn-primary" id="submitButton" type="button">Return list</button></a>
+								<a href="./listCinemas.jsp"><button class="btn btn-primary" id="submitButton" type="button">Rety</button></a>
 							<%}%>
 							
 							<%if(request.getParameter("submit") != null){

@@ -14,6 +14,11 @@ import jakarta.persistence.Table;
 @Entity
 @Table (name ="Cine")
 public class Cinema {
+	
+	private static final int MAX_LENGTH_ADDRESS_CINEMA = 65;
+	private static final int MAX_LENGTH_CITY_CINEMA = 25;
+	private static final int MAX_LENGTH_CINEMA = 25;
+
 	@Id
 	@Column(name = "cine")
 	private String cinema;
@@ -43,8 +48,8 @@ public class Cinema {
 	}
 
 	public void setCinema(String cinema) throws CinemaException {
-		if(cinema.length() > 25) {
-			throw new CinemaException("The length of the cinema name must be less than 25 characters");
+		if(cinema == null || cinema.length() > MAX_LENGTH_CINEMA) {
+			throw new CinemaException("The length of the cinema name must be less than 25 characters and cannot be empty");
 		}
 		this.cinema = cinema;			
 	}
@@ -54,8 +59,8 @@ public class Cinema {
 	}
 
 	public void setCityCinema(String cityCinema) throws CinemaException {
-		if(cityCinema.length() > 25) {
-			throw new CinemaException("The length of the movie city must be less than 25 characters");
+		if(cityCinema == null || cityCinema.length() > MAX_LENGTH_CITY_CINEMA) {
+			throw new CinemaException("The length of the movie city must be less than 25 characters and cannot be empty");
 		}
 		this.cityCinema = cityCinema;
 	}
@@ -65,8 +70,8 @@ public class Cinema {
 	}
 
 	public void setAddressCinema(String addressCinema) throws CinemaException {
-		if(addressCinema.length() > 65) {
-			throw new CinemaException("The length of the cinema address must be less than 65 characters");
+		if(addressCinema == null || addressCinema.length() > MAX_LENGTH_ADDRESS_CINEMA) {
+			throw new CinemaException("The length of the cinema address must be less than 65 characters and cannot be empty");
 		}
 		this.addressCinema = addressCinema;
 	}

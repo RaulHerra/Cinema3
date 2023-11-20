@@ -46,7 +46,7 @@ public class DbRepository {
 		return resultList;
 	}
 	
-	public static <T> void addEntity(T t){
+	public static <T> void addEntity(T t) throws Exception{
 		Transaction transaction = null; 
 		Session session = BdUtil.getSessionFactory().openSession();
 
@@ -56,6 +56,7 @@ public class DbRepository {
 			transaction.commit();
 		}catch (Exception e) {
 			transaction.rollback();
+			throw new Exception(e);
 		}
 		session.close();
 	}
