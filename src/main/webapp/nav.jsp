@@ -40,6 +40,9 @@
 		        <a class="nav-link text-white" href="/CinemaTeam/task/listTasks.jsp">List tasks</a>
 		      </li>
 		      
+		      <li class="nav-item">
+		        <a class="nav-link text-white" href="/CinemaTeam/cinema/listCinemas.jsp">List cinemas</a>
+		      </li>
 		    </ul>
 		    
 		  </div>
