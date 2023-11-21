@@ -123,4 +123,5 @@ public class Projection {
 		return "Projection [room=" + room + ", cip=" + cip + ", premiere_date=" + premiere_date
 				+ ", premiere_days=" + premiere_days + ", spectators=" + spectators + ", income=" + income + "]";
 	}
+	
 }

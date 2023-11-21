@@ -53,7 +53,7 @@
 		      </li>
 		      
 		      <li class="nav-item">
-		        <a class="nav-link text-white" href="/CinemaTeam/cinema/listProjections.jsp">List projections</a>
+		        <a class="nav-link text-white" href="/CinemaTeam/Projection/listProjections.jsp">List Projections</a>
 		      </li>
 		    </ul>
 		    
