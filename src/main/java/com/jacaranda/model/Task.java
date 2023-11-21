@@ -9,7 +9,6 @@ import com.jacaranda.exception.TaskException;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -28,7 +27,7 @@ public class Task {
 	@Column(name="sexo_tarea")
 	private String sex;
 	
-	@OneToMany(fetch = FetchType.EAGER,mappedBy="task")
+	@OneToMany(mappedBy="task")
 	private List<Work>tasks;
 	
 	//Constructores
