@@ -7,15 +7,16 @@ import org.hibernate.Transaction;
 import org.hibernate.query.SelectionQuery;
 
 import com.jacaranda.model.Film;
+import com.jacaranda.model.Projection;
 import com.jacaranda.model.Room;
 import com.jacaranda.model.Work;
 import com.jacaranda.util.BdUtil;
 
 public class RoomRepository extends DbRepository {
 
-	public static ArrayList<Proyection> getProyection(Room room) throws Exception{
+	public static ArrayList<Projection> getProyections(Room room) throws Exception{
 
-		ArrayList<Room> listRoom = null;
+		ArrayList<Projection> listProjections = null;
 
 		Session session = null;
 
@@ -25,14 +26,14 @@ public class RoomRepository extends DbRepository {
 
 			
 
-			SelectionQuery<Room> queryRoom = (SelectionQuery<Room>)
+			SelectionQuery<Projection> queryProjection = (SelectionQuery<Projection>)
 
-					session.createNativeQuery("select * from Proyeccion where cine = :cine and sala = :sala",Proyection.class);
+					session.createNativeQuery("select * from Proyeccion where cine = :cine and sala = :sala",Projection.class);
 
-			queryRoom.setParameter("cine", room.getCinema().getCinema());
-			queryRoom.setParameter("sala", room.getRoomNumber());
+			queryProjection.setParameter("cine", room.getCinema().getCinema());
+			queryProjection.setParameter("sala", room.getRoomNumber());
 
-			listRoom = (ArrayList<Room>) queryRoom.getResultList();
+			listProjections = (ArrayList<Projection>) queryProjection.getResultList();
 
  		}catch (Exception e) {
 
@@ -44,7 +45,7 @@ public class RoomRepository extends DbRepository {
 
 		session.close();
 
-		return listRoom;
+		return listProjections;
 
 	}
 
@@ -70,12 +71,12 @@ public class RoomRepository extends DbRepository {
 		transaction = session.beginTransaction();
 		try {
 
-			ArrayList<Proyection> rooms = getProyection(room);
+			ArrayList<Projection> projections = room.getProjections();
 
-			for(Proyection proyection : rooms) {
+			for(Projection projection : projections) {
 				//Pq asi en ñugar de hacer una sql directamente
 
-				session.remove(proyection);
+				session.remove(projection);
 
 			}
 			
