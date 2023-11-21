@@ -17,11 +17,11 @@
 	<%@include file="../nav.jsp"%>
 	<%		
 		Cinema c = null; 
+		String error = null;
 		try{
-			if(DbRepository.find(Cinema.class, request.getParameter("cinema")) != null){
-				c = DbRepository.find(Cinema.class, request.getParameter("cinema"));
-			}else{
-				session.setAttribute("error", "Error there is no cinema with that name");
+			c = DbRepository.find(Cinema.class, request.getParameter("cinema"));
+			if(c == null){
+				error = "Error there is no cinema with that name";
 			}
 		}catch(Exception e){
 			response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
@@ -60,10 +60,10 @@
 			          </form>
 			          <%}%>
 			          <%
-			      		if(session.getAttribute("error") != null){%>
-			            	<div class="textAreaInfoError " ><%=session.getAttribute("error")%></div><br>
+			      		if(error != null){%>
+			            	<div class="textAreaInfoError " ><%=error%></div><br>
 			            	<a href="./listCinemas.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
-			       		<%}session.removeAttribute("error");%>
+			       		<%}%>
 			          <!-- End of contact form -->
 			        </div>
 			      </div>
@@ -73,7 +73,6 @@
 		<%
 		
 			if(request.getParameter("edit") != null){
-
 				response.sendRedirect("editCinema.jsp?cinema="+c.getCinema());
 			}else if(request.getParameter("delete") != null){
 				response.sendRedirect("deleteCinema.jsp?cinema="+c.getCinema());

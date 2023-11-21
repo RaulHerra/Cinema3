@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 import com.jacaranda.exception.CinemaException;
+import com.jacaranda.repository.CinemaRepository;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -98,8 +99,8 @@ public class Cinema {
 		return "Cinema [cinema=" + cinema + ", cityCinema=" + cityCinema + ", addressCinema=" + addressCinema + "]";
 	}
 
-	public List<Room> getRooms() {
-		return rooms;
+	public List<Room> getRooms() throws Exception {
+		return CinemaRepository.getRooms(cinema);
 	}
 
 	public void setRooms(List<Room> rooms) {

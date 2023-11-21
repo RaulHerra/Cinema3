@@ -25,19 +25,19 @@
 <%
 
 	Character c = null;
-	
+	String error = null;
 	try{
 		if (request.getParameter("characterName") != null){
 				
 			c = DbRepository.find(Character.class, request.getParameter("characterName"));
 	
 			if(c==null){
-				session.setAttribute("error", "Error: the character that you selected doesn't exist");
+				error = "Error: the character that you selected doesn't exist";
 			}
 			
 			
 		}else{
-			session.setAttribute("error", "Error: character not found in the uri");
+			error = "Error: character not found in the uri";
 
 		}
 			
@@ -83,16 +83,16 @@
 					    <button class="btn btn-warning" id="submitButton" value="edit" type="submit" name="edit">Edit</button>
 			            <button class="btn btn-danger" id="submitButton" value="delete" type="submit" name="delete">Delete</button>
 				  
-				  <% if (session.getAttribute("error") != null) {%>
-					  <div class="textAreaInfoError" > <%= session.getAttribute("error") %> </div>
-					  <a href="./listCharacters.jsp"> <button class="btn btn-primary " id="submitButton" type="button"> Return list </button></a>
-				  <% }session.removeAttribute("error");%>
 				  
-			    </form><br>
+			    </form>
 			    <%} %>
-				<% if (c != null) { %>
-				    <form method="post" action="./characterFilms.jsp"><button class="btn btn-primary " id="submitButton" value="<%=c.getCharacterName()%>" name="characterFilms">See Filmography</button></form>
-				<%} %>
+			  <% if (error != null) {%>
+				  <div class="textAreaInfoError" > <%=error%> </div>
+				  <a href="./listCharacters.jsp"> <button class="btn btn-primary " id="submitButton" type="button"> Return list </button></a>
+			  <% }%>
+			<% if (c != null) { %>
+			    <form method="get" action="./characterFilms.jsp"><button class="btn btn-primary " id="submitButton" value="<%=c.getCharacterName()%>" name="characterFilms">See Filmography</button></form>
+			<%} %>
 			</div>
 	      </div>
 	    </div>

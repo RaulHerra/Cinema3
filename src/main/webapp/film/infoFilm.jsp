@@ -19,15 +19,16 @@
 	<%@include file="../nav.jsp"%>
 	<%		
 		Film f = null; 
+	String error = null;
 		try{
 			
 			if( request.getParameter("cip") != null){
 				f = DbRepository.find(Film.class, request.getParameter("cip"));
 				if(f == null){
-					session.setAttribute("error", "Error there is no task with the cip entered");
+					error = "Error there is no task with the cip entered";
 				}
 			}else{
-				session.setAttribute("error", "Not cip found in the uri");
+				error = "Not cip found in the uri";
 
 			}
 		}catch(Exception e){
@@ -95,15 +96,15 @@
 				          <%
 				           	/*Cuando el valor de la sessi�n no se nulo es que se ha producido un error entonces muestro
 				           	el textarea que tengo abajo con el valor de la sesi�n que ser� el mensaje de error correspondiente*/
-				      		if(session.getAttribute("error") != null){%>
-				            	<div class="textAreaInfoError" ><%=session.getAttribute("error")%></div>
+				      		if(error!= null){%>
+				            	<div class="textAreaInfoError" ><%=error%></div>
 				            	<a href="./listFilms.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
-				       		<%}session.removeAttribute("error");%>
+				       		<%}%>
 				          <!-- End of contact form -->
 			          </form>
 			          <%}%>
 			          <% if (f != null) { %>
-				    	<form method="post" action="./filmCharacters.jsp"><button class="btn btn-primary " id="submitButton" value="<%=f.getCip()%>" name="filmCharacters">See Filmography</button></form>
+				    	<form method="get" action="./filmCharacters.jsp"><button class="btn btn-primary " id="submitButton" value="<%=f.getCip()%>" name="filmCharacters">See Filmography</button></form>
 					  <%} %>
 			        </div>
 			      </div>

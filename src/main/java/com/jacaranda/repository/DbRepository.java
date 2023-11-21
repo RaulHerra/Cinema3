@@ -92,9 +92,9 @@ public class DbRepository {
 	}
 	
 	
-	public static <T> T find(Class<T> objectClass, Object id) throws Exception {
+	public static <T> T find(Class<T> objectClass, Object object) throws Exception {
 		Session session;
-		T result;
+		T result = null;
 		try {
 			session = BdUtil.getSessionFactory().openSession();
 		} catch (Exception e) {
@@ -102,7 +102,7 @@ public class DbRepository {
 		}
 
 		try {
-			result = session.find(objectClass, id);
+			result = session.find(objectClass, object);
 		} catch (Exception e) {
 			throw new Exception("Error al obtener la entidad");
 
@@ -110,5 +110,6 @@ public class DbRepository {
 		session.close();
 		return result;
 	}
+	
 
 }

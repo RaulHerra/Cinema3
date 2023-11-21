@@ -22,15 +22,14 @@
 <%
 	
 	Film f = null;
-	
+	String error = null;
 	try{
 		if(request.getParameter("filmCharacters") == null){
-			session.setAttribute("error", "Error: character not found in uri");
+			error = "Error: character not found in uri";
 		}else{
-			f =  DbRepository.find(Film.class, request.getParameter("filmCharacters"));
+			f = DbRepository.find(Film.class, request.getParameter("filmCharacters"));
 			if(f == null){
-				session.setAttribute("error", "Error: the selected character doesn't exist");
-		
+				error = "Error: the selected character doesn't exist";		
 			}
 		}
 	}catch(Exception e){
@@ -41,7 +40,7 @@
 %>
 
 	<table class="table">
-		<% if(f != null) %>
+		<% if(f != null){ %>
 		<thead>
 		
 			<tr>
@@ -69,5 +68,10 @@
 		</tbody>
 	
 	</table>
+	<%}else if(error != null){%>
+		<br>
+    	<div class="textAreaInfoError" ><%=error%></div>
+       	<a href="./listFilms.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
+	<%}%>
 </body>
 </html>

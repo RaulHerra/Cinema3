@@ -43,6 +43,7 @@ public class FilmRepository extends DbRepository{
 
 		session.close();
 
+
 		return listWorks;
 
 	}
@@ -91,6 +92,7 @@ public class FilmRepository extends DbRepository{
 			throw new Exception("Error al borrar el objeto " + e.getMessage());
 
 		}
+		session.close();
 
 	}
 }

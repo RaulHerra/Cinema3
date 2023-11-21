@@ -18,9 +18,10 @@
 		<%@include file="../nav.jsp"%>
 		<%
 		Cinema cinema = null;
+		String error = null;
 		try{
-			if(DbRepository.find(Cinema.class, request.getParameter("cinema")) != null){
-				cinema = DbRepository.find(Cinema.class, request.getParameter("cinema"));
+			cinema = DbRepository.find(Cinema.class, request.getParameter("cinema"));
+			if(cinema != null){
 				if(request.getParameter("edit") != null){
 					try{
 						cinema = new Cinema(request.getParameter("cinema")
@@ -28,11 +29,11 @@
 								,request.getParameter("cinemaAddress"));
 						DbRepository.editEntity(cinema);
 					}catch(CinemaException e){
-						session.setAttribute("error", e.getMessage());
+						error = e.getMessage();
 					}
 				}
 			}else{
-				session.setAttribute("error", "Error there is no movie with the cip entered");
+				error = "Error there is no movie with the cip entered";
 			}
 		}catch(Exception e){
 			response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
@@ -66,22 +67,22 @@
 			            <%
 			           	/*Cuando el valor de la sessión no se nulo es que se ha producido un error entonces muestro
 			           	el textarea que tengo abajo con el valor de la sesión que será el mensaje de error correspondiente*/
-			            if(session.getAttribute("error") != null){%>
-			            	<div class="textAreaInfoError " ><%=session.getAttribute("error")%></div>
-			            		<a href="listCinemas.jsp"><button class="btn btn-primary " id="submitButton" type="button">Retry</button></a>
+			            if(error != null){%>
+			            	<div class="textAreaInfoError " ><%=error%></div>
+			            	<a href="listCinemas.jsp"><button class="btn btn-primary " id="submitButton" type="button">Retry</button></a>
 			            <%/*Y aqui si se ha enviado el edit y en valor de la session es nulo significa que se ha editado correctamente, entoces muestro
 			            el mensaje de éxito*/
-			            }else if(request.getParameter("edit") != null && session.getAttribute("error") == null){%>
+			            }else if(request.getParameter("edit") != null && error == null){%>
 			            	<div class="textAreaInfoSuccesfull " >Cinema edited successfully!</div> 
 			            <%} /*Cuando pase todo esto dejo el error en nulo para que se reinicie por si ocurre otro error cuando envíe de nuevo el formulario */
 			            %>
 			           
 			            <!-- Submit button -->
-			             	<%if(request.getParameter("edit") == null && session.getAttribute("error") == null){ /*Esto lo hago para que cuando pulse confirm se oculte el confirm ya que no será nulo*/%>
+			             	<%if(request.getParameter("edit") == null && error == null){ /*Esto lo hago para que cuando pulse confirm se oculte el confirm ya que no será nulo*/%>
 			             		<button class="btn btn-danger " id="submitButton" value="edit" type="submit" name="edit">Confirm</button>
-					     	<%}else if(request.getParameter("edit") != null && session.getAttribute("error") == null){ %>
+					     	<%}else if(request.getParameter("edit") != null && error == null){ %>
 					     		<a href="infoCinema.jsp?cinema=<%=request.getParameter("cinema")%>"><button class="btn btn-primary " id="submitButton" type="button">Show Cinema</button></a>
-			            	<%}session.removeAttribute("error");%>
+			            	<%}%>
 			          </form>
 			          <!-- End of contact form -->
 			        </div>

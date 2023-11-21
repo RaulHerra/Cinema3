@@ -25,7 +25,7 @@
 	List<Task>tasks = null;
 	
 	Work w = null;
-	
+	String error = null;
 	try{
 		
 		films = DbRepository.findAll(Film.class);
@@ -41,13 +41,15 @@
 			Task task = DbRepository.find(Task.class, request.getParameter("task"));
 			
 			if(film==null  || character==null || task==null){
-				session.setAttribute("error", "No puede haber valores nulos");
+				error = "Enter a valid movie, character or task.";
 			}else{
 				w = new Work(character,film,task);
 			}
 			
-			
-			DbRepository.addEntity(w);
+			if(DbRepository.find(Work.class, w) != null) error = "Error: the character with the entered task already exists.";
+			else{
+				DbRepository.addEntity(w);				
+			}
 			
 		}
 		
@@ -69,8 +71,8 @@
 					    <label for="films" class="form-label">Films</label> 
 					    <div class="mb-3">
 					      <select id="films" name="films" class="form-select" required>
+					      	<option disabled selected>-- Select the film --</option>
 					      	<%for(Film f : films){ %>
-					      		<option></option>
 					        	<option value="<%=f.getCip()%>"><%=f.getTitleP() %></option>
 					        <%} %>
 					      </select>
@@ -80,8 +82,8 @@
 					    <label for="characters" class="form-label">Characters</label> 
 					    <div class="mb-3">
 					      <select id="characters" name="characters" class="form-select" required>
+					   		<option disabled selected>-- Select character --</option>
 					        <%for(Character c : characters){ %>
-					        	<option></option>
 					        	<option value="<%=c.getCharacterName()%>"><%=c.getCharacterName() %></option>
 					        <%} %>
 					      </select>
@@ -91,8 +93,8 @@
 					    <label for="task" class="form-label">Tasks</label> 
 					    <div class="mb-3">
 					      <select id="task" name="task" class="form-select" required>
+					      	<option disabled selected>-- Select task --</option>
 					      	<%for(Task t : tasks){ %>
-					      		<option></option>
 					        	<option value="<%=t.getTask()%>"><%=t.getTask()%></option>
 					        <%} %>
 					      </select>
@@ -101,13 +103,15 @@
 			          <%
 				        /*Cuando el valor de la sessi�n no se nulo es que se ha producido un error entonces muestro
 				        el textarea que tengo abajo con el valor de la sesi�n que ser� el mensaje de error correspondiente*/
-				      	if(session.getAttribute("error") != null){%>
-				            <div class="textAreaInfoError" ><%=session.getAttribute("error")%></div>
-				       	<%}session.removeAttribute("error");%>
+				      	if(error != null){%>
+				            <div class="textAreaInfoError" ><%=error%></div>
+				       	<%}else if(request.getParameter("submit") != null && error == null){%>
+					   		<div class="textAreaInfoSuccesfull ">Work created successfully! </div>
+				       <%}%>
 				         <!-- End of contact form -->
-					  <div class="mb-3">
+				
 					      <button name="submit" type="submit" class="btn btn-success">Save</button>
-					  </div>
+	
 					</form>
 			   </div>
 			</div>

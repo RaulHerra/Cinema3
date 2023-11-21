@@ -21,7 +21,8 @@
 
 		<%
 		/*I create a new Character with null value*/
-		Character c = null; 
+		Character c = null;
+		String error = null;
 		try{
 			/*If the character with the name that I recovered from the parameter from the info page exists...*/
 			if(request.getParameter("characterName") != null 
@@ -29,8 +30,8 @@
 				/*I get the character with the name I received*/
 				c = DbRepository.find(Character.class, request.getParameter("characterName"));
 			
-			}else{//If there isn't any characters, I assign to the session variable the text of the error
-				session.setAttribute("error", "Error there is no character with the character's name entered");
+			}else{
+				error = "Error there is no character with the character's name entered";
 			}
 		}catch(Exception e){
 			response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
@@ -69,16 +70,14 @@
 			            
 			            <%}%>
 			            <%
-			            /*When the value of the session variable is null is when an error occured, so I show a textarea
-			            with the value of the session variable with the error message*/
-			            if(session.getAttribute("error") != null){%>
-			            	<div class="textAreaInfoError "><%=session.getAttribute("error")%></div>
+
+			            if(error != null){%>
+			            	<div class="textAreaInfoError "><%=error%></div>
 			            <%
 			            
-			            /*And here if it is sent the submit, and the value of the session variable 
-			            is null, that means that the character was deleted, so I show the success message*/
-			            }else if(request.getParameter("submit") != null && session.getAttribute("error") == null){%>
-			            	<div class="textAreaInfoSuccesfull " >Character deleted successfully!</div>
+
+			            }else if(request.getParameter("submit") != null && error == null){%>
+			            	<div class="textAreaInfoSuccesfull">Character deleted successfully!</div>
 			            
 			            <%}
 			            %>
@@ -87,15 +86,9 @@
 			            
 			            <!-- All of the buttons -->
 			            	
-			            	<!--  This button is the one that will appear at first, telling you if you are sure of deleting the character.
-			            	When pressed, it will appear the red "Confirm" button, and the "Undo" one. -->
-			            	<% if ((request.getParameter("delete") == null) && (request.getParameter("submit") == null) && (session.getAttribute("error") == null)) { %>
+			            	<% if ((request.getParameter("delete") == null) && (request.getParameter("submit") == null) && (error == null)) { %>
 			            		<button class="btn btn-danger" id="submitButton" type="submit" name="delete"> Are you sure you want to delete it?</button>
 			            	
-				            
-				            <!-- The buttons "Confirm" and "Undo" will appear after the first one, and when "Confirm" is pressed to delete
-			            	the character, it will disappear because this 'if' detects if the "Are you sure" button is pressed because it has
-			            	the "submit" value in it. The "Undo" button will send you back to the infoCharacter.jsp page -->	
 			            	<%} else if (request.getParameter("delete") != null) { %>
 			            		<button class="btn btn-danger " id="submitButton" type="submit" name="submit">Confirm</button>
 				        	    <a href="./infoCharacter.jsp?characterName=<%=request.getParameter("characterName")%>"> 
@@ -103,19 +96,15 @@
 				        	    </a>
 				            	
 				            
-			            	<!-- Here I delete the character with the character's name that I recovered, and it appears a "Return to list" button.
-							The "Confirm" and "Undo" buttons will disappear once "Confirm" is pressed, and the "Return to list" button will
-							appear-->
+			            	
 			            	<%} else if (request.getParameter("submit") != null) {
 			            		CharacterRepository.delete(c);%>
 				           		<a href="./listCharacters.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return to list</button></a>
-			            	<%}else if(session.getAttribute("error") != null){%>
-        					    <a href="./listCharacters.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return to list</button></a>
-		            		<%}session.removeAttribute("error"); /*When all of this happens, I set the error value null to reset it if another error occurs when the form is sent again*/
-		            		%>
+		            		<%}else if(error != null){%>
+				           		<a href="./listCharacters.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return to list</button></a>
+		            		<%}%>
 							
 			          </form>
-
 			        </div>
 			      </div>
 			    </div>

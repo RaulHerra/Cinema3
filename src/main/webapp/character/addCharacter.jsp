@@ -27,11 +27,11 @@
 	<%
 		
 		Character c = null;
-	
+		String error = null;
 		try{
 			if (request.getParameter("inputName") != null 
 					&& DbRepository.find(Character.class, request.getParameter("inputName")) != null) {
-				session.setAttribute("error", "Error: a character with that name already exists in the database");
+				error = "Error: a character with that name already exists in the database";
 				
 			}else {
 					
@@ -43,7 +43,7 @@
 						}
 							
 					}catch (CharacterException e) {
-						session.setAttribute("error", e.getMessage());
+						error = e.getMessage();
 					}
 				}
 		}catch(Exception e){
@@ -51,9 +51,6 @@
 			return;
 		}	
 	%>
-
-
-
 
 
 
@@ -103,10 +100,10 @@
 				  
 				  
 
-				  <% if (session.getAttribute("error") != null) {%>
-					   <div class="textAreaInfoError "  > <%= session.getAttribute("error") %> </div>
+				  <% if (error != null) {%>
+					   <div class="textAreaInfoError "> <%= error %> </div>
 					  
-				  <% }else if ((request.getParameter("submit") != null) && (session.getAttribute("error") == null)) {%>
+				  <% }else if ((request.getParameter("submit") != null) && (error == null)) {%>
 					   <div class="textAreaInfoSuccesfull "  > Character created successfully! </div>
 				  <% } %>
 				  
@@ -115,11 +112,11 @@
 				  	
 				  	<button class="btn btn-primary btn-success" id="submitButton" type="submit" name="submit"> Save </button>
 				  	
-				  	<% if ((request.getParameter("submit") != null) && (session.getAttribute("error") == null) && (c != null)) { %>
+				  	<% if ((request.getParameter("submit") != null) && (error == null) && (c != null)) { %>
 						<a href="infoCharacter.jsp?characterName=<%=c.getCharacterName()%> "> 
 							<button class="btn btn-primary" id="submitButton" type="button"> Show character </button> 
 						</a>
-				  <%} session.setAttribute("error", null);%>
+				  <%}%>
 				  
 				  
 			    </form>

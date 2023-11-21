@@ -23,6 +23,7 @@
 	<% 
 	List<Room> result = null;
 	String cinemaId = null;
+	String error = null;
 	try{		
 		Cinema tmpCinema = (Cinema)DbRepository.find(Cinema.class, cinemaId);
 		result = tmpCinema.getRooms();
@@ -32,7 +33,9 @@
 			
 			cinemaId = request.getParameter("cinema");
 			
-		}catch(Exception e){}
+		}catch(Exception e){
+			
+		}
 		
 		
 	}catch(Exception e){

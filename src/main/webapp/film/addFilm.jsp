@@ -17,11 +17,12 @@
 <body>
 	<%@include file="../nav.jsp"%>
 	<%
+	String error = null;
 	try{
 		/*Compruebo si ya hay alguna pelicula con el cip introducido*/
 		if(request.getParameter("cip") != null && DbRepository.find(Film.class, request.getParameter("cip")) != null){
 			/*Creo una session de error y le asigno el error correspondiente*/
-			session.setAttribute("error", "Error there is already a film with the cip entered");
+			error = "Error there is already a film with the cip entered";
 		}else{	
 			/*Si no hay fallo intento creo una pelicula cuando el formulario se envie*/
 			try{
@@ -36,7 +37,7 @@
 			}
 			}catch(FilmException e){
 				//Cuando se produzca un error le asigno el error a la session de error
-				session.setAttribute("error", e.getMessage());
+				error =  e.getMessage();
 			}
 		}
 	}catch(Exception e){
@@ -104,20 +105,20 @@
 	            <%
 	           	/*Cuando el valor de la sessión no se nulo es que se ha producido un error entonces muestro
 	           	el textarea que tengo abajo con el valor de la sesión que será el mensaje de error correspondiente*/
-	            if(session.getAttribute("error") != null){%>
-	            	<div class="textAreaInfoError " ><%=session.getAttribute("error")%></div>
+	            if(error != null){%>
+	            	<div class="textAreaInfoError " ><%=error%></div>
 	            <%/*Y aqui si se ha enviado el submit y en valor de la session es nulo significa que se ha creado correctamente, entoces muestro
 	            el mensaje de éxito*/
-	            }else if(request.getParameter("submit") != null && session.getAttribute("error") == null){%>
+	            }else if(request.getParameter("submit") != null && error == null){%>
 	            	<div class="textAreaInfoSuccesfull " >Film created successfully!</div>
 	            <%} /*Cuando pase todo esto dejo el error en nulo para que se reinicie por si ocurre otro error cuando envíe de nuevo el formulario */
 	            %>
 	            <!-- Submit button -->
               	<button class="btn btn-success " id="submitButton" type="submit" name="submit">Save</button>
-              	<%if(request.getParameter("submit") != null && session.getAttribute("error") == null){%>
+              	<%if(request.getParameter("submit") != null && error == null){%>
 			     	<!-- Cuando añada la pelicula sin ningún error pongo la opción para que pueda ver la pelicula recién creada -->
 			     	<a href="infoFilm.jsp?cip=<%=request.getParameter("cip")%>"><button class="btn btn-primary" id="submitButton" type="button">Show film</button></a>
-              	<%}session.removeAttribute("error");%>
+              	<%}%>
 	          </form>
 	          <!-- End of contact form -->
 	        </div>

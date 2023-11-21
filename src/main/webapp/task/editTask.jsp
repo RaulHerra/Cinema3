@@ -13,7 +13,8 @@
 <body>
 	<%@include file="../nav.jsp"%>
 	<%
-	Task t =null;
+	Task t = null;
+	String error = null;
 	try{
 		if(request.getParameter("task") != null && DbRepository.find(Task.class, request.getParameter("task")) != null){//Lo primero antes de añadir una tarea comprobamos que existe
 			 t = DbRepository.find(Task.class, request.getParameter("task"));	//En el caso de que exista mostraran los valores
@@ -22,11 +23,11 @@
 					 t = new Task(request.getParameter("task"),request.getParameter("sex"));
 				 	 DbRepository.editEntity(t);
 				 }catch(TaskException e){
-					 session.setAttribute("error", e.getMessage());
+					 error = e.getMessage();
 				 }
 			 }
 		} else {//En el caso de no existir nos mostrara el error correspondiente
-			session.setAttribute("error", "Error. This task does not exist");
+			error = "Error. This task does not exist";
 		}
 	}catch(Exception e){
 		response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
@@ -55,22 +56,22 @@
 	            <%}%>
 	            
 	            <%//Si hay errores se muestran
-	            if(session.getAttribute("error") != null){%>
-	            	<div class="textAreaInfoError " ><%=session.getAttribute("error")%></div>
+	            if(error != null){%>
+	            	<div class="textAreaInfoError " ><%=error%></div>
 		            <%//Si da algun error tiene la opcion de volver a editar%>
 		            	<a href="editTask.jsp?task=<%=request.getParameter("task")%>"><button class="btn btn-primary " id="submitButton" type="button">Retry</button></a>
 	            	
 	            <%//En el caso de que no haya errores y se le de a confirmar se muestra el mensaje de exito
-	            }else if(request.getParameter("comfirmSubmit") != null && session.getAttribute("error") == null){%>
+	            }else if(request.getParameter("comfirmSubmit") != null && error == null){%>
 	            	<div class="textAreaInfoSuccesfull" >Task edited successfully!</div>
 	            <%}
 	            %>
 	            
-	            	<%if(request.getParameter("comfirmSubmit")==null && session.getAttribute("error") == null){%>
+	            	<%if(request.getParameter("comfirmSubmit")==null && error == null){%>
 	              		<button class="btn btn-danger " id="submitButton" type="submit" name="comfirmSubmit">Confirm</button>
-		            <%} if(request.getParameter("comfirmSubmit")!=null && session.getAttribute("error") == null){//Si se le da a confirmar se dara la opcion de ver los detalles de la tarea acualizados%>
+		            <%} if(request.getParameter("comfirmSubmit")!=null && error == null){//Si se le da a confirmar se dara la opcion de ver los detalles de la tarea acualizados%>
 		            	<a href="infoTask.jsp?task=<%=request.getParameter("task")%>"><button class="btn btn-primary " id="submitButton" type="button">Show task</button></a>
-		            <%}session.removeAttribute("error");//Borramos la session para que no arrastre errores %>
+		            <%}//Borramos la session para que no arrastre errores %>
 	            
 	          </form>	
 	        </div>
