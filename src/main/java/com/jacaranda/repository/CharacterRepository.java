@@ -6,10 +6,9 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.SelectionQuery;
 
-import com.jacaranda.model.Film;
 import com.jacaranda.model.Work;
-import com.jacaranda.model.Character;
 import com.jacaranda.util.BdUtil;
+import com.jacaranda.model.Character;
 
 public class CharacterRepository extends DbRepository{
 
@@ -48,7 +47,7 @@ public class CharacterRepository extends DbRepository{
 
 	}
 	
-	public static void delete(Character character) throws Exception {
+	public static void delete(Character characterc) throws Exception {
 
 		Transaction transaction = null;
 
@@ -69,7 +68,7 @@ public class CharacterRepository extends DbRepository{
 		transaction = session.beginTransaction();
 		try {
 
-			ArrayList<Work> works = (ArrayList<Work>) character.getWorks();
+			ArrayList<Work> works = (ArrayList<Work>) characterc.getWorks();
 
 			for(Work w : works) {
 
@@ -77,7 +76,7 @@ public class CharacterRepository extends DbRepository{
 
 			}
 
-			session.remove(character);
+			session.remove(characterc);
 
 			transaction.commit();
 
