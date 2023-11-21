@@ -43,7 +43,7 @@ public class Room {
 		setCapacity(capacity);
 	}
 
-
+	
 
 
 
@@ -68,7 +68,7 @@ public class Room {
 
 
 	public void setRoomNumber(int roomNumber) throws RoomException {
-		if(roomNumber < 0 ) throw new RoomException("");
+		if(roomNumber < 0 ) throw new RoomException("Room number should be higher than 0");
 		this.roomNumber = roomNumber;
 	}
 
@@ -81,7 +81,7 @@ public class Room {
 
 
 	public void setCapacity(int capacity) throws RoomException {
-		if(capacity <= 20) throw new RoomException("Capacidad de la sala no valida");
+		if(capacity <= 20) throw new RoomException("Capacity should be higher or equal to 20");
 		this.capacity = capacity;			
 	}
 	

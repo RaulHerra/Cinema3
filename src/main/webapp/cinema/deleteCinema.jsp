@@ -1,3 +1,4 @@
+<%@page import="com.jacaranda.repository.CinemaRepository"%>
 <%@page import="com.jacaranda.model.Cinema"%>
 <%@page import="com.jacaranda.repository.DbRepository"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -77,7 +78,7 @@
 							<%}%>
 							
 							<%if(request.getParameter("submit") != null){
-								DbRepository.deleteEntity(cinema);%>
+								CinemaRepository.delete(cinema);%>
 
 								<a href="./listCinemas.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
 							<%}session.removeAttribute("error");%>

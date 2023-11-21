@@ -32,7 +32,9 @@
 			
 			cinemaId = request.getParameter("cinema");
 			
-		}catch(Exception e){}
+		}catch(Exception e){
+			
+		}
 		
 		
 	}catch(Exception e){
