@@ -6,16 +6,17 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.SelectionQuery;
 
-import com.jacaranda.model.Film;
-import com.jacaranda.model.Work;
+import com.jacaranda.model.Cinema;
+import com.jacaranda.model.Room;
 import com.jacaranda.util.BdUtil;
 
-public class FilmRepository extends DbRepository{
+public class CinemaRepository extends DbRepository {
+
 
 	
-	public static ArrayList<Work> getWorks(String cip) throws Exception{
+	public static ArrayList<Room> getRooms(String cinema) throws Exception{
 
-		ArrayList<Work> listWorks = null;
+		ArrayList<Room> listRooms = null;
 
 		Session session = null;
 
@@ -25,13 +26,14 @@ public class FilmRepository extends DbRepository{
 
 			
 
-			SelectionQuery<Work> queryWork = (SelectionQuery<Work>)
+			SelectionQuery<Room> queryRoom = (SelectionQuery<Room>)
 
-					session.createNativeQuery("select * from Trabajo where cip = :cip",Work.class);
+					session.createNativeQuery("select * from Sala where cine = :cine",Room.class);
 
-			queryWork.setParameter("cip", cip);
+			queryRoom.setParameter("cine", cinema);
 
-			listWorks = (ArrayList<Work>) queryWork.getResultList();
+			listRooms = (ArrayList<Room>) queryRoom.getResultList();
+			session.close();
 
  		}catch (Exception e) {
 
@@ -43,14 +45,13 @@ public class FilmRepository extends DbRepository{
 
 		session.close();
 
-
-		return listWorks;
+		return listRooms;
 
 	}
 
 	
 
-	public static void delete(Film film) throws Exception {
+	public static void delete(Cinema cinema) throws Exception {
 
 		Transaction transaction = null;
 
@@ -71,17 +72,18 @@ public class FilmRepository extends DbRepository{
 		transaction = session.beginTransaction();
 		try {
 
-			ArrayList<Work> works = (ArrayList<Work>) film.getWorks() ;
+			ArrayList<Room> Rooms = (ArrayList<Room>) cinema.getRooms() ;
 
-			for(Work w : works) {
+			for(Room room : Rooms) {
 
-				session.remove(w);
+				RoomRepository.delete(room);
 
 			}
 
-			session.remove(film);
+			session.remove(cinema);
 
 			transaction.commit();
+			session.close();
 
 		}catch (Exception e) {
 
@@ -92,7 +94,6 @@ public class FilmRepository extends DbRepository{
 			throw new Exception("Error al borrar el objeto " + e.getMessage());
 
 		}
-		session.close();
 
 	}
 }

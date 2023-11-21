@@ -7,15 +7,15 @@ import org.hibernate.Transaction;
 import org.hibernate.query.SelectionQuery;
 
 import com.jacaranda.model.Film;
+import com.jacaranda.model.Room;
 import com.jacaranda.model.Work;
 import com.jacaranda.util.BdUtil;
 
-public class FilmRepository extends DbRepository{
+public class RoomRepository extends DbRepository {
 
-	
-	public static ArrayList<Work> getWorks(String cip) throws Exception{
+	public static ArrayList<Proyection> getProyection(Room room) throws Exception{
 
-		ArrayList<Work> listWorks = null;
+		ArrayList<Room> listRoom = null;
 
 		Session session = null;
 
@@ -25,13 +25,14 @@ public class FilmRepository extends DbRepository{
 
 			
 
-			SelectionQuery<Work> queryWork = (SelectionQuery<Work>)
+			SelectionQuery<Room> queryRoom = (SelectionQuery<Room>)
 
-					session.createNativeQuery("select * from Trabajo where cip = :cip",Work.class);
+					session.createNativeQuery("select * from Proyeccion where cine = :cine and sala = :sala",Proyection.class);
 
-			queryWork.setParameter("cip", cip);
+			queryRoom.setParameter("cine", room.getCinema().getCinema());
+			queryRoom.setParameter("sala", room.getRoomNumber());
 
-			listWorks = (ArrayList<Work>) queryWork.getResultList();
+			listRoom = (ArrayList<Room>) queryRoom.getResultList();
 
  		}catch (Exception e) {
 
@@ -43,25 +44,23 @@ public class FilmRepository extends DbRepository{
 
 		session.close();
 
-
-		return listWorks;
+		return listRoom;
 
 	}
 
 	
 
-	public static void delete(Film film) throws Exception {
+	public static void delete(Room room) throws Exception {
 
 		Transaction transaction = null;
 
 		Session session;
-
 		
 
 		try {
 
 			session = BdUtil.getSessionFactory().openSession();
-
+			
 		}catch (Exception e) {
 
 			throw new Exception("Error al conectar con la base de datos " + e.getMessage());
@@ -71,15 +70,17 @@ public class FilmRepository extends DbRepository{
 		transaction = session.beginTransaction();
 		try {
 
-			ArrayList<Work> works = (ArrayList<Work>) film.getWorks() ;
+			ArrayList<Proyection> rooms = getProyection(room);
 
-			for(Work w : works) {
+			for(Proyection proyection : rooms) {
+				//Pq asi en ñugar de hacer una sql directamente
 
-				session.remove(w);
+				session.remove(proyection);
 
 			}
+			
 
-			session.remove(film);
+			session.remove(room);
 
 			transaction.commit();
 
@@ -95,4 +96,5 @@ public class FilmRepository extends DbRepository{
 		session.close();
 
 	}
+
 }

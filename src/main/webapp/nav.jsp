@@ -2,11 +2,11 @@
 <head>
 </head>
 	<body>
-		<nav class="navbar navbar-expand-lg  bg-primary">
+		<nav class="navbar navbar-expand-lg  bg-light">
 		
 		
 		 <div class="container-fluid">
-		  <a class="navbar-brand text-white" href="/CinemaTeam/index.jsp">Home</a>
+		  <a class="navbar-brand  " href="/CinemaTeam/index.jsp">Home</a>
 		   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       		<span class="navbar-toggler-icon"></span>
 		  </button>
@@ -16,43 +16,86 @@
 		  
 		    <ul class="navbar-nav">
 		    
-		      <li class="nav-item">
-		        <a class="nav-link text-white" href="/CinemaTeam/film/addFilm.jsp">Add film</a>
-		      </li>
+	         <li class="nav-item dropdown">
+		          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		            	Films
+		          </a>
+		          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+		          
+				     <li>
+		       			 <a class="dropdown-item " href="/CinemaTeam/film/listFilms.jsp">List films</a>
+				     </li>
+				     
+		            <li>
+		       			 <a class="dropdown-item " href="/CinemaTeam/film/addFilm.jsp">Add film</a>
+				    </li>
+				    
+		            <li>
+		        		<a class="dropdown-item " href="/CinemaTeam/character/addCharacterFilm.jsp">Add character to Film</a>
+				    </li>				    
+		          </ul>
+	      	 </li>				      
 		      
-		      <li class="nav-item">
-		        <a class="nav-link text-white" href="/CinemaTeam/film/listFilms.jsp">List films</a>
-		      </li>
 		      
-		      <li class="nav-item">
-		        <a class="nav-link text-white" href="/CinemaTeam/character/addCharacter.jsp">Add character</a>
-		      </li>
+	         <li class="nav-item dropdown">
+		          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		            	Character
+		          </a>
+		          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+				     <li>
+		        		<a class="dropdown-item " href="/CinemaTeam/character/listCharacters.jsp">List characters</a>
+				     </li>
+				     
+		            <li>
+		       			 <a class="dropdown-item " href="/CinemaTeam/character/addCharacter.jsp">Add character</a>
+				    </li>
+		            <li>
+		        		<a class="dropdown-item " href="/CinemaTeam/character/addCharacterFilm.jsp">Add character to Film</a>
+				    </li>	
+				  </ul>
+	      	 </li>				      
 		      
-		      <li class="nav-item">
-		        <a class="nav-link text-white" href="/CinemaTeam/character/listCharacters.jsp">List characters</a>
-		      </li>
+	
+
 		      
-		      <li class="nav-item">
-		        <a class="nav-link text-white" href="/CinemaTeam/character/addCharacterFilm.jsp">Add character to Film</a>
-		      </li>
+	         <li class="nav-item dropdown">
+		          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		            Task
+		          </a>
+		          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+		          
+				     <li>
+		       		 <a class="dropdown-item " href="/CinemaTeam/task/listTasks.jsp">List tasks</a>
+				     </li>
+				     
+		            <li>
+		        		<a class="dropdown-item " href="/CinemaTeam/task/addTask.jsp">Add task</a>
+				    </li>
+				    
+		          </ul>
+	      	 </li>		      
 		      
 		      
-		      <li class="nav-item">
-		        <a class="nav-link text-white" href="/CinemaTeam/task/listTasks.jsp">List tasks</a>
-		      </li>
+	          <li class="nav-item dropdown">
+		          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		            Cinema
+		          </a>
+		          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+		          
+				     <li>
+				     	<a class="dropdown-item " href="/CinemaTeam/cinema/listCinemas.jsp">List cinemas</a>
+				     </li>
+				     
+		            <li>
+				    	<a class="dropdown-item " href="/CinemaTeam/cinema/addCinema.jsp">Add cinema</a>
+				    </li>
+		          </ul>
+	      	 </li>
 		      
-		      <li class="nav-item">
-		        <a class="nav-link text-white" href="/CinemaTeam/task/addTask.jsp">Add task</a>
-		      </li>
 		      
-		      <li class="nav-item">
-		        <a class="nav-link text-white" href="/CinemaTeam/cinema/listCinemas.jsp">List cinemas</a>
-		      </li>
 		      
-		      <li class="nav-item">
-		        <a class="nav-link text-white" href="/CinemaTeam/cinema/addCinema.jsp">Add cinema</a>
-		      </li>
 		    </ul>
+
 		    
 		  </div>
 		  </div>

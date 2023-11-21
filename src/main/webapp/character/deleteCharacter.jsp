@@ -97,7 +97,7 @@
 				            	
 				            
 			            	
-			            	<%} else if (request.getParameter("submit") != null) {%>
+			            	<%} else if (request.getParameter("submit") != null) {
 			            		CharacterRepository.delete(c);%>
 				           		<a href="./listCharacters.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return to list</button></a>
 		            		<%}else if(error != null){%>
