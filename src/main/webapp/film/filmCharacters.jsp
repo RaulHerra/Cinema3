@@ -55,7 +55,7 @@
 	
 		<tbody>
 			
-			<%for(Work w : f.getCharacters()){ %>
+			<%for(Work w : f.getWorks()){ %>
 			
 				<tr>
 				

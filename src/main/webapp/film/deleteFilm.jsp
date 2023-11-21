@@ -1,3 +1,4 @@
+<%@page import="com.jacaranda.repository.FilmRepository"%>
 <%@page import="com.jacaranda.repository.DbRepository"%>
 <%@page import="com.jacaranda.model.Film"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -110,7 +111,7 @@
 							<%}%>
 							
 							<%if(request.getParameter("submit") != null && session.getAttribute("error") == null){
-								DbRepository.deleteEntity(f);%>
+								FilmRepository.delete(f);%>
 								<!-- Una vez que haya confirmado que borra la pelicula borro la pelicual y pongo un botón para que pueda volver a la lista de peliculas
 								para confirmar que se ha borrado -->
 								<a href="./listFilms.jsp"><button class="btn btn-primary" id="submitButton" type="button">Return list</button></a>

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 import com.jacaranda.exception.CharacterException;
+import com.jacaranda.repository.CharacterRepository;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,7 +30,7 @@ public class Character {
 	private String characterSex;
 	
 	@OneToMany(mappedBy = "character")
-	private List<Work>films;
+	private List<Work>works;
 	
 	
 	private final static List<String> CHARACTER_SEX_VALID_CHARACTERS = Arrays.asList("H","M","O");
@@ -142,13 +143,13 @@ public class Character {
 		this.characterSex = characterSex;
 	}
 
-	public List<Work> getFilms() {
-		return films;
+	public List<Work> getWorks() throws Exception {
+		return CharacterRepository.getWorks(characterName);
 	}
 
 
-	public void setFilms(List<Work> films) {
-		this.films = films;
+	public void setWorks(List<Work> works) {
+		this.works = works;
 	}
 
 	/* ================= HASH CODE / EQUALS ================= */
