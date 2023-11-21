@@ -101,11 +101,11 @@
 		          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 		          
 				     <li>
-				     	<a class="dropdown-item " href="/CinemaTeam/Projection/listProjections.jsp">List projections</a>
+				     	<a class="dropdown-item " href="/CinemaTeam/projection/listProjections.jsp">List projections</a>
 				     </li>
 				     
 		            <li>
-				    	<a class="dropdown-item " href="/CinemaTeam/Projection/addProjection.jsp">Add projection</a>
+				    	<a class="dropdown-item " href="/CinemaTeam/projection/addProjection.jsp">Add projection</a>
 				    </li>
 		          </ul>
 	      	 </li>

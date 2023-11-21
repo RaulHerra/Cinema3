@@ -24,7 +24,7 @@
 	//para pruebas    http://localhost:8080/CinemaTeam/room/addRoom.jsp?cinema=Zayra	
 
 	Cinema tmpCinema = null;
-	
+	String error = null;
 	try{
 		tmpCinema = DbRepository.find(Cinema.class, request.getParameter("cinema"));
 	}catch(Exception e){
@@ -52,21 +52,21 @@
 							if(!tmpCinema.getRooms().contains(tmpRoom)){
 								DbRepository.addEntity(tmpRoom);		
 							}else{
-								session.setAttribute("error", "Error. Room already exist ");
+								error = "Error. Room already exist ";
 							}
 						}catch(Exception e){
-							session.setAttribute("error", "Error. Error adding to database ");
+							error = "Error. Error adding to database ";
 							/*
 							response.sendRedirect("../error.jsp?msg=Error. Room and cinema should exist");
 							return; 
 							*/
 						}
 					}catch(Exception e){
-						session.setAttribute("error", "Error. Datas not valid");
+						error = "Error. Datas not valid";
 					}
 				
 			}else{
-				session.setAttribute("error", "Error. Datas can't be null");
+				error = "Error. Datas can't be null";
 			}
 		}
 	
@@ -97,11 +97,11 @@
 	            </div>
 	            
 	            <% //Mensaje de error que salta si anteriormente ha saltado alguna excepcion.Mostrara el mensaje correspondiente
-	            if(session.getAttribute("error") != null){%>
-	            	<div class="textAreaInfoError"><%=session.getAttribute("error")%></div>
+	            if(error != null){%>
+	            	<div class="textAreaInfoError"><%=error%></div>
 	            	
 	            <%//Mensaje de exito que salta en el caso de que se crea con exito la tarea
-	            }else if(request.getParameter("save") != null && session.getAttribute("error") == null){%>
+	            }else if(request.getParameter("save") != null && error == null){%>
 		            <div class="textAreaInfoSuccesfull">Task created successfully!</div>
 	            <%} 
 	            %>
@@ -109,9 +109,9 @@
 	            
 	              <button class="btn btn-success " id="submitButton" type="submit" name="save">Save</button>
 	              <%//Boton disponible para ver los detalles de la tarea creada.El boton aparece si se ha creado con exito la tarea
-	              if(request.getParameter("save") != null && session.getAttribute("error") == null  ){%>
+	              if(request.getParameter("save") != null && error == null  ){%>
 				     	<a href="infoTask.jsp?task=<%=request.getParameter("task")%>"><button class="btn btn-primary " id="submitButton" type="button">Show task</button></a>
-	              <%}session.removeAttribute("error");//Borramos la session para que no arrastre errores
+	              <%}//Borramos la session para que no arrastre errores
 	              %>
 	          
 	            

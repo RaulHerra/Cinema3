@@ -71,7 +71,7 @@
 					    <label for="films" class="form-label">Films</label> 
 					    <div class="mb-3">
 					      <select id="films" name="films" class="form-select" required>
-					      	<option></option>
+					      	<option disabled selected>-- Select the film --</option>
 					      	<%for(Film f : films){ %>
 					        	<option value="<%=f.getCip()%>"><%=f.getTitleP() %></option>
 					        <%} %>
@@ -82,7 +82,7 @@
 					    <label for="characters" class="form-label">Characters</label> 
 					    <div class="mb-3">
 					      <select id="characters" name="characters" class="form-select" required>
-					   		<option></option>
+					   		<option disabled selected>-- Select character --</option>
 					        <%for(Character c : characters){ %>
 					        	<option value="<%=c.getCharacterName()%>"><%=c.getCharacterName() %></option>
 					        <%} %>
@@ -93,7 +93,7 @@
 					    <label for="task" class="form-label">Tasks</label> 
 					    <div class="mb-3">
 					      <select id="task" name="task" class="form-select" required>
-					      	<option></option>
+					      	<option disabled selected>-- Select task --</option>
 					      	<%for(Task t : tasks){ %>
 					        	<option value="<%=t.getTask()%>"><%=t.getTask()%></option>
 					        <%} %>
