@@ -79,6 +79,4 @@ public class Work {
 		return Objects.equals(character, other.character) && Objects.equals(film, other.film);
 	}
 	
-	
-	
 }
