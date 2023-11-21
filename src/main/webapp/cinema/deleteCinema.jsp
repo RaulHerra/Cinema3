@@ -18,11 +18,11 @@
 	<%@include file="../nav.jsp"%>	
 	<%	
 		Cinema cinema = null; 
+		String error = null;
 		try{
-			if(DbRepository.find(Cinema.class, request.getParameter("cinema")) != null){
-				cinema = DbRepository.find(Cinema.class, request.getParameter("cinema"));
-			}else{
-				session.setAttribute("error", "Error there is no cinema with the name entered");
+			cinema = DbRepository.find(Cinema.class, request.getParameter("cinema"));
+			if(cinema == null){
+				error = "Error there is no cinema with the name entered";
 			}
 		}catch(Exception e){
 			response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
@@ -57,23 +57,23 @@
 			            <%
 			           	/*Cuando el valor de la sessión no se nulo es que se ha producido un error entonces muestro
 			           	el textarea que tengo abajo con el valor de la sesión que será el mensaje de error correspondiente*/
-			            if(session.getAttribute("error") != null){%>
-			            	<div class="textAreaInfoError " ><%=session.getAttribute("error")%></div> 
+			            if(error != null){%>
+			            	<div class="textAreaInfoError " ><%=error%></div> 
 			            <%/*Y aqui si se ha enviado el submit y en valor de la session es nulo significa que se ha borrado correctamente, entoces muestro
 			            el mensaje de éxito*/
-			            }else if(request.getParameter("submit") != null && session.getAttribute("error") == null){%>
+			            }else if(request.getParameter("submit") != null && error == null){%>
 			            	<div class="textAreaInfoSuccesfull " >Cinema deleted successfully!</div> 
 			            <%}
 			            %>
 			            	
 			            <!-- Submit button -->
 							<%
-							if(request.getParameter("delete") == null && request.getParameter("submit") == null && session.getAttribute("error") == null){ /*Esto lo hago para que cuando pulse confirm se oculte el confirm ya que no será nulo*/%>
+							if(request.getParameter("delete") == null && request.getParameter("submit") == null && error == null){ /*Esto lo hago para que cuando pulse confirm se oculte el confirm ya que no será nulo*/%>
 				            	<button class="btn btn-danger" id="submitButton" type="submit" name="delete">Are you sure you want to delete it?</button>
 							<%}else if(request.getParameter("delete") != null){%>
 								<button class="btn btn-danger" id="submitButton" type="submit" name="submit">Confirm</button>
 				            	<a href="./infoCinema.jsp?cinema=<%=request.getParameter("cinema")%>"><button class="btn btn-primary  " id="submitButton" type="button" name="undo">Undo</button></a>
-							<%}else if(session.getAttribute("error") != null){%>
+							<%}else if(error != null){%>
 								<a href="./listCinemas.jsp"><button class="btn btn-primary" id="submitButton" type="button">Retry</button></a>
 							<%}%>
 							
@@ -81,7 +81,7 @@
 								CinemaRepository.delete(cinema);%>
 
 								<a href="./listCinemas.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
-							<%}session.removeAttribute("error");%>
+							<%}%>
 			          </form>
 			        </div>
 			      </div>

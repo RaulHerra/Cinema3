@@ -18,14 +18,13 @@
 	<%@include file="../nav.jsp"%>	
 	<%	
 		/*Creo una pelicula nula*/
-		Film f = null; 
+		Film f = null;
+		String error = null;
 		try{
 			/*Si existe la pelicula que he recogio con el parametro cip que viene de la pagina de info*/
-			if(DbRepository.find(Film.class, request.getParameter("cip")) != null){
-				/*Recupero la pelicula que tiene el cip introducido*/
-				f = DbRepository.find(Film.class, request.getParameter("cip"));
-			}else{//Si no hay peliculas con el cip que he recogido le asigno a la session el mensaje de error
-				session.setAttribute("error", "Error there is no movie with the cip entered");
+			f = DbRepository.find(Film.class, request.getParameter("cip"));
+			if(f == null){
+				error = "Error there is no movie with the cip entered";
 			}
 		}catch(Exception e){
 			response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
@@ -87,11 +86,11 @@
 			            <%
 			           	/*Cuando el valor de la sessión no se nulo es que se ha producido un error entonces muestro
 			           	el textarea que tengo abajo con el valor de la sesión que será el mensaje de error correspondiente*/
-			            if(session.getAttribute("error") != null){%>
-			            	<div class="textAreaInfoError"  ><%=session.getAttribute("error")%></div> 
+			            if(error != null){%>
+			            	<div class="textAreaInfoError"><%=error%></div> 
 			            <%/*Y aqui si se ha enviado el submit y en valor de la session es nulo significa que se ha borrado correctamente, entoces muestro
 			            el mensaje de éxito*/
-			            }else if(request.getParameter("submit") != null && session.getAttribute("error") == null){%>
+			            }else if(request.getParameter("submit") != null && error == null){%>
 			            	<div class="textAreaInfoSuccesfull">Film deleted successfully!</div>
 			            <%}
 			            %>
@@ -99,23 +98,23 @@
 			            <!-- Submit button -->
 							<%
 							/*Y aqui borro el cine con el cip que hemos recogido */
-							if(request.getParameter("delete") == null && request.getParameter("submit") == null && session.getAttribute("error") == null){ /*Esto lo hago para que cuando pulse confirm se oculte el confirm ya que no será nulo*/%>
+							if(request.getParameter("delete") == null && request.getParameter("submit") == null && error == null){ /*Esto lo hago para que cuando pulse confirm se oculte el confirm ya que no será nulo*/%>
 				            	<button class="btn btn-danger" id="submitButton" type="submit" name="delete">Are you sure you want to delete it?</button>
 							<%}else if(request.getParameter("delete") != null){%>
 								<!--Aquí cuando le de a borrar, le pongo otro botón para que me confirme que quiere borrar y le doy la opción
 								de que volver atrás para que no se realize en borrado -->
 								<button class="btn btn-danger" id="submitButton" type="submit" name="submit">Confirm</button>
 				            	<a href="./infoFilm.jsp?cip=<%=request.getParameter("cip")%>"><button class="btn btn-primary  " id="submitButton" type="button" name="undo">Undo</button></a>
-							<%}else if(session.getAttribute("error") != null){%>
+							<%}else if(error != null){%>
 								<a href="./listFilms.jsp"><button class="btn btn-primary" id="submitButton" type="button">Return list</button></a>
 							<%}%>
 							
-							<%if(request.getParameter("submit") != null && session.getAttribute("error") == null){
+							<%if(request.getParameter("submit") != null && error == null){
 								FilmRepository.delete(f);%>
 								<!-- Una vez que haya confirmado que borra la pelicula borro la pelicual y pongo un botón para que pueda volver a la lista de peliculas
 								para confirmar que se ha borrado -->
 								<a href="./listFilms.jsp"><button class="btn btn-primary" id="submitButton" type="button">Return list</button></a>
-							<%}session.removeAttribute("error");%>
+							<%}%>
 			          </form>
 			        </div>
 			      </div>

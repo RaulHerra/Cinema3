@@ -91,7 +91,7 @@
 				  <a href="./listCharacters.jsp"> <button class="btn btn-primary " id="submitButton" type="button"> Return list </button></a>
 			  <% }%>
 			<% if (c != null) { %>
-			    <form method="post" action="./characterFilms.jsp"><button class="btn btn-primary " id="submitButton" value="<%=c.getCharacterName()%>" name="characterFilms">See Filmography</button></form>
+			    <form method="get" action="./characterFilms.jsp"><button class="btn btn-primary " id="submitButton" value="<%=c.getCharacterName()%>" name="characterFilms">See Filmography</button></form>
 			<%} %>
 			</div>
 	      </div>

@@ -18,11 +18,11 @@
 		<%@include file="../nav.jsp"%>
 		<%
 		Film f = null;
+		String error = null;
 		try{
 			/*Compruebo que existe la pelicula que quiere editar*/
-			if(DbRepository.find(Film.class, request.getParameter("cip")) != null){
-				/*Obtengo la pelicula con su cip que lo he recogido de la lista*/
-				f = DbRepository.find(Film.class, request.getParameter("cip"));
+			f = DbRepository.find(Film.class, request.getParameter("cip"));
+			if(f != null){
 				if(request.getParameter("edit") != null){
 					/*Cuando le de al boton de editar, actualizo la pelicula con los nuevos datos introducidos*/
 					try{
@@ -36,13 +36,13 @@
 					}catch(FilmException e){
 						/*Si ocurre algun error creo una session que almacena el mensaje para despues
 							* comprobar si hay error y mostrarlo más abajo*/
-						session.setAttribute("error", e.getMessage());
+						error = e.getMessage();
 					}
 				}
 			/*Si no existe ninguna pelicula con el cip que le hemos pasado por parametro a la session de error
 			 * le asigno el error de que no hay niguna pelicula con ese cip*/
 			}else{
-				session.setAttribute("error", "Error there is no movie with the cip entered");
+				error = "Error there is no movie with the cip entered";
 			}
 		}catch(Exception e){
 			response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
@@ -103,25 +103,25 @@
 			            <%
 			           	/*Cuando el valor de la sessión no se nulo es que se ha producido un error entonces muestro
 			           	el textarea que tengo abajo con el valor de la sesión que será el mensaje de error correspondiente*/
-			            if(session.getAttribute("error") != null){%>
-			            	<div class="textAreaInfoError " ><%=session.getAttribute("error")%></div>
+			            if(error != null){%>
+			            	<div class="textAreaInfoError " ><%=error%></div>
 			            	<!-- Este botón no es necesario, pero si me da algún error que no se quede solo con el error, le he puesto un botón para 
 			            	que reintente editar la pelicula si quiere-->
 			            		<a href="editFilm.jsp?cip=<%=request.getParameter("cip")%>"><button class="btn btn-primary " id="submitButton" type="button">Retry</button></a>
 			            <%/*Y aqui si se ha enviado el edit y en valor de la session es nulo significa que se ha editado correctamente, entoces muestro
 			            el mensaje de éxito*/
-			            }else if(request.getParameter("edit") != null && session.getAttribute("error") == null){%>
+			            }else if(request.getParameter("edit") != null && error == null){%>
 			            	<div class="textAreaInfoSuccesfull " >Film edited successfully!</div> 
 			            <%} /*Cuando pase todo esto dejo el error en nulo para que se reinicie por si ocurre otro error cuando envíe de nuevo el formulario */
 			            %>
 			           
 			            <!-- Submit button -->
-			             	<%if(request.getParameter("edit") == null && session.getAttribute("error") == null){ /*Esto lo hago para que cuando pulse confirm se oculte el confirm ya que no será nulo*/%>
+			             	<%if(request.getParameter("edit") == null && error == null){ /*Esto lo hago para que cuando pulse confirm se oculte el confirm ya que no será nulo*/%>
 			             		<button class="btn btn-danger " id="submitButton" value="edit" type="submit" name="edit">Confirm</button>
-					     	<%}else if(request.getParameter("edit") != null && session.getAttribute("error") == null){ %>
+					     	<%}else if(request.getParameter("edit") != null && error == null){ %>
 					     		<!-- Y cuando le haya dado a confirmar y no haya ningún error le muestro este botón para que pueda ver los detalles de la pelicula -->
 					     		<a href="infoFilm.jsp?cip=<%=request.getParameter("cip")%>"><button class="btn btn-primary " id="submitButton" type="button">Show film</button></a>
-			            	<%}session.removeAttribute("error");%>
+			            	<%}%>
 			          </form>
 
 			        </div>

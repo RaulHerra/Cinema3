@@ -23,39 +23,46 @@
 <%
 
 	Character c = null;
-
+	String error = null;
 	try{
 		 c = DbRepository.find(Character.class, request.getParameter("characterFilms")) ;
 		 
  	}catch(Exception e){
-		session.setAttribute("error", "Error: the character that you selected doesn't exist");
+ 		error = "Error: the character that you selected doesn't exist";
 		return;
 	}
 
 %>
 
-<table class="table">
-	
-	<thead>
-		<tr>
-			<td scope="col">Title</td>
-			<td scope="col">Release year</td>
-			<td scope="col">Character's rol</td>
-		</tr>
-	</thead>
-	
-	<tbody>
-	
-		<%for(Work w : c.getWorks()){%>
-			<tr>
-				<td scope="col"><%=w.getFilm().getTitleP()%></td>
-				<td scope="col"><%=w.getFilm().getYearProduction()%></td>
-				<td scope="col"><%=w.getTask().getTask()%></td>
-			</tr>
-		<%}%>
-	</tbody>
-	
-</table>
+	<%if(c != null){ %>
+		<table class="table">
+			<thead>
+				<tr>
+					<td scope="col">Title</td>
+					<td scope="col">Release year</td>
+					<td scope="col">Character's rol</td>
+				</tr>
+			</thead>
+			
+			<tbody>
+			
+				<%for(Work w : c.getWorks()){%>
+					<tr>
+						<td scope="col"><%=w.getFilm().getTitleP()%></td>
+						<td scope="col"><%=w.getFilm().getYearProduction()%></td>
+						<td scope="col"><%=w.getTask().getTask()%></td>
+					</tr>
+				<%}%>
+			</tbody>
+			
+		</table>
+
+	<%}else{%>
+		<br>
+		<div class="textAreaInfoError">Error: the character that you selected doesn't exist</div>
+		<a href="./listCharacters.jsp"> <button class="btn btn-primary " id="submitButton" type="button"> Return list </button></a>
+		
+	<%}%>
 
 </body>
 </html>

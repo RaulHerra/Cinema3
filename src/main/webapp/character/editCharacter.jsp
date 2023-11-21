@@ -25,6 +25,7 @@
 			<%
 			
 			Character c = null;
+			String error = null;
 			try{
 				/*I check if the character that I am going to edit exists*/
 				if(request.getParameter("characterName") != null 
@@ -45,15 +46,11 @@
 							DbRepository.editEntity(c);
 						
 						}catch(CharacterException e){
-							/*If an error happens I create a session variable that contains 
-							the message to check if there is an error and show it below*/
-							session.setAttribute("error", e.getMessage());
+							error = e.getMessage();
 						}
 					}
-				/*If not a single character exists with the name of the parameter, 
-				I assign to the session variable an error message saying that there is no character with that name*/
 				}else{
-					session.setAttribute("error", "Error there is no character with such a name");
+					error = "Error there is no character with such a name";
 				}
 			}catch(Exception e){
 				response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
@@ -93,13 +90,13 @@
 				            <%
 				            /*When the value of the session variable is not null, it is because an error happened. So I show the 
 				            textarea that I have below with the value of the session variable, that has the fitting error message*/
-				            if(session.getAttribute("error") != null){%>
-				            	<div class="textAreaInfoError"><%=session.getAttribute("error")%></div>
+				            if(error != null){%>
+				            	<div class="textAreaInfoError"><%=error%></div>
 				            <%/*Here, if the submit is sent, and the value of the session variable is null, that means that was edited correctly. Then, I show
 				            the success message*/
-				            }else if(request.getParameter("edit") != null && session.getAttribute("error") == null) {%>
+				            }else if(request.getParameter("edit") != null && error == null) {%>
 				            	<div class="textAreaInfoSuccesfull"> Character edited successfully!</div>
-				            <%}session.removeAttribute("error"); /*When all of this happens, I set the error value null to reset it if another error occurs when the form is sent again*/
+				            <%}/*When all of this happens, I set the error value null to reset it if another error occurs when the form is sent again*/
 				            %>
 				            
 				            
@@ -107,17 +104,17 @@
 	
 				            	<!-- This button will appear the moment you enter the page. When I press "Confirm", it will edit the character. There 
 				            	must not have errors, so if it detects that the session variable is not null, it will not appear -->
-				            	<% if(request.getParameter("edit") == null && session.getAttribute("error") == null){ %>
+				            	<% if(request.getParameter("edit") == null && error == null){ %>
 				             		<button class="btn btn-danger " id="submitButton" value="edit" type="submit" name="edit">Confirm</button>
 						     	
 						     	<!-- When the "Confirm" button is pressed, this one will appear, and it will redirect to the character that you 
 						     	edited. The button takes the character's name from this page, and it will send it to "infoCharacter" to show the 
 						     	character there -->
-						     	<%}else if(request.getParameter("edit") != null && session.getAttribute("error") == null){ %>
+						     	<%}else if(request.getParameter("edit") != null && error == null){ %>
 						     		<!-- Y cuando le haya dado a confirmar y no haya ningún error le muestro este botón para que pueda ver los detalles de la pelicula -->
 						     		<a href="infoCharacter.jsp?characterName=<%=c.getCharacterName()%>"> <button class="btn btn-primary " id="submitButton" type="button">Show character</button></a>
 				            	
-				            	<%}session.removeAttribute("error");%>
+				            	<%}%>
 				              	
 	
 				          </form>

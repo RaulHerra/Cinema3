@@ -17,9 +17,10 @@
 <body>
 	<%@include file="../nav.jsp"%>
 	<%
+	String error = null;
 	try{
 		if(request.getParameter("cinema") != null && DbRepository.find(Cinema.class, request.getParameter("cinema")) != null){
-			session.setAttribute("error", "Error there is already a cinema with the name entered");
+			error = "Error there is already a cinema with the name entered";
 		}else{	
 			try{
 				if(request.getParameter("submit") != null){
@@ -29,7 +30,7 @@
 					DbRepository.addEntity(cinema);
 			}
 			}catch(CinemaException e){
-				session.setAttribute("error", e.getMessage());
+				error = e.getMessage();
 			}
 		}
 	}catch(Exception e){
@@ -66,19 +67,19 @@
 		   			<input type="text" step="1" class="form-control" id="cinemaAddress" name="cinemaAddress" placeholder="Enter cinema address" required>
 		           </div>
 		            <%
-		            if(session.getAttribute("error") != null){%>
-		            	<div class="textAreaInfoError " ><%=session.getAttribute("error")%></div>
+		            if(error != null){%>
+		            	<div class="textAreaInfoError " ><%=error%></div>
 		            <%
-		            }else if(request.getParameter("submit") != null && session.getAttribute("error") == null){%>
+		            }else if(request.getParameter("submit") != null && error == null){%>
 		            	<div class="textAreaInfoSuccesfull " >Cinema created successfully!</div>
 		            <%} 
 		            %>
 	            <!-- Submit button -->
 	  
 	              	<button class="btn btn-success " id="submitButton" type="submit" name="submit">Save</button>
-	              	<%if(request.getParameter("submit") != null && session.getAttribute("error") == null){%>
+	              	<%if(request.getParameter("submit") != null && error == null){%>
 				     	<a href="infoCinema.jsp?cinema=<%=request.getParameter("cinema")%>"><button class="btn btn-primary" id="submitButton" type="button">Show cinema</button></a>
-	              	<%}session.removeAttribute("error");%>
+	              	<%}%>
 
 	          </form>
 	          <!-- End of contact form -->
