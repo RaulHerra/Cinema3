@@ -54,9 +54,6 @@
 
 
 
-
-
-
 <!-- ======= INPUTS FORM ======= -->
 <div class="container px-5 my-5">
 	  <div class="row justify-content-center">

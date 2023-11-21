@@ -109,9 +109,9 @@
 					   		<div class="textAreaInfoSuccesfull ">Work created successfully! </div>
 				       <%}%>
 				         <!-- End of contact form -->
-					  <div class="mb-3">
+				
 					      <button name="submit" type="submit" class="btn btn-success">Save</button>
-					  </div>
+	
 					</form>
 			   </div>
 			</div>

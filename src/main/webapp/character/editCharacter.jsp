@@ -23,7 +23,6 @@
 			<%@include file="../nav.jsp"%>
 	
 			<%
-			
 			Character c = null;
 			String error = null;
 			try{

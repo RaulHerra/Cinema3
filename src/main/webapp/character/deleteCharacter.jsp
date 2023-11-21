@@ -77,7 +77,7 @@
 			            
 
 			            }else if(request.getParameter("submit") != null && error == null){%>
-			            	<div class="textAreaInfoSuccesfull " >Character deleted successfully!</div>
+			            	<div class="textAreaInfoSuccesfull">Character deleted successfully!</div>
 			            
 			            <%}
 			            %>
@@ -105,7 +105,6 @@
 		            		<%}%>
 							
 			          </form>
-
 			        </div>
 			      </div>
 			    </div>

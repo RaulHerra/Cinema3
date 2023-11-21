@@ -38,9 +38,9 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<td scope="col">Title</td>
-					<td scope="col">Release year</td>
-					<td scope="col">Character's rol</td>
+					<th scope="col">Title</th>
+					<th scope="col">Release year</th>
+					<th scope="col">Character's rol</th>
 				</tr>
 			</thead>
 			
@@ -58,7 +58,7 @@
 		</table>
 
 	<%}else{%>
-		<br>
+	
 		<div class="textAreaInfoError">Error: the character that you selected doesn't exist</div>
 		<a href="./listCharacters.jsp"> <button class="btn btn-primary " id="submitButton" type="button"> Return list </button></a>
 		

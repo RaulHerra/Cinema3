@@ -84,7 +84,7 @@
 			            <button class="btn btn-danger" id="submitButton" value="delete" type="submit" name="delete">Delete</button>
 				  
 				  
-			    </form><br>
+			    </form>
 			    <%} %>
 			  <% if (error != null) {%>
 				  <div class="textAreaInfoError" > <%=error%> </div>
