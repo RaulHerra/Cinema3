@@ -29,6 +29,10 @@
 		      </li>
 		      
 		      <li class="nav-item">
+		        <a class="nav-link text-white" href="/CinemaTeam/character/addCharacterFilm.jsp">Add character to Film</a>
+		      </li>
+		      
+		      <li class="nav-item">
 		        <a class="nav-link text-white" href="/CinemaTeam/character/listCharacters.jsp">List characters</a>
 		      </li>
 		      
