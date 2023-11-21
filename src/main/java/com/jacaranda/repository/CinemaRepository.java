@@ -40,7 +40,7 @@ public class CinemaRepository extends DbRepository {
 
  			session.close();
 
- 			throw new Exception("Error al conectar a la base de datosa "+ e.getMessage());
+ 			throw new Exception("Error al conectar a la base de datos "+ e.getMessage());
 
  		}
 

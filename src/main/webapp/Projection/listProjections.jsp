@@ -67,7 +67,9 @@
 						<td><%=p.getPremiere_date()%></td>
 						<td>
 							<form action="infoProjection.jsp">
-								<input type="text" name="ProjectionName" value='<%=r.getRoomNumber()%>' hidden>
+								<input type="text" name="ProjectionName" value='<%=p.getRoom()%>' hidden>
+								<input type="text" name="ProjectionName" value='<%=p.getCip()%>' hidden>
+								<input type="text" name="ProjectionName" value='<%=p.getPremiere_date()%>' hidden>
 								<button class="btn btn-primary" type="submit" name="info"> Projection Info </button>
 							</form>
 						</td>

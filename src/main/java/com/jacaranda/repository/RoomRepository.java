@@ -14,7 +14,7 @@ import com.jacaranda.util.BdUtil;
 
 public class RoomRepository extends DbRepository {
 
-	public static List<Projection> getProyections(Cinema cinema,int roomNumber) throws Exception{
+	public static List<Projection> getProjections(Cinema cinema,int roomNumber) throws Exception{
 
 		List<Projection> listProjections = null;
 
