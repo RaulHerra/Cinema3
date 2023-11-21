@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 import com.jacaranda.exception.FilmException;
+import com.jacaranda.repository.FilmRepository;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -37,8 +38,8 @@ public class Film {
 	@Column(name="duracion")
 	private int duration;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "film")
-	private List<Work>characters;
+	@OneToMany(mappedBy = "film")
+	private List<Work>works;
 	
 	public Film(String cip, String titleP, String yearProduction, String titleS, String nationality, String budget,
 			String duration) throws FilmException {
@@ -178,12 +179,12 @@ public class Film {
 		this.duration = duration;
 	}
 
-	public List<Work> getCharacters() {
-		return characters;
+	public List<Work> getWorks() throws Exception {
+		return FilmRepository.getWorks(cip);
 	}
 
-	public void setCharacters(List<Work> characters) {
-		this.characters = characters;
+	public void setWorks(List<Work> works) {
+		this.works = works;
 	}
 
 	@Override
