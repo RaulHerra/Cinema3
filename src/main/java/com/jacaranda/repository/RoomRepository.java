@@ -1,22 +1,22 @@
 package com.jacaranda.repository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.SelectionQuery;
 
-import com.jacaranda.model.Film;
+import com.jacaranda.model.Cinema;
 import com.jacaranda.model.Projection;
 import com.jacaranda.model.Room;
-import com.jacaranda.model.Work;
 import com.jacaranda.util.BdUtil;
 
 public class RoomRepository extends DbRepository {
 
-	public static ArrayList<Projection> getProyections(Room room) throws Exception{
+	public static List<Projection> getProyections(Cinema cinema,int roomNumber) throws Exception{
 
-		ArrayList<Projection> listProjections = null;
+		List<Projection> listProjections = null;
 
 		Session session = null;
 
@@ -30,10 +30,10 @@ public class RoomRepository extends DbRepository {
 
 					session.createNativeQuery("select * from Proyeccion where cine = :cine and sala = :sala",Projection.class);
 
-			queryProjection.setParameter("cine", room.getCinema().getCinema());
-			queryProjection.setParameter("sala", room.getRoomNumber());
+			queryProjection.setParameter("cine", cinema.getCinema());
+			queryProjection.setParameter("sala", roomNumber);
 
-			listProjections = (ArrayList<Projection>) queryProjection.getResultList();
+			listProjections =  queryProjection.getResultList();
 
  		}catch (Exception e) {
 
@@ -71,13 +71,11 @@ public class RoomRepository extends DbRepository {
 		transaction = session.beginTransaction();
 		try {
 
-			ArrayList<Projection> projections = room.getProjections();
+			List<Projection> projections = room.getProjections();
 
 			for(Projection projection : projections) {
 				//Pq asi en ñugar de hacer una sql directamente
-
 				session.remove(projection);
-
 			}
 			
 

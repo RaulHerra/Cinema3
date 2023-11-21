@@ -1,6 +1,7 @@
 package com.jacaranda.repository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -39,7 +40,7 @@ public class CinemaRepository extends DbRepository {
 
  			session.close();
 
- 			throw new Exception("Error al conectar a la base de datos "+ e.getMessage());
+ 			throw new Exception("Error al conectar a la base de datosa "+ e.getMessage());
 
  		}
 
@@ -72,12 +73,10 @@ public class CinemaRepository extends DbRepository {
 		transaction = session.beginTransaction();
 		try {
 
-			ArrayList<Room> Rooms = (ArrayList<Room>) cinema.getRooms() ;
+			List<Room> Rooms = cinema.getRooms() ;
 
 			for(Room room : Rooms) {
-
 				RoomRepository.delete(room);
-
 			}
 
 			session.remove(cinema);
