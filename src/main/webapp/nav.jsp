@@ -51,6 +51,10 @@
 		      <li class="nav-item">
 		        <a class="nav-link text-white" href="/CinemaTeam/cinema/addCinema.jsp">Add cinema</a>
 		      </li>
+		      
+		      <li class="nav-item">
+		        <a class="nav-link text-white" href="/CinemaTeam/cinema/listProjections.jsp">List projections</a>
+		      </li>
 		    </ul>
 		    
 		  </div>
