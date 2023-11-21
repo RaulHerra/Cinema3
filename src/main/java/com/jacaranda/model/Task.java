@@ -28,7 +28,7 @@ public class Task {
 	@Column(name="sexo_tarea")
 	private String sex;
 	
-	@OneToMany(fetch = FetchType.EAGER,mappedBy="task")
+	@OneToMany(mappedBy="task")
 	private List<Work>tasks;
 	
 	//Constructores

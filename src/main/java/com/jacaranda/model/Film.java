@@ -37,7 +37,7 @@ public class Film {
 	@Column(name="duracion")
 	private int duration;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "film")
+	@OneToMany(mappedBy = "film")
 	private List<Work>characters;
 	
 	public Film(String cip, String titleP, String yearProduction, String titleS, String nationality, String budget,

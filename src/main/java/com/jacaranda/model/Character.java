@@ -28,7 +28,7 @@ public class Character {
 	@Column (name = "sexo_persona")
 	private String characterSex;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "character")
+	@OneToMany(mappedBy = "character")
 	private List<Work>films;
 	
 	
