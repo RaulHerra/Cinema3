@@ -29,19 +29,20 @@
 		      </li>
 		      
 		      <li class="nav-item">
-		        <a class="nav-link text-white" href="/CinemaTeam/character/addCharacterFilm.jsp">Add character to Film</a>
-		      </li>
-		      
-		      <li class="nav-item">
 		        <a class="nav-link text-white" href="/CinemaTeam/character/listCharacters.jsp">List characters</a>
 		      </li>
 		      
 		      <li class="nav-item">
-		        <a class="nav-link text-white" href="/CinemaTeam/task/addTask.jsp">Add task</a>
+		        <a class="nav-link text-white" href="/CinemaTeam/character/addCharacterFilm.jsp">Add character to Film</a>
 		      </li>
+		      
 		      
 		      <li class="nav-item">
 		        <a class="nav-link text-white" href="/CinemaTeam/task/listTasks.jsp">List tasks</a>
+		      </li>
+		      
+		      <li class="nav-item">
+		        <a class="nav-link text-white" href="/CinemaTeam/task/addTask.jsp">Add task</a>
 		      </li>
 		      
 		      <li class="nav-item">

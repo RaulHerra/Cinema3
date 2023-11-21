@@ -46,7 +46,7 @@
 	
 	<tbody>
 	
-		<%for(Work w : c.getFilms()){%>
+		<%for(Work w : c.getWorks()){%>
 			<tr>
 				<td scope="col"><%=w.getFilm().getTitleP()%></td>
 				<td scope="col"><%=w.getFilm().getYearProduction()%></td>

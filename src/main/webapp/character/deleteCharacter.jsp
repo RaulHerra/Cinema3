@@ -1,3 +1,4 @@
+<%@page import="com.jacaranda.repository.CharacterRepository"%>
 <%@page import="com.jacaranda.repository.DbRepository"%>
 <%@page import="com.jacaranda.model.Character"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -106,7 +107,7 @@
 							The "Confirm" and "Undo" buttons will disappear once "Confirm" is pressed, and the "Return to list" button will
 							appear-->
 			            	<%} else if (request.getParameter("submit") != null) {
-			            		DbRepository.deleteEntity(c);%>
+			            		CharacterRepository.delete(c);%>
 				           		<a href="./listCharacters.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return to list</button></a>
 			            	<%}else if(session.getAttribute("error") != null){%>
         					    <a href="./listCharacters.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return to list</button></a>
