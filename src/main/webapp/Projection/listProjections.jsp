@@ -41,17 +41,29 @@
 	<table class="table">
 		<thead>
 			<tr>
-				<th scope="col">Projection</th>
+				<th scope="col">Cinema</th>
+				<th scope="col">Room number</th>
+				<th scope="col">Film</th>
+				<th scope="col">Premiere</th>
+				<th scope="col">Premiere days</th>
+				<th scope="col">Spectators</th>
+				<th scope="col">Collection</th>
 			</tr>
 		</thead>
 		<% for (Projection p: result){%>
 				<tr>
-					<td><%=p.getRoom()%></td>
-				
+					<td><%=p.getRoom().getCinema().getCinema()%></td>
+					<td><%=p.getRoom().getRoomNumber()%></td>
+					<td><%=p.getCip().getTitleP()%></td>
+					<td><%=p.getPremiere_date()%></td>
+					<td><%=p.getPremiere_days()%></td>
+					<td><%=p.getSpectators()%></td>
+					<td><%=p.getIncome()%></td>
+
 					<td>
 						<form action="infoProjection.jsp">
 							<input type="text" name="ProjectionName" value='<%=p.getRoom()%>' hidden>
-							<button class="btn btn-primary" type="submit" name="info"> details </button>
+							<button class="btn btn-primary" type="submit" name="info"> Info </button>
 						</form>
 					</td>
 				</tr>
