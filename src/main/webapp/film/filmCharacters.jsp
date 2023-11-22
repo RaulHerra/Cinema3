@@ -45,8 +45,8 @@
 		
 			<tr>
 			
-				<td scope="col">Character's name</td>
-				<td scope="col">Character's rol</td>
+				<th scope="col">Character's name</th>
+				<th scope="col">Character's rol</th>
 			
 			</tr>
 		
