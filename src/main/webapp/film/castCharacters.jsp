@@ -39,35 +39,54 @@
 
 %>
 
-	<table class="table">
-		<% if(f != null){ %>
-		<thead>
-		
-			<tr>
-			
-				<td scope="col">Character's name</td>
-				<td scope="col">Character's rol</td>
-			
-			</tr>
-		
-		</thead>
-	
-		<tbody>
-			
-			<%for(Work w : f.getWorks()){ %>
-			
-				<tr>
-				
-					<td scope="col"><%=w.getCharacter().getCharacterName() %></td>
-					<td scope="col"><%=w.getTask().getTask()%></td>
-				
-				</tr>
-				
-			<%} %>
-		
-		</tbody>
-	
-	</table>
+	<% if(f != null){ %>
+	<div class="container px-5 my-5">
+		<div class="row justify-content-center">
+			<div class="col-lg-8">
+				<div class="card border-0 rounded-3 shadow-lg">
+					<div class="card-body p-4">
+						<div class="text-center">
+							<h1 align="center">Cast of Characters from <br><%=f.getTitleP()%></h1>
+							<br>
+								<table class="table">
+									<thead>
+
+										<tr>
+
+											<th scope="col">Character's name</th>
+											<th scope="col">Character's rol</th>
+
+										</tr>
+
+									</thead>
+
+									<tbody>
+
+										<%
+										for (Work w : f.getWorks()) {
+										%>
+
+										<tr>
+
+											<td scope="col"><%=w.getCharacter().getCharacterName()%></td>
+											<td scope="col"><%=w.getTask().getTask()%></td>
+
+										</tr>
+
+										<%
+										}
+										%>
+
+									</tbody>
+
+								</table>
+						</div>
+		            	<a href="./infoFilm.jsp?cip=<%=f.getCip()%>"><button class="btn btn-info" id="submitButton" type="button">Return film</button></a>								
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<%}else if(error != null){%>
 		<br>
     	<div class="textAreaInfoError" ><%=error%></div>

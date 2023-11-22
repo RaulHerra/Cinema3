@@ -51,7 +51,7 @@
 
 
 
-<div class="container px-5 my-5">
+	<div class="container px-5 my-5">
 	  <div class="row justify-content-center">
 	    <div class="col-lg-8">
 	      <div class="card border-0 rounded-3 shadow-lg">
@@ -91,7 +91,7 @@
 				  <a href="./listCharacters.jsp"> <button class="btn btn-primary " id="submitButton" type="button"> Return list </button></a>
 			  <% }%>
 			<% if (c != null) { %>
-			    <form method="get" action="./characterFilms.jsp"><button class="btn btn-primary " id="submitButton" value="<%=c.getCharacterName()%>" name="characterFilms">See Filmography</button></form>
+			    <form method="get" action="./filmography.jsp"><button class="btn btn-primary " id="submitButton" value="<%=c.getCharacterName()%>" name="characterFilms">See Filmography</button></form>
 			<%} %>
 			</div>
 	      </div>
