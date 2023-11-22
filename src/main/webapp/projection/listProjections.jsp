@@ -31,40 +31,42 @@
 <% 
 //A list variable with Projections is created with null value
 		List<Cinema> result = new ArrayList<Cinema>();
-
 		try{
 			//I get a list of the Projections from the data base
 			result = DbRepository.findAll(Cinema.class);
 			
 		}catch(Exception e) {
-			response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
+			response.sendRedirect("../error.jsp?msg=Can't access to data base");
 			return;
 		}
 	%>
 
 	<table class="table">
-		<thead>
-			<tr>
-				<th scope="col" colspan="4">Cinema</th>
-			</tr>
-		</thead>
 		<% for (Cinema c: result){%>
-			<tr>
-				<th colspan="4"><%=c.getCinema()%></th>
-			</tr>
-			<tr>
-			
-			
+		
+			<tr><td colspan="7"><h3>Cinema: <%=c.getCinema()%></h3></td></tr>
+	
 			<% for (Room r: CinemaRepository.getRooms(c.getCinema())){%>
 				<tr>
-					<td colspan="4">Sala: <%=r.getRoomNumber()%></td>
+					<td colspan="7"><h4>Sala: <%=r.getRoomNumber()%></h4></td>
 				</tr>
-				
-				
+
+					<tr>
+						<th>Titulo</th>
+						<th>Premiere</th>
+						<th>Days</th>
+						<th>Income</th>
+						<th>Income</th>
+					</tr>
+
 				<% for (Projection p: RoomRepository.getProjections(c, r.getRoomNumber())){%>
+					
 					<tr>
 						<td><%=p.getCip().getTitleP()%></td>
 						<td><%=p.getPremiere_date()%></td>
+						<td><%=p.getPremiere_days()%></td>
+						<td><%=p.getIncome()%></td>
+						<td><%=p.getSpectators()%></td>
 						<td>
 							<form action="infoProjection.jsp">
 								<input type="text" name="ProjectionName" value='<%=p.getRoom()%>' hidden>

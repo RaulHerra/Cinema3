@@ -65,6 +65,9 @@
 			            	<a href="./listCinemas.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
 			       		<%}%>
 			          <!-- End of contact form -->
+			          	<% if (c != null) { %>
+			   				 <form method="get" action="../room/listRooms.jsp"><button class="btn btn-primary " id="submitButton" value="<%=c.getCinema()%>" name="cinema">Rooms</button></form>
+						<%} %>
 			        </div>
 			      </div>
 			    </div>

@@ -25,22 +25,26 @@
 	String cinemaId = null;
 	String error = null;
 	try{		
-		Cinema tmpCinema = (Cinema)DbRepository.find(Cinema.class, cinemaId);
-		result = tmpCinema.getRooms();
+	
+		cinemaId = request.getParameter("cinema");
 		
-		try{
-			cinemaId="La Catilica";//ESTO ES SOLO PARA PRUEBAS
-			
-			cinemaId = request.getParameter("cinema");
-			
-		}catch(Exception e){
-			
+		if(cinemaId == null){
+			response.sendRedirect("../error.jsp?msg=Cinema not found in uri");
+			return;
 		}
 		
 		
+		Cinema tmpCinema = (Cinema)DbRepository.find(Cinema.class, cinemaId);
+	
+		if(tmpCinema == null){
+			response.sendRedirect("../error.jsp?msg=Cinema doesn't exist");
+			return;
+		}
+		result = tmpCinema.getRooms();
+		
 	}catch(Exception e){
 		System.out.print(e.getMessage());
-		response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
+		response.sendRedirect("../error.jsp?msg=Error connecting to database");
 		return;
 	}
 	%>
@@ -50,6 +54,9 @@
 			<tr>
 				<th scope="col">Sala</th>
 				<th scope="col">Capacidad</th>
+				<td>
+	   				 <form method="get" action="../room/addRoom.jsp"><button class="btn btn-primary " id="submitButton" value="<%=request.getParameter("cinema")%>" name="cinema">Add rooms</button></form>
+				</td>
 			</tr>
 
 		</thead>
