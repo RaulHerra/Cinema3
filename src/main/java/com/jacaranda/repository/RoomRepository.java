@@ -1,6 +1,5 @@
 package com.jacaranda.repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -74,7 +73,7 @@ public class RoomRepository extends DbRepository {
 			List<Projection> projections = room.getProjections();
 
 			for(Projection projection : projections) {
-				//Pq asi en ñugar de hacer una sql directamente
+				//Pq asi en lugar de hacer una sql directamente
 				session.remove(projection);
 			}
 			

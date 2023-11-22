@@ -1,3 +1,4 @@
+<%@page import="com.jacaranda.repository.RoomRepository"%>
 <%@page import="com.jacaranda.model.Cinema"%>
 <%@page import="com.jacaranda.model.Room"%>
 <%@page import="com.jacaranda.repository.DbRepository"%>
@@ -21,26 +22,23 @@
 <body>
 	<%@include file="../nav.jsp"%>
 	<% 
-	List<Room> result = null;
-	String cinemaId = null;
 	String error = null;
+	List<Cinema> cinemas = null;
 	try{		
 	
-		cinemaId = request.getParameter("cinema");
 		
-		if(cinemaId == null){
-			response.sendRedirect("../error.jsp?msg=Cinema not found in uri");
+		try{
+		cinemas = (List<Cinema>)DbRepository.findAll(Cinema.class);
+			
+		}catch(Exception e){
+			response.sendRedirect("../error.jsp?msg=Error while searching en database");
 			return;
 		}
-		
-		
-		Cinema tmpCinema = (Cinema)DbRepository.find(Cinema.class, cinemaId);
 	
-		if(tmpCinema == null){
+		if(cinemas == null){
 			response.sendRedirect("../error.jsp?msg=Cinema doesn't exist");
 			return;
 		}
-		result = tmpCinema.getRooms();
 		
 	}catch(Exception e){
 		System.out.print(e.getMessage());
@@ -52,22 +50,34 @@
 	<table class="table">
 		<thead>
 			<tr>
-				<th scope="col">Sala</th>
-				<th scope="col">Capacidad</th>
-				<td>
-	   				 <form method="get" action="../room/addRoom.jsp"><button class="btn btn-primary " id="submitButton" value="<%=request.getParameter("cinema")%>" name="cinema">Add rooms</button></form>
+				<td colspan="2">
+	   				 <form method="get" action="../room/addRoom.jsp"><button class="btn btn-success " id="submitButton" value="<%=request.getParameter("cinema")%>" name="cinema">Add rooms</button></form>
 				</td>
 			</tr>
 
 		</thead>
 		<%
-		for (Room room: result){%>
+		for (Cinema cinema: cinemas){%>
 			<tr>
-				<td><%=room.getRoomNumber()%></td>
-				<td><%=room.getCapacity()%></td>
+				<th colspan="2">Cinema: <%=cinema.getCinema()%></th>
 			</tr> 
-		
+			
+				<tr>
+					<th>Room number</th>
+					<th>Room capacity</th>
 
+				</tr>
+			<% for(Room room : cinema.getRooms()){ %>
+				<tr>
+					<td><%=room.getRoomNumber()%></td>
+					<td><%=room.getCapacity()%></td>
+
+				</tr> 
+				
+				
+					
+		
+				<% }%>
 		<% }%>
     </table>
 </body>
