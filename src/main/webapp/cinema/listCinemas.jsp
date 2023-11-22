@@ -27,27 +27,38 @@
 		return;
 	}
 	%>
-
-	<table class="table">
-		<thead>
-			<tr>
-				<th scope="col">Cinema</th>
-			</tr>
-		</thead>
-		<%/*Recorro las peliculas y por cada una creo una columa de la tabla que tengo aqui
-		   * y creo un botón de info que cuando le demos nos lleva a la pagina de info de pelicula
-		   * enviado el cip de la pelicula para despues poder recuperarlo en la página de info*/ 
-		for (Cinema cinema: cinemas){%>
-				<tr>
-					<td><%=cinema.getCinema()%></td>
-					<td>
-						<form action="infoCinema.jsp">
-							<input type="text" name="cinema" value='<%=cinema.getCinema()%>' hidden>
-							<button type="submit" class="btn btn-primary">Info</button>
-						</form>
-					</td>
-				</tr>
-		<% }%>
-	</table>
+	<div class="container px-5 my-5">
+		<div class="row justify-content-center">
+			<div class="col-lg-8">
+				<div class="card border-0 rounded-3 shadow-lg">
+					<div class="card-body p-4">
+						<div class="text-center">
+							<h1 align="center">List of cinemas</h1>
+							<br>
+							<table class="table tableLeft">
+								<%
+								/*Recorro las peliculas y por cada una creo una columa de la tabla que tengo aqui
+										   * y creo un botón de info que cuando le demos nos lleva a la pagina de info de pelicula
+										   * enviado el cip de la pelicula para despues poder recuperarlo en la página de info*/
+								for (Cinema cinema : cinemas) {
+								%>
+								<tr>
+									<td><%=cinema.getCinema()%></td>
+									<td>
+										<form action="infoCinema.jsp">
+											<input type="text" name="cinema"
+												value='<%=cinema.getCinema()%>' hidden>
+											<button type="submit" class="btn btn-primary">Info</button>
+										</form>
+									</td>
+								</tr>
+								<% }%>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

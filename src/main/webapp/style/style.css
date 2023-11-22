@@ -33,6 +33,10 @@ input:read-only{
 .table td{
 	vertical-align: middle;
 }
+.tableLeft td{
+	vertical-align: middle;
+	text-align: left;	
+}
 
 
 .table{
