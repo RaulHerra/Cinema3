@@ -41,7 +41,7 @@
 					<div class="card-body p-4">
 						<div class="text-center">
 							<h1 align="center">
-								Filmography the
+								Filmography of
 								<%=c.getCharacterName()%></h1>
 							<br>
 							<table class="table">
@@ -66,12 +66,12 @@
 									<%}%>
 								</tbody>
 							</table>
+						</div>
 							<a
 								href="infoCharacter.jsp?characterName=<%=c.getCharacterName()%>">
-								<button class="btn btn-primary " id="submitButton" type="button">Return
+								<button class="btn btn-info " id="submitButton" type="button">Return
 									character</button>
 							</a>
-						</div>
 					</div>
 				</div>
 			</div>

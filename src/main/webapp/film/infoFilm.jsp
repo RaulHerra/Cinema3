@@ -104,7 +104,7 @@
 			          </form>
 			          <%}%>
 			          <% if (f != null) { %>
-				    	<form method="get" action="./filmCharacters.jsp"><button class="btn btn-primary " id="submitButton" value="<%=f.getCip()%>" name="filmCharacters">See Filmography</button></form>
+				    	<form method="get" action="./castCharacters.jsp"><button class="btn btn-primary " id="submitButton" value="<%=f.getCip()%>" name="filmCharacters">Cast of characters</button></form>
 					  <%} %>
 			        </div>
 			      </div>
