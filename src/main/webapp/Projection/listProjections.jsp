@@ -44,30 +44,31 @@
 
 	<table class="table">
 		<thead>
-			<tr>
-				<th scope="col" colspan="4">Cinema</th>
-			</tr>
 		</thead>
 		<% for (Cinema c: result){%>
 			<tr>
-				<th colspan="4"><%=c.getCinema()%></th>
+				<th colspan="6"><h3>Cinema: <%=c.getCinema()%></h3></th>
 			</tr>
 			<tr>
 			
 			
 			<% for (Room r: CinemaRepository.getRooms(c.getCinema())){%>
 				<tr>
-					<td colspan="4">Sala: <%=r.getRoomNumber()%></td>
+					<td colspan="6"><h4>Sala: <%=r.getRoomNumber()%></h4></td>
 				</tr>
 				
 				
 				<% for (Projection p: RoomRepository.getProjections(c, r.getRoomNumber())){%>
 					<tr>
 						<td><%=p.getCip().getTitleP()%></td>
-						<td><%=p.getPremiere_date()%></td>
+						<td>Premiere date: <%=p.getPremiere_date()%></td>
+						<td>Days: <%=p.getPremiere_days()%></td>
+						<td>Spectators: <%=p.getSpectators()%></td>
 						<td>
 							<form action="infoProjection.jsp">
-								<input type="text" name="ProjectionName" value='<%=r.getRoomNumber()%>' hidden>
+								<input type="text" name="ProjectionName" value='<%=p.getRoom()%>' hidden>
+								<input type="text" name="ProjectionName" value='<%=p.getCip()%>' hidden>
+								<input type="text" name="ProjectionName" value='<%=p.getPremiere_date()%>' hidden>
 								<button class="btn btn-primary" type="submit" name="info"> Projection Info </button>
 							</form>
 						</td>
