@@ -36,7 +36,7 @@
 			result = DbRepository.findAll(Character.class);
 			
 		}catch(Exception e) {
-			response.sendRedirect("../error.jsp?msg=ailed to connect to database");
+			response.sendRedirect("../error.jsp?msg=Failed to connect to database");
 			return;
 		}
 	%>
