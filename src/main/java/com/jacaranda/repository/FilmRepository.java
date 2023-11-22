@@ -4,11 +4,14 @@ import java.util.ArrayList;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.query.SelectionQuery;
 
 import com.jacaranda.model.Film;
+import com.jacaranda.model.Projection;
 import com.jacaranda.model.Work;
 import com.jacaranda.util.BdUtil;
+import com.mysql.cj.Query;
 
 public class FilmRepository extends DbRepository{
 
@@ -27,7 +30,7 @@ public class FilmRepository extends DbRepository{
 
 			SelectionQuery<Work> queryWork = (SelectionQuery<Work>)
 
-					session.createNativeQuery("select * from Trabajo where cip = :cip",Work.class);
+			session.createNativeQuery("select * from Trabajo where cip = :cip",Work.class);
 
 			queryWork.setParameter("cip", cip);
 
@@ -69,6 +72,7 @@ public class FilmRepository extends DbRepository{
 		}
 		
 		transaction = session.beginTransaction();
+		
 		try {
 
 			ArrayList<Work> works = (ArrayList<Work>) film.getWorks() ;
@@ -80,6 +84,12 @@ public class FilmRepository extends DbRepository{
 			}
 
 			session.remove(film);
+			
+			
+			NativeQuery<Projection> query = session.createNativeQuery("Delete From Proyeccion Where cip = :cip",Projection.class);
+			query.setParameter("cip", film.getCip());
+			query.executeUpdate();
+			
 
 			transaction.commit();
 

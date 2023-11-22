@@ -54,7 +54,7 @@
 		}
 		
 	}catch(Exception e){
-		e.getMessage();
+		error = "Enter a valid movie, character or task.";
 	}
 
 %>

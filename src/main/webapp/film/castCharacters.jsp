@@ -81,7 +81,7 @@
 
 								</table>
 						</div>
-		            	<a href="./infoFilm.jsp?cip=<%=f.getCip()%>"><button class="btn btn-info" id="submitButton" type="button">Return film</button></a>								
+		            	<a href="./infoFilm.jsp?cip=<%=f.getCip()%>"><button class="btn btn-info" id="submitButton" type="button">Return</button></a>								
 					</div>
 				</div>
 			</div>
@@ -90,7 +90,7 @@
 	<%}else if(error != null){%>
 		<br>
     	<div class="textAreaInfoError" ><%=error%></div>
-       	<a href="./listFilms.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
+       	<a href="./listFilms.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return</button></a>
 	<%}%>
 </body>
 </html>

@@ -69,8 +69,7 @@
 						</div>
 							<a
 								href="infoCharacter.jsp?characterName=<%=c.getCharacterName()%>">
-								<button class="btn btn-info " id="submitButton" type="button">Return
-									character</button>
+								<button class="btn btn-info " id="submitButton" type="button">Return</button>
 							</a>
 					</div>
 				</div>
@@ -80,7 +79,7 @@
 	<%}else{%>
 	
 		<div class="textAreaInfoError">Error: the character that you selected doesn't exist</div>
-		<a href="./listCharacters.jsp"> <button class="btn btn-primary " id="submitButton" type="button"> Return list </button></a>
+		<a href="./listCharacters.jsp"> <button class="btn btn-primary " id="submitButton" type="button">Return</button></a>
 		
 	<%}%>
 
