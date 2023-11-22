@@ -20,7 +20,7 @@
 			error = "Error. This task does not exist";
 		}
 	}catch(Exception e){
-		response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
+		response.sendRedirect("../error.jsp?msg=Failed to connect to database");
 		return;
 	}
 
