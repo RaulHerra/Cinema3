@@ -78,7 +78,7 @@
 					<td>
 						<form action="infoCinema.jsp">
 							<input type="text" name="ProjectionName" value='<%=c.getCinema()%>' hidden>
-							<button class="btn btn-primary" type="submit" name="info"> Cine Info </button>
+							<button class="btn btn-primary" type="submit" name="info"> Cinema Info </button>
 						</form>
 					</td>
 					</tr>

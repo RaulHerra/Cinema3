@@ -16,13 +16,13 @@ public class DbRepository {
 			session = BdUtil.getSessionFactory().openSession();
 
 		}catch (Exception e) {
-			throw new Exception("Error en la base de datos");
+			throw new Exception("Failed to connect to database");
 		}
 		
 		try {
 			result = session.find(c, id);
 		} catch (Exception e) {
-			throw new Exception("Error al obtener la entidad");
+			throw new Exception("Error getting entity");
 		}
 		session.close();
 		return result;
@@ -34,13 +34,13 @@ public class DbRepository {
 		try {
 			session = BdUtil.getSessionFactory().openSession();
 		}catch (Exception e) {
-			throw new Exception("Error en la base de datos");
+			throw new Exception("Failed to connect to database");
 		}
 		
 		try {
 			resultList = ((List<T>) session.createSelectionQuery("From " + c.getName()).getResultList());
 		} catch (Exception e) {
-			throw new Exception("Error al obtener la entidad");
+			throw new Exception("Error getting entity");
 		}
 		session.close();
 		return resultList;
@@ -98,13 +98,13 @@ public class DbRepository {
 		try {
 			session = BdUtil.getSessionFactory().openSession();
 		} catch (Exception e) {
-			throw new Exception("Error en la base de datos");
+			throw new Exception("Failed to connect to database");
 		}
 
 		try {
 			result = session.find(objectClass, object);
 		} catch (Exception e) {
-			throw new Exception("Error al obtener la entidad");
+			throw new Exception("Error getting entity");
 
 		}
 		session.close();

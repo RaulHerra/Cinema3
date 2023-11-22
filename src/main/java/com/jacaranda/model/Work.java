@@ -2,6 +2,8 @@ package com.jacaranda.model;
 
 import java.util.Objects;
 
+import com.jacaranda.exception.WorkException;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -31,18 +33,21 @@ public class Work {
 		super();
 	}
 
-	public Work(Character character, Film film, Task task) {
+	public Work(Character character, Film film, Task task) throws WorkException {
 		super();
-		this.character = character;
-		this.film = film;
-		this.task = task;
+		setCharacter(character);
+		setFilm(film);
+		setTask(task);;
 	}
 
 	public Character getCharacter() {
 		return character;
 	}
 
-	public void setCharacter(Character character) {
+	public void setCharacter(Character character) throws WorkException {
+		if(character == null) {
+			throw new WorkException("Error character is null");
+		}
 		this.character = character;
 	}
 
@@ -50,7 +55,10 @@ public class Work {
 		return film;
 	}
 
-	public void setFilm(Film film) {
+	public void setFilm(Film film) throws WorkException {
+		if(film == null) {
+			throw new WorkException("Error film is null");
+		}
 		this.film = film;
 	}
 	
@@ -58,13 +66,16 @@ public class Work {
 		return task;
 	}
 
-	public void setTask(Task task) {
+	public void setTask(Task task) throws WorkException {
+		if(task == null) {
+			throw new WorkException("Error task is null");
+		}
 		this.task = task;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(character, film);
+		return Objects.hash(character, film, task);
 	}
 
 	@Override
@@ -76,7 +87,8 @@ public class Work {
 		if (getClass() != obj.getClass())
 			return false;
 		Work other = (Work) obj;
-		return Objects.equals(character, other.character) && Objects.equals(film, other.film);
+		return Objects.equals(character, other.character) && Objects.equals(film, other.film)
+				&& Objects.equals(task, other.task);
 	}
 	
 }

@@ -94,7 +94,7 @@
 		      
 		      
 		      
-          <li class="nav-item dropdown">
+         	 <li class="nav-item dropdown">
 		          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 		            Projection
 		          </a>
@@ -109,6 +109,23 @@
 				    </li>
 		          </ul>
 	      	 </li>
+	      	 
+	          <li class="nav-item dropdown">
+		          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		            Room
+		          </a>
+		          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+		          
+				     <li>
+				     	<a class="dropdown-item " href="/CinemaTeam/room/listRooms.jsp">List room</a>
+				     </li>
+				     
+		            <li>
+				    	<a class="dropdown-item " href="/CinemaTeam/room/addRoom.jsp">Add room</a>
+				    </li>
+		          </ul>
+	      	 </li>	      	 
+	      	 
 		    </ul>
 
 		    
