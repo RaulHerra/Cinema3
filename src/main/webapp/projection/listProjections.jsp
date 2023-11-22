@@ -51,14 +51,22 @@
 					<td colspan="7"><h4>Sala: <%=r.getRoomNumber()%></h4></td>
 				</tr>
 
+					<tr>
+						<th>Titulo</th>
+						<th>Premiere</th>
+						<th>Days</th>
+						<th>Income</th>
+						<th>Income</th>
+					</tr>
 
 				<% for (Projection p: RoomRepository.getProjections(c, r.getRoomNumber())){%>
+					
 					<tr>
 						<td><%=p.getCip().getTitleP()%></td>
-						<td>Premiere date: <%=p.getPremiere_date()%></td>
-						<td>Days: <%=p.getPremiere_days()%></td>
-						<td>Income: <%=p.getIncome()%></td>
-						<td>Spectators: <%=p.getSpectators()%></td>
+						<td><%=p.getPremiere_date()%></td>
+						<td><%=p.getPremiere_days()%></td>
+						<td><%=p.getIncome()%></td>
+						<td><%=p.getSpectators()%></td>
 						<td>
 							<form action="infoProjection.jsp">
 								<input type="text" name="ProjectionName" value='<%=p.getRoom()%>' hidden>
