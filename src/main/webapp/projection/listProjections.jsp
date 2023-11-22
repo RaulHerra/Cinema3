@@ -56,7 +56,7 @@
 						<th>Premiere</th>
 						<th>Days</th>
 						<th>Income</th>
-						<th>Income</th>
+						<th>Spectators</th>
 					</tr>
 
 				<% for (Projection p: RoomRepository.getProjections(c, r.getRoomNumber())){%>
