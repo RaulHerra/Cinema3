@@ -90,7 +90,7 @@
 	<%}else if(error != null){%>
 		<br>
     	<div class="textAreaInfoError" ><%=error%></div>
-       	<a href="./listFilms.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
+       	<a href="./listFilms.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return</button></a>
 	<%}%>
 </body>
 </html>

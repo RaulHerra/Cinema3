@@ -69,8 +69,7 @@
 						</div>
 							<a
 								href="infoCharacter.jsp?characterName=<%=c.getCharacterName()%>">
-								<button class="btn btn-info " id="submitButton" type="button">Return
-									character</button>
+								<button class="btn btn-info " id="submitButton" type="button">Return</button>
 							</a>
 					</div>
 				</div>
