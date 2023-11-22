@@ -52,7 +52,7 @@
 					error = "Error there is no character with such a name";
 				}
 			}catch(Exception e){
-				response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
+				response.sendRedirect("../error.jsp?msg=Failed to connect to database");
 				return;
 			}%>
 				<div class="container px-5 my-5">

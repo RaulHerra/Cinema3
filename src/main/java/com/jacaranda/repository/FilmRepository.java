@@ -40,7 +40,7 @@ public class FilmRepository extends DbRepository{
 
  			session.close();
 
- 			throw new Exception("Error al conectar a la base de datos "+ e.getMessage());
+ 			throw new Exception("Failed to connect to database "+ e.getMessage());
 
  		}
 
@@ -67,7 +67,7 @@ public class FilmRepository extends DbRepository{
 
 		}catch (Exception e) {
 
-			throw new Exception("Error al conectar con la base de datos " + e.getMessage());
+			throw new Exception("Failed to connect to database" + e.getMessage());
 
 		}
 		
@@ -99,7 +99,7 @@ public class FilmRepository extends DbRepository{
 
 			session.close();
 
-			throw new Exception("Error al borrar el objeto " + e.getMessage());
+			throw new Exception("Failed to connect to database" + e.getMessage());
 
 		}
 		session.close();

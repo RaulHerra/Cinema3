@@ -22,7 +22,7 @@
         try{
             result = DbRepository.findAll(Task.class);
         }catch(Exception e){
-    		response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
+    		response.sendRedirect("../error.jsp?msg=Failed to connect to database");
     		return;
         }
     %>
