@@ -81,7 +81,7 @@
 
 								</table>
 						</div>
-		            	<a href="./infoFilm.jsp?cip=<%=f.getCip()%>"><button class="btn btn-info" id="submitButton" type="button">Return film</button></a>								
+		            	<a href="./infoFilm.jsp?cip=<%=f.getCip()%>"><button class="btn btn-info" id="submitButton" type="button">Return</button></a>								
 					</div>
 				</div>
 			</div>

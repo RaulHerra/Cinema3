@@ -41,37 +41,48 @@
 		}
 	%>
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th scope="col">Name</th>
-			</tr>
-		</thead>
-		
-		<!-- With the list full of the Characters from the database, we go throught all of it using a For loop. 
-		For every Character, it will create a row and two columns. 
-		The first column will have the Character's name, and the second column will contain 
-		a hidden input, and a button that redirects to the "Info Character" page. 
-		
-		The hidden input, that stays with the button, has the name of the Character of its own in the "value"
-		When you press the button, it will send the value to the "infoCharacter" page. It will be used there
-		to get that specific character using the "getCharacter()" method, and show the other fields of 
-		the Character.
-		 -->
-		<% for (Character c: result){%>
-				<tr>
-					<td><%=c.getCharacterName()%></td>
+	<div class="container px-5 my-5">
+		<div class="row justify-content-center">
+			<div class="col-lg-8">
+				<div class="card border-0 rounded-3 shadow-lg">
+					<div class="card-body p-4">
+						<div class="text-center">
+							<h1 align="center">List of characters</h1>
+							<br>
+							<table class="table tableLeft">
+								<!-- With the list full of the Characters from the database, we go throught all of it using a For loop. 
+								For every Character, it will create a row and two columns. 
+								The first column will have the Character's name, and the second column will contain 
+								a hidden input, and a button that redirects to the "Info Character" page. 
+								
+								The hidden input, that stays with the button, has the name of the Character of its own in the "value"
+								When you press the button, it will send the value to the "infoCharacter" page. It will be used there
+								to get that specific character using the "getCharacter()" method, and show the other fields of 
+								the Character.
+								 -->
+								<%
+								for (Character c : result) {
+								%>
+								<tr>
+									<td><%=c.getCharacterName()%></td>
 
-					<td>
-						<form action="infoCharacter.jsp">
-							<input type="text" name="characterName" value='<%=c.getCharacterName()%>' hidden=>
-							<button class="btn btn-primary " type="submit" name="info"> Info </button>
-						</form>
-					</td>
-				</tr>
-		<% }%>
-	</table>
-
+									<td>
+										<form action="infoCharacter.jsp">
+											<input type="text" name="characterName"
+												value='<%=c.getCharacterName()%>' hidden=>
+											<button class="btn btn-primary " type="submit" name="info">
+												Info</button>
+										</form>
+									</td>
+								</tr>
+								<% }%>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </body>
 

@@ -80,7 +80,7 @@
 	<%}else{%>
 	
 		<div class="textAreaInfoError">Error: the character that you selected doesn't exist</div>
-		<a href="./listCharacters.jsp"> <button class="btn btn-primary " id="submitButton" type="button"> Return list </button></a>
+		<a href="./listCharacters.jsp"> <button class="btn btn-primary " id="submitButton" type="button">Return</button></a>
 		
 	<%}%>
 
