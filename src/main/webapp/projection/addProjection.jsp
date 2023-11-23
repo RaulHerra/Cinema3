@@ -58,11 +58,7 @@
 		return;
 	}
 
-
 		%>
-
-
-
 
 <!-- ======= NAVBAR ======= -->
 <%@include file="../nav.jsp"%>
@@ -78,7 +74,7 @@
 	
 	          <form method="get">
 		         <div class=" mb-3">
-		           <label for="cinemaCity" class="form-label">Select Cinema</label>
+		           <label for="cinema" class="form-label">Select Cinema</label>
 		   		   <select id="cinema" name="cinema" class="form-select custom-select">
 		   		   		<option>-- Select Cinema --</option>
 				      	<%for (Cinema c : result){ %>
@@ -87,8 +83,8 @@
 				   </select>
 	    		 </div>
 	    		 <div class=" mb-3">
-		           <label for="cinemaCity" class="form-label">Select Room</label>
-		   		   <select id="cinema" name="cinema" class="form-select custom-select">
+		           <label for="room" class="form-label">Select Room</label>
+		   		   <select id="room" name="room" class="form-select custom-select">
 		   		   		<option>-- Select Room --</option>
 				      	<%for (Cinema c : result){ %>
 				      		<option value="<%=c.getCinema()%>"><%=c.getCinema()%></option>
@@ -97,8 +93,8 @@
 	    		 </div>
 	    		 
 	    		 <div class=" mb-3">
-		           <label for="cinemaCity" class="form-label">Select Film</label>
-		   		   <select id="cinema" name="cinema" class="form-select custom-select">
+		           <label for="film" class="form-label">Select Film</label>
+		   		   <select id="film" name="film" class="form-select custom-select">
 		   		   		<option>-- Select Film --</option>
 				      	<%for (Cinema c : result){ %>
 				      		<option value="<%=c.getCinema()%>"><%=c.getCinema()%></option>
@@ -107,23 +103,23 @@
 	    		 </div>
 	    		 
 		           <div class=" mb-3">
-		               <label for="cinemaCity" class="form-label">Premiere date</label>
+		               <label for="premiere_date" class="form-label">Premiere date</label>
 		   			<input type="date" class="form-control" id="premiere_date" name="premiere_date" max="<%=today%>" required>
 		           </div>
-		
+	
 		           <div class=" mb-3">
 					<label for="cinemaAddress" class="form-label">Premiere Days</label>
-		   			<input type="number" class="form-control" id="premiere_days" name="premiere_days" required>
+		   			<input type="number" class="form-control" id="premiere_days" name="premiere_days" min="1" placeholder="Enter premiere days" required>
 		           </div>
 		           
 		           <div class=" mb-3">
-					<label for="cinemaAddress" class="form-label">Spectators</label>
-		   			<input type="number" class="form-control" id="premiere_days" name="premiere_days" required>
+					<label for="spectators" class="form-label">Spectators</label>
+		   			<input type="number" class="form-control" id="spectators" min="1" placeholder="Enter spectators number" name="premiere_days" required>
 		           </div>
 		           
 		           <div class=" mb-3">
-					<label for="cinemaAddress" class="form-label">Income</label>
-		   			<input type="number" class="form-control" id="premiere_days" name="premiere_days" required>
+					<label for="income" class="form-label">Income</label>
+		   			<input type="number" class="form-control" id="income" name="income" min="1" placeholder="Enter income" required>
 		           </div>
 		            <%
 		            if(error != null){%>

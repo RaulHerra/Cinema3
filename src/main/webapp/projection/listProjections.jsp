@@ -76,10 +76,11 @@
 							</form>
 						</td>
 					<td>
-						<form action="infoCinema.jsp">
-							<input type="text" name="ProjectionName" value='<%=c.getCinema()%>' hidden>
-							<button class="btn btn-primary" type="submit" name="info"> Cinema Info </button>
-						</form>
+							
+					<form action="/CinemaTeam/cinema/infoCinema.jsp">
+						<button class="btn btn-primary" type="submit" name="cinema" value='<%=c.getCinema()%>'> Cinema Info </button>
+					</form>	
+							
 					</td>
 					</tr>
 		<%}}}%>
