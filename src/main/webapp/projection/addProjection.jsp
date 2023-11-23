@@ -58,11 +58,7 @@
 		return;
 	}
 
-
 		%>
-
-
-
 
 <!-- ======= NAVBAR ======= -->
 <%@include file="../nav.jsp"%>
@@ -110,7 +106,7 @@
 		               <label for="premiere_date" class="form-label">Premiere date</label>
 		   			<input type="date" class="form-control" id="premiere_date" name="premiere_date" max="<%=today%>" required>
 		           </div>
-		
+	
 		           <div class=" mb-3">
 					<label for="premiere_days" class="form-label">Premiere Days</label>
 		   			<input type="number" class="form-control" id="premiere_days" name="premiere_days" required>
@@ -118,12 +114,12 @@
 		           
 		           <div class=" mb-3">
 					<label for="spectators" class="form-label">Spectators</label>
-		   			<input type="number" class="form-control" id="spectators" name="spectators" required>
+		   			<input type="number" class="form-control" id="spectators" min="1" placeholder="Enter spectators number" name="spectators" required>
 		           </div>
 		           
 		           <div class=" mb-3">
 					<label for="income" class="form-label">Income</label>
-		   			<input type="number" class="form-control" id="income" name="income" required>
+		   			<input type="number" class="form-control" id="income" name="income" min="1" placeholder="Enter income" required>
 		           </div>
 		            <%
 		            if(error != null){%>

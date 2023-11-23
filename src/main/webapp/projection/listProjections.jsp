@@ -40,51 +40,80 @@
 			return;
 		}
 	%>
+	<div class="container px-7 my-5">
+		<div class="row justify-content-center">
+			<div class="col-lg-8">
+				<div class="card border-0 rounded-3 shadow-lg">
+					<div class="card-body p-4">
+						<div class="text-center">
+							<h1 align="center">List of projections</h1>
+							<br>
+							<table class="table">
+								<%
+								for (Cinema c : result) {
+								%>
 
-	<table class="table">
-		<% for (Cinema c: result){%>
-		
-			<tr><td colspan="7"><h3>Cinema: <%=c.getCinema()%></h3></td></tr>
-	
-			<% for (Room r: CinemaRepository.getRooms(c.getCinema())){%>
-				<tr>
-					<td colspan="7"><h4>Sala: <%=r.getRoomNumber()%></h4></td>
-				</tr>
+								<tr>
+									<td colspan="7"><h3>
+											Cinema:
+											<%=c.getCinema()%></h3></td>
+								</tr>
 
-					<tr>
-						<th>Titulo</th>
-						<th>Premiere</th>
-						<th>Days</th>
-						<th>Income</th>
-						<th>Spectators</th>
-					</tr>
+								<%
+								for (Room r : CinemaRepository.getRooms(c.getCinema())) {
+								%>
+								<tr>
+									<td colspan="7"><h4>
+											Sala:
+											<%=r.getRoomNumber()%></h4></td>
+								</tr>
 
-				<% for (Projection p: RoomRepository.getProjections(c, r.getRoomNumber())){%>
-					
-					<tr>
-						<td><%=p.getCip().getTitleP()%></td>
-						<td><%=p.getPremiere_date()%></td>
-						<td><%=p.getPremiere_days()%></td>
-						<td><%=p.getIncome()%></td>
-						<td><%=p.getSpectators()%></td>
-						<td>
-							<form action="infoProjection.jsp">
-								<input type="text" name="ProjectionName" value='<%=p.getRoom()%>' hidden>
-								<input type="text" name="ProjectionName" value='<%=p.getCip()%>' hidden>
-								<input type="text" name="ProjectionName" value='<%=p.getPremiere_date()%>' hidden>
-								<button class="btn btn-primary" type="submit" name="info"> Projection Info </button>
-							</form>
-						</td>
-					<td>
-						<form action="infoCinema.jsp">
-							<input type="text" name="ProjectionName" value='<%=c.getCinema()%>' hidden>
-							<button class="btn btn-primary" type="submit" name="info"> Cinema Info </button>
-						</form>
-					</td>
-					</tr>
-		<%}}}%>
-	</table>
+								<tr>
+									<th>Titulo</th>
+									<th>Premiere</th>
+									<th>Days</th>
+									<th>Income</th>
+									<th>Spectators</th>
+								</tr>
 
+								<%
+								for (Projection p : RoomRepository.getProjections(c, r.getRoomNumber())) {
+								%>
+
+								<tr>
+									<td><%=p.getCip().getTitleP()%></td>
+									<td><%=p.getPremiere_date()%></td>
+									<td><%=p.getPremiere_days()%></td>
+									<td><%=p.getIncome()%></td>
+									<td><%=p.getSpectators()%></td>
+									<td>
+										<form action="infoProjection.jsp">
+											<input type="text" name="ProjectionName"
+												value='<%=p.getRoom()%>' hidden> <input type="text"
+												name="ProjectionName" value='<%=p.getCip()%>' hidden>
+											<input type="text" name="ProjectionName"
+												value='<%=p.getPremiere_date()%>' hidden>
+											<button class="btn btn-primary" type="submit" name="info">
+												Projection Info</button>
+										</form>
+									</td>
+									<td>
+
+										<form action="../cinema/infoCinema.jsp">
+											<button class="btn btn-primary" type="submit" name="cinema"
+												value='<%=c.getCinema()%>'>Cinema Info</button>
+										</form>
+
+									</td>
+								</tr>
+								<%}}}%>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </body>
 

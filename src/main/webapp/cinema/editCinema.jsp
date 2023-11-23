@@ -33,7 +33,7 @@
 					}
 				}
 			}else{
-				error = "Error there is no movie with the cip entered";
+				error = "Error there is no cinema with the name entered";
 			}
 		}catch(Exception e){
 			response.sendRedirect("../error.jsp?msg=Failed to connect to database");

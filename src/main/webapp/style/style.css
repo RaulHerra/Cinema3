@@ -32,14 +32,13 @@ input:read-only{
 /*propuestas de css, borrad o modificad lo que querais*/
 .table td{
 	vertical-align: middle;
+	background: transparent;
 }
+
 .tableLeft td{
 	vertical-align: middle;
 	text-align: left;	
 }
-
-
-
 
 .table{
     width: max-content;
@@ -51,7 +50,8 @@ input:read-only{
 	margin-top: 10px;
 	
 }
-.table tbody tr:hover{
+
+tbody tr:hover{
 	background-color: #dee2e6;
 }
 
