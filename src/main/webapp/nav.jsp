@@ -2,7 +2,7 @@
 <head>
 </head>
 	<body>
-		<nav class="navbar navbar-expand-lg  bg-light">
+		<nav class="navbar navbar-expand-lg sticky-top bg-light">
 		
 		
 		 <div class="container-fluid">

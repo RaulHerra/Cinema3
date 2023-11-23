@@ -60,12 +60,12 @@
 			
 			           <div class=" mb-3">
 			           		<label for="cinemaCity" class="form-label">Cinema city</label>
-			   				<input type="text" class="form-control" id="cinemaCity" name="cinemaCity" value="<%=cinema.getCityCinema()%>" required>
+		   					<input type="text" class="form-control" id="cinemaCity" name="cinemaCity" value="<%=cinema.getCityCinema()%>" placeholder="Enter cinema city" required>
 			           </div>
 			
 			           <div class=" mb-3">
 							<label for="cinemaAddress" class="form-label">Cinema address</label>
-			   				<input type="text" step="1" class="form-control" id="cinemaAddress" name="cinemaAddress" value="<%=cinema.getAddressCinema()%>" required>
+				   			<input type="text" step="1" class="form-control" id="cinemaAddress" name="cinemaAddress" value="<%=cinema.getAddressCinema()%>" placeholder="Enter cinema address" required>
 			           </div>
 			            <%}%>
 			            <%

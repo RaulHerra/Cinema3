@@ -21,14 +21,14 @@
 
 		<%
 		/*I create a new Character with null value*/
-		Character c = null;
+		Character character = null;
 		String error = null;
 		try{
 			/*If the character with the name that I recovered from the parameter from the info page exists...*/
 			if(request.getParameter("characterName") != null 
 					&& DbRepository.find(Character.class, request.getParameter("characterName")) != null){
 				/*I get the character with the name I received*/
-				c = DbRepository.find(Character.class, request.getParameter("characterName"));
+				character = DbRepository.find(Character.class, request.getParameter("characterName"));
 			
 			}else{
 				error = "Error there is no character with the character's name entered";
@@ -48,23 +48,23 @@
 			          </div>
 					
 			          <form method="get">
-			          <%if(c != null){ /*This if shows the character*/ %>
+			          <%if(character != null){ /*This if shows the character*/ %>
 			            <!-- Character's name Input -->
 			            <div class=" mb-3">
 			    			<label for="characterName" class="form-label">Character's name</label>
-			    			<input type="text" class="form-control" id="characterName" name="characterName" value='<%= c.getCharacterName() %>'readonly required>
+			    			<input type="text" class="form-control" id="characterName" name="characterName" value='<%= character.getCharacterName() %>'readonly required>
 			            </div>
 			
 			            <!-- Character's nationality Input -->
 			            <div class="mb-3">
 			                <label for="characterNationality" class="form-label">Character's nationality</label>
-			    			<input type="text" class="form-control" id="characterNationality" name="characterNationality" placeholder="Enter Character Nationality" value="<%= c.getCharacterNationality() %>" readonly required>
+			    			<input type="text" class="form-control" id="characterNationality" name="characterNationality" placeholder="Enter Character Nationality" value="<%= character.getCharacterNationality() %>" readonly required>
 			            </div>
 			
 			            <!-- Character's sex Input -->
 			            <div class=" mb-3">
 							<label for="characterSex" class="form-label">Character's sex</label>
-			    			<input type="text" step="1" class="form-control" id="characterSex" name="characterSex" placeholder="Enter Character Sex" value="<%= c.getCharacterSex() %>" readonly required>
+			    			<input type="text" step="1" class="form-control" id="characterSex" name="characterSex" placeholder="Enter Character Sex" value="<%= character.getCharacterSex() %>" readonly required>
 			            </div>
 			            
 			            
@@ -98,7 +98,7 @@
 				            
 			            	
 			            	<%} else if (request.getParameter("submit") != null) {
-			            		CharacterRepository.delete(c);%>
+			            		CharacterRepository.delete(character);%>
 				           		<a href="./listCharacters.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return to list</button></a>
 		            		<%}else if(error != null){%>
 				           		<a href="./listCharacters.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return to list</button></a>

@@ -56,9 +56,7 @@ public class Work {
 	}
 
 	public void setFilm(Film film) throws WorkException {
-		if(film == null) {
-			throw new WorkException("Error film is null");
-		}
+		if(film == null) throw new WorkException("Error film is null");
 		this.film = film;
 	}
 	
@@ -67,9 +65,7 @@ public class Work {
 	}
 
 	public void setTask(Task task) throws WorkException {
-		if(task == null) {
-			throw new WorkException("Error task is null");
-		}
+		if(task == null) throw new WorkException("Error task is null");
 		this.task = task;
 	}
 
@@ -90,5 +86,12 @@ public class Work {
 		return Objects.equals(character, other.character) && Objects.equals(film, other.film)
 				&& Objects.equals(task, other.task);
 	}
+
+	@Override
+	public String toString() {
+		return "Work [character=" + character.getCharacterName() + ", film=" + film.getCip() + ", task=" + task.getTask() + "]";
+	}
+	
+	
 	
 }

@@ -79,9 +79,9 @@
 									<select id="films" name="films" class="form-select" required>
 										<option disabled selected>-- Select the film --</option>
 										<%
-										for (Film f : films) {
+										for (Film film : films) {
 										%>
-										<option value="<%=f.getCip()%>"><%=f.getTitleP()%></option>
+										<option value="<%=film.getCip()%>"><%=film.getTitleP()%></option>
 										<%
 										}
 										%>
@@ -113,9 +113,9 @@
 										required>
 										<option disabled selected>-- Select character --</option>
 										<%
-										for (Character c : characters) {
+										for (Character character : characters) {
 										%>
-										<option value="<%=c.getCharacterName()%>"><%=c.getCharacterName()%></option>
+										<option value="<%=character.getCharacterName()%>"><%=character.getCharacterName()%></option>
 										<%
 										}
 										%>
@@ -162,9 +162,9 @@
 									<select id="task" name="task" class="form-select" required>
 										<option disabled selected>-- Select task --</option>
 										<%
-										for (Task t : tasks) {
+										for (Task task : tasks) {
 										%>
-										<option value="<%=t.getTask()%>"><%=t.getTask()%></option>
+										<option value="<%=task.getTask()%>"><%=task.getTask()%></option>
 										<%
 										}
 										%>

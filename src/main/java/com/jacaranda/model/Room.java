@@ -34,6 +34,9 @@ public class Room {
 	@OneToMany(mappedBy = "room")
 	private List<Projection> projections;
 	
+	private static final int MIN_CAPACITY = 20;
+	private static final int MIN_ROOM_NUMBER= 0;
+	
 	public Room() {
 		super();
 	}
@@ -45,13 +48,24 @@ public class Room {
 		setCapacity(capacity);
 	}
 	
+	/**
+	 * ONLY USE TO SEARCH BY OBJECT 
+	 * @param cinema
+	 * @param roomNumber
+	 * @throws RoomException
+	 */
+	public Room(Cinema cinema, int roomNumber) throws RoomException {
+		this(cinema, roomNumber,21);
+	}
+	
+	
 
 	public Cinema getCinema() {
 		return cinema;
 	}
 
 	public void setCinema(Cinema cinema) throws RoomException {
-		if(cinema == null) throw new RoomException("El cine no puede ser nulo");
+		if(cinema == null) throw new RoomException("Cinema can't be null");
 		this.cinema = cinema;
 	}
 
@@ -60,7 +74,7 @@ public class Room {
 	}
 
 	public void setRoomNumber(int roomNumber) throws RoomException {
-		if(roomNumber < 0 ) throw new RoomException("Room number should be higher than 0");
+		if(roomNumber < MIN_ROOM_NUMBER ) throw new RoomException("Room number should be higher than 0");
 		this.roomNumber = roomNumber;
 	}
 
@@ -69,7 +83,7 @@ public class Room {
 	}
 
 	public void setCapacity(int capacity) throws RoomException {
-		if(capacity <= 20) throw new RoomException("Capacity should be higher or equal to 20");
+		if(capacity <= MIN_CAPACITY) throw new RoomException("Capacity should be higher or equal to 20");
 		this.capacity = capacity;			
 	}
 	
@@ -81,11 +95,12 @@ public class Room {
 		this.projections = projections;
 	}
 
+	
 	@Override
 	public int hashCode() {
-		return Objects.hash(capacity, cinema);
+		return Objects.hash(cinema, roomNumber);
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -95,12 +110,12 @@ public class Room {
 		if (getClass() != obj.getClass())
 			return false;
 		Room other = (Room) obj;
-		return capacity == other.capacity && Objects.equals(cinema, other.cinema);
+		return Objects.equals(cinema, other.cinema) && roomNumber == other.roomNumber;
 	}
 
 	@Override
 	public String toString() {
-		return "Room [cinema=" + cinema.getCinema() + ", roomNumber=" + roomNumber + ", capacity=" + capacity + "]";
+		return "Room : cinema=" + cinema.getCinema() + ": roomNumber=" + roomNumber + ": capacity=" + capacity ;
 	}
 	
 	

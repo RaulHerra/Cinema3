@@ -67,9 +67,9 @@
 			            	<div class="textAreaInfoError " ><%=error%></div><br>
 			            	<a href="./listCinemas.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
 			       		<%}%>
-
-			          	<%if(cinema != null) { //Cuadno el cine no es nulo muestro un botón para ver las salas del cine%>
-			   				 <a href="../room/infoRoom.jsp?cinema=<%=cinema.getCinema()%>"><button class="btn btn-primary " id="submitButton" name="cinema">Rooms</button></a>
+			          <!-- End of contact form -->
+			          	<% if (cinema != null) { %>
+			   				 <a href="../room/cinemasRooms.jsp?cinema=<%=cinema.getCinema()%>"><button class="btn btn-primary" id="submitButton" name="cinema">Rooms</button></a>
 						<%} %>
 			        </div>
 			      </div>

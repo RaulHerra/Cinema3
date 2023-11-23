@@ -120,7 +120,7 @@ public class Projection {
 
 	@Override
 	public String toString() {
-		return "Projection [room=" + room + ", cip=" + cip + ", premiere_date=" + premiere_date
+		return "Projection [room=" + room.getRoomNumber() + ", cip=" + cip.getCip() + ", premiere_date=" + premiere_date
 				+ ", premiere_days=" + premiere_days + ", spectators=" + spectators + ", income=" + income + "]";
 	}
 	

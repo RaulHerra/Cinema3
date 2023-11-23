@@ -26,7 +26,7 @@
 	<%@include file="../nav.jsp"%>
 	<%
 		
-		Character c = null;
+		Character character = null;
 		String error = null;
 		try{
 			if (request.getParameter("inputName") != null 
@@ -38,8 +38,8 @@
 					try {
 						
 						if ((request.getParameter("submit") != null)) {
-							c = new Character (request.getParameter("inputName"), request.getParameter("inputNationality"), request.getParameter("inputSex"));
-							DbRepository.addEntity(c);
+							character = new Character (request.getParameter("inputName"), request.getParameter("inputNationality"), request.getParameter("inputSex"));
+							DbRepository.addEntity(character);
 						}
 							
 					}catch (CharacterException e) {
@@ -112,8 +112,8 @@
 				  	
 				  	<button class="btn btn-primary btn-success" id="submitButton" type="submit" name="submit"> Save </button>
 				  	
-				  	<% if ((request.getParameter("submit") != null) && (error == null) && (c != null)) { %>
-						<a href="infoCharacter.jsp?characterName=<%=c.getCharacterName()%> "> 
+				  	<% if ((request.getParameter("submit") != null) && (error == null) && (character != null)) { %>
+						<a href="infoCharacter.jsp?characterName=<%=character.getCharacterName()%> "> 
 							<button class="btn btn-primary" id="submitButton" type="button"> Show character </button> 
 						</a>
 				  <%}%>
