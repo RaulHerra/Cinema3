@@ -49,7 +49,7 @@ public class Cinema {
 	}
 
 	public void setCinema(String cinema) throws CinemaException {
-		if(cinema == null || cinema.length() > MAX_LENGTH_CINEMA) {
+		if(cinema == null || cinema.length() > MAX_LENGTH_CINEMA || cinema.equals("")) {
 			throw new CinemaException("The length of the cinema name must be less than 25 characters and cannot be empty");
 		}
 		this.cinema = cinema;			
@@ -60,7 +60,7 @@ public class Cinema {
 	}
 
 	public void setCityCinema(String cityCinema) throws CinemaException {
-		if(cityCinema == null || cityCinema.length() > MAX_LENGTH_CITY_CINEMA) {
+		if(cityCinema == null || cityCinema.length() > MAX_LENGTH_CITY_CINEMA || cityCinema.equals("")) {
 			throw new CinemaException("The length of the movie city must be less than 25 characters and cannot be empty");
 		}
 		this.cityCinema = cityCinema;
@@ -71,7 +71,7 @@ public class Cinema {
 	}
 
 	public void setAddressCinema(String addressCinema) throws CinemaException {
-		if(addressCinema == null || addressCinema.length() > MAX_LENGTH_ADDRESS_CINEMA) {
+		if(addressCinema == null || addressCinema.length() > MAX_LENGTH_ADDRESS_CINEMA || addressCinema.equals("")) {
 			throw new CinemaException("The length of the cinema address must be less than 65 characters and cannot be empty");
 		}
 		this.addressCinema = addressCinema;
