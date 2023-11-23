@@ -20,11 +20,12 @@
 		Cinema cinema = null; 
 		String error = null;
 		try{
-			cinema = DbRepository.find(Cinema.class, request.getParameter("cinema"));
-			if(cinema == null){
+			//Busco un cine con el cine que le pasa por parametro
+			cinema = DbRepository.find(Cinema.class, request.getParameter("cinema")); 
+			if(cinema == null){ //Si no encuentra cine muestro el error
 				error = "Error there is no cinema with the name entered";
 			}
-		}catch(Exception e){
+		}catch(Exception e){ //Si hay algun error con la base de datos lo redirecciono a la pagina de error con el error correspondiente
 			response.sendRedirect("../error.jsp?msg=Failed to connect to database");
 			return;
 		}%>
@@ -38,7 +39,7 @@
 			          </div>
 					
 			          <form>
-			          <%if(cinema != null){%>
+			          <%if(cinema != null){ //Si el cine no es nulo muestro todos los campos%>
 				           <div class=" mb-3">
 				   				<label for="cinema" class="form-label">Cinema</label>
 				   				<input type="text" class="form-control" id="cinema" name="cinema" value="<%=cinema.getCinema()%>" required readonly>
@@ -70,16 +71,17 @@
 							<%
 							if(request.getParameter("delete") == null && request.getParameter("submit") == null && error == null){ /*Esto lo hago para que cuando pulse confirm se oculte el confirm ya que no será nulo*/%>
 				            	<button class="btn btn-danger" id="submitButton" type="submit" name="delete">Are you sure you want to delete it?</button>
-							<%}else if(request.getParameter("delete") != null){%>
+							<%}else if(request.getParameter("delete") != null && error == null){//Cuando le de al boton de borrar muestro el confirmar y el de retroceder%>
 								<button class="btn btn-danger" id="submitButton" type="submit" name="submit">Confirm</button>
 				            	<a href="./infoCinema.jsp?cinema=<%=request.getParameter("cinema")%>"><button class="btn btn-primary  " id="submitButton" type="button" name="undo">Undo</button></a>
-							<%}else if(error != null){%>
+							<%}else if(error != null){ //Si hay algun error le doy la opción de reintentar%>
 								<a href="./listCinemas.jsp"><button class="btn btn-primary" id="submitButton" type="button">Retry</button></a>
 							<%}%>
 							
-							<%if(request.getParameter("submit") != null){
-								CinemaRepository.delete(cinema);%>
-
+							<%if(request.getParameter("submit") != null){ //Cuando le de a borrar confirmado borro el cinema
+								CinemaRepository.delete(cinema);
+								//Y muestro un botón de volver a la lista%>
+								
 								<a href="./listCinemas.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
 							<%}%>
 			          </form>
