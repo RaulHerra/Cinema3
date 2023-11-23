@@ -66,7 +66,7 @@
 			       		<%}%>
 			          <!-- End of contact form -->
 			          	<% if (c != null) { %>
-			   				 <a href="../room/infoRoom.jsp?cinema=<%=c.getCinema()%>"><button class="btn btn-primary " id="submitButton" name="cinema">Rooms</button></a>
+			   				 <a href="../room/cinemasRooms.jsp?cinema=<%=c.getCinema()%>"><button class="btn btn-primary " id="submitButton" name="cinema">Rooms</button></a>
 						<%} %>
 			        </div>
 			      </div>

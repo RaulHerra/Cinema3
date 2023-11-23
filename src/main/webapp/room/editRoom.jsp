@@ -1,3 +1,5 @@
+<%@page import="com.jacaranda.exception.RoomException"%>
+<%@page import="com.jacaranda.repository.RoomRepository"%>
 <%@page import="java.util.List"%>
 <%@page import="com.jacaranda.model.Cinema"%>
 <%@page import="com.jacaranda.model.Room"%>
@@ -23,53 +25,48 @@
 <body>
 	<%@include file="../nav.jsp"%>
 	<%
+		int roomId;
+		int capacity;
+		Room tmpRoom = null;
+		Cinema tmpCinema = null;
+		String error = null;
 
-	List<Cinema> allCinemas = null;
-	String error = null;
-	try {
-		allCinemas = DbRepository.findAll(Cinema.class);
-	} catch (Exception e) {
-		response.sendRedirect("../error.jsp?msg=Error connecting to database");
-		return;
-	}
-
-	if (allCinemas == null) {
-		response.sendRedirect("../error.jsp?msg=Cinema doesn't exist");
-		return;
-	}
-
-	Room tmpRoom = null;
-	if (request.getParameter("save") != null) {
-
-		if (request.getParameter("room") != null && request.getParameter("capacity") != null
-		&& request.getParameter("cinema") != null) {
-
-			Cinema tmpCinema = null;
-			int roomId;
-			int capacity;
-			try {
-				roomId = Integer.parseInt((String) request.getParameter("room"));
-				capacity = Integer.parseInt((String) request.getParameter("capacity"));
-				tmpCinema = DbRepository.find(Cinema.class, request.getParameter("cinema"));
-				tmpRoom = new Room(tmpCinema, roomId, capacity);
-
-				try {
-					if (DbRepository.find(Room.class, tmpRoom) == null) {
-						DbRepository.addEntity(tmpRoom);
-					} else {
-						error = "Error. Room already exist ";
-					}
-				} catch (Exception e) {
-					error = "Error. Error adding to database ";
+		try {
+			//Validamos que ambos campos existan 
+			roomId = Integer.parseInt((String) request.getParameter("room"));
+			tmpCinema = DbRepository.find(Cinema.class, request.getParameter("cinema"));
+			tmpRoom = DbRepository.find(Room.class, new Room(tmpCinema, roomId));
+			
+			if(request.getParameter("edit") != null){
+				if(session.getAttribute("oldRoom") == null){
+					response.sendRedirect("../error.jsp?msg=Not editable room, try again");
+					return;
 				}
-			} catch (Exception e) {
-				error = "Error. Datas not valid";
-			}
-
+				
+				
+				try {
+					capacity = Integer.parseInt((String) request.getParameter("capacity"));
+					tmpRoom = new Room(tmpCinema, roomId,capacity);
+					Room originalRoom = (Room) session.getAttribute("oldRoom");
+					RoomRepository.updateTo(originalRoom, tmpRoom);
+				} catch (RoomException e) {
+					response.sendRedirect("../error.jsp?msg=" + e.getMessage());
+					return;
+				} catch (Exception e) {
+					response.sendRedirect("../error.jsp?msg=Not editable room, try again");
+					return;
+				}	
+				
+				session.removeAttribute("oldRoom");
 		} else {
-			error = "Error. All fields are required";
+			session.setAttribute("oldRoom", tmpRoom);
 		}
-	}
+
+			} catch (Exception e) {
+		System.out.println(e.getMessage());
+		response.sendRedirect("../error.jsp?msg=Datas not valid");
+		return;
+			}
 	%>
 
 	<div class="container px-5 my-5">
@@ -79,29 +76,33 @@
 					<div class="card-body p-4">
 
 						<div class="text-center">
-							<h1>Add Room</h1>
+							<h1>Edit Room</h1>
 						</div>
-						<form id="addRoom" action="addRoom.jsp" method="get">
+						<form  method="get">
 							<div class="mb-3">
-								<label for="cinema" class="form-label">Cinema</label> <select
-									id="cinema" name="cinema" class="form-select" required>
-										<option value="<%=request.getParameter("cinema")%>"><%=request.getParameter("cinema")%></option>
+								<label for="cinema" class="form-label">Cinema</label> 
+								<select id="cinema" name="cinema" class="form-select readonly" required>
+									<option value="<%=tmpRoom.getCinema().getCinema()%>"><%=tmpRoom.getCinema().getCinema()%></option>
 								</select>
 							</div>
 
 
 
 							<div class=" mb-3">
-								<label for="room" class="form-label">Room Number</label> <input
+								<label for="room" class="form-label">Room Number</label> 
+								<input
 									class="form-control" id="room" name="room" type="number"
-									min="1" step="1" placeholder="Enter Room number" required>
+									min="1" step="1" placeholder="Enter Room number" required
+									value="<%=tmpRoom.getRoomNumber()%>">
 							</div>
 
 							<div class=" mb-3">
-								<label for="capacity" class="form-label">Capacity</label> <input
+								<label for="capacity" class="form-label">Capacity</label> 
+								<input
 									class="form-control" id="capacity" name="capacity"
 									type="number" min="20" step="1"
-									placeholder="Enter Room capacity" required>
+									placeholder="Enter Room capacity" required
+									value="<%=tmpRoom.getCapacity()%>">
 							</div>
 
 							<%
@@ -109,19 +110,32 @@
 							if (error != null) {
 							%>
 							<div class="textAreaInfoError"><%=error%></div>
-
 							<%
 							//Mensaje de exito que salta en el caso de que se crea con exito la tarea
-							} else if (request.getParameter("save") != null && error == null) {
+							} else if (request.getParameter("edit") != null && error == null) {
 							%>
-							<div class="textAreaInfoSuccesfull">Room created
+							<div class="textAreaInfoSuccesfull">Room edited
 								successfully!</div>
 							<%
 							}
 							%>
 
-							<button class="btn btn-success " id="submitButton" type="submit"
-								name="save">Save</button>
+
+								
+							<%
+							if (request.getParameter("edit") == null) {
+							%>
+							<button class="btn btn-danger" id="submitButton" type="submit" name="edit">Confirm</button>
+							<%
+							} else if (tmpRoom!= null){
+							%>
+								<a href="infoRoom.jsp?cinema=<%=tmpRoom.getCinema().getCinema()%>&room=<%=tmpRoom.getRoomNumber()%>"><button type="button" class="btn btn-primary">Show details</button></a>
+							<%
+							}
+							%>
+								
+								
+								
 
 						</form>
 

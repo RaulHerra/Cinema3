@@ -1,4 +1,3 @@
-<%@page import="com.jacaranda.repository.RoomRepository"%>
 <%@page import="com.jacaranda.model.Cinema"%>
 <%@page import="com.jacaranda.model.Room"%>
 <%@page import="com.jacaranda.repository.DbRepository"%>
@@ -10,7 +9,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Room list</title>
+<title>Cinema's room</title>
 <!-- ======= LINKS BOOTSTRAP ======= -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -20,28 +19,28 @@
 
 <!-- ======= LINK CSS ======= -->
 <link rel="stylesheet" href="../style/style.css">
-
-
 </head>
 <body>
 	<%@include file="../nav.jsp"%>
 	<%
+	List<Room> result = null;
+	String cinemaId = null;
 	String error = null;
-	List<Cinema> cinemas = null;
 	try {
+		cinemaId = request.getParameter("cinema");
 
-		try {
-			cinemas = (List<Cinema>) DbRepository.findAll(Cinema.class);
-
-		} catch (Exception e) {
-			response.sendRedirect("../error.jsp?msg=Error while searching en database");
+		if (cinemaId == null) {
+			response.sendRedirect("../error.jsp?msg=Cinema not found in uri");
 			return;
 		}
 
-		if (cinemas == null) {
+		Cinema tmpCinema = (Cinema) DbRepository.find(Cinema.class, cinemaId);
+
+		if (tmpCinema == null) {
 			response.sendRedirect("../error.jsp?msg=Cinema doesn't exist");
 			return;
 		}
+		result = tmpCinema.getRooms();
 
 	} catch (Exception e) {
 		System.out.print(e.getMessage());
@@ -49,46 +48,34 @@
 		return;
 	}
 	%>
-
 	<div class="container px-5 my-5">
 		<div class="row justify-content-center">
 			<div class="col-lg-8">
 				<div class="card border-0 rounded-3 shadow-lg">
 					<div class="card-body p-4">
-					
+						<h1 align="center"><%= request.getParameter("cinema")%>'s
+							rooms
+						</h1>
+
 						<table class="table">
 							<thead>
 								<tr>
-									<td colspan="2">
-										<h1>List rooms</h1>
-									</td>
-
+									<th scope="col">Room</th>
+									<th scope="col">Capacity</th>
 								</tr>
 
 							</thead>
 							<%
-							for (Cinema cinema : cinemas) {
+							for (Room room : result) {
 							%>
 							<tr>
-								<th colspan="2">Cinema: <%=cinema.getCinema()%></th>
+								<td><%=room.getRoomNumber()%></td>
+								<td><%=room.getCapacity()%></td>
+								<td>
+									<a href="infoRoom.jsp?cinema=<%=room.getCinema().getCinema()%>&room=<%=room.getRoomNumber()%>"><button type="button" class="btn btn-primary">Info</button></a>
+								</td>	
 							</tr>
 
-							<tr>
-								<th>Room number</th>
-								<th>Room capacity</th>
-
-							</tr>
-							<%
-								for (Room room : cinema.getRooms()) {
-								%>
-								<tr>
-									<td><%=room.getRoomNumber()%></td>
-									<td><%=room.getCapacity()%></td>
-
-								</tr>
-								<%
-								}
-								%>
 							<%
 							}
 							%>
@@ -99,6 +86,5 @@
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>

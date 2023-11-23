@@ -1,15 +1,15 @@
+<%@page import="java.util.List"%>
 <%@page import="com.jacaranda.model.Cinema"%>
 <%@page import="com.jacaranda.model.Room"%>
 <%@page import="com.jacaranda.repository.DbRepository"%>
-<%@page import="com.jacaranda.model.Film"%>
-<%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@page import="org.hibernate.internal.build.AllowSysOut"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>Info Room</title>
 <!-- ======= LINKS BOOTSTRAP ======= -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -23,58 +23,76 @@
 <body>
 	<%@include file="../nav.jsp"%>
 	<%
-	List<Room> result = null;
-	String cinemaId = null;
-	String error = null;
+
+	int roomId;
+	int capacity;
+	Room tmpRoom = null;
+	Cinema tmpCinema = null;
+
 	try {
-		cinemaId = request.getParameter("cinema");
-
-		if (cinemaId == null) {
-			response.sendRedirect("../error.jsp?msg=Cinema not found in uri");
-			return;
+		//Validamos que ambos campos existan 
+		roomId = Integer.parseInt((String) request.getParameter("room"));
+		tmpCinema = DbRepository.find(Cinema.class, request.getParameter("cinema"));
+		tmpRoom = DbRepository.find(Room.class, new Room(tmpCinema, roomId));
+/*
+		try {
+			if (DbRepository.find(Room.class, tmpRoom) == null) {
+				DbRepository.addEntity(tmpRoom);
+			} else {
+				error = "Error. Room "+ roomId + " in cinema " + tmpCinema + " already exist ";
+			}
+		} catch (Exception e) {
+			error = "Error. Error adding to database ";
 		}
-
-		Cinema tmpCinema = (Cinema) DbRepository.find(Cinema.class, cinemaId);
-
-		if (tmpCinema == null) {
-			response.sendRedirect("../error.jsp?msg=Cinema doesn't exist");
-			return;
-		}
-		result = tmpCinema.getRooms();
-
+*/
 	} catch (Exception e) {
-		System.out.print(e.getMessage());
-		response.sendRedirect("../error.jsp?msg=Error connecting to database");
+		System.out.println(e.getMessage());
+		response.sendRedirect("../error.jsp?msg=Datas not valid");
 		return;
 	}
+	
+
+
 	%>
+
 	<div class="container px-5 my-5">
 		<div class="row justify-content-center">
 			<div class="col-lg-8">
 				<div class="card border-0 rounded-3 shadow-lg">
 					<div class="card-body p-4">
-					<h1 align="center"><%= request.getParameter("cinema")%>'s rooms</h1>
-					
-						<table class="table">
-							<thead>
-								<tr>
-									<th scope="col">Room</th>
-									<th scope="col">Capacity</th>
-								</tr>
 
-							</thead>
-							<%
-							for (Room room : result) {
-							%>
-							<tr>
-								<td><%=room.getRoomNumber()%></td>
-								<td><%=room.getCapacity()%></td>
-							</tr>
+						<div class="text-center">
+							<h1>Info about the room</h1>
+						</div>
+						<form id="addRoom" action="addRoom.jsp" method="get">
+							<div class="mb-3">
+								<label for="cinema" class="form-label">Cinema</label> 
+								<select id="cinema" name="cinema" class="form-select readonly" required >
+										<option  selected value="<%=tmpRoom.getCinema().getCinema()%>"><%=tmpRoom.getCinema().getCinema()%></option>
+								</select>
+							</div>
 
-							<%
-							}
-							%>
-						</table>
+
+
+							<div class="mb-3">
+								<label for="room" class="form-label">Room Number</label> <input
+									class="form-control" id="room" name="room" type="number"
+									min="1" step="1" placeholder="Enter Room number" required readonly
+									value="<%= tmpRoom.getRoomNumber()%>">
+							</div>
+
+							<div class="mb-3">
+								<label for="capacity" class="form-label">Capacity</label> 
+								<input
+									class="form-control" id="capacity" name="capacity"
+									type="number" min="21" step="1"
+									placeholder="Enter Room capacity" required readonly
+									value="<%= tmpRoom.getCapacity()%>">
+							</div>
+							<a href="editRoom.jsp?cinema=<%=tmpRoom.getCinema().getCinema()%>&room=<%=tmpRoom.getRoomNumber()%>"><button type="button" class="btn btn-warning">Edit</button></a>
+							<a href="deleteRoom.jsp?cinema=<%=tmpRoom.getCinema().getCinema()%>&room=<%=tmpRoom.getRoomNumber()%>"><button type="button" class="btn btn-danger">Delete</button></a>
+
+						</form>
 
 					</div>
 				</div>

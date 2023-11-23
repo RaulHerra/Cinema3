@@ -24,7 +24,7 @@
 	background-color: rgb(105, 242, 102);
 }
 
-input:read-only{
+input:read-only, .readonly{
 	background-color: #e9ecef;
     pointer-events:none;
 }

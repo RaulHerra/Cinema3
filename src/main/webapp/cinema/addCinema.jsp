@@ -58,7 +58,7 @@
 		           </div>
 		
 		           <div class=" mb-3">
-		               <label for="cinemaCity" class="form-label">Cinema city</label>
+		            <label for="cinemaCity" class="form-label">Cinema city</label>
 		   			<input type="text" class="form-control" id="cinemaCity" name="cinemaCity" placeholder="Enter cinema city" required>
 		           </div>
 		

@@ -77,11 +77,19 @@ public class Cinema {
 		this.addressCinema = addressCinema;
 	}
 
+	public List<Room> getRooms() throws Exception {
+		return CinemaRepository.getRooms(cinema);
+	}
+	
+	public void setRooms(List<Room> rooms) {
+		this.rooms = rooms;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(cinema);
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -96,17 +104,9 @@ public class Cinema {
 
 	@Override
 	public String toString() {
-		return "Cinema [cinema=" + cinema + ", cityCinema=" + cityCinema + ", addressCinema=" + addressCinema + "]";
+		return "Cinema [cinema=" + cinema + ", cityCinema=" + cityCinema + ", addressCinema=" + addressCinema + ", rooms" + rooms.toString() + "]";
 	}
 
-	public List<Room> getRooms() throws Exception {
-		return CinemaRepository.getRooms(cinema);
-	}
-
-	public void setRooms(List<Room> rooms) {
-		this.rooms = rooms;
-	}
-	
 	
 	
 }
