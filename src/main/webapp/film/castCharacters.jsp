@@ -24,12 +24,14 @@
 	Film f = null;
 	String error = null;
 	try{
+		/*Si el cip de la pelicula es nulo mandamos un mensaje de error*/
 		if(request.getParameter("filmCharacters") == null){
-			error = "Error: character not found in uri";
+			error = "Error: film not found in uri";
 		}else{
+			/*En caso de no ser nulo buscamos la pelicula con ese cip*/
 			f = DbRepository.find(Film.class, request.getParameter("filmCharacters"));
-			if(f == null){
-				error = "Error: the selected character doesn't exist";		
+			if(f == null){/*Si la pelicula es nula mandamos un mensaje de error*/
+				error = "Error: the selected film doesn't exist";		
 			}
 		}
 	}catch(Exception e){
@@ -40,57 +42,58 @@
 %>
 
 	<% if(f != null){ %>
-	<div class="container px-5 my-5">
-		<div class="row justify-content-center">
-			<div class="col-lg-8">
-				<div class="card border-0 rounded-3 shadow-lg">
-					<div class="card-body p-4">
-						<div class="text-center">
-							<h1 align="center">Cast of Characters from <br><%=f.getTitleP()%></h1>
-							<br>
-								<table class="table">
-									<thead>
-
-										<tr>
-
-											<th scope="col">Character's name</th>
-											<th scope="col">Character's rol</th>
-
-										</tr>
-
-									</thead>
-
-									<tbody>
-
-										<%
-										for (Work w : f.getWorks()) {
-										%>
-
-										<tr>
-
-											<td scope="col"><%=w.getCharacter().getCharacterName()%></td>
-											<td scope="col"><%=w.getTask().getTask()%></td>
-
-										</tr>
-
-										<%
-										}
-										%>
-
-									</tbody>
-
-								</table>
+		<div class="container px-5 my-5">
+			<div class="row justify-content-center">
+				<div class="col-lg-8">
+					<div class="card border-0 rounded-3 shadow-lg">
+						<div class="card-body p-4">
+							<div class="text-center">
+								<h1 align="center">Cast of Characters from <br><%=f.getTitleP()%></h1>
+								<br>
+									<table class="table">
+										<thead>
+	
+											<tr>
+	
+												<th scope="col">Character's name</th>
+												<th scope="col">Character's rol</th>
+	
+											</tr>
+	
+										</thead>
+	
+										<tbody>
+	
+											<%
+											for (Work w : f.getWorks()) {
+											%>
+	
+											<tr>
+	
+												<td scope="col"><%=w.getCharacter().getCharacterName()%></td>
+												<td scope="col"><%=w.getTask().getTask()%></td>
+	
+											</tr>
+	
+											<%
+											}
+											%>
+	
+										</tbody>
+	
+									</table>
+							</div>
+			            	<a href="./infoFilm.jsp?cip=<%=f.getCip()%>"><button class="btn btn-info" id="submitButton" type="button">Return</button></a>								
 						</div>
-		            	<a href="./infoFilm.jsp?cip=<%=f.getCip()%>"><button class="btn btn-info" id="submitButton" type="button">Return</button></a>								
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<%}else if(error != null){%>
-		<br>
-    	<div class="textAreaInfoError" ><%=error%></div>
-       	<a href="./listFilms.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return</button></a>
-	<%}%>
+		<!-- Return button -->
+		<%}else if(error != null){%>
+	    	<div class="textAreaInfoError" ><%=error%></div>
+       		<a href="./listFilms.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return</button></a>
+			<br>
+		<%}%>
 </body>
 </html>

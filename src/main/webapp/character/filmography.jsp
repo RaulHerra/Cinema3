@@ -25,8 +25,15 @@
 	Character c = null;
 	String error = null;
 	try{
-		 c = DbRepository.find(Character.class, request.getParameter("characterFilms")) ;
-		 
+		//Si el id del caracter no existe en este caso su nombre mandamos un mensaje de error
+		if(request.getParameter("characterFilms") == null){
+			error = "Error: character not found in uri";
+		}else{//En caso de no ser nulo lo buscaremos
+		 	c = DbRepository.find(Character.class, request.getParameter("characterFilms"));
+		 	if(c == null){//Si el caracter es nulo mandamos un mensaje de error
+				error = "Error: the selected character doesn't exist";		
+			}
+		}
  	}catch(Exception e){
  		error = "Error: the character that you selected doesn't exist";
 		return;
@@ -76,6 +83,7 @@
 			</div>
 		</div>
 	</div>
+	<!-- Return button -->
 	<%}else{%>
 	
 		<div class="textAreaInfoError">Error: the character that you selected doesn't exist</div>
