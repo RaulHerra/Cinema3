@@ -24,14 +24,14 @@
 
 <%
 
-	Character c = null;
+	Character character = null;
 	String error = null;
 	try{
 		if (request.getParameter("characterName") != null){
 				
-			c = DbRepository.find(Character.class, request.getParameter("characterName"));
+			character = DbRepository.find(Character.class, request.getParameter("characterName"));
 	
-			if(c==null){
+			if(character==null){
 				error = "Error: the character that you selected doesn't exist";
 			}
 			
@@ -62,26 +62,26 @@
 
 				<form method="get">
 				
-				<% if (c != null) { %>
+				<% if (character != null) { %>
 					
 				  <!-- Div of the input of the character's name  -->				  
 				    <div  class=" mb-3">
 					    <label for="inputName" class="form-label">Character's name</label>
-					    <input type="text" class="form-control" id="inputName" name="inputName" value= '<%=c.getCharacterName() %>' readonly required>
+					    <input type="text" class="form-control" id="inputName" name="inputName" value= '<%=character.getCharacterName() %>' readonly required>
 					</div>
 				  <!-- Div of the input of the character's nationality  -->
 				    <div class=" mb-3">
 					    <label for="inputNationality" class="form-label">Character's nationality </label>
-					    <input type="text" class="form-control" id="inputNationality" name="inputNationality" value= '<%=c.getCharacterNationality() %>' readonly required>
+					    <input type="text" class="form-control" id="inputNationality" name="inputNationality" value= '<%=character.getCharacterNationality() %>' readonly required>
 					</div>			  
 				  <!-- Div of the input of the character's sex  -->
 				    <div class=" mb-3">
 					    <label for="inputSex" class="form-label">Character's sex</label>
-					    <input type="text" class="form-control" id="inputSex" name="inputSex" value="<%= c.getCharacterSex() %>" readonly required>
+					    <input type="text" class="form-control" id="inputSex" name="inputSex" value="<%= character.getCharacterSex() %>" readonly required>
 					</div>				
 				  <!-- Div of the submit button and redirect to list button  -->
-				    <a href="editCharacter.jsp?characterName=<%=c.getCharacterName()%>"><button class="btn btn-warning" id="submitButton" value="edit" type="button" name="edit">Edit</button></a>
-		            <a href="deleteCharacter.jsp?characterName=<%=c.getCharacterName()%>"><button class="btn btn-danger" id="submitButton" value="delete" type="button" name="delete">Delete</button></a>
+				    <a href="editCharacter.jsp?characterName=<%=character.getCharacterName()%>"><button class="btn btn-warning" id="submitButton" value="edit" type="button" name="edit">Edit</button></a>
+		            <a href="deleteCharacter.jsp?characterName=<%=character.getCharacterName()%>"><button class="btn btn-danger" id="submitButton" value="delete" type="button" name="delete">Delete</button></a>
 				  
 			    </form>
 			    <%} %>
@@ -89,8 +89,8 @@
 				  <div class="textAreaInfoError" > <%=error%> </div>
 				  <a href="./listCharacters.jsp"> <button class="btn btn-primary " id="submitButton" type="button"> Return list </button></a>
 			  <% }%>
-			<% if (c != null) { %>
-				<a href="./filmography.jsp?characterFilms=<%=c.getCharacterName()%>"><button class="btn btn-primary " id="submitButton" value="<%=c.getCharacterName()%>" name="characterFilms">See Filmography</button></a>
+			<% if (character != null) { %>
+				<a href="./filmography.jsp?characterFilms=<%=character.getCharacterName()%>"><button class="btn btn-primary " id="submitButton" value="<%=character.getCharacterName()%>" name="characterFilms">See Filmography</button></a>
 			<%} %>
 			</div>
 	      </div>

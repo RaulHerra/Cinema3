@@ -22,15 +22,15 @@
 
 <%
 
-	Character c = null;
+	Character character = null;
 	String error = null;
 	try{
 		//Si el id del caracter no existe en este caso su nombre mandamos un mensaje de error
 		if(request.getParameter("characterFilms") == null){
 			error = "Error: character not found in uri";
 		}else{//En caso de no ser nulo lo buscaremos
-		 	c = DbRepository.find(Character.class, request.getParameter("characterFilms"));
-		 	if(c == null){//Si el caracter es nulo mandamos un mensaje de error
+		 	character = DbRepository.find(Character.class, request.getParameter("characterFilms"));
+		 	if(character == null){//Si el caracter es nulo mandamos un mensaje de error
 				error = "Error: the selected character doesn't exist";		
 			}
 		}
@@ -40,7 +40,7 @@
 	}
 
 %>
-	<%if(c != null){ %>
+	<%if(character != null){ %>
 	<div class="container px-5 my-5">
 		<div class="row justify-content-center">
 			<div class="col-lg-8">
@@ -49,7 +49,7 @@
 						<div class="text-center">
 							<h1 align="center">
 								Filmography of
-								<%=c.getCharacterName()%></h1>
+								<%=character.getCharacterName()%></h1>
 							<br>
 							<table class="table">
 								<thead>
@@ -63,19 +63,19 @@
 								<tbody>
 
 									<%
-									for (Work w : c.getWorks()) {
+									for (Work work : character.getWorks()) {
 									%>
 									<tr>
-										<td scope="col"><%=w.getFilm().getTitleP()%></td>
-										<td scope="col"><%=w.getFilm().getYearProduction()%></td>
-										<td scope="col"><%=w.getTask().getTask()%></td>
+										<td scope="col"><%=work.getFilm().getTitleP()%></td>
+										<td scope="col"><%=work.getFilm().getYearProduction()%></td>
+										<td scope="col"><%=work.getTask().getTask()%></td>
 									</tr>
 									<%}%>
 								</tbody>
 							</table>
 						</div>
 							<a
-								href="infoCharacter.jsp?characterName=<%=c.getCharacterName()%>">
+								href="infoCharacter.jsp?characterName=<%=character.getCharacterName()%>">
 								<button class="btn btn-info " id="submitButton" type="button">Return</button>
 							</a>
 					</div>

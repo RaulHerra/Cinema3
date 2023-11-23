@@ -23,7 +23,7 @@
 		<%@include file="../nav.jsp"%>
 
 		<%
-		Character c = null;
+		Character character = null;
 		String error = null;
 		try{
 			/*I check if the character that I am going to edit exists*/
@@ -31,18 +31,18 @@
 					&& DbRepository.find(Character.class, request.getParameter("characterName")) != null){
 				
 				/*I obtain the character with the character's name that I received*/
-				c = DbRepository.find(Character.class, request.getParameter("characterName"));
+				character = DbRepository.find(Character.class, request.getParameter("characterName"));
 				
 				if(request.getParameter("edit") != null){
 					
 					/*When I push the edit button, I create a new character with the new data*/
 					try{
 						
-						c = new Character(request.getParameter("characterName"),
+						character = new Character(request.getParameter("characterName"),
 								request.getParameter("characterNationality"),
 								request.getParameter("characterSex"));
 						/*I call the method of the repository that edits the character*/
-						DbRepository.editEntity(c);
+						DbRepository.editEntity(character);
 					
 					}catch(CharacterException e){
 						error = e.getMessage();
@@ -63,24 +63,24 @@
 			          <div class="text-center">
 			            <h1>Edit Character</h1>
 			          </div>
-					<%if(c != null){/*If the character that is introduced is not null, I show the information of the character*/ %>
+					<%if(character != null){/*If the character that is introduced is not null, I show the information of the character*/ %>
 			          <form method="get">
 			            <!-- Character Name Input -->
 			            <div class=" mb-3">
 			    			<label for="characterName" class="form-label">Character's name</label>
-			    			<input type="text" class="form-control" id="characterName" name="characterName" value='<%=c.getCharacterName()%>'readonly required>
+			    			<input type="text" class="form-control" id="characterName" name="characterName" value='<%=character.getCharacterName()%>'readonly required>
 			            </div>
 			
 			            <!-- Film title Input -->
 			            <div class=" mb-3">
 			                <label for="characterNationality" class="form-label">Character's nationality</label>
-			    			<input type="text" class="form-control" id="characterNationality" name="characterNationality" placeholder="Enter Character Nationality" value="<%=c.getCharacterNationality()%>" required>
+			    			<input type="text" class="form-control" id="characterNationality" name="characterNationality" placeholder="Enter Character Nationality" value="<%=character.getCharacterNationality()%>" required>
 			            </div>
 			
 			            <!-- Production year Input -->
 			            <div class=" mb-3">
 							<label for="characterSex" class="form-label">Character's sex</label>
-			    			<input type="text" step="1" class="form-control" id="characterSex" name="characterSex" pattern="[H,M,O]" placeholder="Enter character's sex (H, M, or O)" value="<%=c.getCharacterSex()%>" required>
+			    			<input type="text" step="1" class="form-control" id="characterSex" name="characterSex" pattern="[H,M,O]" placeholder="Enter character's sex (H, M, or O)" value="<%=character.getCharacterSex()%>" required>
 			            </div>
 			            
 			            
@@ -111,7 +111,7 @@
 					     	character there -->
 					     	<%}else if(request.getParameter("edit") != null && error == null){ %>
 					     		<!-- Y cuando le haya dado a confirmar y no haya ningún error le muestro este botón para que pueda ver los detalles de la pelicula -->
-					     		<a href="infoCharacter.jsp?characterName=<%=c.getCharacterName()%>"> <button class="btn btn-primary " id="submitButton" type="button">Show character</button></a>
+					     		<a href="infoCharacter.jsp?characterName=<%=character.getCharacterName()%>"> <button class="btn btn-primary " id="submitButton" type="button">Show character</button></a>
 			            	
 			            	<%}%>
 			              	

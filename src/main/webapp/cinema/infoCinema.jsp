@@ -68,8 +68,8 @@
 			            	<a href="./listCinemas.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
 			       		<%}%>
 			          <!-- End of contact form -->
-			          	<% if (c != null) { %>
-			   				 <a href="../room/cinemasRooms.jsp?cinema=<%=c.getCinema()%>"><button class="btn btn-primary " id="submitButton" name="cinema">Rooms</button></a>
+			          	<% if (cinema != null) { %>
+			   				 <a href="../room/cinemasRooms.jsp?cinema=<%=cinema.getCinema()%>"><button class="btn btn-primary" id="submitButton" name="cinema">Rooms</button></a>
 						<%} %>
 			        </div>
 			      </div>
