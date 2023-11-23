@@ -29,7 +29,7 @@
 <!-- ======= NAVBAR ======= -->
 <%@include file="../nav.jsp"%>
 <% 
-//A list variable with Projections is created with null value
+//A list variable with Projections is created with empty value
 		List<Cinema> result = new ArrayList<Cinema>();
 		try{
 			//I get a list of the Projections from the data base
