@@ -45,9 +45,7 @@
 								<tr>
 									<td><%=f.getTitleP()%></td>
 									<td>
-										<form action="infoFilm.jsp">
-											<button type="submit" class="btn btn-primary" name="cip" value='<%=f.getCip()%>'>Info</button>
-										</form>
+										<a href="infoFilm.jsp?cip=<%=f.getCip()%>"><button type="button" class="btn btn-primary" name="cip" value='<%=f.getCip()%>'>Info</button></a>
 									</td>
 								</tr>
 								<%

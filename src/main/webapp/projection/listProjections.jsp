@@ -87,23 +87,13 @@
 									<td><%=p.getIncome()%></td>
 									<td><%=p.getSpectators()%></td>
 									<td>
-										<form action="infoProjection.jsp">
-											<input type="text" name="ProjectionName"
-												value='<%=p.getRoom()%>' hidden> <input type="text"
-												name="ProjectionName" value='<%=p.getCip()%>' hidden>
-											<input type="text" name="ProjectionName"
-												value='<%=p.getPremiere_date()%>' hidden>
-											<button class="btn btn-primary" type="submit" name="info">
-												Projection Info</button>
-										</form>
+										<a href="infoProjection.jsp?room=<%=p.getRoom().getRoomNumber()%>&cinema=<%=p.getCip().getCip()%>"><button class="btn btn-primary" type="button" name="info">
+												Projection Info</button></a>
 									</td>
 									<td>
-
-										<form action="../cinema/infoCinema.jsp">
-											<button class="btn btn-primary" type="submit" name="cinema"
-												value='<%=c.getCinema()%>'>Cinema Info</button>
-										</form>
-
+										<a href="../cinema/infoCinema.jsp?cinema=<%=c.getCinema() %>">
+											<button class="btn btn-primary" type="button" name="cinema"
+												value='<%=c.getCinema()%>'>Cinema Info</button></a>
 									</td>
 								</tr>
 								<%}}}%>

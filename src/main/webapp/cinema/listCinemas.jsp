@@ -45,11 +45,7 @@
 								<tr>
 									<td><%=cinema.getCinema()%></td>
 									<td>
-										<form action="infoCinema.jsp">
-											<input type="text" name="cinema"
-												value='<%=cinema.getCinema()%>' hidden>
-											<button type="submit" class="btn btn-primary">Info</button>
-										</form>
+										<a href="infoCinema.jsp?cinema=<%=cinema.getCinema()%>"><button type="button" class="btn btn-primary">Info</button></a>
 									</td>
 								</tr>
 								<% }%>
