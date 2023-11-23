@@ -193,7 +193,7 @@
 							<div class="textAreaInfoSuccesfull ">Work created
 								successfully!</div>
 							<%
-						}
+						}2
 						%>
 						<!-- End of contact form -->
 					</div>
