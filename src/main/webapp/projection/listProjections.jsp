@@ -77,7 +77,7 @@
 						</td>
 					<td>
 							
-					<form action="/CinemaTeam/cinema/infoCinema.jsp">
+					<form action="../cinema/infoCinema.jsp">
 						<button class="btn btn-primary" type="submit" name="cinema" value='<%=c.getCinema()%>'> Cinema Info </button>
 					</form>	
 							
