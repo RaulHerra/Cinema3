@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.query.SelectionQuery;
 
 import com.jacaranda.model.Cinema;
@@ -94,5 +95,62 @@ public class RoomRepository extends DbRepository {
 		session.close();
 
 	}
+	
+	
+	public static void change(Room originalRoom, Room editedRoom ) throws Exception {
+		
+		//Solo son iguales si las pk no han sido modificadas
+		if(originalRoom.equals(editedRoom)) {
+			DbRepository.editEntity(editedRoom);
+		}else {
+			//en caso de no ser equals, se debe editar todas las projections
+			
+			// Añadimos la sala editada a la bbdd para que no nos de errores de FK
+			DbRepository.addEntity(editedRoom);
+			
+			
+			//Empezamos el proceso de editar las proyecciones a el codigo de la sala recien añadida
+			Transaction transaction = null;
+			Session session;
+
+			try {
+				session = BdUtil.getSessionFactory().openSession();
+			}catch (Exception e) {
+				throw new Exception("Error al conectar con la base de datos " + e.getMessage());
+			}
+			
+			transaction = session.beginTransaction();
+	
+			
+			try {
+				NativeQuery<Projection> query  = session.createNativeQuery("UPDATE `Proyeccion` SET `sala` = :newRoomNumber WHERE `Proyeccion`.`cine` = :cinemaName AND `Proyeccion`.`sala` = : "
+						+ "",Projection.class);
+				query.setParameter("newRoomNumber", editedRoom.getRoomNumber()); //Seteo el nuevo numero de room
+				query.setParameter("cinemaName", originalRoom.getCinema().getCinema());//Parametros de busqueda por el nombre del cine
+				query.setParameter("oldRoomNumber", originalRoom.getRoomNumber());//Parametros de busqueda por la sala
+				
+				query.executeUpdate();
+				
+
+				transaction.commit();
+
+	
+				session.remove(originalRoom);
+
+	
+			}catch (Exception e) {
+	
+				transaction.rollback();
+	
+				session.close();
+	
+				throw new Exception("Failed to connect to database " + e.getMessage());
+	
+			}
+			session.close();
+		}
+	}	
+	
+	
 
 }

@@ -44,6 +44,7 @@ public class Room {
 		setRoomNumber(roomNumber);
 		setCapacity(capacity);
 	}
+	
 
 	public Cinema getCinema() {
 		return cinema;

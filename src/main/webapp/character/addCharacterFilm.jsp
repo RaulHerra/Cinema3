@@ -40,7 +40,7 @@
 			Character character = DbRepository.find(Character.class, request.getParameter("characters"));
 			Task task = DbRepository.find(Task.class, request.getParameter("task"));
 			
-			if(film==null  || character==null || task==null){
+			if(film==null || character==null || task==null){
 				error = "Enter a valid movie, character or task.";
 			}else{
 				w = new Work(character,film,task);
