@@ -23,36 +23,39 @@
 	<%@include file="../nav.jsp"%>
 
 	<%
+	//CREMOS LOS LISTADOS CORRESPONDIENTES
 	List<Film> films = null;
 	List<Character> characters = null;
 	List<Task> tasks = null;
-
+	//CREMOS EL TRABAJO, EL MENSAJE DE ERROR, Y RESCATAMOS EL BOTON DE ENVIAR
 	Work w = null;
 	String error = null;
 	String agregate = request.getParameter("submit");
 
 	try {
-
+		//BUSCAMOS LAS PELICULAS,PERSONAJES Y TAREAS DE LA BASE DE DATOS
 		films = DbRepository.findAll(Film.class);
 		characters = DbRepository.findAll(Character.class);
 		tasks = DbRepository.findAll(Task.class);
 
 		if (agregate != null) {
+			
+			//CUANDO PULSEMOS EL BOTÓN DE GUADAR...
+	
+			Film film = DbRepository.find(Film.class, request.getParameter("films")); //BUSCAMOS LA PELICULA PASADA POR EL FORMULARIO
+			Character character = DbRepository.find(Character.class, request.getParameter("characters"));//BUSCAMOS EL CARACTER PASADO POR FORMULARIO
+			Task task = DbRepository.find(Task.class, request.getParameter("task"));//BUSCAMOS LA TAREA PASADA POR FORMULARIO
 
-			Film film = DbRepository.find(Film.class, request.getParameter("films"));
-			Character character = DbRepository.find(Character.class, request.getParameter("characters"));
-			Task task = DbRepository.find(Task.class, request.getParameter("task"));
-
-			if (film == null || character == null || task == null) {
+			if (film == null || character == null || task == null) { //SI TODO ES NULO ENVIAREMOS UN MENSAJE DE ERROR
 				error = "Enter a valid movie, character or task.";
 			} else {
-				w = new Work(character, film, task);
+				w = new Work(character, film, task); //SI TODO EXISTE CREAREMOS UN TRABAJO
 			}
 
-			if (DbRepository.find(Work.class, w) != null)
-				error = "Error: the character with the entered task already exists.";
+			if (DbRepository.find(Work.class, w) != null) //SI EL TRABAJO ES DISTINTO DE NULO
+				error = "Error: the character with the entered task already exists."; //ENVIAREMOS UN MENSAJE DE QUE EL TRABAJO YA EXISTE
 			else {
-				DbRepository.addEntity(w);
+				DbRepository.addEntity(w);//SI NO EXISTE LO AGREGAREMOS A LA BASE DE DATOS
 			}
 
 		}
@@ -193,7 +196,7 @@
 							<div class="textAreaInfoSuccesfull ">Work created
 								successfully!</div>
 							<%
-						}2
+						}
 						%>
 						<!-- End of contact form -->
 					</div>
