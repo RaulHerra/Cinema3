@@ -55,8 +55,8 @@
 			            
 
 			            <!-- Submit button -->
-			              	<button class="btn btn-warning " id="submitButton" value="edit" type="submit" name="edit">Edit</button>
-			              	<button class="btn btn-danger " id="submitButton" value="delete" type="submit" name="delete">Delete</button>
+			              	<a href="editCinema.jsp?cinema=<%=c.getCinema()%>"><button class="btn btn-warning " id="submitButton" value="edit" type="button" name="edit">Edit</button></a>
+			              	<a href="deleteCinema.jsp?cinema=<%=c.getCinema()%>"><button class="btn btn-danger " id="submitButton" value="delete" type="button" name="delete">Delete</button></a>
 			          </form>
 			          <%}%>
 			          <%
@@ -66,20 +66,12 @@
 			       		<%}%>
 			          <!-- End of contact form -->
 			          	<% if (c != null) { %>
-			   				 <form method="get" action="../room/infoRoom.jsp"><button class="btn btn-primary " id="submitButton" value="<%=c.getCinema()%>" name="cinema">Rooms</button></form>
+			   				 <a href="../room/infoRoom.jsp?cinema=<%=c.getCinema()%>"><button class="btn btn-primary " id="submitButton" name="cinema">Rooms</button></a>
 						<%} %>
 			        </div>
 			      </div>
 			    </div>
 			  </div>
 			</div>
-		<%
-		
-			if(request.getParameter("edit") != null){
-				response.sendRedirect("editCinema.jsp?cinema="+c.getCinema());
-			}else if(request.getParameter("delete") != null){
-				response.sendRedirect("deleteCinema.jsp?cinema="+c.getCinema());
-			}
-		%>
 </body>
 </html>

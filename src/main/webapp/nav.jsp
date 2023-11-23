@@ -12,8 +12,7 @@
 		  </button>
 		
 		  <div class="collapse navbar-collapse" id="navbarNav">
-		  
-		  
+		 
 		    <ul class="navbar-nav">
 		    
 	         <li class="nav-item dropdown">
@@ -36,7 +35,6 @@
 		          </ul>
 	      	 </li>				      
 		      
-		      
 	         <li class="nav-item dropdown">
 		          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 		            	Character
@@ -55,9 +53,6 @@
 				  </ul>
 	      	 </li>				      
 		      
-	
-
-		      
 	         <li class="nav-item dropdown">
 		          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 		            Task
@@ -75,7 +70,6 @@
 		          </ul>
 	      	 </li>		      
 		      
-		      
 	          <li class="nav-item dropdown">
 		          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 		            Cinema
@@ -91,8 +85,6 @@
 				    </li>
 		          </ul>
 	      	 </li>
-		      
-		      
 		      
          	 <li class="nav-item dropdown">
 		          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -128,7 +120,6 @@
 	      	 
 		    </ul>
 
-		    
 		  </div>
 		  </div>
 		</nav>

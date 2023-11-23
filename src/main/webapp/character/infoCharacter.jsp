@@ -80,9 +80,8 @@
 					    <input type="text" class="form-control" id="inputSex" name="inputSex" value="<%= c.getCharacterSex() %>" readonly required>
 					</div>				
 				  <!-- Div of the submit button and redirect to list button  -->
-					    <button class="btn btn-warning" id="submitButton" value="edit" type="submit" name="edit">Edit</button>
-			            <button class="btn btn-danger" id="submitButton" value="delete" type="submit" name="delete">Delete</button>
-				  
+				    <a href="editCharacter.jsp?characterName=<%=c.getCharacterName()%>"><button class="btn btn-warning" id="submitButton" value="edit" type="button" name="edit">Edit</button></a>
+		            <a href="deleteCharacter.jsp?characterName=<%=c.getCharacterName()%>"><button class="btn btn-danger" id="submitButton" value="delete" type="button" name="delete">Delete</button></a>
 				  
 			    </form>
 			    <%} %>
@@ -91,20 +90,12 @@
 				  <a href="./listCharacters.jsp"> <button class="btn btn-primary " id="submitButton" type="button"> Return list </button></a>
 			  <% }%>
 			<% if (c != null) { %>
-			    <form method="get" action="./filmography.jsp"><button class="btn btn-primary " id="submitButton" value="<%=c.getCharacterName()%>" name="characterFilms">See Filmography</button></form>
+				<a href="./filmography.jsp?characterFilms=<%=c.getCharacterName()%>"><button class="btn btn-primary " id="submitButton" value="<%=c.getCharacterName()%>" name="characterFilms">See Filmography</button></a>
 			<%} %>
 			</div>
 	      </div>
 	    </div>
 	  </div>
-	<%
-			if (request.getParameter("edit") != null) {
-				response.sendRedirect("editCharacter.jsp?characterName=" + request.getParameter("inputName"));
-				
-			}else if (request.getParameter("delete") != null) {
-				response.sendRedirect("deleteCharacter.jsp?characterName=" + request.getParameter("inputName"));
-			}
-	%>
 	</div>
 
 

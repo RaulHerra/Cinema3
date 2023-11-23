@@ -67,12 +67,8 @@
 									<td><%=c.getCharacterName()%></td>
 
 									<td>
-										<form action="infoCharacter.jsp">
-											<input type="text" name="characterName"
-												value='<%=c.getCharacterName()%>' hidden=>
-											<button class="btn btn-primary " type="submit" name="info">
-												Info</button>
-										</form>
+										<a href="infoCharacter.jsp?characterName=<%=c.getCharacterName()%>"><button class="btn btn-primary " type="submit" name="info">
+											Info</button></a>
 									</td>
 								</tr>
 								<% }%>

@@ -34,13 +34,11 @@ input:read-only{
 	vertical-align: middle;
 	background: transparent;
 }
+
 .tableLeft td{
 	vertical-align: middle;
 	text-align: left;	
 }
-
-
-
 
 .table{
     width: max-content;
@@ -52,6 +50,7 @@ input:read-only{
 	margin-top: 10px;
 	
 }
+
 tbody tr:hover{
 	background-color: #dee2e6;
 }

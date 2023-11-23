@@ -91,8 +91,8 @@
 			            
 
 			            <!-- Submit button -->
-			              	<button class="btn btn-warning " id="submitButton" value="edit" type="submit" name="edit">Edit</button>
-			              	<button class="btn btn-danger " id="submitButton" value="delete" type="submit" name="delete">Delete</button>
+			              	<a href="editFilm.jsp?cip=<%=f.getCip()%>"><button class="btn btn-warning " id="submitButton" value="edit" type="button" name="edit">Edit</button></a>
+			              	<a href=deleteFilm.jsp?cip=<%=f.getCip()%>"><button class="btn btn-danger " id="submitButton" value="delete" type="submit" name="delete">Delete</button></a>
 				          <%
 				           	/*Cuando el valor de la sessi�n no se nulo es que se ha producido un error entonces muestro
 				           	el textarea que tengo abajo con el valor de la sesi�n que ser� el mensaje de error correspondiente*/
@@ -104,24 +104,12 @@
 			          </form>
 			          <%}%>
 			          <% if (f != null) { %>
-				    	<form method="get" action="./castCharacters.jsp"><button class="btn btn-primary " id="submitButton" value="<%=f.getCip()%>" name="filmCharacters">Cast of characters</button></form>
+					  	<a href="./castCharacters.jsp?filmCharacters=<%=f.getCip()%>"><button class="btn btn-primary " id="submitButton" value="<%=f.getCip()%>" name="filmCharacters">Cast of characters</button></a>
 					  <%} %>
 			        </div>
 			      </div>
 			    </div>
 			  </div>
 			</div>
-		<%
-		
-			if(request.getParameter("edit") != null){
-				/*Cuando le de a editar la pelicula que quiere lo redirijo a la p�gina de 
-				editar pasandole el cip para que pueda motrar la pelicula en la otra p�gina*/
-				response.sendRedirect("editFilm.jsp?cip="+f.getCip());
-			}else if(request.getParameter("delete") != null){
-				/*Cuando le de a borrar la pelicula que quiere lo redirijo a la p�gina de 
-				editar pasandole el cip para que pueda motrar la pelicula en la otra p�gina*/
-				response.sendRedirect("deleteFilm.jsp?cip="+f.getCip());
-			}
-		%>
 </body>
 </html>
