@@ -16,14 +16,17 @@
 <body>
 	<%@include file="../nav.jsp"%>
 	<%		
-		Cinema c = null; 
+		Cinema cinema = null; 
 		String error = null;
 		try{
-			c = DbRepository.find(Cinema.class, request.getParameter("cinema"));
-			if(c == null){
+			//Busco un cine con el parametro que nos ha pasado
+			cinema = DbRepository.find(Cinema.class, request.getParameter("cinema"));
+			if(cinema == null){
+				//Si el cine es nulo guardo el error en la variable
 				error = "Error there is no cinema with that name";
 			}
 		}catch(Exception e){
+			//En el caso de que haya un error en la base de datos lo redirecciono a la base de datos con el error correspondiente
 			response.sendRedirect("../error.jsp?msg=Failed to connect to database");
 			return;
 		}
@@ -37,36 +40,36 @@
 			            <h1>Info Cinema</h1>
 			          </div>
 			          <form>
-			          <%if(c != null){ %>
+			          <%if(cinema != null){ //Si el cine no es nulo muestro los campos%>
 			            <div class=" mb-3">
 			    			<label for="cinema" class="form-label">Cinema</label>
-			    			<input type="text" class="form-control" id="cinema" name="cinema" value='<%=c.getCinema()%>'readonly required>
+			    			<input type="text" class="form-control" id="cinema" name="cinema" value='<%=cinema.getCinema()%>'readonly required>
 			            </div>
 			
 			            <div class=" mb-3">
 			                <label for="cinemaCity" class="form-label">Cinema city</label>
-			    			<input type="text" class="form-control" id="cinemaCity" name="cinemaCity" value="<%=c.getCityCinema()%>" readonly required>
+			    			<input type="text" class="form-control" id="cinemaCity" name="cinemaCity" value="<%=cinema.getCityCinema()%>" readonly required>
 			            </div>
 			
 			            <div class=" mb-3">
 							<label for="cinemaAddress" class="form-label">Cinema address</label>
-			    			<input type="text" step="1" class="form-control" id="cinemaAddress" name="cinemaAddress" value="<%=c.getAddressCinema()%>" readonly required>
+			    			<input type="text" step="1" class="form-control" id="cinemaAddress" name="cinemaAddress" value="<%=cinema.getAddressCinema()%>" readonly required>
 			            </div>
 			            
 
 			            <!-- Submit button -->
-			              	<a href="editCinema.jsp?cinema=<%=c.getCinema()%>"><button class="btn btn-warning " id="submitButton" value="edit" type="button" name="edit">Edit</button></a>
-			              	<a href="deleteCinema.jsp?cinema=<%=c.getCinema()%>"><button class="btn btn-danger " id="submitButton" value="delete" type="button" name="delete">Delete</button></a>
+			              	<a href="editCinema.jsp?cinema=<%=cinema.getCinema()%>"><button class="btn btn-warning " id="submitButton" value="edit" type="button" name="edit">Edit</button></a>
+			              	<a href="deleteCinema.jsp?cinema=<%=cinema.getCinema()%>"><button class="btn btn-danger " id="submitButton" value="delete" type="button" name="delete">Delete</button></a>
 			          </form>
 			          <%}%>
 			          <%
-			      		if(error != null){%>
+			      		if(error != null){ //En el caso de haya un erro muestro el error y pongo un boton de volver a la lista%>
 			            	<div class="textAreaInfoError " ><%=error%></div><br>
 			            	<a href="./listCinemas.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
 			       		<%}%>
-			          <!-- End of contact form -->
-			          	<% if (c != null) { %>
-			   				 <a href="../room/infoRoom.jsp?cinema=<%=c.getCinema()%>"><button class="btn btn-primary " id="submitButton" name="cinema">Rooms</button></a>
+
+			          	<%if(cinema != null) { //Cuadno el cine no es nulo muestro un botón para ver las salas del cine%>
+			   				 <a href="../room/infoRoom.jsp?cinema=<%=cinema.getCinema()%>"><button class="btn btn-primary " id="submitButton" name="cinema">Rooms</button></a>
 						<%} %>
 			        </div>
 			      </div>
