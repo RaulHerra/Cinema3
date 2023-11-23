@@ -22,31 +22,40 @@
         try{
             result = DbRepository.findAll(Task.class);
         }catch(Exception e){
-    		response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
+    		response.sendRedirect("../error.jsp?msg=Failed to connect to database");
     		return;
         }
     %>
+	<div class="container px-5 my-5">
+		<div class="row justify-content-center">
+			<div class="col-lg-8">
+				<div class="card border-0 rounded-3 shadow-lg">
+					<div class="card-body p-4">
+						<div class="text-center">
+							<h1 align="center">List of task</h1>
+							<br>
+							<table class="table tableLeft">
+								<% for (Task t: result){//Recorremos la lista%>
+								<tr>
+									<td><%=t.getTask()%></td>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Task</th>
-            </tr>
-        </thead>
-        <% for (Task t: result){//Recorremos la lista
-        %>
-                <tr>
-                    <td><%=t.getTask()%></td>
-                    
 
-                    <td>
-                        <form action="infoTask.jsp"><%//Asignamos un boton para ver los detalles de cada tarea %>
-                            <input type="text" name="task" value='<%=t.getTask()%>' hidden>
-                            <button class="btn btn-primary " type="submit">Info</button>
-                        </form>
-                    </td>
-                </tr>
-        <% }%>
-    </table>
+									<td>
+										<form action="infoTask.jsp">
+											<%//Asignamos un boton para ver los detalles de cada tarea %>
+											<input type="text" name="task" value='<%=t.getTask()%>'
+												hidden>
+											<button class="btn btn-primary " type="submit">Info</button>
+										</form>
+									</td>
+								</tr>
+								<% }%>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

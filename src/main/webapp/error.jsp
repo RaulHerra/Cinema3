@@ -9,7 +9,22 @@
 
 </head>
 <body>
+		
+		<%
+		System.out.println(request.getHeader("referer"));
+			if(request.getParameter("back")!=null){
+		        response.sendRedirect(request.getHeader("referer"));
+		        return;
+			}
+			
+		%>
+
 	<%@include file="../nav.jsp"%>
 	<h1 class="text-info" align="center"><%=request.getParameter("msg") != null ? request.getParameter("msg") : ""%></h1>
+	
+	
+	<form > <input type="submit" name="back" value="Return"> </form>
+	
+	
 </body>
 </html>

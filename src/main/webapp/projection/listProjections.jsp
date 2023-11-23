@@ -1,7 +1,11 @@
+<%@page import="com.jacaranda.repository.RoomRepository"%>
+<%@page import="com.jacaranda.repository.CinemaRepository"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="com.jacaranda.repository.DbRepository"%>    
-<%@ page import="com.jacaranda.model.Projection"%>
+<%@ page import="com.jacaranda.model.Projection"%> 
+<%@ page import="com.jacaranda.model.Cinema"%>
+<%@ page import="com.jacaranda.model.Room"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
 
@@ -25,58 +29,82 @@
 <!-- ======= NAVBAR ======= -->
 <%@include file="../nav.jsp"%>
 <% 
-		//A list variable with Projections is created with null value
-		List<Projection> result = new ArrayList<Projection>();
-
+//A list variable with Projections is created with null value
+		List<Cinema> result = new ArrayList<Cinema>();
 		try{
 			//I get a list of the Projections from the data base
-			result = DbRepository.findAll(Projection.class);
+			result = DbRepository.findAll(Cinema.class);
 			
 		}catch(Exception e) {
-			response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
+			response.sendRedirect("../error.jsp?msg=Can't access to data base");
 			return;
 		}
 	%>
+	<div class="container px-7 my-5">
+		<div class="row justify-content-center">
+			<div class="col-lg-8">
+				<div class="card border-0 rounded-3 shadow-lg">
+					<div class="card-body p-4">
+						<div class="text-center">
+							<h1 align="center">List of projections</h1>
+							<br>
+							<table class="table">
+								<%
+								for (Cinema c : result) {
+								%>
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th scope="col">Cinema</th>
-				<th scope="col">Room number</th>
-				<th scope="col">Film</th>
-				<th scope="col">Premiere</th>
-				<th scope="col">Premiere days</th>
-				<th scope="col">Spectators</th>
-				<th scope="col">Collection</th>
-			</tr>
-		</thead>
-		<% for (Projection p: result){%>
-				<tr>
-					<td><%=p.getRoom().getCinema().getCinema()%></td>
-					<td><%=p.getRoom().getRoomNumber()%></td>
-					<td><%=p.getCip().getTitleP()%></td>
-					<td><%=p.getPremiere_date()%></td>
-					<td><%=p.getPremiere_days()%></td>
-					<td><%=p.getSpectators()%></td>
-					<td><%=p.getIncome()%></td>
+								<tr>
+									<td colspan="7"><h3>
+											Cinema:
+											<%=c.getCinema()%></h3></td>
+								</tr>
 
-					<td>
-						<form action="infoProjection.jsp">
-							<input type="text" name="ProjectionName" value='<%=p.getRoom()%>' hidden>
-							<button class="btn btn-primary" type="submit" name="info"> Info </button>
-						</form>
-					</td>
-				</tr>
-		<% }%>
-	</table>
+								<%
+								for (Room r : CinemaRepository.getRooms(c.getCinema())) {
+								%>
+								<tr>
+									<td colspan="7"><h4>
+											Sala:
+											<%=r.getRoomNumber()%></h4></td>
+								</tr>
 
+								<tr>
+									<th>Titulo</th>
+									<th>Premiere</th>
+									<th>Days</th>
+									<th>Income</th>
+									<th>Spectators</th>
+								</tr>
+
+								<%
+								for (Projection p : RoomRepository.getProjections(c, r.getRoomNumber())) {
+								%>
+
+								<tr>
+									<td><%=p.getCip().getTitleP()%></td>
+									<td><%=p.getPremiere_date()%></td>
+									<td><%=p.getPremiere_days()%></td>
+									<td><%=p.getIncome()%></td>
+									<td><%=p.getSpectators()%></td>
+									<td>
+										<a href="infoProjection.jsp?room=<%=p.getRoom().getRoomNumber()%>&cinema=<%=p.getCip().getCip()%>"><button class="btn btn-primary" type="button" name="info">
+												Projection Info</button></a>
+									</td>
+									<td>
+										<a href="../cinema/infoCinema.jsp?cinema=<%=c.getCinema() %>">
+											<button class="btn btn-primary" type="button" name="cinema"
+												value='<%=c.getCinema()%>'>Cinema Info</button></a>
+									</td>
+								</tr>
+								<%}}}%>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </body>
 
 </html>
-
-
-
-
-
-

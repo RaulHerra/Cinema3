@@ -19,20 +19,22 @@
 	<%@include file="../nav.jsp"%>
 	<%
 	Task t = null;
+	String error = null;
 	try{		
 		if(request.getParameter("task") != null && DbRepository.find(Task.class, request.getParameter("task")) != null){//Lo primero antes de añadir una tarea comprobamos que existe
-			session.setAttribute("error", "Error. Repeated primary key");//Si existe mostrara el error
+			error = "Error. Repeated primary key";
+
 		}else{	
 			try{
 				if(request.getParameter("save") != null){//En el caso de que no exista se crea
 					t = new Task(request.getParameter("task"),request.getParameter("sex"));
 					DbRepository.addEntity(t);				}
 			}catch(TaskException e){
-				session.setAttribute("error", e.getMessage());//Si hay algun campo no válido se mostrara el error
+				error = e.getMessage();
 			}
 		}
 	}catch(Exception e){
-		response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
+		response.sendRedirect("../error.jsp?msg=Failed to connect to database");
 		return; 
 	}
 		%>
@@ -56,11 +58,11 @@
 	            </div>
 	            
 	            <% //Mensaje de error que salta si anteriormente ha saltado alguna excepcion.Mostrara el mensaje correspondiente
-	            if(session.getAttribute("error") != null){%>
-	            	<div class="textAreaInfoError"><%=session.getAttribute("error")%></div>
+	            if(error != null){%>
+	            	<div class="textAreaInfoError"><%=error%></div>
 	            	
 	            <%//Mensaje de exito que salta en el caso de que se crea con exito la tarea
-	            }else if(request.getParameter("save") != null && session.getAttribute("error") == null){%>
+	            }else if(request.getParameter("save") != null && error == null){%>
 		            <div class="textAreaInfoSuccesfull">Task created successfully!</div>
 	            <%} 
 	            %>
@@ -68,9 +70,9 @@
 	            
 	              <button class="btn btn-success " id="submitButton" type="submit" name="save">Save</button>
 	              <%//Boton disponible para ver los detalles de la tarea creada.El boton aparece si se ha creado con exito la tarea
-	              if(request.getParameter("save") != null && session.getAttribute("error") == null && t!= null){%>
+	              if(request.getParameter("save") != null && error == null && t!= null){%>
 				     	<a href="infoTask.jsp?task=<%=request.getParameter("task")%>"><button class="btn btn-primary " id="submitButton" type="button">Show task</button></a>
-	              <%}session.removeAttribute("error");//Borramos la session para que no arrastre errores
+	              <%}//Borramos la session para que no arrastre errores
 	              %>
 	          
 	            

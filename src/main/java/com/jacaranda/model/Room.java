@@ -44,6 +44,7 @@ public class Room {
 		setRoomNumber(roomNumber);
 		setCapacity(capacity);
 	}
+	
 
 	public Cinema getCinema() {
 		return cinema;
@@ -73,7 +74,7 @@ public class Room {
 	}
 	
 	public List<Projection> getProjections() throws Exception {
-		return RoomRepository.getProyections(cinema,roomNumber);
+		return RoomRepository.getProjections(cinema,roomNumber);
 	}
 
 	public void setProjections(List<Projection> projections) {

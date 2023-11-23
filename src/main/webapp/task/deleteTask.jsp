@@ -11,15 +11,16 @@
 <body>
 	<%@include file="../nav.jsp"%>
 	<%
-	Task t =null;
+	Task t = null;
+	String error = null;
 	try{	
 		if(request.getParameter("task") != null && DbRepository.find(Task.class, request.getParameter("task")) != null){//Comprueba la tarea pasada por parametros si existe
 		 	t = DbRepository.find(Task.class, request.getParameter("task"));//En el caso de que exista mostraran los valores
 		}else{//En el caso de no existir nos mostrara el error correspondiente
-			session.setAttribute("error", "Error. This task does not exist");
+			error = "Error. This task does not exist";
 		}
 	}catch(Exception e){
-		response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
+		response.sendRedirect("../error.jsp?msg=Failed to connect to database");
 		return;
 	}
 
@@ -46,24 +47,24 @@
 
 
 			            <% //Mensaje de error que salta si anteriormente ha saltado alguna excepcion.Mostrara el mensaje correspondiente
-			            if(session.getAttribute("error") != null){%>
-			            	<div class="textAreaInfoError"><%=session.getAttribute("error")%></div>
+			            if(error != null){%>
+			            	<div class="textAreaInfoError"><%=error%></div>
 			            	
 			            <%//Mensaje de exito que salta en el caso de que se borre con exito la tarea
-			            }else if(request.getParameter("save") != null && session.getAttribute("error") == null){%>
+			            }else if(request.getParameter("save") != null && error == null){%>
 				            <div class="textAreaInfoSuccesfull">Task delete successfully!</div>
 			            <%} 
 			            %>			
 			            
 			                        
-			            	<%if(request.getParameter("deleteSubmit")==null && request.getParameter("comfirmSubmit")==null && session.getAttribute("error") == null){ //Preguntamos si se desea eliminar%>
+			            	<%if(request.getParameter("deleteSubmit")==null && request.getParameter("comfirmSubmit")==null && error == null){ //Preguntamos si se desea eliminar%>
 			              		<button class="btn btn-danger " id="submitButton" type="submit" name="deleteSubmit">Are you sure you want to delete it?</button>
 				            <%}if(request.getParameter("deleteSubmit")!=null){//Se muestra el boton para confirmar%>
 				            	<button class="btn btn-danger " id="submitButton" type="submit" name="comfirmSubmit">Confirm</button>
 				            	<a href="infoTask.jsp?task=<%=request.getParameter("task")%>"><button class="btn btn-primary " id="submitButton" type="button" name="undo">Undo</button></a>	
-				            <%} else if(request.getParameter("comfirmSubmit")!=null || session.getAttribute("error") != null){//Una vez eliminado se da la opcion de volver a la lista de las demas tareas%>
+				            <%} else if(request.getParameter("comfirmSubmit")!=null || error != null){//Una vez eliminado se da la opcion de volver a la lista de las demas tareas%>
 				            	<a href="listTasks.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return List</button></a>
-				            <%}session.removeAttribute("error");//Borramos la session para que no arrastre errores%>
+				            <%}//Borramos la session para que no arrastre errores%>
 				            
 			          </form>	
 			        </div>

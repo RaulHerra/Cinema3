@@ -42,7 +42,7 @@
 		}
 			
 	}catch(Exception e){
-		response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
+		response.sendRedirect("../error.jsp?msg=Failed to connect to database");
 		return;
 	}
 		
@@ -51,7 +51,7 @@
 
 
 
-<div class="container px-5 my-5">
+	<div class="container px-5 my-5">
 	  <div class="row justify-content-center">
 	    <div class="col-lg-8">
 	      <div class="card border-0 rounded-3 shadow-lg">
@@ -80,31 +80,22 @@
 					    <input type="text" class="form-control" id="inputSex" name="inputSex" value="<%= c.getCharacterSex() %>" readonly required>
 					</div>				
 				  <!-- Div of the submit button and redirect to list button  -->
-					    <button class="btn btn-warning" id="submitButton" value="edit" type="submit" name="edit">Edit</button>
-			            <button class="btn btn-danger" id="submitButton" value="delete" type="submit" name="delete">Delete</button>
+				    <a href="editCharacter.jsp?characterName=<%=c.getCharacterName()%>"><button class="btn btn-warning" id="submitButton" value="edit" type="button" name="edit">Edit</button></a>
+		            <a href="deleteCharacter.jsp?characterName=<%=c.getCharacterName()%>"><button class="btn btn-danger" id="submitButton" value="delete" type="button" name="delete">Delete</button></a>
 				  
-				  
-			    </form><br>
+			    </form>
 			    <%} %>
 			  <% if (error != null) {%>
 				  <div class="textAreaInfoError" > <%=error%> </div>
 				  <a href="./listCharacters.jsp"> <button class="btn btn-primary " id="submitButton" type="button"> Return list </button></a>
 			  <% }%>
 			<% if (c != null) { %>
-			    <form method="get" action="./characterFilms.jsp"><button class="btn btn-primary " id="submitButton" value="<%=c.getCharacterName()%>" name="characterFilms">See Filmography</button></form>
+				<a href="./filmography.jsp?characterFilms=<%=c.getCharacterName()%>"><button class="btn btn-primary " id="submitButton" value="<%=c.getCharacterName()%>" name="characterFilms">See Filmography</button></a>
 			<%} %>
 			</div>
 	      </div>
 	    </div>
 	  </div>
-	<%
-			if (request.getParameter("edit") != null) {
-				response.sendRedirect("editCharacter.jsp?characterName=" + request.getParameter("inputName"));
-				
-			}else if (request.getParameter("delete") != null) {
-				response.sendRedirect("deleteCharacter.jsp?characterName=" + request.getParameter("inputName"));
-			}
-	%>
 	</div>
 
 

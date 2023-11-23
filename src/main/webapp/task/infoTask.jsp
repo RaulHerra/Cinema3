@@ -18,14 +18,15 @@
 	
 	<%
 		Task t =null;
+	String error = null;
 		try{	
 			if(request.getParameter("task") != null && DbRepository.find(Task.class, request.getParameter("task")) != null){//Lo primero antes de añadir una tarea comprobamos que existe
 			 	t = DbRepository.find(Task.class, request.getParameter("task"));//En el caso de que exista mostraran los valores
 			}else{//En el caso de no existir nos mostrara el error correspondiente
-				session.setAttribute("error", "Error. This task does not exist");
+				error = "Error. This task does not exist";
 			}
 		}catch(Exception e){
-			response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
+			response.sendRedirect("../error.jsp?msg=Failed to connect to database");
 			return;
 		}
 	
@@ -52,11 +53,11 @@
 			              <button class="btn btn-danger " id="submitButton" type="submit" name="deleteSubmit">Delete</button>			            
 			            <% } %>
 			             <%
-			      		if(session.getAttribute("error") != null){//En el caso de que no exista se muestra el valor y da la opcion al usuario de volver a la lista de tareas
+			      		if(error!= null){//En el caso de que no exista se muestra el valor y da la opcion al usuario de volver a la lista de tareas
 			      		%>
-			            	<div class="textAreaInfoError" ><%=session.getAttribute("error")%></div>
+			            	<div class="textAreaInfoError" ><%=error%></div>
 			            	<a href="listTasks.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
-			       		<%}session.removeAttribute("error");//Borramos la session para que no arrastre errores
+			       		<%};//Borramos la session para que no arrastre errores
 			       		%>
 			          </form>
 			        </div>

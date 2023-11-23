@@ -34,7 +34,7 @@
 				error = "Error there is no character with the character's name entered";
 			}
 		}catch(Exception e){
-			response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
+			response.sendRedirect("../error.jsp?msg=Failed to connect to database");
 			return;
 		}
 %>
@@ -77,7 +77,7 @@
 			            
 
 			            }else if(request.getParameter("submit") != null && error == null){%>
-			            	<div class="textAreaInfoSuccesfull " >Character deleted successfully!</div>
+			            	<div class="textAreaInfoSuccesfull">Character deleted successfully!</div>
 			            
 			            <%}
 			            %>
@@ -105,7 +105,6 @@
 		            		<%}%>
 							
 			          </form>
-
 			        </div>
 			      </div>
 			    </div>

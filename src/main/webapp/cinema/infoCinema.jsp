@@ -24,7 +24,7 @@
 				error = "Error there is no cinema with that name";
 			}
 		}catch(Exception e){
-			response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
+			response.sendRedirect("../error.jsp?msg=Failed to connect to database");
 			return;
 		}
 %>
@@ -55,8 +55,8 @@
 			            
 
 			            <!-- Submit button -->
-			              	<button class="btn btn-warning " id="submitButton" value="edit" type="submit" name="edit">Edit</button>
-			              	<button class="btn btn-danger " id="submitButton" value="delete" type="submit" name="delete">Delete</button>
+			              	<a href="editCinema.jsp?cinema=<%=c.getCinema()%>"><button class="btn btn-warning " id="submitButton" value="edit" type="button" name="edit">Edit</button></a>
+			              	<a href="deleteCinema.jsp?cinema=<%=c.getCinema()%>"><button class="btn btn-danger " id="submitButton" value="delete" type="button" name="delete">Delete</button></a>
 			          </form>
 			          <%}%>
 			          <%
@@ -65,18 +65,13 @@
 			            	<a href="./listCinemas.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
 			       		<%}%>
 			          <!-- End of contact form -->
+			          	<% if (c != null) { %>
+			   				 <a href="../room/infoRoom.jsp?cinema=<%=c.getCinema()%>"><button class="btn btn-primary " id="submitButton" name="cinema">Rooms</button></a>
+						<%} %>
 			        </div>
 			      </div>
 			    </div>
 			  </div>
 			</div>
-		<%
-		
-			if(request.getParameter("edit") != null){
-				response.sendRedirect("editCinema.jsp?cinema="+c.getCinema());
-			}else if(request.getParameter("delete") != null){
-				response.sendRedirect("deleteCinema.jsp?cinema="+c.getCinema());
-			}
-		%>
 </body>
 </html>

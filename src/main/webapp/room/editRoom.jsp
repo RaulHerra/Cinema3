@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Add Room</title>
+<title>Edit Room</title>
 <!-- ======= LINKS BOOTSTRAP ======= -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -85,14 +85,7 @@
 							<div class="mb-3">
 								<label for="cinema" class="form-label">Cinema</label> <select
 									id="cinema" name="cinema" class="form-select" required>
-									<option disabled selected>-- Select a cinema --</option>
-									<%
-									for (Cinema cinema : allCinemas) {
-									%>
-									<option value="<%=cinema.getCinema()%>"><%=cinema.getCinema()%></option>
-									<%
-									}
-									%>
+										<option value="<%=request.getParameter("cinema")%>"><%=request.getParameter("cinema")%></option>
 								</select>
 							</div>
 
