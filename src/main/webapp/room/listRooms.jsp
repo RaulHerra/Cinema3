@@ -62,7 +62,6 @@
 									<td colspan="2">
 										<h1>List rooms</h1>
 									</td>
-
 								</tr>
 
 							</thead>
@@ -76,7 +75,6 @@
 							<tr>
 								<th>Room number</th>
 								<th>Room capacity</th>
-
 							</tr>
 							<%
 								for (Room room : cinema.getRooms()) {
@@ -84,7 +82,6 @@
 								<tr>
 									<td><%=room.getRoomNumber()%></td>
 									<td><%=room.getCapacity()%></td>
-
 								</tr>
 								<%
 								}
