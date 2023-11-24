@@ -40,6 +40,9 @@ public class Film {
 	@OneToMany(mappedBy = "film")
 	private List<Work>works;
 	
+	@OneToMany(mappedBy = "film")
+	private List<Projection> projections;
+	
 	public Film(String cip, String titleP, String yearProduction, String titleS, String nationality, String budget,
 			String duration) throws FilmException {
 		super();
@@ -184,6 +187,22 @@ public class Film {
 
 	public void setWorks(List<Work> works) {
 		this.works = works;
+	}
+
+	public int getProductionYear() {
+		return productionYear;
+	}
+
+	public void setProductionYear(int productionYear) {
+		this.productionYear = productionYear;
+	}
+
+	public List<Projection> getProjections() {
+		return projections;
+	}
+
+	public void setProjections(List<Projection> projections) {
+		this.projections = projections;
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package com.jacaranda.model;
 import java.sql.Date;
 import java.util.Objects;
 
+import com.jacaranda.exception.ProjectionException;
 import com.jacaranda.exception.RoomException;
 
 import jakarta.persistence.Column;
@@ -25,14 +26,14 @@ public class Projection {
 	@Id
 	@ManyToOne
 	@JoinColumn(name="cip")
-	private Film cip;
+	private Film film;
 	
 	@Id
 	@Column(name="fecha_estreno")
-	private Date premiere_date;
+	private Date premiereDate;
 	
 	@Column(name="dias_estreno")
-	private int premiere_days;
+	private int premiereDays;
 	
 	@Column(name="espectadores")
 	private int spectators;
@@ -40,15 +41,21 @@ public class Projection {
 	@Column(name="recaudacion")
 	private int income;
 
-	public Projection(Cinema cinema, Room room, Film cip, Date premiere_date, int premiere_days, int spectators,
-			int income) {
+	public Projection(Room room, Film film, Date premiere_date, int premiere_days, int spectators,
+			int income) throws ProjectionException {
 		super();
-		this.room = room;
-		this.cip = cip;
-		this.premiere_date = premiere_date;
-		this.premiere_days = premiere_days;
-		this.spectators = spectators;
-		this.income = income;
+		setRoom(room);
+		setFilm(film);
+		setIncome(income);
+		setPremieredate(premiere_date);
+		setPremiereDays(premiere_days);
+	}
+	//Este constructor es para buscar el proyecto en infoProjection
+	public Projection(Room room, Film film,Date premiere_date) throws ProjectionException {
+		super();
+		setRoom(room);
+		setFilm(film);
+		setPremieredate(premiere_date);
 	}
 	
 	public Projection() {
@@ -59,39 +66,54 @@ public class Projection {
 		return room;
 	}
 
-	public void setRoom(Room room) {
+	public void setRoom(Room room) throws ProjectionException {
+		if(room == null) {
+			throw new ProjectionException("Room cant be null");
+		}
 		this.room = room;
 	}
 
-	public Film getCip() {
-		return cip;
+	public Film getFilm() {
+		return film;
 	}
 
-	public void setCip(Film cip) {
-		this.cip = cip;
+	public void setFilm(Film film) throws ProjectionException {
+		if(film == null) {
+			throw new ProjectionException("Film cant be null");
+		}
+		this.film = film;
 	}
 
-	public Date getPremiere_date() {
-		return premiere_date;
+	public Date getPremieredate() {
+		return premiereDate;
 	}
 
-	public void setPremiere_date(Date premiere_date) {
-		this.premiere_date = premiere_date;
+	public void setPremieredate(Date premiereDate) throws ProjectionException {
+		if(premiereDate == null) {
+			throw new ProjectionException("Premiere date cant be null");
+		}
+		this.premiereDate = premiereDate;
 	}
 
-	public int getPremiere_days() {
-		return premiere_days;
+	public int getPremiereDays() {
+		return premiereDays;
 	}
 
-	public void setPremiere_days(int premiere_days) {
-		this.premiere_days = premiere_days;
+	public void setPremiereDays(int premiereDays) throws ProjectionException {
+		if(premiereDays <= 0) {
+			throw new ProjectionException("Release days must be greater than 0");
+		}
+		this.premiereDays = premiereDays;
 	}
 
 	public int getSpectators() {
 		return spectators;
 	}
 
-	public void setSpectators(int spectators) {
+	public void setSpectators(int spectators) throws ProjectionException {
+		if(spectators <= 0) {
+			throw new ProjectionException("Spectators days must be greater than 0");
+		}
 		this.spectators = spectators;
 	}
 
@@ -99,13 +121,16 @@ public class Projection {
 		return income;
 	}
 
-	public void setIncome(int income) {
+	public void setIncome(int income) throws ProjectionException {
+		if(income <= 0) {
+			throw new ProjectionException("Income days must be greater than 0");
+		}
 		this.income = income;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(cip, premiere_date, room);
+		return Objects.hash(film, premiereDate, room, premiereDate);
 	}
 
 	@Override
@@ -117,13 +142,13 @@ public class Projection {
 		if (getClass() != obj.getClass())
 			return false;
 		Projection other = (Projection) obj;
-		return Objects.equals(cip, other.cip) && Objects.equals(premiere_date, other.premiere_date) && Objects.equals(room, other.room);
+		return Objects.equals(film, other.film) && Objects.equals(premiereDate, other.premiereDate) && Objects.equals(room, other.room);
 	}
 
 	@Override
 	public String toString() {
-		return "Projection [room=" + room.getRoomNumber() + ", cip=" + cip.getCip() + ", premiere_date=" + premiere_date
-				+ ", premiere_days=" + premiere_days + ", spectators=" + spectators + ", income=" + income + "]";
+		return "Projection [room=" + room.getRoomNumber() + ", cip=" + film.getCip() + ", premiere_date=" + premiereDate
+				+ ", premiere_days=" + premiereDays + ", spectators=" + spectators + ", income=" + income + "]";
 	}
 	
 }

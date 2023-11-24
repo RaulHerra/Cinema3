@@ -1,3 +1,5 @@
+<%@page import="com.jacaranda.exception.ProjectionException"%>
+<%@page import="java.sql.Date"%>
 <%@page import="com.jacaranda.model.Cinema"%>
 <%@page import="com.jacaranda.model.Film"%>
 <%@page import="com.jacaranda.model.Projection"%>
@@ -22,16 +24,52 @@
 		Projection p = null;
 		Cinema cinema = null; 
 		Film film = null;
+		Room room = null;
 		String error = null;
 		try{
 			//Busco un cine con el parametro que nos ha pasado
+			String cinemaParam = request.getParameter("cinema");
+			String roomParam = request.getParameter("room");
+			String filmParam = request.getParameter("film");
+			Date premiereDate = null;
+			
+			try{
+				premiereDate = Date.valueOf(request.getParameter("premiereDate"));
+			}catch(Exception e){
+				error = "Error Premiere Date not valid";
+			}
+			
+			if(filmParam != null){
+				film = DbRepository.find(Film.class,filmParam);					
+			}else{
+				error = "Error film not valid";
+			}
+			
+			if(cinemaParam != null){
+				 cinema = DbRepository.find(Cinema.class, cinemaParam);
+			}else{
+				error = "Error cinema not valid";
+			}
+			
+			try{
+				room = new Room(cinema,Integer.valueOf(roomParam),23);
+			}catch(Exception e){
+				error = "Error room number not valid";
+			}
+			
 			cinema = DbRepository.find(Cinema.class, request.getParameter("cinema"));
-			Room room = new Room(cinema,Integer.valueOf(request.getParameter("room")));
 			room = DbRepository.find(Room.class, room);
 			film = DbRepository.find(Film.class, request.getParameter("film"));
-			
-			p = DbRepository.find(Projection.class, room);
-			
+			Projection projectionFind = null;
+			try{
+				 projectionFind = new Projection(room,film,premiereDate);
+			}catch(ProjectionException e){
+				error = e.getMessage();
+			}
+			if(error == null){
+				p = DbRepository.find(Projection.class, projectionFind);				
+			}
+
 			if(cinema == null || room==null || film==null){
 				//Si el cine es nulo guardo el error en la variable
 				error = "Error there is no cinema with that name";
@@ -51,35 +89,35 @@
 			            <h1>Info Proyection</h1>
 			          </div>
 			          <form>
-			          <%if(cinema != null){ //Si el cine no es nulo muestro los campos%>
+			          <%if(p != null){ //Si el cine no es nulo muestro los campos%>
 			            <div class=" mb-3">
 			    			<label for="cinema" class="form-label">Room number</label>
-			    			<input type="text" class="form-control" id="cinema" name="cinema" value='<%=p.getRoom().getRoomNumber()%>'readonly required>
+			    			<input type="text" class="form-control" id="roomNumber" name="roomNumber" value='<%=p.getRoom().getRoomNumber()%>'readonly required>
 			            </div>
 			
 			            <div class=" mb-3">
 			                <label for="cinemaCity" class="form-label">Film title</label>
-			    			<input type="text" class="form-control" id="cinemaCity" name="cinemaCity" value="<%=p.getCip().getTitleP()%>" readonly required>
+			    			<input type="text" class="form-control" id="filmTitle" name="filmTitle" value="<%=p.getFilm().getTitleP()%>" readonly required>
 			            </div>
 			
 			            <div class=" mb-3">
 							<label for="cinemaAddress" class="form-label">Premiere date</label>
-			    			<input type="text" step="1" class="form-control" id="cinemaAddress" name="cinemaAddress" value="<%=p.getPremiere_date()%>" readonly required>
+			    			<input type="text" step="1" class="form-control" id="premiereDate" name="premiereDate" value="<%=p.getPremieredate()%>" readonly required>
 			            </div>
 			            
 						<div class=" mb-3">
 							<label for="cinemaAddress" class="form-label">Premiere days</label>
-			    			<input type="text" step="1" class="form-control" id="cinemaAddress" name="cinemaAddress" value="<%=p.getPremiere_days()%>" readonly required>
+			    			<input type="text" step="1" class="form-control" id="premiereDay" name="premiereDay" value="<%=p.getPremiereDays()%>" readonly required>
 			            </div>
 			            
 			            <div class=" mb-3">
 							<label for="cinemaAddress" class="form-label">Spectators</label>
-			    			<input type="text" step="1" class="form-control" id="cinemaAddress" name="cinemaAddress" value="<%=p.getSpectators()%>" readonly required>
+			    			<input type="text" step="1" class="form-control" id="spectators" name="spectators" value="<%=p.getSpectators()%>" readonly required>
 			            </div>
 			            
 			            <div class=" mb-3">
 							<label for="cinemaAddress" class="form-label">Income</label>
-			    			<input type="text" step="1" class="form-control" id="cinemaAddress" name="cinemaAddress" value="<%=p.getIncome()%>" readonly required>
+			    			<input type="text" step="1" class="form-control" id="income" name="income" value="<%=p.getIncome()%>" readonly required>
 			            </div>
 			            
 			            
@@ -93,10 +131,6 @@
 			            	<div class="textAreaInfoError " ><%=error%></div><br>
 			            	<a href="./listCinemas.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
 			       		<%}%>
-			          <!-- End of contact form -->
-			          	<% if (cinema != null) { %>
-			   				 <a href="../room/cinemasRooms.jsp?cinema=<%=cinema.getCinema()%>"><button class="btn btn-primary" id="submitButton" name="cinema">Rooms</button></a>
-						<%} %>
 			        </div>
 			      </div>
 			    </div>

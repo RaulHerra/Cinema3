@@ -81,13 +81,13 @@
 								%>
 
 								<tr>
-									<td><%=p.getCip().getTitleP()%></td>
+									<td><%=p.getFilm().getTitleP()%></td>
 									<td><%=p.getPremiere_date()%></td>
 									<td><%=p.getPremiere_days()%></td>
 									<td><%=p.getIncome()%></td>
 									<td><%=p.getSpectators()%></td>
 									<td>
-										<a href="infoProjection.jsp?room=<%=p.getRoom().getRoomNumber()%>&cinema=<%=c.getCinema()%>&film=<%=p.getCip().getCip()%>"><button class="btn btn-primary" type="button" name="info">
+										<a href="infoProjection.jsp?room=<%=p.getRoom().getRoomNumber()%>&cinema=<%=c.getCinema()%>&film=<%=p.getFilm().getCip()%>"><button class="btn btn-primary" type="button" name="info">
 												Projection Info</button></a>
 									</td>
 									<td>
