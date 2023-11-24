@@ -2,9 +2,11 @@
 <%@page import="com.jacaranda.repository.CinemaRepository"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@page import="java.sql.Date"%>
 <%@page import="com.jacaranda.repository.DbRepository"%>    
 <%@ page import="com.jacaranda.model.Projection"%> 
 <%@ page import="com.jacaranda.model.Cinema"%>
+<%@ page import="com.jacaranda.model.Film"%>
 <%@ page import="com.jacaranda.model.Room"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
@@ -26,10 +28,15 @@
 
 <% 
 	LocalDate today = LocalDate.now();
-	List<Cinema> result = new ArrayList<Cinema>();
+	List<Cinema> cinemas = new ArrayList<Cinema>();
+	List<Room> rooms = new ArrayList<Room>();
+	List<Film> films = new ArrayList<Film>();
+	Date premiereDate = null;
 
 	try{
-		result = DbRepository.findAll(Cinema.class);
+		cinemas = DbRepository.findAll(Cinema.class);
+		rooms = DbRepository.findAll(Room.class);
+		films = DbRepository.findAll(Film.class);
 	}catch(Exception e){
 		response.sendRedirect("../error.jsp?msg=Can't access to data base");
 		return;
@@ -39,19 +46,24 @@
 <%
 	String error = null;
 	try{
-		if(request.getParameter("cinema") != null && DbRepository.find(Cinema.class, request.getParameter("cinema")) != null){
-			error = "Error there is already a cinema with the name entered";
-		}else{	
-			try{
-				if(request.getParameter("submit") != null){
-					Cinema cinema = new Cinema(request.getParameter("cinema")
-							,request.getParameter("cinemaCity")
-							,request.getParameter("cinemaAddress"));
-					DbRepository.addEntity(cinema);
+		try{
+			if(request.getParameter("submit") != null){
+					Cinema cinema = DbRepository.find(Cinema.class, request.getParameter("cinema"));
+					Room room = new Room(cinema, Integer.valueOf(request.getParameter("room")));
+					Film film = DbRepository.find(Film.class, request.getParameter("film"));
+					
+					if(DbRepository.find(Room.class, room)!=null && cinema!=null&& film!=null){
+						Projection p = new Projection(cinema, room, film, Date.valueOf(request.getParameter("premiere_date")), 
+								Integer.valueOf(request.getParameter("premiere_days")), Integer.valueOf(request.getParameter("spectators")),
+								Integer.valueOf(request.getParameter("income")));
+						
+						DbRepository.addEntity(p);
+					}else{
+						error = "The cinema, the room or the film not exist!";
+					}
 			}
-			}catch(Exception e){
-				error = e.getMessage();
-			}
+		}catch(Exception e){
+			error = e.getMessage();
 		}
 	}catch(Exception e){
 		response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
@@ -77,7 +89,7 @@
 		           <label for="cinema" class="form-label">Select Cinema</label>
 		   		   <select id="cinema" name="cinema" class="form-select custom-select">
 		   		   		<option>-- Select Cinema --</option>
-				      	<%for (Cinema c : result){ %>
+				      	<%for (Cinema c : cinemas){ %>
 				      		<option value="<%=c.getCinema()%>"><%=c.getCinema()%></option>
 				      	<% } %>
 				   </select>
@@ -86,8 +98,8 @@
 		           <label for="room" class="form-label">Select Room</label>
 		   		   <select id="room" name="room" class="form-select custom-select">
 		   		   		<option>-- Select Room --</option>
-				      	<%for (Cinema c : result){ %>
-				      		<option value="<%=c.getCinema()%>"><%=c.getCinema()%></option>
+				      	<%for (Room r : rooms){ %>
+				      		<option value="<%=r.getRoomNumber()%>"><%=r.getRoomNumber()%></option>
 				      	<% } %>
 				   </select>
 	    		 </div>
@@ -96,8 +108,8 @@
 		           <label for="film" class="form-label">Select Film</label>
 		   		   <select id="film" name="film" class="form-select custom-select">
 		   		   		<option>-- Select Film --</option>
-				      	<%for (Cinema c : result){ %>
-				      		<option value="<%=c.getCinema()%>"><%=c.getCinema()%></option>
+				      	<%for (Film f : films){ %>
+				      		<option value="<%=f.getCip()%>"><%=f.getTitleP()%></option>
 				      	<% } %>
 				   </select>
 	    		 </div>
@@ -114,7 +126,7 @@
 		           
 		           <div class=" mb-3">
 					<label for="spectators" class="form-label">Spectators</label>
-		   			<input type="number" class="form-control" id="spectators" min="1" placeholder="Enter spectators number" name="premiere_days" required>
+		   			<input type="number" class="form-control" id="spectators" min="1" placeholder="Enter spectators number" name="spectators" required>
 		           </div>
 		           
 		           <div class=" mb-3">
