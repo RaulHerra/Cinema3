@@ -26,18 +26,20 @@
 		Film film = null;
 		Room room = null;
 		String error = null;
+		Date premiereDate = null;
+		
 		try{
 			//Busco un cine con el parametro que nos ha pasado
 			String cinemaParam = request.getParameter("cinema");
 			String roomParam = request.getParameter("room");
 			String filmParam = request.getParameter("film");
-			Date premiereDate = null;
 			
 			try{
 				premiereDate = Date.valueOf(request.getParameter("premiereDate"));
 			}catch(Exception e){
 				error = "Error Premiere Date not valid";
 			}
+			
 			
 			if(filmParam != null){
 				film = DbRepository.find(Film.class,filmParam);					
@@ -61,13 +63,15 @@
 			room = DbRepository.find(Room.class, room);
 			film = DbRepository.find(Film.class, request.getParameter("film"));
 			Projection projectionFind = null;
+			
 			try{
 				 projectionFind = new Projection(room,film,premiereDate);
-			}catch(ProjectionException e){
+			}catch(Exception e){
 				error = e.getMessage();
 			}
+			
 			if(error == null){
-				p = DbRepository.find(Projection.class, projectionFind);				
+				p = DbRepository.find(Projection.class,projectionFind);				
 			}
 
 			if(cinema == null || room==null || film==null){
@@ -89,20 +93,20 @@
 			            <h1>Info Proyection</h1>
 			          </div>
 			          <form>
-			          <%if(p != null){ //Si el cine no es nulo muestro los campos%>
+			          <%//if(p != null){ //Si el cine no es nulo muestro los campos%>
 			            <div class=" mb-3">
 			    			<label for="cinema" class="form-label">Room number</label>
-			    			<input type="text" class="form-control" id="roomNumber" name="roomNumber" value='<%=p.getRoom().getRoomNumber()%>'readonly required>
+			    			<input type="text" class="form-control" id="roomNumber" name="roomNumber" value='<%=room.getRoomNumber()%>'readonly required>
 			            </div>
 			
 			            <div class=" mb-3">
 			                <label for="cinemaCity" class="form-label">Film title</label>
-			    			<input type="text" class="form-control" id="filmTitle" name="filmTitle" value="<%=p.getFilm().getTitleP()%>" readonly required>
+			    			<input type="text" class="form-control" id="filmTitle" name="filmTitle" value="<%=film.getTitleP()%>" readonly required>
 			            </div>
 			
 			            <div class=" mb-3">
 							<label for="cinemaAddress" class="form-label">Premiere date</label>
-			    			<input type="text" step="1" class="form-control" id="premiereDate" name="premiereDate" value="<%=p.getPremieredate()%>" readonly required>
+			    			<input type="text" step="1" class="form-control" id="premiereDate" name="premiereDate" value="<%=premiereDate%>" readonly required>
 			            </div>
 			            
 						<div class=" mb-3">
@@ -122,14 +126,14 @@
 			            
 			            
 			            <!-- Submit button -->
-			              	<a href="editCinema.jsp?cinema=<%=cinema.getCinema()%>"><button class="btn btn-warning " id="submitButton" value="edit" type="button" name="edit">Edit</button></a>
-			              	<a href="deleteCinema.jsp?cinema=<%=cinema.getCinema()%>"><button class="btn btn-danger " id="submitButton" value="delete" type="button" name="delete">Delete</button></a>
+			              	<a><button class="btn btn-warning " id="submitButton" value="edit" type="button" name="edit">Edit</button></a>
+			              	<a><button class="btn btn-danger " id="submitButton" value="delete" type="button" name="delete">Delete</button></a>
 			          </form>
-			          <%}%>
+			          <%//}%>
 			          <%
 			      		if(error != null){ //En el caso de haya un erro muestro el error y pongo un boton de volver a la lista%>
 			            	<div class="textAreaInfoError " ><%=error%></div><br>
-			            	<a href="./listCinemas.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
+			            	<a href="./listProjections.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
 			       		<%}%>
 			        </div>
 			      </div>

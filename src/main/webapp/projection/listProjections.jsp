@@ -82,13 +82,13 @@
 
 								<tr>
 									<td><%=p.getFilm().getTitleP()%></td>
-									<td><%=p.getPremiere_date()%></td>
-									<td><%=p.getPremiere_days()%></td>
+									<td><%=p.getPremiereDate()%></td>
+									<td><%=p.getPremiereDays()%></td>
 									<td><%=p.getIncome()%></td>
 									<td><%=p.getSpectators()%></td>
 									<td>
-										<a href="infoProjection.jsp?room=<%=p.getRoom().getRoomNumber()%>&cinema=<%=c.getCinema()%>&film=<%=p.getFilm().getCip()%>"><button class="btn btn-primary" type="button" name="info">
-												Projection Info</button></a>
+										<a class="btn btn-primary" href="infoProjection.jsp?premiereDate=<%=p.getPremiereDate()%>&room=<%=p.getRoom().getRoomNumber()%>&projection=<%=p.getPremiereDate()%>&cinema=<%=c.getCinema()%>&film=<%=p.getFilm().getCip()%>">
+												Projection Info</a>
 									</td>
 									<td>
 										<a href="../cinema/infoCinema.jsp?cinema=<%=c.getCinema() %>">
@@ -96,7 +96,8 @@
 												value='<%=c.getCinema()%>'>Cinema Info</button></a>
 									</td>
 								</tr>
-								<%}}}%>
+								<%
+								}}}%>
 							</table>
 						</div>
 					</div>
