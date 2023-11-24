@@ -23,7 +23,7 @@
 <body>
 	<%@include file="../nav.jsp"%>
 	<%
-	List<Room> result = null;
+	List<Room> rooms = null;
 	String cinemaId = null;
 	String error = null;
 	try {
@@ -40,7 +40,7 @@
 			response.sendRedirect("../error.jsp?msg=Cinema doesn't exist");
 			return;
 		}
-		result = tmpCinema.getRooms();
+		rooms = tmpCinema.getRooms();
 
 	} catch (Exception e) {
 		System.out.print(e.getMessage());
@@ -66,7 +66,7 @@
 
 							</thead>
 							<%
-							for (Room room : result) {
+							for (Room room : rooms) {
 							%>
 							<tr>
 								<td><%=room.getRoomNumber()%></td>

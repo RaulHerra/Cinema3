@@ -17,22 +17,22 @@
 <body>
 		<%@include file="../nav.jsp"%>
 		<%
-		Film f = null;
+		Film film = null;
 		String error = null;
 		try{
 			/*Compruebo que existe la pelicula que quiere editar*/
-			f = DbRepository.find(Film.class, request.getParameter("cip"));
-			if(f != null){
+			film = DbRepository.find(Film.class, request.getParameter("cip"));
+			if(film != null){
 				if(request.getParameter("edit") != null){
 					/*Cuando le de al boton de editar, actualizo la pelicula con los nuevos datos introducidos*/
 					try{
-						f = new Film(request.getParameter("cip"),request.getParameter("titleF")
+						film = new Film(request.getParameter("cip"),request.getParameter("titleF")
 								,request.getParameter("productionYear")
 								,request.getParameter("titleS"),request.getParameter("nationality")
 								,request.getParameter("budget")
 								,request.getParameter("duration"));
 						/*Llamo al metodo del repositorio que edita la pelicula*/
-						DbRepository.editEntity(f);
+						DbRepository.editEntity(film);
 					}catch(FilmException e){
 						/*Si ocurre algun error creo una session que almacena el mensaje para despues
 							* comprobar si hay error y mostrarlo más abajo*/
@@ -56,48 +56,48 @@
 			          <div class="text-center">
 			            <h1>Edit Film</h1>
 			          </div>
-					<%if(f != null){/*Si el cine que hemos introducido es diferente a null muestro la informacion del cine*/ %>
+					<%if(film != null){/*Si el cine que hemos introducido es diferente a null muestro la informacion del cine*/ %>
 			          <form>
 			            <!-- Cip Input -->
 			            <div class="  mb-3">
 			    			<label for="cip" class="form-label">Cip</label>
-			    			<input type="text" class="form-control" id="cip" name="cip" value='<%=f.getCip()%>'readonly required>
+			    			<input type="text" class="form-control" id="cip" name="cip" value='<%=film.getCip()%>'readonly required>
 			            </div>
 			
 			            <!-- Film title Input -->
 			            <div class="  mb-3">
 			                <label for="titleF" class="form-label">Film title</label>
-			    			<input type="text" class="form-control" id="titleF" name="titleF" placeholder="Enter Film Title" value="<%=f.getTitleP()%>" required>
+			    			<input type="text" class="form-control" id="titleF" name="titleF" placeholder="Enter Film Title" value="<%=film.getTitleP()%>" required>
 			            </div>
 			
 			            <!-- Production year Input -->
 			            <div class="  mb-3">
 							<label for="productionYear" class="form-label">Production year</label>
-			    			<input type="number" step="1" class="form-control" id="productionYear" name="productionYear" placeholder="Enter Production Year" value="<%=f.getYearProduction()%>" required min="1890">
+			    			<input type="number" step="1" class="form-control" id="productionYear" name="productionYear" placeholder="Enter Production Year" value="<%=film.getYearProduction()%>" required min="1890">
 			            </div>
 			            
 			            <!-- Secundary title Input -->
 			            <div class="  mb-3">
 							<label for="titleS" class="form-label">Secundary title</label>
-			    			<input type="text" class="form-control" id="titleS" name="titleS" placeholder="Enter Secundary Title" value="<%=f.getTitleS()%>">
+			    			<input type="text" class="form-control" id="titleS" name="titleS" placeholder="Enter Secundary Title" value="<%=film.getTitleS()%>">
 			            </div>
 			            
 			            <!-- Nationality Input -->
 			            <div class="  mb-3">
 							<label for="nationality" class="form-label">Nationality</label>
-			    			<input type="text" class="form-control" id="nationality" name="nationality" placeholder="Enter Nationality" value="<%=f.getNationality()%>">
+			    			<input type="text" class="form-control" id="nationality" name="nationality" placeholder="Enter Nationality" value="<%=film.getNationality()%>">
 			            </div>
 			            
 			            <!-- Budget Input -->
 			            <div class="  mb-3">
 							 <label for="budget" class="form-label">Budget</label>
-			    			<input type="number" step="1" class="form-control" id="budget" name="budget" placeholder="Enter Budget" value="<%=f.getBudget()%>" min="1">
+			    			<input type="number" step="1" class="form-control" id="budget" name="budget" placeholder="Enter Budget" value="<%=film.getBudget()%>" min="1">
 			            </div>
 			            
 			            <!-- Duration Input -->
 			            <div class="  mb-3">
 							<label for="duration" class="form-label">Duration</label>
-			    			<input type="number" step="1" class="form-control" id="duration" name="duration" placeholder="Enter Duration" value="<%=f.getDuration()%>" min="1">
+			    			<input type="number" step="1" class="form-control" id="duration" name="duration" placeholder="Enter Duration" value="<%=film.getDuration()%>" min="1">
 			            </div>
 			            <%}%>
 			            <%

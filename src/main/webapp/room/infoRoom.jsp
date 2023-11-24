@@ -35,6 +35,7 @@
 		tmpCinema = DbRepository.find(Cinema.class, request.getParameter("cinema"));
 		tmpRoom = DbRepository.find(Room.class, new Room(tmpCinema, roomId));
 /*
+TODO
 		try {
 			if (DbRepository.find(Room.class, tmpRoom) == null) {
 				DbRepository.addEntity(tmpRoom);
