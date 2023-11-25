@@ -82,14 +82,6 @@
 					if(projection == null) error = "projection not found";
 				}
 			}
-			if(request.getParameter("delete")!=null){
-				
-				if(projection!=null){
-					DbRepository.deleteEntity(projection);
-				}
-				
-				
-			}
 		}catch(Exception e){
 			//En el caso de que haya un error en la base de datos lo redirecciono a la base de datos con el error correspondiente
 			response.sendRedirect("../error.jsp?msg=Failed to connect to database");
@@ -141,19 +133,36 @@
 			    			<input type="text" step="1" class="form-control" id="income" name="income" readonly value="<%=projection.getIncome()%>"  required>
 			            </div>
 			            
+			          <%}%>
 			            
 			            <!-- Submit button -->
-			           	<a href="deleteProjection.jsp?premiereDate=<%=premiereDate%>&room=<%=projection.getRoom().getRoomNumber()%>&projection=<%=projection.getPremiereDate()%>&cinema=<%=cinema.getCinema()%>&film=<%=projection.getFilm().getCip()%>"><button class="btn btn-danger " id="submitButton" value="delete" type="submit" name="delete">Delete</button></a>
+			            <%if(error != null){%>
+			            	<div class="textAreaInfoError " ><%=error%></div> 
+			            <%/*Y aqui si se ha enviado el submit y en valor de la session es nulo significa que se ha borrado correctamente, entoces muestro
+			            el mensaje de éxito*/
+			            }else if(request.getParameter("submit") != null && error == null){%>
+			            	<div class="textAreaInfoSuccesfull " >Projection deleted successfully!</div> 
+			            <%}
+			            %>
+			            	
+			            <!-- Submit button -->
+							<%
+							if(request.getParameter("delete") == null && request.getParameter("submit") == null && error == null){ /*Esto lo hago para que cuando pulse confirm se oculte el confirm ya que no será nulo*/%>
+				            	<button class="btn btn-danger" id="submitButton" type="submit" name="delete">Are you sure you want to delete it?</button>
+							<%}else if(request.getParameter("delete") != null && error == null){//Cuando le de al boton de borrar muestro el confirmar y el de retroceder%>
+								<button class="btn btn-danger" id="submitButton" type="submit" name="submit">Confirm</button>
+				            	<a href="infoProjection.jsp?premiereDate=<%=projection.getPremiereDate()%>&room=<%=projection.getRoom().getRoomNumber()%>&cinema=<%=cinema.getCinema()%>&film=<%=projection.getFilm().getCip()%>"><button class="btn btn-primary" id="submitButton" type="button" name="undo">Undo</button></a>
+							<%}else if(error != null){ //Si hay algun error le doy la opción de reintentar%>
+								<a href="./listProjections.jsp"><button class="btn btn-primary" id="submitButton" type="button">Retry</button></a>
+							<%}else if(request.getParameter("submit") != null && error == null){ //Cuando le de a borrar confirmado borro
+								try{
+									DbRepository.deleteEntity(projection);%>
+									<a href="./listProjections.jsp"><button class="btn btn-info " id="submitButton" type="button">Return list</button></a>
+								<%}catch(Exception e){
+									error = "Projection not found";
+								}
+							}%>
 			          </form>
-			          <%}%>
-			          <%
-			      		if(error != null){ //En el caso de haya un erro muestro el error y pongo un boton de volver a la lista%>
-			            	<div class="textAreaInfoError " ><%=error%></div><br>
-			            	<a href="./listProjections.jsp"><button class="btn btn-info" id="submitButton" type="button">Return list</button></a>
-			       		<%}else if(request.getParameter("delete") != null && error == null){%>
-			       			<div class="textAreaInfoSuccesfull" >Delete projection successfully!</div><br>
-			            	<a href="./listProjections.jsp"><button class="btn btn-info" id="submitButton" type="button">Return list</button></a>
-			       		<%}%>
 			        </div>
 			      </div>
 			    </div>
