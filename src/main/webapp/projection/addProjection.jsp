@@ -102,17 +102,10 @@
 					Projection projection = null;
 					try{
 						int tmpSpectators = Integer.valueOf(request.getParameter("spectators"));
-<<<<<<< HEAD
 						p = new Projection(room, film, premiereDate, 
 								premiereDays, 
 								tmpSpectators,
 								income);
-=======
-						projection = new Projection(room, film, Date.valueOf(request.getParameter("premiere_date")), 
-								Integer.valueOf(request.getParameter("premiere_days")), 
-								Integer.valueOf(request.getParameter("spectators")),
-								Integer.valueOf(request.getParameter("income")));
->>>>>>> e710ba57f17229be9f96a494f3a732ba0fc13a39
 		 
 					}catch(ProjectionException pe){
 						error = pe.getMessage();
