@@ -39,7 +39,7 @@
 		rooms = DbRepository.findAll(Room.class);
 		films = DbRepository.findAll(Film.class);
 	}catch(Exception e){
-		response.sendRedirect("../error.jsp?msg=Can't access to data base");
+		response.sendRedirect("../error.jsp?msg=Failed to connect to database");
 		return;
 	}
 	

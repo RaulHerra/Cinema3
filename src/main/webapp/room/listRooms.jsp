@@ -34,7 +34,7 @@
 			cinemas = (List<Cinema>) DbRepository.findAll(Cinema.class);
 
 		} catch (Exception e) {
-			response.sendRedirect("../error.jsp?msg=Error while searching en database");
+			response.sendRedirect("../error.jsp?msg=Failed to connect to database");
 			return;
 		}
 

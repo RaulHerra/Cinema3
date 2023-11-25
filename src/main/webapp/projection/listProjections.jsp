@@ -36,7 +36,7 @@
 			result = DbRepository.findAll(Cinema.class);
 			
 		}catch(Exception e) {
-			response.sendRedirect("../error.jsp?msg=Can't access to data base");
+			response.sendRedirect("../error.jsp?msg=Failed to connect to database");
 			return;
 		}
 	%>
@@ -82,12 +82,12 @@
 
 								<tr>
 									<td><%=projection.getFilm().getTitleP()%></td>
-									<td><%=projection.getPremieredate()%></td>
+									<td><%=projection.getPremiereDate()%></td>
 									<td><%=projection.getPremiereDays()%></td>
 									<td><%=projection.getIncome()%></td>
 									<td><%=projection.getSpectators()%></td>
 									<td>
-										<a class="btn btn-primary" href="infoProjection.jsp?premiereDate=<%=p.getPremiereDate()%>&room=<%=projection.getRoom().getRoomNumber()%>&projection=<%=p.getPremiereDate()%>&cinema=<%=cinema.getCinema()%>&film=<%=projection.getFilm().getCip()%>">
+										<a class="btn btn-primary" href="infoProjection.jsp?premiereDate=<%=projection.getPremiereDate()%>&room=<%=projection.getRoom().getRoomNumber()%>&projection=<%=projection.getPremiereDate()%>&cinema=<%=cinema.getCinema()%>&film=<%=projection.getFilm().getCip()%>">
 												Projection Info</a>
 									</td>
 									<td>
