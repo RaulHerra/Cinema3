@@ -21,7 +21,7 @@
 <body>
 	<%@include file="../nav.jsp"%>
 	<%	
-		Projection p = null;
+		Projection projection = null;
 		Cinema cinema = null; 
 		Film film = null;
 		Room room = null;
@@ -78,8 +78,8 @@
 				}
 				
 				if(projectionFind != null){
-					p = DbRepository.find(Projection.class,projectionFind);
-					if(p == null) error = "projection not found";
+					projection = DbRepository.find(Projection.class,projectionFind);
+					if(projection == null) error = "projection not found";
 				}
 			}
 			
@@ -98,7 +98,7 @@
 			            <h1>Info Proyection</h1>
 			          </div>
 			          <form method="post">
-			          <%if(p != null){ //Si el cine no es nulo muestro los campos%>
+			          <%if(projection != null){ //Si el cine no es nulo muestro los campos%>
 			            <div class=" mb-3">
 			    			<label for="cinema" class="form-label">Room number</label>
 			    			<input type="text" class="form-control" id="roomNumber" name="roomNumber" value='<%=room.getRoomNumber()%>'readonly required>
@@ -117,23 +117,23 @@
 			            
 						<div class=" mb-3">
 							<label for="cinemaAddress" class="form-label">Premiere days</label>
-			    			<input type="text" step="1" class="form-control" id="premiereDay" name="premiereDay" value="<%=p.getPremiereDays()%>" readonly required>
+			    			<input type="text" step="1" class="form-control" id="premiereDay" name="premiereDay" value="<%=projection.getPremiereDays()%>" readonly required>
 			            </div>
 			            
 			            <div class=" mb-3">
 							<label for="cinemaAddress" class="form-label">Spectators</label>
-			    			<input type="text" step="1" class="form-control" id="spectators" name="spectators" value="<%=p.getSpectators()%>" readonly required>
+			    			<input type="text" step="1" class="form-control" id="spectators" name="spectators" value="<%=projection.getSpectators()%>" readonly required>
 			            </div>
 			            
 			            <div class=" mb-3">
 							<label for="cinemaAddress" class="form-label">Income</label>
-			    			<input type="text" step="1" class="form-control" id="income" name="income" value="<%=p.getIncome()%>" readonly required>
+			    			<input type="text" step="1" class="form-control" id="income" name="income" value="<%=projection.getIncome()%>" readonly required>
 			            </div>
 			            
 			            
 			            <!-- Submit button -->
-			              	<a href="editProjection.jsp?premiereDate=<%=p.getPremiereDate()%>&room=<%=p.getRoom().getRoomNumber()%>&projection=<%=p.getPremiereDate()%>&cinema=<%=cinema.getCinema()%>&film=<%=p.getFilm().getCip()%>"><button class="btn btn-warning " id="submitButton" value="edit" type="button" name="edit">Edit</button></a>
-			              	<a href="deleteProjection.jsp?premiereDate=<%=p.getPremiereDate()%>&room=<%=p.getRoom().getRoomNumber()%>&projection=<%=p.getPremiereDate()%>&cinema=<%=cinema.getCinema()%>&film=<%=p.getFilm().getCip()%>"><button class="btn btn-danger " id="submitButton" value="delete" type="button" name="delete">Delete</button></a>
+			              	<a href="editProjection.jsp?premiereDate=<%=projection.getPremiereDate()%>&room=<%=projection.getRoom().getRoomNumber()%>&projection=<%=projection.getPremiereDate()%>&cinema=<%=cinema.getCinema()%>&film=<%=projection.getFilm().getCip()%>"><button class="btn btn-warning " id="submitButton" value="edit" type="button" name="edit">Edit</button></a>
+			              	<a href="deleteProjection.jsp?premiereDate=<%=projection.getPremiereDate()%>&room=<%=projection.getRoom().getRoomNumber()%>&projection=<%=projection.getPremiereDate()%>&cinema=<%=cinema.getCinema()%>&film=<%=projection.getFilm().getCip()%>"><button class="btn btn-danger " id="submitButton" value="delete" type="button" name="delete">Delete</button></a>
 			          </form>
 			          <%}
 			      		if(error != null){ //En el caso de haya un erro muestro el error y pongo un boton de volver a la lista%>

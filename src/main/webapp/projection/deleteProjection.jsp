@@ -40,7 +40,6 @@
 				error = "Error Premiere Date not valid";
 			}
 			
-			
 			if(filmParam != null){
 				film = DbRepository.find(Film.class,filmParam);					
 			}else{
@@ -59,9 +58,6 @@
 				error = "Error room number not valid";
 			}
 			
-			cinema = DbRepository.find(Cinema.class, request.getParameter("cinema"));
-			room = DbRepository.find(Room.class, room);
-			film = DbRepository.find(Film.class, request.getParameter("film"));
 			Projection projectionFind = null;
 			
 			try{
