@@ -39,8 +39,7 @@
 			
 			if(request.getParameter("edit") != null){
 				if(session.getAttribute("oldRoom") == null){
-					response.sendRedirect("../error.jsp?msg=Not editable room, try again");
-					return;
+					error = "Not editable room, try again";
 				}
 				
 				
@@ -50,11 +49,9 @@
 					Room originalRoom = (Room) session.getAttribute("oldRoom");
 					RoomRepository.updateTo(originalRoom, tmpRoom);
 				} catch (RoomException e) {
-					response.sendRedirect("../error.jsp?msg=" + e.getMessage());
-					return;
+					error = e.getMessage();
 				} catch (Exception e) {
-					response.sendRedirect("../error.jsp?msg=Not editable room, try again");
-					return;
+					error = "Not editable room, try again";
 				}	
 				
 				session.removeAttribute("oldRoom");
@@ -63,12 +60,12 @@
 		}
 
 			} catch (Exception e) {
-		System.out.println(e.getMessage());
-		response.sendRedirect("../error.jsp?msg=Datas not valid");
-		return;
+				System.out.println(e.getMessage());
+				error = "Datas not valid";
 			}
+	
 	%>
-
+	
 	<div class="container px-5 my-5">
 		<div class="row justify-content-center">
 			<div class="col-lg-8">
@@ -78,6 +75,7 @@
 						<div class="text-center">
 							<h1>Edit Room</h1>
 						</div>
+						<% if(error == null){%>
 						<form  method="get">
 							<div class="mb-3">
 								<label for="cinema" class="form-label">Cinema</label> 
@@ -104,12 +102,18 @@
 									placeholder="Enter Room capacity" required
 									value="<%=tmpRoom.getCapacity()%>">
 							</div>
-
+							
+							<%}%>		
 							<%
 							//Mensaje de error que salta si anteriormente ha saltado alguna excepcion.Mostrara el mensaje correspondiente
 							if (error != null) {
 							%>
-							<div class="textAreaInfoError"><%=error%></div>
+								<div class="textAreaInfoError"><%=error%></div>
+								<%if(tmpCinema != null){%>
+									<a href="cinemasRooms.jsp?cinema=<%=tmpCinema.getCinema()%>"><button class="btn btn-primary " id="submitButton" type="button">Retry</button></a>
+								<%}else{%>
+									<a href="../cinema/listCinemas.jsp"><button class="btn btn-primary " id="submitButton" type="button">Retry</button></a>
+								<%}%>
 							<%
 							//Mensaje de exito que salta en el caso de que se crea con exito la tarea
 							} else if (request.getParameter("edit") != null && error == null) {
@@ -123,11 +127,11 @@
 
 								
 							<%
-							if (request.getParameter("edit") == null) {
+							if (request.getParameter("edit") == null && error == null) {
 							%>
 							<button class="btn btn-danger" id="submitButton" type="submit" name="edit">Confirm</button>
 							<%
-							} else if (tmpRoom!= null){
+							} else if (tmpRoom!= null && error == null){
 							%>
 								<a href="infoRoom.jsp?cinema=<%=tmpRoom.getCinema().getCinema()%>&room=<%=tmpRoom.getRoomNumber()%>"><button type="button" class="btn btn-primary">Show details</button></a>
 							<%
@@ -138,7 +142,7 @@
 								
 
 						</form>
-
+					
 					</div>
 				</div>
 			</div>

@@ -129,7 +129,9 @@
 			              	<a href="editProjection.jsp?premiereDate=<%=p.getPremiereDate()%>&room=<%=p.getRoom().getRoomNumber()%>&projection=<%=p.getPremiereDate()%>&cinema=<%=cinema.getCinema()%>&film=<%=p.getFilm().getCip()%>"><button class="btn btn-warning " id="submitButton" value="edit" type="button" name="edit">Edit</button></a>
 			              	<a href="deleteProjection.jsp"><button class="btn btn-danger " id="submitButton" value="delete" type="button" name="delete">Delete</button></a>
 			          </form>
-			          <%}%>
+			          <%}else{
+			          	error = "Projection not found";
+			          }%>
 			          <%
 			      		if(error != null){ //En el caso de haya un erro muestro el error y pongo un boton de volver a la lista%>
 			            	<div class="textAreaInfoError " ><%=error%></div><br>

@@ -74,21 +74,39 @@
 				}catch(Exception e){
 					error = "Error room number not valid";
 				}
-
+	
 				try{
-					Date.valueOf(request.getParameter("premiere_date"));
+					premiereDate = Date.valueOf(request.getParameter("premiere_date"));
 				}catch(Exception e){
 					error = "Date not valid";
 
 				}
+				
+				int premiereDays = 0;
+				
+				try{
+					premiereDays = Integer.valueOf(request.getParameter("premiere_days"));
+				}catch(Exception e){
+					error = "Premiere Days not valid";
+				}
+				
+				int income = 0;
+				
+				try{
+					income = Integer.valueOf(request.getParameter("income"));
+				}catch(Exception e){
+					error = "Income Days not valid";
+				}
+				
+				
 				if(room!=null && cinema!=null && film!=null && error == null){
 					Projection p = null;
 					try{
 						int tmpSpectators = Integer.valueOf(request.getParameter("spectators"));
-						p = new Projection(room, film, Date.valueOf(request.getParameter("premiere_date")), 
-								Integer.valueOf(request.getParameter("premiere_days")), 
+						p = new Projection(room, film, premiereDate, 
+								premiereDays, 
 								tmpSpectators,
-								Integer.valueOf(request.getParameter("income")));
+								income);
 		 
 					}catch(ProjectionException pe){
 						error = pe.getMessage();
@@ -204,7 +222,6 @@
 		            <%
 		            }else if(request.getParameter("submit") != null && error == null){%>
 		            	<div class="textAreaInfoSuccesfull">Projection created successfully!</div>
-		            	
 		            <%} 
 		            %>
 	            <!-- Submit button -->
@@ -214,6 +231,7 @@
 	              	<%if(request.getParameter("submit") != null && error == null){%>
 				     	<a href="infoProjection.jsp?cinema=<%=request.getParameter("cinema")%>&room=<%=request.getParameter("room")%>&film=<%=request.getParameter("film")%>&premiereDate=<%=request.getParameter("premiere_date")%>"><button class="btn btn-primary" id="submitButton" type="button">Show projection</button></a>
 	              	<%}%>
+	              		<a href="addProjection.jsp"><button class="btn btn-warning" id="submitButton" type="button">Change cinema</button></a>	
 
 	          </form>
 	          <!-- End of contact form -->

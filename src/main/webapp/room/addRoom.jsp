@@ -63,7 +63,7 @@
 					error = "Error. Error adding to database ";
 				}
 			} catch (Exception e) {
-				error = "Error. Datas not valid";
+				error = e.getMessage();
 			}
 
 		} else {
@@ -107,7 +107,7 @@
 							<div class=" mb-3">
 								<label for="capacity" class="form-label">Capacity</label> <input
 									class="form-control" id="capacity" name="capacity"
-									type="number" min="20" step="1"
+									type="number" min="21" step="1"
 									placeholder="Enter Room capacity" required>
 							</div>
 
