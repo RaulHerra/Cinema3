@@ -42,7 +42,6 @@
 					error = "Not editable room, try again";
 				}
 				
-				
 				try {
 					capacity = Integer.parseInt((String) request.getParameter("capacity"));
 					tmpRoom = new Room(tmpCinema, roomId,capacity);
@@ -75,7 +74,7 @@
 						<div class="text-center">
 							<h1>Edit Room</h1>
 						</div>
-						<% if(error == null){%>
+						<% if(error == null && tmpRoom != null){%>
 						<form  method="get">
 							<div class="mb-3">
 								<label for="cinema" class="form-label">Cinema</label> 
@@ -83,8 +82,6 @@
 									<option value="<%=tmpRoom.getCinema().getCinema()%>"><%=tmpRoom.getCinema().getCinema()%></option>
 								</select>
 							</div>
-
-
 
 							<div class=" mb-3">
 								<label for="room" class="form-label">Room Number</label> 
@@ -104,6 +101,8 @@
 							</div>
 
 							<%
+							}else{
+								error = "Room not valid";
 							}
 							%>
 							<%
@@ -125,7 +124,7 @@
 								<div class="textAreaInfoSuccesfull">Room edited successfully!</div>
 							<%}
 							
-							if (request.getParameter("edit") == null && error == null) {%>
+							if (request.getParameter("edit") == null && error == null && tmpRoom != null) {%>
 								<button class="btn btn-danger" id="submitButton" type="submit"
 								name="edit">Confirm</button>
 							<%} else if (tmpRoom != null && error == null) {%>

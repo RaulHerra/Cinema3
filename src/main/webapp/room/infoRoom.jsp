@@ -44,7 +44,7 @@
 		
 	} catch (Exception e) {
 		System.out.println(e.getMessage());
-		response.sendRedirect("../error.jsp?msg=Datas not valid");
+		response.sendRedirect("../error.jsp?msg=Failed to connect to database");
 		return;
 	}
 	
