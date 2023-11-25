@@ -85,10 +85,23 @@
 	</div>
 	<!-- Return button -->
 	<%}else{%>
-	
-		<div class="textAreaInfoError">Error: the character that you selected doesn't exist</div>
-		<a href="./listCharacters.jsp"> <button class="btn btn-primary " id="submitButton" type="button">Return</button></a>
-		
+	<div class="container px-5 my-5">
+		<div class="row justify-content-center">
+			<div class="col-lg-8">
+				<div class="card border-0 rounded-3 shadow-lg">
+					<div class="card-body p-4">
+						<div class="text-center">
+							<div class="textAreaInfoError">Error: the character that
+								you selected doesn't exist</div>
+						</div>
+						<a href="./listCharacters.jsp">
+							<button class="btn btn-info " id="submitButton" type="button">Return</button>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<%}%>
 
 </body>
