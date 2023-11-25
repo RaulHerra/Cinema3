@@ -132,13 +132,13 @@
 			            
 			            
 			            <!-- Submit button -->
-			              	<a href="editProjection.jsp?premiereDate=<%=projection.getPremiereDate()%>&room=<%=projection.getRoom().getRoomNumber()%>&projection=<%=projection.getPremiereDate()%>&cinema=<%=cinema.getCinema()%>&film=<%=projection.getFilm().getCip()%>"><button class="btn btn-warning " id="submitButton" value="edit" type="button" name="edit">Edit</button></a>
-			              	<a href="deleteProjection.jsp?premiereDate=<%=projection.getPremiereDate()%>&room=<%=projection.getRoom().getRoomNumber()%>&projection=<%=projection.getPremiereDate()%>&cinema=<%=cinema.getCinema()%>&film=<%=projection.getFilm().getCip()%>"><button class="btn btn-danger " id="submitButton" value="delete" type="button" name="delete">Delete</button></a>
+			              	<a href="editProjection.jsp?premiereDate=<%=projection.getPremiereDate()%>&room=<%=projection.getRoom().getRoomNumber()%>&cinema=<%=cinema.getCinema()%>&film=<%=projection.getFilm().getCip()%>"><button class="btn btn-warning " id="submitButton" value="edit" type="button" name="edit">Edit</button></a>
+			              	<a href="deleteProjection.jsp?premiereDate=<%=projection.getPremiereDate()%>&room=<%=projection.getRoom().getRoomNumber()%>&cinema=<%=cinema.getCinema()%>&film=<%=projection.getFilm().getCip()%>"><button class="btn btn-danger " id="submitButton" value="delete" type="button" name="delete">Delete</button></a>
 			          </form>
 			          <%}
 			      		if(error != null){ //En el caso de haya un erro muestro el error y pongo un boton de volver a la lista%>
 			            	<div class="textAreaInfoError " ><%=error%></div><br>
-			            	<a href="./listProjections.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
+			            	<a href="./listProjections.jsp"><button class="btn btn-info" id="submitButton" type="button">Return list</button></a>
 			       		<%}%>
 			        </div>
 			      </div>

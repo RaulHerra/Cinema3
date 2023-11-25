@@ -29,7 +29,7 @@
 		Date premiereDate = null;
 		
 		try{
-			//Busco una proyeccion con el parametro que nos ha pasado
+			//Busco un cine con el parametro que nos ha pasado
 			String cinemaParam = request.getParameter("cinema");
 			String roomParam = request.getParameter("room");
 			String filmParam = request.getParameter("film");
@@ -40,41 +40,48 @@
 				error = "Error Premiere Date not valid";
 			}
 			
+			
 			if(filmParam != null){
 				film = DbRepository.find(Film.class,filmParam);					
 			}else{
-				error = "Error film not valid";
+				error = "Error film is empty";
 			}
 			
 			if(cinemaParam != null){
 				 cinema = DbRepository.find(Cinema.class, cinemaParam);
 			}else{
-				error = "Error cinema not valid";
+				error = "Error cinema  is empty";
 			}
 			
 			try{
-				room = new Room(cinema,Integer.valueOf(roomParam),23);
+				int roomParamInt = Integer.valueOf(roomParam);
+				if(cinema != null){
+					room = new Room(cinema,roomParamInt,23);					
+				}else{
+					error = "cinema not valid";
+				}
 			}catch(Exception e){
 				error = "Error room number not valid";
 			}
 			
-			Projection projectionFind = null;
+			if(room != null)room = DbRepository.find(Room.class, room);				
 			
-			try{
-				 projectionFind = new Projection(room,film,premiereDate);
-			}catch(Exception e){
-				error = e.getMessage();
-			}
 			
 			if(error == null){
-				projection = DbRepository.find(Projection.class,projectionFind);
+				Projection projectionFind = null;
+				
+				try{
+					 if(film != null)projectionFind = new Projection(room,film,premiereDate);
+					 else error = "film not valid";
+				}catch(Exception e){
+					error = e.getMessage();
+				}
+				
+				if(projectionFind != null){
+					projection = DbRepository.find(Projection.class,projectionFind);
+					if(projection == null) error = "projection not found";
+				}
 			}
-
-			if(cinema == null || room==null || film==null){
-				//Si la proyeccion es nula guardo el error en la variable
-				error = "Error there is no cinema with that name";
-			}
-			
 			if(request.getParameter("delete")!=null){
 				
 				if(projection!=null){
@@ -136,17 +143,17 @@
 			            
 			            
 			            <!-- Submit button -->
-			          <%
-			      		if(error != null){ //En el caso de haya un erro muestro el error y pongo un boton de volver a la lista%>
-			            	<div class="textAreaInfoError " ><%=error%></div><br>
-			            	<a href="./listProjections.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
-			       		<%}else if(request.getParameter("delete") != null && error == null){%>
-			       			<div class="textAreaInfoSuccesfull" >Delete succes!</div><br>
-			            	<a href="./listProjections.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
-			       		<%}%>
 			           	<a href="deleteProjection.jsp?premiereDate=<%=premiereDate%>&room=<%=projection.getRoom().getRoomNumber()%>&projection=<%=projection.getPremiereDate()%>&cinema=<%=cinema.getCinema()%>&film=<%=projection.getFilm().getCip()%>"><button class="btn btn-danger " id="submitButton" value="delete" type="submit" name="delete">Delete</button></a>
 			          </form>
 			          <%}%>
+			          <%
+			      		if(error != null){ //En el caso de haya un erro muestro el error y pongo un boton de volver a la lista%>
+			            	<div class="textAreaInfoError " ><%=error%></div><br>
+			            	<a href="./listProjections.jsp"><button class="btn btn-info" id="submitButton" type="button">Return list</button></a>
+			       		<%}else if(request.getParameter("delete") != null && error == null){%>
+			       			<div class="textAreaInfoSuccesfull" >Delete projection successfully!</div><br>
+			            	<a href="./listProjections.jsp"><button class="btn btn-info" id="submitButton" type="button">Return list</button></a>
+			       		<%}%>
 			        </div>
 			      </div>
 			    </div>
