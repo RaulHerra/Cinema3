@@ -79,11 +79,12 @@
 				error = "Error there is no cinema with that name";
 			}
 			
-			if(request.getParameter("submit")!=null){
+			if(request.getParameter("edit")!=null){
 				
-				projection = new Projection(room,film,premiereDate,Integer.valueOf(request.getParameter("premiereDays")),Integer.valueOf(request.getParameter("spectators")),Integer.valueOf(request.getParameter("income")));
+				Projection projectionEdit = new Projection(room,film,premiereDate,Integer.valueOf(request.getParameter("premiereDays")),
+						Integer.valueOf(request.getParameter("spectators")),Integer.valueOf(request.getParameter("income")));
 				
-				DbRepository.editEntity(projection);
+				DbRepository.editEntity(projectionEdit);
 				
 			}
 		}catch(Exception e){
@@ -109,12 +110,12 @@
 
 			            <div class=" mb-3">
 			    			<label for="roomNumber" class="form-label">Room number</label>
-			    			<input type="text" class="form-control" id="roomNumber" name="roomNumber" value='<%=room.getRoomNumber()%>'readonly required>
+			    			<input type="text" class="form-control" id="roomNumber" name="room" value='<%=request.getParameter("room")%>'readonly required>
 			            </div>
 			
 			            <div class=" mb-3">
 			                <label for="cinemaCity" class="form-label">Film title</label>
-			    			<input type="text" class="form-control" id="filmTitle" name="filmTitle" value="<%=film.getTitleP()%>" readonly required>
+			    			<input type="text" class="form-control" id="filmTitle" name="film" value="<%=request.getParameter("film")%>" readonly required>
 			            </div>
 			
 			            <div class=" mb-3">
@@ -139,7 +140,7 @@
 			            
 			            
 			            <!-- Submit button -->
-			           <button type="submit" name="submit" class="btn btn-danger">Confirm</button>
+			           	<a href="editProjection.jsp?premiereDate=<%=premiereDate%>&room=<%=projection.getRoom().getRoomNumber()%>&projection=<%=projection.getPremiereDate()%>&cinema=<%=cinema.getCinema()%>&film=<%=projection.getFilm().getCip()%>"><button class="btn btn-warning " id="submitButton" type="submit" name="edit">Edit</button></a>
 			          </form>
 			          <%}%>
 			          <%
