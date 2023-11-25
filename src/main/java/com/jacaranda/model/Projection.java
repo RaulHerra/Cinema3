@@ -46,16 +46,16 @@ public class Projection {
 		setRoom(room);
 		setFilm(film);
 		setIncome(income);
-		setPremieredate(premiere_date);
+		setPremiereDate(premiere_date);
 		setPremiereDays(premiere_days);
 		setSpectators(spectators);
 	}
 	//Este constructor es para buscar el proyecto en infoProjection
-	public Projection(Room room, Film film,Date premiere_date) throws ProjectionException {
+	public Projection(Room room, Film film, Date premiere_date) throws ProjectionException {
 		super();
 		setRoom(room);
 		setFilm(film);
-		setPremieredate(premiere_date);
+		setPremiereDate(premiere_date);
 	}
 	
 	public Projection() {
@@ -84,11 +84,11 @@ public class Projection {
 		this.film = film;
 	}
 
-	public Date getPremieredate() {
+	public Date getPremiereDate() {
 		return premiereDate;
 	}
 
-	public void setPremieredate(Date premiereDate) throws ProjectionException {
+	public void setPremiereDate(Date premiereDate) throws ProjectionException {
 		if(premiereDate == null) {
 			throw new ProjectionException("Premiere date cant be null");
 		}
