@@ -21,7 +21,7 @@
 <body>
 	<%@include file="../nav.jsp"%>
 	<%	
-		Projection p = null;
+		Projection projection = null;
 		Cinema cinema = null; 
 		Film film = null;
 		Room room = null;
@@ -71,7 +71,7 @@
 			}
 			
 			if(error == null){
-				p = DbRepository.find(Projection.class,projectionFind);				
+				projection = DbRepository.find(Projection.class,projectionFind);				
 			}
 
 			if(cinema == null || room==null || film==null){
@@ -81,9 +81,9 @@
 			
 			if(request.getParameter("submit")!=null){
 				
-				p = new Projection(room,film,premiereDate,Integer.valueOf(request.getParameter("premiereDays")),Integer.valueOf(request.getParameter("spectators")),Integer.valueOf(request.getParameter("income")));
+				projection = new Projection(room,film,premiereDate,Integer.valueOf(request.getParameter("premiereDays")),Integer.valueOf(request.getParameter("spectators")),Integer.valueOf(request.getParameter("income")));
 				
-				DbRepository.editEntity(p);
+				DbRepository.editEntity(projection);
 				
 			}
 		}catch(Exception e){
@@ -101,13 +101,14 @@
 			            <h1>Edit Proyection</h1>
 			          </div>
 			          <form>
-			          <%if(p != null){ //Si la proyeccion no es nula muestro los campos%>
-					      <div class=" mb-3">
-				           		<label for="cinema" class="form-label">Cinema</label>
-				  				<input type="text" class="form-control" id="cinema" name="cinema" value="<%=request.getParameter("cinema")%>" required readonly>
-				   		 </div>
+			          <%if(projection != null){ //Si la proyeccion no es nula muestro los campos%>
+						<div class=" mb-3">
+							<label for="cinema" class="form-label">Cinema</label>
+						   <input type="text" class="form-control" id="cinema" name="cinema" value="<%=request.getParameter("cinema")%>" required readonly>
+					 </div>
+
 			            <div class=" mb-3">
-			    			<label for="cinema" class="form-label">Room number</label>
+			    			<label for="roomNumber" class="form-label">Room number</label>
 			    			<input type="text" class="form-control" id="roomNumber" name="roomNumber" value='<%=room.getRoomNumber()%>'readonly required>
 			            </div>
 			
@@ -123,17 +124,17 @@
 			            
 						<div class=" mb-3">
 							<label for="cinemaAddress" class="form-label">Premiere days</label>
-			    			<input type="text" step="1" class="form-control" id="premiereDay" name="premiereDay" value="<%=p.getPremiereDays()%>"  required>
+			    			<input type="text" step="1" class="form-control" id="premiereDay" name="premiereDay" value="<%=projection.getPremiereDays()%>"  required>
 			            </div>
 			            
 			            <div class=" mb-3">
 							<label for="cinemaAddress" class="form-label">Spectators</label>
-			    			<input type="text" step="1" class="form-control" id="spectators" name="spectators" value="<%=p.getSpectators()%>"  required>
+			    			<input type="text" step="1" class="form-control" id="spectators" name="spectators" value="<%=projection.getSpectators()%>"  required>
 			            </div>
 			            
 			            <div class=" mb-3">
 							<label for="cinemaAddress" class="form-label">Income</label>
-			    			<input type="text" step="1" class="form-control" id="income" name="income" value="<%=p.getIncome()%>"  required>
+			    			<input type="text" step="1" class="form-control" id="income" name="income" value="<%=projection.getIncome()%>"  required>
 			            </div>
 			            
 			            

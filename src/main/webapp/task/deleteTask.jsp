@@ -11,11 +11,11 @@
 <body>
 	<%@include file="../nav.jsp"%>
 	<%
-	Task t = null;
+	Task task = null;
 	String error = null;
 	try{	
 		if(request.getParameter("task") != null && DbRepository.find(Task.class, request.getParameter("task")) != null){//Comprueba la tarea pasada por parametros si existe
-		 	t = DbRepository.find(Task.class, request.getParameter("task"));//En el caso de que exista mostraran los valores
+		 	task = DbRepository.find(Task.class, request.getParameter("task"));//En el caso de que exista mostraran los valores
 		}else{//En el caso de no existir nos mostrara el error correspondiente
 			error = "Error. This task does not exist";
 		}
@@ -33,15 +33,15 @@
 			          <div class="text-center">
 			            <h1>Delete Task</h1>
 			          </div>
-			           <%if(t != null){%>
+			           <%if(task != null){%>
 			          <form  method="get">
 			            <div class=" mb-3">
 			              <label for="task" class="form-label">Task:</label>
-			              <input class="form-control" name="task" type="text" value='<%=t.getTask()%>' readonly>
+			              <input class="form-control" name="task" type="text" value='<%=task.getTask()%>' readonly>
 			            </div>
 			            <div class=" mb-3">
 			              <label for="task" class="form-label">Sex:</label>
-			              <input class="form-control" name="sex" type="text" value='<%=t.getSex()%>' readonly>
+			              <input class="form-control" name="sex" type="text" value='<%=task.getSex()%>' readonly>
 			            </div>
 			             <%}%>
 
@@ -75,7 +75,7 @@
 		<%//Si se da a confirmar se borra la tarea definitivamente
 	if(request.getParameter("comfirmSubmit")!=null){
 		try{
-			DbRepository.deleteEntity(t);
+			DbRepository.deleteEntity(task);
 		}catch(Exception e){
 			
 		}
