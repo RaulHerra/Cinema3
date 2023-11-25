@@ -174,15 +174,15 @@
 			%>
 			
 	          <form method="get">
-	      	 <% if(requestCinema==null){ %>
+	      	 <% if(request.getParameter("cinema")==null){ %>
 		         <div class=" mb-3">
 		           <label for="cinema" class="form-label">Cinema</label>
 	   				<input type="text" class="form-control" id="cinema" name="cinema" value="<%=request.getParameter("cinema")%>" required readonly>
 	    		 </div>
-	    		 <%} if(requestCinema!=null){ %>
+	    		 <%} if(request.getParameter("cinema")!=null){ %>
 	    		 <div class=" mb-3">
 		               <label for="cinema" class="form-label">Selected Cinema</label>
-		   			<input type="text" class="form-control" id="cinema" name="cinema" value="<%= requestCinema %>" required readonly>
+		   			<input type="text" class="form-control" id="cinema" name="cinema" value="<%= request.getParameter("cinema") %>" required readonly>
 		           </div>
 		           
 	    		 <div class=" mb-3">
@@ -251,7 +251,7 @@
 	    </div>
 	  </div>
 	</div>
-	<%}%>
+	<%}}%>
 
 </body>
 </html>
