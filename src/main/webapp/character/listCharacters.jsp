@@ -61,18 +61,14 @@
 								the Character.
 								 -->
 								<%
-								for (Character c : result) {
+								for (Character character : result) {
 								%>
 								<tr>
-									<td><%=c.getCharacterName()%></td>
+									<td><%=character.getCharacterName()%></td>
 
 									<td>
-										<form action="infoCharacter.jsp">
-											<input type="text" name="characterName"
-												value='<%=c.getCharacterName()%>' hidden=>
-											<button class="btn btn-primary " type="submit" name="info">
-												Info</button>
-										</form>
+										<a href="infoCharacter.jsp?characterName=<%=character.getCharacterName()%>"><button class="btn btn-primary " type="submit" name="info">
+											Info</button></a>
 									</td>
 								</tr>
 								<% }%>

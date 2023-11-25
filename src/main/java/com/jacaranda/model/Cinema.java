@@ -49,7 +49,7 @@ public class Cinema {
 	}
 
 	public void setCinema(String cinema) throws CinemaException {
-		if(cinema == null || cinema.length() > MAX_LENGTH_CINEMA) {
+		if(cinema == null || cinema.length() > MAX_LENGTH_CINEMA || cinema.equals("")) {
 			throw new CinemaException("The length of the cinema name must be less than 25 characters and cannot be empty");
 		}
 		this.cinema = cinema;			
@@ -60,7 +60,7 @@ public class Cinema {
 	}
 
 	public void setCityCinema(String cityCinema) throws CinemaException {
-		if(cityCinema == null || cityCinema.length() > MAX_LENGTH_CITY_CINEMA) {
+		if(cityCinema == null || cityCinema.length() > MAX_LENGTH_CITY_CINEMA || cityCinema.equals("")) {
 			throw new CinemaException("The length of the movie city must be less than 25 characters and cannot be empty");
 		}
 		this.cityCinema = cityCinema;
@@ -71,17 +71,25 @@ public class Cinema {
 	}
 
 	public void setAddressCinema(String addressCinema) throws CinemaException {
-		if(addressCinema == null || addressCinema.length() > MAX_LENGTH_ADDRESS_CINEMA) {
+		if(addressCinema == null || addressCinema.length() > MAX_LENGTH_ADDRESS_CINEMA || addressCinema.equals("")) {
 			throw new CinemaException("The length of the cinema address must be less than 65 characters and cannot be empty");
 		}
 		this.addressCinema = addressCinema;
 	}
 
+	public List<Room> getRooms() throws Exception {
+		return CinemaRepository.getRooms(cinema);
+	}
+	
+	public void setRooms(List<Room> rooms) {
+		this.rooms = rooms;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(cinema);
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -96,17 +104,9 @@ public class Cinema {
 
 	@Override
 	public String toString() {
-		return "Cinema [cinema=" + cinema + ", cityCinema=" + cityCinema + ", addressCinema=" + addressCinema + "]";
+		return "Cinema [cinema=" + cinema + ", cityCinema=" + cityCinema + ", addressCinema=" + addressCinema + ", rooms" + rooms.toString() + "]";
 	}
 
-	public List<Room> getRooms() throws Exception {
-		return CinemaRepository.getRooms(cinema);
-	}
-
-	public void setRooms(List<Room> rooms) {
-		this.rooms = rooms;
-	}
-	
 	
 	
 }

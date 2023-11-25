@@ -51,7 +51,7 @@
 			            	<div class="textAreaInfoError"><%=error%></div>
 			            	
 			            <%//Mensaje de exito que salta en el caso de que se borre con exito la tarea
-			            }else if(request.getParameter("save") != null && error == null){%>
+			            }else if(request.getParameter("comfirmSubmit") != null && error == null){%>
 				            <div class="textAreaInfoSuccesfull">Task delete successfully!</div>
 			            <%} 
 			            %>			
@@ -62,7 +62,7 @@
 				            <%}if(request.getParameter("deleteSubmit")!=null){//Se muestra el boton para confirmar%>
 				            	<button class="btn btn-danger " id="submitButton" type="submit" name="comfirmSubmit">Confirm</button>
 				            	<a href="infoTask.jsp?task=<%=request.getParameter("task")%>"><button class="btn btn-primary " id="submitButton" type="button" name="undo">Undo</button></a>	
-				            <%} else if(request.getParameter("comfirmSubmit")!=null || error != null){//Una vez eliminado se da la opcion de volver a la lista de las demas tareas%>
+				            <%} else if(request.getParameter("comfirmSubmit") != null || error != null){//Una vez eliminado se da la opcion de volver a la lista de las demas tareas%>
 				            	<a href="listTasks.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return List</button></a>
 				            <%}//Borramos la session para que no arrastre errores%>
 				            

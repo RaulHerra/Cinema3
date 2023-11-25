@@ -19,9 +19,9 @@
 <body>
 	<%@include file="../nav.jsp"%>
 	<% 
-	List<Film> result = null;
+	List<Film> films = null;
 	try{		
-		result = DbRepository.findAll(Film.class);			
+		films = DbRepository.findAll(Film.class);			
 	}catch(Exception e){
 		response.sendRedirect("../error.jsp?msg=Failed to connect to database");
 		return;
@@ -40,14 +40,12 @@
 								/*Recorro las peliculas y por cada una creo una columa de la tabla que tengo aqui
 										   * y creo un botón de info que cuando le demos nos lleva a la pagina de info de pelicula
 										   * enviado el cip de la pelicula para despues poder recuperarlo en la página de info*/
-								for (Film f : result) {
+								for (Film film : films) {
 								%>
 								<tr>
-									<td><%=f.getTitleP()%></td>
+									<td><%=film.getTitleP()%></td>
 									<td>
-										<form action="infoFilm.jsp">
-											<button type="submit" class="btn btn-primary" name="cip" value='<%=f.getCip()%>'>Info</button>
-										</form>
+										<a href="infoFilm.jsp?cip=<%=film.getCip()%>"><button type="button" class="btn btn-primary" name="cip" value='<%=film.getCip()%>'>Info</button></a>
 									</td>
 								</tr>
 								<%

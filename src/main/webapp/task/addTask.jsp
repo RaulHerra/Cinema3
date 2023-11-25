@@ -18,7 +18,7 @@
 <body>
 	<%@include file="../nav.jsp"%>
 	<%
-	Task t = null;
+	Task task = null;
 	String error = null;
 	try{		
 		if(request.getParameter("task") != null && DbRepository.find(Task.class, request.getParameter("task")) != null){//Lo primero antes de añadir una tarea comprobamos que existe
@@ -27,8 +27,9 @@
 		}else{	
 			try{
 				if(request.getParameter("save") != null){//En el caso de que no exista se crea
-					t = new Task(request.getParameter("task"),request.getParameter("sex"));
-					DbRepository.addEntity(t);				}
+					task = new Task(request.getParameter("task"),request.getParameter("sex"));
+					DbRepository.addEntity(task);				
+				}
 			}catch(TaskException e){
 				error = e.getMessage();
 			}
@@ -70,7 +71,7 @@
 	            
 	              <button class="btn btn-success " id="submitButton" type="submit" name="save">Save</button>
 	              <%//Boton disponible para ver los detalles de la tarea creada.El boton aparece si se ha creado con exito la tarea
-	              if(request.getParameter("save") != null && error == null && t!= null){%>
+	              if(request.getParameter("save") != null && error == null && task!= null){%>
 				     	<a href="infoTask.jsp?task=<%=request.getParameter("task")%>"><button class="btn btn-primary " id="submitButton" type="button">Show task</button></a>
 	              <%}//Borramos la session para que no arrastre errores
 	              %>

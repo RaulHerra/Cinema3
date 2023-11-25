@@ -1,10 +1,13 @@
+<%@page import="com.jacaranda.exception.ProjectionException"%>
 <%@page import="com.jacaranda.repository.RoomRepository"%>
 <%@page import="com.jacaranda.repository.CinemaRepository"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@page import="java.sql.Date"%>
 <%@page import="com.jacaranda.repository.DbRepository"%>    
 <%@ page import="com.jacaranda.model.Projection"%> 
 <%@ page import="com.jacaranda.model.Cinema"%>
+<%@ page import="com.jacaranda.model.Film"%>
 <%@ page import="com.jacaranda.model.Room"%>
 <%@ page import="com.jacaranda.model.Film"%>
 <%@ page import="java.util.List"%>
@@ -28,57 +31,73 @@
 
 <% 
 	LocalDate today = LocalDate.now();
-	List<Cinema> result = new ArrayList<Cinema>();
-	List<Room> roomResult = new ArrayList<Room>();
-	List<Film> filmResult = new ArrayList<Film>();
-	String requestCinema = request.getParameter("cinema");
+	List<Cinema> cinemas = new ArrayList<Cinema>();
+	List<Room> rooms = new ArrayList<Room>();
+	List<Film> films = new ArrayList<Film>();
+	Date premiereDate = null;
 
 	try{
-		if(requestCinema==null){
-			result = DbRepository.findAll(Cinema.class);
-		}else{
-			roomResult = CinemaRepository.getRooms(requestCinema);
-			filmResult = DbRepository.findAll(Film.class);
-		}
+		cinemas = DbRepository.findAll(Cinema.class);
+		rooms = DbRepository.findAll(Room.class);
+		films = DbRepository.findAll(Film.class);
 	}catch(Exception e){
-		response.sendRedirect("../error.jsp?msg=Can't access to data base");
+		response.sendRedirect("../error.jsp?msg=Failed to connect to database");
 		return;
 	}
 	String error = null;
 	try{
-		if(false/*Añadir toda la primary key de projection*/){
-			error = "Error there is already a projection with that parameters";
-		}else{	
-			try{				
-				if(request.getParameter("submit") != null){
+		try{
+			if(request.getParameter("submit") != null){
+				String cinemaParam = request.getParameter("cinema");
+				String roomParam = request.getParameter("room");
+				String filmParam = request.getParameter("film");
+				
+				Film film = null;
+				if(filmParam != null){
+					film = DbRepository.find(Film.class,filmParam);					
+				}else{
+					error = "Error film not valid";
+				}
+				
+				Cinema cinema = null;
+				if(cinemaParam != null){
+					 cinema = DbRepository.find(Cinema.class, cinemaParam);
 					
-					String requestRoom = request.getParameter("room");
-					String requestFilm = request.getParameter("film");
-					String requestPremiereDate = request.getParameter("premiere_date");
-					String requestPremiereDays = request.getParameter("premiere_days");
-					String requestSpectators = request.getParameter("spectators");
-					String requestIncome = request.getParameter("income");
+				}else{
+					error = "Error cinema not valid";
+				}
+				
+				Room room = null;
+				try{
+					room = new Room(cinema,Integer.valueOf(roomParam),23);
+				}catch(Exception e){
+					error = "Error room number not valid";
+				}
+				
+				if(room!=null && cinema!=null && film!=null){
+					Projection p = null;
+					try{
+						int tmpSpectators = Integer.valueOf(request.getParameter("spectators"));
+						
+						p = new Projection(room, film, Date.valueOf(request.getParameter("premiere_date")), 
+								Integer.valueOf(request.getParameter("premiere_days")), 
+								tmpSpectators,
+								Integer.valueOf(request.getParameter("income")));
+		 
+					}catch(ProjectionException pe){
+						error = pe.getMessage();
+					}
 					
-					Cinema cinemaFind = DbRepository.find(Cinema.class,requestCinema);
-					Room roomFind =	RoomRepository.findRoom(Room.class,requestCinema, requestRoom);
-					Film filmFind = DbRepository.find(Film.class,requestFilm);
-					Date premiereDate = Date.valueOf(requestPremiereDate);
-					int premiereDays = Integer.parseInt(requestPremiereDays);
-					int spectators = Integer.parseInt(requestSpectators);
-					int income = Integer.parseInt(requestIncome);
-					 
-					Projection newProjection = new Projection(
-							cinemaFind,
-							roomFind,
-							filmFind,
-							premiereDate,
-							premiereDays,
-							spectators,
-							income);
+					if(p!=null && DbRepository.find(Projection.class, p) == null){
+						DbRepository.addEntity(p);							
+					}else if(p!=null && DbRepository.find(Projection.class, p) != null){
+						error = "The projection already exist!";
+					}
+				
+				}
 			}
-			}catch(Exception e){
-				error = e.getMessage();
-			}
+		}catch(Exception e){
+			error = e.getMessage();
 		}
 	}catch(Exception e){
 		response.sendRedirect("../error.jsp?msg=Can't access to data base");
@@ -98,17 +117,33 @@
 	          <div class="text-center">
 	            <h1>Add Projection</h1>
 	          </div>
-	          
+	          <%if(request.getParameter("selectCinema") == null && request.getParameter("cinema") == null){%>
+			      <form method="get">
+			         <div class=" mb-3">
+			           <label for="cinema" class="form-label">Select Cinema</label>
+			   		   <select id="cinema" name="cinema" class="form-select custom-select">
+			   		   		<option disabled selected>-- Select Cinema --</option>
+					      	<%for (Cinema c : cinemas){ %>
+					      		<option value="<%=c.getCinema()%>"><%=c.getCinema()%></option>
+					      	<% }%>
+					   </select>
+	   	              	<button class="btn btn-success " id="selectCinema" type="submit" name="selectCinema">Select cinema</button>
+		    		 </div>
+		    		 
+		    		 </form>	          
+			<%}else{ 
+				Cinema cinemaRooms = null;
+				if(request.getParameter("cinema") != null){
+					cinemaRooms = DbRepository.find(Cinema.class, request.getParameter("cinema"));					
+				}
+				if(cinemaRooms != null){
+			%>
+			
 	          <form method="get">
 	      	 <% if(requestCinema==null){ %>
 		         <div class=" mb-3">
-		           <label for="cinema" class="form-label">Select Cinema</label>
-		   		   <select id="cinema" name="cinema" class="form-select custom-select">
-		   		   		<option>-- Select Cinema --</option>
-				      	<%for (Cinema c : result){ %>
-				      		<option value="<%=c.getCinema()%>"><%=c.getCinema()%></option>
-				      	<% } %>
-				   </select>
+		           <label for="cinema" class="form-label">Cinema</label>
+	   				<input type="text" class="form-control" id="cinema" name="cinema" value="<%=request.getParameter("cinema")%>" required readonly>
 	    		 </div>
 	    		 <%} if(requestCinema!=null){ %>
 	    		 <div class=" mb-3">
@@ -119,9 +154,9 @@
 	    		 <div class=" mb-3">
 		           <label for="room" class="form-label">Select Room</label>
 		   		   <select id="room" name="room" class="form-select custom-select">
-		   		   		<option>-- Select Room --</option>
-				      	<%for (Room r : CinemaRepository.getRooms(requestCinema)){ %>
-				      		<option value="<%=r.getCinema()%>"><%=r.getRoomNumber()%></option>
+		   		   		<option disabled selected >-- Select Room --</option>
+				      	<%for (Room r : cinemaRooms.getRooms()){ %>
+				      		<option value="<%=r.getRoomNumber()%>"><%=r.getRoomNumber()%></option>
 				      	<% } %>
 				   </select>
 	    		 </div>
@@ -129,16 +164,16 @@
 	    		 <div class=" mb-3">
 		           <label for="film" class="form-label">Select Film</label>
 		   		   <select id="film" name="film" class="form-select custom-select">
-		   		   		<option>-- Select Film --</option>
-				      	<%for (Film f : filmResult){ %>
-				      		<option value="<%=f.getCip()%>"><%=f.getTitleS()%></option>
+		   		   		<option disabled selected>-- Select Film --</option>
+				      	<%for (Film f : films){ %>
+				      		<option value="<%=f.getCip()%>"><%=f.getTitleP()%></option>
 				      	<% } %>
 				   </select>
 	    		 </div>
 	    		 
 		           <div class=" mb-3">
 		               <label for="premiere_date" class="form-label">Premiere date</label>
-		   			<input type="date" class="form-control" id="premiere_date" name="premiere_date" max="<%=today%>" required>
+		   				<input type="date" class="form-control" id="premiere_date" name="premiere_date" max="<%=today%>" required>
 		           </div>
 	
 		           <div class=" mb-3">
@@ -155,21 +190,24 @@
 					<label for="income" class="form-label">Income</label>
 		   			<input type="number" class="form-control" id="income" name="income" min="1" placeholder="Enter income" required>
 		           </div>
-		            <%
+		            <%}else{
+		            	error = "The cinema not found";
+		            }
 		            if(error != null){%>
 		            	<div class="textAreaInfoError" ><%=error%></div>
+		            	<a href="addProjection.jsp"><button class="btn btn-info" id="submitButton" type="button" name="submit">Retry</button></a>
 		            <%
 		            }else if(request.getParameter("submit") != null && error == null){%>
-		            	<div class="textAreaInfoSuccesfull">Projection added successfully!</div>
+		            	<div class="textAreaInfoSuccesfull">Projection created successfully!</div>
+		            	
 		            <%} 
 		            %>
 	            <!-- Submit button -->
-	  				
-	              	<button class="btn btn-success " id="submitButton" type="submit" name="submit">Save</button>
-	              	<%}else{%>
-	              	<button class="btn btn-success " id="selectCinema" type="submit" name="selectCinema">Select cinema</button>
-	    		 	<%} if(request.getParameter("submit") != null && error == null){%>
-				     	<a href="infoCinema.jsp?cinema=<%=request.getParameter("cinema")%>"><button class="btn btn-primary" id="submitButton" type="button">Show cinema</button></a>
+	  				<%if(error == null){%>
+		              	<button class="btn btn-success " id="submitButton" type="submit" name="submit">Save</button>
+	  				<%}%>
+	              	<%if(request.getParameter("submit") != null && error == null){%>
+				     	<a href="infoProjection.jsp?cinema=<%=request.getParameter("cinema")%>&room=<%=request.getParameter("room")%>&film=<%=request.getParameter("film")%>&premiereDate=<%=request.getParameter("premiere_date")%>"><button class="btn btn-primary" id="submitButton" type="button">Show projection</button></a>
 	              	<%}%>
 
 	          </form>
@@ -179,7 +217,7 @@
 	    </div>
 	  </div>
 	</div>
-	
+	<%}%>
 
 </body>
 </html>

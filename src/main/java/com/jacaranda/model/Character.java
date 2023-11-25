@@ -170,8 +170,6 @@ public class Character {
 		return Objects.equals(characterName, other.characterName);
 	}
 
-
-	
 	
 	/* ================= TO STRING() ================= */
 	@Override
@@ -179,17 +177,6 @@ public class Character {
 		return "Character [characterName=" + characterName + ", characterNationality=" + characterNationality
 				+ ", characterSex=" + characterSex + "]";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 }

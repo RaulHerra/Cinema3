@@ -18,13 +18,13 @@
 <body>
 	<%@include file="../nav.jsp"%>
 	<%		
-		Film f = null; 
-	String error = null;
+		Film film = null; 
+		String error = null;
 		try{
 			
 			if( request.getParameter("cip") != null){
-				f = DbRepository.find(Film.class, request.getParameter("cip"));
-				if(f == null){
+				film = DbRepository.find(Film.class, request.getParameter("cip"));
+				if(film == null){
 					error = "Error there is no task with the cip entered";
 				}
 			}else{
@@ -45,54 +45,54 @@
 			            <h1>Info Film</h1>
 			          </div>
 			          <form>
-			          <%if(f != null){ /*Esto lo pongo porque si no hay peliculas con el cip 
+			          <%if(film != null){ /*Esto lo pongo porque si no hay peliculas con el cip 
 			        	  que hemos recuperado no salga el formulario con los datos y solo salga el mensaje de error*/ %>
 			            <!-- Cip Input -->
 			            <div class=" mb-3">
 			    			<label for="exampleInputEmail1" class="form-label">Cip</label>
-			    			<input type="text" class="form-control" id="cip" name="cip" value='<%=f.getCip()%>'readonly required>
+			    			<input type="text" class="form-control" id="cip" name="cip" value='<%=film.getCip()%>'readonly required>
 			            </div>
 			
 			            <!-- Film title Input -->
 			            <div class=" mb-3">
 			                <label for="exampleInputEmail1" class="form-label">Film title</label>
-			    			<input type="text" class="form-control" id="titleF" name="titleF" placeholder="Enter Film Title" value="<%=f.getTitleP()%>" readonly required>
+			    			<input type="text" class="form-control" id="titleF" name="titleF" placeholder="Enter Film Title" value="<%=film.getTitleP()%>" readonly required>
 			            </div>
 			
 			            <!-- Production year Input -->
 			            <div class=" mb-3">
 							<label for="exampleInputEmail1" class="form-label">Production year</label>
-			    			<input type="number" step="1" class="form-control" id="productionYear" name="productionYear" placeholder="Enter Production Year" value="<%=f.getYearProduction()%>" readonly required>
+			    			<input type="number" step="1" class="form-control" id="productionYear" name="productionYear" placeholder="Enter Production Year" value="<%=film.getYearProduction()%>" readonly required>
 			            </div>
 			            
 			            <!-- Secundary title Input -->
 			            <div class=" mb-3">
 							<label for="exampleInputEmail1" class="form-label">Secundary title</label>
-			    			<input type="text" class="form-control" id="titleS" name="titleS" placeholder="Enter Secundary Title" value="<%=f.getTitleS()%>" readonly>
+			    			<input type="text" class="form-control" id="titleS" name="titleS" placeholder="Enter Secundary Title" value="<%=film.getTitleS()%>" readonly>
 			            </div>
 			            
 			            <!-- Nationality Input -->
 			            <div class=" mb-3">
 							<label for="exampleInputEmail1" class="form-label">Nationality</label>
-			    			<input type="text" class="form-control" id="nationality" name="nationality" placeholder="Enter Nationality" value="<%=f.getNationality()%>" readonly>
+			    			<input type="text" class="form-control" id="nationality" name="nationality" placeholder="Enter Nationality" value="<%=film.getNationality()%>" readonly>
 			            </div>
 			            
 			            <!-- Budget Input -->
 			            <div class=" mb-3">
 							 <label for="exampleInputEmail1" class="form-label">Budget</label>
-			    			<input type="number" step="1" class="form-control" id="budget" name="budget" placeholder="Enter Budget" value="<%=f.getBudget()%>" readonly>
+			    			<input type="number" step="1" class="form-control" id="budget" name="budget" placeholder="Enter Budget" value="<%=film.getBudget()%>" readonly>
 			            </div>
 			            
 			            <!-- Duration Input -->
 			            <div class=" mb-3">
 							<label for="exampleInputEmail1" class="form-label">Duration</label>
-			    			<input type="number" step="1" class="form-control" id="duration" name="duration" placeholder="Enter Duration" value="<%=f.getDuration()%>" readonly>
+			    			<input type="number" step="1" class="form-control" id="duration" name="duration" placeholder="Enter Duration" value="<%=film.getDuration()%>" readonly>
 			            </div>
 			            
 
 			            <!-- Submit button -->
-			              	<button class="btn btn-warning " id="submitButton" value="edit" type="submit" name="edit">Edit</button>
-			              	<button class="btn btn-danger " id="submitButton" value="delete" type="submit" name="delete">Delete</button>
+			              	<a href="editFilm.jsp?cip=<%=film.getCip()%>"><button class="btn btn-warning "  type="button" name="edit">Edit</button></a>
+			              	<a href= "deleteFilm.jsp?cip=<%=film.getCip()%>"><button class="btn btn-danger "  type="submit" name="delete">Delete</button></a>
 				          <%
 				           	/*Cuando el valor de la sessi�n no se nulo es que se ha producido un error entonces muestro
 				           	el textarea que tengo abajo con el valor de la sesi�n que ser� el mensaje de error correspondiente*/
@@ -103,25 +103,13 @@
 				          <!-- End of contact form -->
 			          </form>
 			          <%}%>
-			          <% if (f != null) { %>
-				    	<form method="get" action="./castCharacters.jsp"><button class="btn btn-primary " id="submitButton" value="<%=f.getCip()%>" name="filmCharacters">Cast of characters</button></form>
+			          <% if (film != null) { %>
+					  	<a href="./castCharacters.jsp?filmCharacters=<%=film.getCip()%>"><button class="btn btn-primary " id="submitButton" value="<%=film.getCip()%>" name="filmCharacters">Cast of characters</button></a>
 					  <%} %>
 			        </div>
 			      </div>
 			    </div>
 			  </div>
 			</div>
-		<%
-		
-			if(request.getParameter("edit") != null){
-				/*Cuando le de a editar la pelicula que quiere lo redirijo a la p�gina de 
-				editar pasandole el cip para que pueda motrar la pelicula en la otra p�gina*/
-				response.sendRedirect("editFilm.jsp?cip="+f.getCip());
-			}else if(request.getParameter("delete") != null){
-				/*Cuando le de a borrar la pelicula que quiere lo redirijo a la p�gina de 
-				editar pasandole el cip para que pueda motrar la pelicula en la otra p�gina*/
-				response.sendRedirect("deleteFilm.jsp?cip="+f.getCip());
-			}
-		%>
 </body>
 </html>

@@ -27,13 +27,13 @@
 			/*Si no hay fallo intento creo una pelicula cuando el formulario se envie*/
 			try{
 				if(request.getParameter("submit") != null){
-					Film f = new Film(request.getParameter("cip"),request.getParameter("titleF")
+					Film film = new Film(request.getParameter("cip"),request.getParameter("titleF")
 							,request.getParameter("productionYear")
 							,request.getParameter("titleS"),request.getParameter("nationality")
 							,request.getParameter("budget")
 							,request.getParameter("duration"));
 					/*Añado la pelicula la base de datos si se crea la pelicula con éxito*/
-					DbRepository.addEntity(f);
+					DbRepository.addEntity(film);
 			}
 			}catch(FilmException e){
 				//Cuando se produzca un error le asigno el error a la session de error

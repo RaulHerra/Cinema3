@@ -36,7 +36,7 @@
 			result = DbRepository.findAll(Cinema.class);
 			
 		}catch(Exception e) {
-			response.sendRedirect("../error.jsp?msg=Can't access to data base");
+			response.sendRedirect("../error.jsp?msg=Failed to connect to database");
 			return;
 		}
 	%>
@@ -50,22 +50,22 @@
 							<br>
 							<table class="table">
 								<%
-								for (Cinema c : result) {
+								for (Cinema cinema : result) {
 								%>
 
 								<tr>
 									<td colspan="7"><h3>
 											Cinema:
-											<%=c.getCinema()%></h3></td>
+											<%=cinema.getCinema()%></h3></td>
 								</tr>
 
 								<%
-								for (Room r : CinemaRepository.getRooms(c.getCinema())) {
+								for (Room room : CinemaRepository.getRooms(cinema.getCinema())) {
 								%>
 								<tr>
 									<td colspan="7"><h4>
 											Sala:
-											<%=r.getRoomNumber()%></h4></td>
+											<%=room.getRoomNumber()%></h4></td>
 								</tr>
 
 								<tr>
@@ -77,36 +77,27 @@
 								</tr>
 
 								<%
-								for (Projection p : RoomRepository.getProjections(c, r.getRoomNumber())) {
+								for (Projection projection : RoomRepository.getProjections(cinema, room.getRoomNumber())) {
 								%>
 
 								<tr>
-									<td><%=p.getCip().getTitleP()%></td>
-									<td><%=p.getPremiere_date()%></td>
-									<td><%=p.getPremiere_days()%></td>
-									<td><%=p.getIncome()%></td>
-									<td><%=p.getSpectators()%></td>
+									<td><%=projection.getFilm().getTitleP()%></td>
+									<td><%=projection.getPremiereDate()%></td>
+									<td><%=projection.getPremiereDays()%></td>
+									<td><%=projection.getIncome()%></td>
+									<td><%=projection.getSpectators()%></td>
 									<td>
-										<form action="infoProjection.jsp">
-											<input type="text" name="ProjectionName"
-												value='<%=p.getRoom()%>' hidden> <input type="text"
-												name="ProjectionName" value='<%=p.getCip()%>' hidden>
-											<input type="text" name="ProjectionName"
-												value='<%=p.getPremiere_date()%>' hidden>
-											<button class="btn btn-primary" type="submit" name="info">
-												Projection Info</button>
-										</form>
+										<a class="btn btn-primary" href="infoProjection.jsp?premiereDate=<%=projection.getPremiereDate()%>&room=<%=projection.getRoom().getRoomNumber()%>&projection=<%=projection.getPremiereDate()%>&cinema=<%=cinema.getCinema()%>&film=<%=projection.getFilm().getCip()%>">
+												Projection Info</a>
 									</td>
 									<td>
-
-										<form action="../cinema/infoCinema.jsp">
-											<button class="btn btn-primary" type="submit" name="cinema"
-												value='<%=c.getCinema()%>'>Cinema Info</button>
-										</form>
-
+										<a href="../cinema/infoCinema.jsp?cinema=<%=cinema.getCinema() %>">
+											<button class="btn btn-primary" type="button" name="cinema"
+												value='<%=cinema.getCinema()%>'>Cinema Info</button></a>
 									</td>
 								</tr>
-								<%}}}%>
+								<%
+								}}}%>
 							</table>
 						</div>
 					</div>

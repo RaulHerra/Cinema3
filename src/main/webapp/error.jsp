@@ -9,7 +9,9 @@
 
 </head>
 <body>
+		
 	<%@include file="../nav.jsp"%>
 	<h1 class="text-info" align="center"><%=request.getParameter("msg") != null ? request.getParameter("msg") : ""%></h1>
+	
 </body>
 </html>

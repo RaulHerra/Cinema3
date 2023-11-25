@@ -23,6 +23,7 @@
 	try{		
 		cinemas = DbRepository.findAll(Cinema.class);			
 	}catch(Exception e){
+		//Cuando hay un error en la base de datos lo redirecciono a la página de error con el error correspondiente
 		response.sendRedirect("../error.jsp?msg=Failed to connect to database");
 		return;
 	}
@@ -37,19 +38,15 @@
 							<br>
 							<table class="table tableLeft">
 								<%
-								/*Recorro las peliculas y por cada una creo una columa de la tabla que tengo aqui
-										   * y creo un botón de info que cuando le demos nos lleva a la pagina de info de pelicula
-										   * enviado el cip de la pelicula para despues poder recuperarlo en la página de info*/
+								/*Recorro las cines y por cada una creo una columa de la tabla que tengo aqui
+										   * y creo un botón de info que cuando le demos nos lleva a la pagina de info de cine
+										   * enviado el nombre del cine para despues poder recuperarlo en la página de info*/
 								for (Cinema cinema : cinemas) {
 								%>
 								<tr>
 									<td><%=cinema.getCinema()%></td>
 									<td>
-										<form action="infoCinema.jsp">
-											<input type="text" name="cinema"
-												value='<%=cinema.getCinema()%>' hidden>
-											<button type="submit" class="btn btn-primary">Info</button>
-										</form>
+										<a href="infoCinema.jsp?cinema=<%=cinema.getCinema()%>"><button type="button" class="btn btn-primary">Info</button></a>
 									</td>
 								</tr>
 								<% }%>
