@@ -97,11 +97,17 @@
 					error = "Income Days not valid";
 				}
 				
+				int tmpSpectators = 0;
 				
+				try{
+					tmpSpectators = Integer.valueOf(request.getParameter("spectators"));
+				}catch(Exception e){
+					error = "Spectators not valid";
+				}
+
 				if(room!=null && cinema!=null && film!=null && error == null){
 					Projection projection = null;
 					try{
-						int tmpSpectators = Integer.valueOf(request.getParameter("spectators"));
 						projection = new Projection(room, film, premiereDate, 
 								premiereDays, 
 								tmpSpectators,

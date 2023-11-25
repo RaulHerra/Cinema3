@@ -44,40 +44,45 @@
 			if(filmParam != null){
 				film = DbRepository.find(Film.class,filmParam);					
 			}else{
-				error = "Error film not valid";
+				error = "Error film is empty";
 			}
 			
 			if(cinemaParam != null){
 				 cinema = DbRepository.find(Cinema.class, cinemaParam);
 			}else{
-				error = "Error cinema not valid";
+				error = "Error cinema  is empty";
 			}
 			
 			try{
-				room = new Room(cinema,Integer.valueOf(roomParam),23);
+				int roomParamInt = Integer.valueOf(roomParam);
+				if(cinema != null){
+					room = new Room(cinema,roomParamInt,23);					
+				}else{
+					error = "cinema not valid";
+				}
 			}catch(Exception e){
 				error = "Error room number not valid";
 			}
 			
-			cinema = DbRepository.find(Cinema.class, request.getParameter("cinema"));
-			room = DbRepository.find(Room.class, room);
-			film = DbRepository.find(Film.class, request.getParameter("film"));
-			Projection projectionFind = null;
+			if(room != null)room = DbRepository.find(Room.class, room);				
 			
-			try{
-				 projectionFind = new Projection(room,film,premiereDate);
-			}catch(Exception e){
-				error = e.getMessage();
-			}
 			
 			if(error == null){
-				p = DbRepository.find(Projection.class,projectionFind);				
+				Projection projectionFind = null;
+				
+				try{
+					 if(film != null)projectionFind = new Projection(room,film,premiereDate);
+					 else error = "film not valid";
+				}catch(Exception e){
+					error = e.getMessage();
+				}
+				
+				if(projectionFind != null){
+					p = DbRepository.find(Projection.class,projectionFind);
+					if(p == null) error = "projection not found";
+				}
 			}
-
-			if(cinema == null || room==null || film==null){
-				//Si el cine es nulo guardo el error en la variable
-				error = "Error there is no cinema with that name";
-			}
+			
 		}catch(Exception e){
 			//En el caso de que haya un error en la base de datos lo redirecciono a la base de datos con el error correspondiente
 			response.sendRedirect("../error.jsp?msg=Failed to connect to database");
@@ -129,10 +134,7 @@
 			              	<a href="editProjection.jsp?premiereDate=<%=p.getPremiereDate()%>&room=<%=p.getRoom().getRoomNumber()%>&projection=<%=p.getPremiereDate()%>&cinema=<%=cinema.getCinema()%>&film=<%=p.getFilm().getCip()%>"><button class="btn btn-warning " id="submitButton" value="edit" type="button" name="edit">Edit</button></a>
 			              	<a href="deleteProjection.jsp"><button class="btn btn-danger " id="submitButton" value="delete" type="button" name="delete">Delete</button></a>
 			          </form>
-			          <%}else{
-			          	error = "Projection not found";
-			          }%>
-			          <%
+			          <%}
 			      		if(error != null){ //En el caso de haya un erro muestro el error y pongo un boton de volver a la lista%>
 			            	<div class="textAreaInfoError " ><%=error%></div><br>
 			            	<a href="./listProjections.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
