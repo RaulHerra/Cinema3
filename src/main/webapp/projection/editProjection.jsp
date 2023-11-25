@@ -29,7 +29,7 @@
 		Date premiereDate = null;
 		
 		try{
-			//Busco un cine con el parametro que nos ha pasado
+			//Busco una proyeccion con el parametro que nos ha pasado
 			String cinemaParam = request.getParameter("cinema");
 			String roomParam = request.getParameter("room");
 			String filmParam = request.getParameter("film");
@@ -75,8 +75,16 @@
 			}
 
 			if(cinema == null || room==null || film==null){
-				//Si el cine es nulo guardo el error en la variable
+				//Si la proyeccion es nula guardo el error en la variable
 				error = "Error there is no cinema with that name";
+			}
+			
+			if(request.getParameter("submit")!=null){
+				
+				p = new Projection(room,film,premiereDate,Integer.valueOf(request.getParameter("premiereDays")),Integer.valueOf(request.getParameter("spectators")),Integer.valueOf(request.getParameter("income")));
+				
+				DbRepository.editEntity(p);
+				
 			}
 		}catch(Exception e){
 			//En el caso de que haya un error en la base de datos lo redirecciono a la base de datos con el error correspondiente
@@ -90,10 +98,10 @@
 			      <div class="card border-0 rounded-3 shadow-lg">
 			        <div class="card-body p-4">
 			          <div class="text-center">
-			            <h1>Info Proyection</h1>
+			            <h1>Edit Proyection</h1>
 			          </div>
 			          <form>
-			          <%if(p != null){ //Si el cine no es nulo muestro los campos%>
+			          <%if(p != null){ //Si la proyeccion no es nula muestro los campos%>
 			            <div class=" mb-3">
 			    			<label for="cinema" class="form-label">Room number</label>
 			    			<input type="text" class="form-control" id="roomNumber" name="roomNumber" value='<%=room.getRoomNumber()%>'readonly required>
@@ -111,23 +119,22 @@
 			            
 						<div class=" mb-3">
 							<label for="cinemaAddress" class="form-label">Premiere days</label>
-			    			<input type="text" step="1" class="form-control" id="premiereDay" name="premiereDay" value="<%=p.getPremiereDays()%>" readonly required>
+			    			<input type="text" step="1" class="form-control" id="premiereDay" name="premiereDay" value="<%=p.getPremiereDays()%>"  required>
 			            </div>
 			            
 			            <div class=" mb-3">
 							<label for="cinemaAddress" class="form-label">Spectators</label>
-			    			<input type="text" step="1" class="form-control" id="spectators" name="spectators" value="<%=p.getSpectators()%>" readonly required>
+			    			<input type="text" step="1" class="form-control" id="spectators" name="spectators" value="<%=p.getSpectators()%>"  required>
 			            </div>
 			            
 			            <div class=" mb-3">
 							<label for="cinemaAddress" class="form-label">Income</label>
-			    			<input type="text" step="1" class="form-control" id="income" name="income" value="<%=p.getIncome()%>" readonly required>
+			    			<input type="text" step="1" class="form-control" id="income" name="income" value="<%=p.getIncome()%>"  required>
 			            </div>
 			            
 			            
 			            <!-- Submit button -->
-			              	<a href="editProjection.jsp?premiereDate=<%=p.getPremiereDate()%>&room=<%=p.getRoom().getRoomNumber()%>&projection=<%=p.getPremiereDate()%>&cinema=<%=cinema.getCinema()%>&film=<%=p.getFilm().getCip()%>"><button class="btn btn-warning " id="submitButton" value="edit" type="button" name="edit">Edit</button></a>
-			              	<a href="deleteProjection.jsp"><button class="btn btn-danger " id="submitButton" value="delete" type="button" name="delete">Delete</button></a>
+			              	<a href="editProjection.jsp?cinema=<%=cinema.getCinema()%>&room=<%=room.getRoomNumber()%>&film=<%=film.getCip()%>&premiereDate=<%=premiereDate%>&premiereDay=<%=p.getPremiereDays()%>&spectators=<%=p.getSpectators()%>&income=<%=p.getIncome()%>"><button name="submit" class="btn btn-warning">Confirm Edit</button></a>
 			          </form>
 			          <%}%>
 			          <%
