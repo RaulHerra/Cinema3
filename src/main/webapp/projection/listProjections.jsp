@@ -36,7 +36,7 @@
 			result = DbRepository.findAll(Cinema.class);
 			
 		}catch(Exception e) {
-			response.sendRedirect("../error.jsp?msg=Can't access to data base");
+			response.sendRedirect("../error.jsp?msg=Failed to connect to database");
 			return;
 		}
 	%>
@@ -50,22 +50,22 @@
 							<br>
 							<table class="table">
 								<%
-								for (Cinema c : result) {
+								for (Cinema cinema : result) {
 								%>
 
 								<tr>
 									<td colspan="7"><h3>
 											Cinema:
-											<%=c.getCinema()%></h3></td>
+											<%=cinema.getCinema()%></h3></td>
 								</tr>
 
 								<%
-								for (Room r : CinemaRepository.getRooms(c.getCinema())) {
+								for (Room room : CinemaRepository.getRooms(cinema.getCinema())) {
 								%>
 								<tr>
 									<td colspan="7"><h4>
 											Sala:
-											<%=r.getRoomNumber()%></h4></td>
+											<%=room.getRoomNumber()%></h4></td>
 								</tr>
 
 								<tr>
@@ -77,23 +77,23 @@
 								</tr>
 
 								<%
-								for (Projection p : RoomRepository.getProjections(c, r.getRoomNumber())) {
+								for (Projection projection : RoomRepository.getProjections(cinema, room.getRoomNumber())) {
 								%>
 
 								<tr>
-									<td><%=p.getFilm().getTitleP()%></td>
-									<td><%=p.getPremiereDate()%></td>
-									<td><%=p.getPremiereDays()%></td>
-									<td><%=p.getIncome()%></td>
-									<td><%=p.getSpectators()%></td>
+									<td><%=projection.getFilm().getTitleP()%></td>
+									<td><%=projection.getPremiereDate()%></td>
+									<td><%=projection.getPremiereDays()%></td>
+									<td><%=projection.getIncome()%></td>
+									<td><%=projection.getSpectators()%></td>
 									<td>
-										<a class="btn btn-primary" href="infoProjection.jsp?premiereDate=<%=p.getPremiereDate()%>&room=<%=p.getRoom().getRoomNumber()%>&projection=<%=p.getPremiereDate()%>&cinema=<%=c.getCinema()%>&film=<%=p.getFilm().getCip()%>">
+										<a class="btn btn-primary" href="infoProjection.jsp?premiereDate=<%=projection.getPremiereDate()%>&room=<%=projection.getRoom().getRoomNumber()%>&projection=<%=projection.getPremiereDate()%>&cinema=<%=cinema.getCinema()%>&film=<%=projection.getFilm().getCip()%>">
 												Projection Info</a>
 									</td>
 									<td>
-										<a href="../cinema/infoCinema.jsp?cinema=<%=c.getCinema() %>">
+										<a href="../cinema/infoCinema.jsp?cinema=<%=cinema.getCinema() %>">
 											<button class="btn btn-primary" type="button" name="cinema"
-												value='<%=c.getCinema()%>'>Cinema Info</button></a>
+												value='<%=cinema.getCinema()%>'>Cinema Info</button></a>
 									</td>
 								</tr>
 								<%

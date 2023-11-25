@@ -11,7 +11,6 @@ import com.jacaranda.model.Film;
 import com.jacaranda.model.Projection;
 import com.jacaranda.model.Work;
 import com.jacaranda.util.BdUtil;
-import com.mysql.cj.Query;
 
 public class FilmRepository extends DbRepository{
 

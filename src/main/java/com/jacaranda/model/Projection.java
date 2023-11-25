@@ -48,6 +48,7 @@ public class Projection {
 		setIncome(income);
 		setPremiereDate(premiere_date);
 		setPremiereDays(premiere_days);
+		setSpectators(spectators);
 	}
 	//Este constructor es para buscar el proyecto en infoProjection
 	public Projection(Room room, Film film, Date premiere_date) throws ProjectionException {

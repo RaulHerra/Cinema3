@@ -29,7 +29,7 @@
 	try {
 		allCinemas = DbRepository.findAll(Cinema.class);
 	} catch (Exception e) {
-		response.sendRedirect("../error.jsp?msg=Error connecting to database");
+		response.sendRedirect("../error.jsp?msg=Failed to connect to database");
 		return;
 	}
 

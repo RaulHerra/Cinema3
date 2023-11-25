@@ -39,7 +39,7 @@
 		rooms = DbRepository.findAll(Room.class);
 		films = DbRepository.findAll(Film.class);
 	}catch(Exception e){
-		response.sendRedirect("../error.jsp?msg=Can't access to data base");
+		response.sendRedirect("../error.jsp?msg=Failed to connect to database");
 		return;
 	}
 	
@@ -78,9 +78,13 @@
 				if(room!=null && cinema!=null && film!=null){
 					Projection p = null;
 					try{
+						int tmpSpectators = Integer.valueOf(request.getParameter("spectators"));
+						
 						p = new Projection(room, film, Date.valueOf(request.getParameter("premiere_date")), 
-								Integer.valueOf(request.getParameter("premiere_days")), Integer.valueOf(request.getParameter("spectators")),
-								Integer.valueOf(request.getParameter("income")));						
+								Integer.valueOf(request.getParameter("premiere_days")), 
+								tmpSpectators,
+								Integer.valueOf(request.getParameter("income")));
+		 
 					}catch(ProjectionException pe){
 						error = pe.getMessage();
 					}
