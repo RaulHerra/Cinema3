@@ -90,43 +90,47 @@
 			      <div class="card border-0 rounded-3 shadow-lg">
 			        <div class="card-body p-4">
 			          <div class="text-center">
-			            <h1>Info Proyection</h1>
+			            <h1>Info Projection</h1>
 			          </div>
 			          <form>
 			          <%if(p != null){ //Si el cine no es nulo muestro los campos%>
+			            <div class=" mb-3">
+			    			<label for="cinema" class="form-label">Cinema</label>
+			    			<input type="text" class="form-control" id="cinema" name="cinema" value='<%=cinema.getCinema()%>'readonly required>
+			            </div>
 			            <div class=" mb-3">
 			    			<label for="cinema" class="form-label">Room number</label>
 			    			<input type="text" class="form-control" id="roomNumber" name="roomNumber" value='<%=room.getRoomNumber()%>'readonly required>
 			            </div>
 			
 			            <div class=" mb-3">
-			                <label for="cinemaCity" class="form-label">Film title</label>
+			                <label for="filmTitle" class="form-label">Film title</label>
 			    			<input type="text" class="form-control" id="filmTitle" name="filmTitle" value="<%=film.getTitleP()%>" readonly required>
 			            </div>
 			
 			            <div class=" mb-3">
-							<label for="cinemaAddress" class="form-label">Premiere date</label>
+							<label for="premiereDate" class="form-label">Premiere date</label>
 			    			<input type="text" step="1" class="form-control" id="premiereDate" name="premiereDate" value="<%=premiereDate%>" readonly required>
 			            </div>
 			            
 						<div class=" mb-3">
-							<label for="cinemaAddress" class="form-label">Premiere days</label>
-			    			<input type="text" step="1" class="form-control" id="premiereDay" name="premiereDay" value="<%=p.getPremiereDays()%>" readonly required>
+							<label for="premiereDays" class="form-label">Premiere days</label>
+			    			<input type="text" step="1" class="form-control" id="premiereDays" name="premiereDays" value="<%=p.getPremiereDays()%>" readonly required>
 			            </div>
 			            
 			            <div class=" mb-3">
-							<label for="cinemaAddress" class="form-label">Spectators</label>
+							<label for="spectators" class="form-label">Spectators</label>
 			    			<input type="text" step="1" class="form-control" id="spectators" name="spectators" value="<%=p.getSpectators()%>" readonly required>
 			            </div>
 			            
 			            <div class=" mb-3">
-							<label for="cinemaAddress" class="form-label">Income</label>
+							<label for="income" class="form-label">Income</label>
 			    			<input type="text" step="1" class="form-control" id="income" name="income" value="<%=p.getIncome()%>" readonly required>
 			            </div>
 			            
 			            
 			            <!-- Submit button -->
-			              	<a href="editProjection.jsp?premiereDate=<%=p.getPremiereDate()%>&room=<%=p.getRoom().getRoomNumber()%>&projection=<%=p.getPremiereDate()%>&cinema=<%=cinema.getCinema()%>&film=<%=p.getFilm().getCip()%>"><button class="btn btn-warning " id="submitButton" value="edit" type="button" name="edit">Edit</button></a>
+			              	<a href="editProjection.jsp?premiereDate=<%=p.getPremiereDate()%>&roomNumber=<%=p.getRoom().getRoomNumber()%>&cinema=<%=cinema.getCinema()%>&filmCip=<%=p.getFilm().getCip()%>"><button class="btn btn-warning " id="submitButton" type="button">Edit</button></a>
 			              	<a href="deleteProjection.jsp"><button class="btn btn-danger " id="submitButton" value="delete" type="button" name="delete">Delete</button></a>
 			          </form>
 			          <%}%>

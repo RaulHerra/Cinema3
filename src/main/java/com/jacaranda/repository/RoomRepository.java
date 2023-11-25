@@ -1,5 +1,6 @@
 package com.jacaranda.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -11,6 +12,7 @@ import com.jacaranda.exception.RoomException;
 import com.jacaranda.model.Cinema;
 import com.jacaranda.model.Projection;
 import com.jacaranda.model.Room;
+import com.jacaranda.model.Work;
 import com.jacaranda.util.BdUtil;
 
 public class RoomRepository extends DbRepository {
@@ -152,6 +154,26 @@ public class RoomRepository extends DbRepository {
 			//cerramos la session parar no gastar recursos del servidor
 			session.close();
 		}
+	}
+	
+	public static Room findRoom(Cinema cinema, int room) {
+		Session session = null;
+		Room result = null;
+		try {
+			session = BdUtil.getSessionFactory().openSession();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+		 	SelectionQuery<Room> roomSearched = session.createNativeQuery("select * FROM Sala where Sala.sala = "+room+" and Sala.cine = '"+cinema.getCinema()+"';",Room.class);
+		 	List<Room> listRoom = roomSearched.getResultList();
+		 	
+		 	System.out.println(listRoom);
+	 		result = listRoom.get(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }
