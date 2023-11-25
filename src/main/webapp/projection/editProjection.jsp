@@ -24,88 +24,100 @@
 <body>
 	<%@include file="../nav.jsp"%>
 	<%	
-		Projection p = null;
+		Projection projection = null;
 		Cinema cinema = null; 
 		Film film = null;
 		Room room = null;
 		String error = null;
 		Date premiereDate = null;
-		
-		boolean update = false;
-		
+				
 		try{
-			if(request.getParameter("submit")==null){
-				String cinemaParam = request.getParameter("cinema");
-				String filmParam = request.getParameter("filmCip");
-				String roomParam = request.getParameter("roomNumber");
-				
-				
-				try{
-					premiereDate = Date.valueOf(request.getParameter("premiereDate"));
-				}catch(Exception e){
-					error = "Error Premiere Date not valid";
-				}
-				
-				
-				if(filmParam != null){
-					film = DbRepository.find(Film.class,filmParam);					
+			//Busco un cine con el parametro que nos ha pasado
+			String cinemaParam = request.getParameter("cinema");
+			String roomParam = request.getParameter("roomNumber");
+			String filmParam = request.getParameter("filmCip");
+
+			try{
+				premiereDate = Date.valueOf(request.getParameter("premiereDate"));
+			}catch(Exception e){
+				error = "Error Premiere Date not valid";
+			}
+			
+			
+			if(filmParam != null){
+				film = DbRepository.find(Film.class,filmParam);					
+			}else{
+				error = "Error film not valid";
+			}
+			
+			if(cinemaParam != null){
+				 cinema = DbRepository.find(Cinema.class, cinemaParam);
+			}else{
+				error = "Error cinema not valid";
+			}
+			
+			try{
+				if(cinema != null){
+					room = new Room(cinema,Integer.valueOf(roomParam),23);					
 				}else{
-					error = "Error film not valid";
+					error = "cinema not valid";
 				}
-				
-				if(cinemaParam != null){
-					 cinema = DbRepository.find(Cinema.class, cinemaParam);
-				}else{
-					error = "Error cinema not valid";
-				}
-				
-				try{
-					room = RoomRepository.findRoom(cinema, Integer.parseInt(roomParam));
-				}catch(Exception e){
-					error = "Error room number not valid";
-				}
-				
-				Projection projectionFind = null;
-				
+			}catch(Exception e){
+				error = "Error room number not valid";
+			}
+			
+			
+		 	if(error == null && room == null){
+				error = "The room not valida";
+			}else if(error == null && cinema == null){
+				error = "The cinema not valid";
+			}else if(error == null && film == null){
+				error = "The film not valid";
+			}
+			
+			Projection projectionFind = null;
+			if(error == null){
 				try{
 					 projectionFind = new Projection(room,film,premiereDate);
 				}catch(Exception e){
 					error = e.getMessage();
 				}
 				
-				if(error == null){
-					p = DbRepository.find(Projection.class,projectionFind);				
-				}
-	
-				if(cinema == null || room==null || film==null){
-					//Si la proyeccion es nula guardo el error en la variable
-					error = "Error there is no cinema with that name";
-				}
+				projection = DbRepository.find(Projection.class,projectionFind);				
+			}
 				
-			}else{
-				//Extraemos los datos y creamos un nuevo objeto
+			if(request.getParameter("submit") != null){
+				int premiereDays = -1;
+				int spectators = -1;
+				int income = -1;
 				
-				Cinema tmpCinema = DbRepository.find(Cinema.class, request.getParameter("cinema"));
-				Room tmpRoom = RoomRepository.findRoom(tmpCinema, Integer.valueOf(request.getParameter("roomNumber")));
-				Film tmpFilm = DbRepository.find(Film.class, request.getParameter("filmCip"));
-				Date tmpPremiereDate = Date.valueOf(request.getParameter("premiereDate"));
-				int tmpPremiereDays = Integer.valueOf(request.getParameter("premiereDays"));
-				int tmpSpectators = Integer.valueOf(request.getParameter("spectators"));
-				int tmpIncome = Integer.valueOf(request.getParameter("income"));
-				
-				
-				Projection updated = new Projection(tmpRoom,
-						tmpFilm, 
-						tmpPremiereDate, 
-						tmpPremiereDays, 
-						tmpSpectators,
-						tmpIncome);
-				
-				try{
-					DbRepository.editEntity(updated);
-					update = true;
+				try{					
+					premiereDays = Integer.valueOf(request.getParameter("premiereDays"));
 				}catch(Exception e){
-					error="Can't edit projection right now, try again later";
+					error = "premiere days not valid";
+				}
+				
+				try{					
+					spectators = Integer.valueOf(request.getParameter("spectators"));
+				}catch(Exception e){
+					error = "spectators not valid";
+				}
+				
+				try{					
+					income =Integer.valueOf(request.getParameter("income"));
+				}catch(Exception e){
+					error = "income not valid";
+				}
+				
+				if(error == null){
+					projection = new Projection(room,
+							film, 
+							premiereDate, 
+							premiereDays, 
+							spectators,
+							income);
+					
+					DbRepository.editEntity(projection);
 				}
 				
 			}
@@ -123,7 +135,7 @@
 			            <h1>Edit Projection</h1>
 			          </div>
 			          <form>
-			          <%if(p != null){ //Si la proyeccion no es nula muestro los campos%>
+			          <%if(projection != null){ //Si la proyeccion no es nula muestro los campos%>
 			            <div class=" mb-3">
 			    			<label for="cinema" class="form-label">Cinema</label>
 			    			<input type="text" class="form-control" id="cinema" name="cinema" value='<%=cinema.getCinema()%>'readonly required>
@@ -147,30 +159,40 @@
 			            
 						<div class=" mb-3">
 							<label for="premiereDays" class="form-label">Premiere days</label>
-			    			<input type="text" step="1" class="form-control" id="premiereDays" name="premiereDays" value="<%=p.getPremiereDays()%>"  required>
+			    			<input type="text" step="1" class="form-control" id="premiereDays" name="premiereDays" value="<%=projection.getPremiereDays()%>"  required>
 			            </div>
 			            
 			            <div class=" mb-3">
 							<label for="spectators" class="form-label">Spectators</label>
-			    			<input type="text" step="1" class="form-control" id="spectators" name="spectators" value="<%=p.getSpectators()%>"  required>
+			    			<input type="text" step="1" class="form-control" id="spectators" name="spectators" value="<%=projection.getSpectators()%>"  required>
 			            </div>
 			            
 			            <div class=" mb-3">
 							<label for="income" class="form-label">Income</label>
-			    			<input type="text" step="1" class="form-control" id="income" name="income" value="<%=p.getIncome()%>"  required>
+			    			<input type="text" step="1" class="form-control" id="income" name="income" value="<%=projection.getIncome()%>"  required>
 			            </div>
 			            
 			            
 			            <!-- Submit button -->
-			              	<button name="submit" class="btn btn-warning" value="edit">Confirm Edit</button>
 			          <%}%>
 			          <%
-			      		if(error != null){ //En el caso de haya un erro muestro el error y pongo un boton de volver a la lista%>
-			            	<div class="textAreaInfoError " ><%=error%></div><br>
-			            	<a href="./listProjections.jsp"><button class="btn btn-primary " id="edit" name="edit" type="button">Return list</button></a>
-			       		<%}else if(update){%>
-			       			<div class="textAreaInfoSuccesfull">Projection edited successfully!</div>
-			       		<%}%>
+			         if(error != null){%>
+		            	<div class="textAreaInfoError " ><%=error%></div>
+		            	<a href="listProjections.jsp"><button class="btn btn-primary " id="submitButton" type="button">Retry</button></a>
+		            <%/*Y aqui si se ha enviado el edit y en valor de la variable es nulo significa que se ha editado correctamente, entoces muestro
+		            el mensaje de éxito*/
+		            }else if(request.getParameter("edit") != null && error == null){%>
+		            	<div class="textAreaInfoSuccesfull " >Projection edited successfully!</div> 
+		            <%} /*Cuando pase todo esto dejo el error en nulo para que se reinicie por si ocurre otro error cuando envíe de nuevo el formulario */
+		            %>
+		           
+		            <!-- Submit button -->
+		             	<%if(request.getParameter("edit") == null && error == null){ /*Esto lo hago para que cuando pulse confirm se oculte el confirm ya que no será nulo*/%>
+		             		<button class="btn btn-danger " id="submitButton" value="edit" type="submit" name="edit">Confirm</button>
+				     	<%}else if(request.getParameter("edit") != null && error == null){ %>
+		            		<a class="btn btn-primary" href="infoProjection.jsp?premiereDate=<%=projection.getPremiereDate()%>&room=<%=projection.getRoom().getRoomNumber()%>&cinema=<%=cinema.getCinema()%>&film=<%=projection.getFilm().getCip()%>">
+		            		Show Projection</a>
+		            	<%}%>
 			       		</form>
 			        </div>
 			      </div>

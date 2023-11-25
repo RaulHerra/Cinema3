@@ -31,8 +31,8 @@
 		try{
 			//Busco un cine con el parametro que nos ha pasado
 			String cinemaParam = request.getParameter("cinema");
-			String roomParam = request.getParameter("room");
-			String filmParam = request.getParameter("film");
+			String roomParam = request.getParameter("roomNumber");
+			String filmParam = request.getParameter("filmCip");
 			
 			try{
 				premiereDate = Date.valueOf(request.getParameter("premiereDate"));
