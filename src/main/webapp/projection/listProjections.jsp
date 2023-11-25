@@ -50,22 +50,22 @@
 							<br>
 							<table class="table">
 								<%
-								for (Cinema c : result) {
+								for (Cinema cinema : result) {
 								%>
 
 								<tr>
 									<td colspan="7"><h3>
 											Cinema:
-											<%=c.getCinema()%></h3></td>
+											<%=cinema.getCinema()%></h3></td>
 								</tr>
 
 								<%
-								for (Room r : CinemaRepository.getRooms(c.getCinema())) {
+								for (Room room : CinemaRepository.getRooms(cinema.getCinema())) {
 								%>
 								<tr>
 									<td colspan="7"><h4>
 											Sala:
-											<%=r.getRoomNumber()%></h4></td>
+											<%=room.getRoomNumber()%></h4></td>
 								</tr>
 
 								<tr>
@@ -77,23 +77,23 @@
 								</tr>
 
 								<%
-								for (Projection p : RoomRepository.getProjections(c, r.getRoomNumber())) {
+								for (Projection projection : RoomRepository.getProjections(cinema, room.getRoomNumber())) {
 								%>
 
 								<tr>
-									<td><%=p.getFilm().getTitleP()%></td>
-									<td><%=p.getPremiere_date()%></td>
-									<td><%=p.getPremiere_days()%></td>
-									<td><%=p.getIncome()%></td>
-									<td><%=p.getSpectators()%></td>
+									<td><%=projection.getFilm().getTitleP()%></td>
+									<td><%=projection.getPremieredate()%></td>
+									<td><%=projection.getPremiereDays()%></td>
+									<td><%=projection.getIncome()%></td>
+									<td><%=projection.getSpectators()%></td>
 									<td>
-										<a href="infoProjection.jsp?room=<%=p.getRoom().getRoomNumber()%>&cinema=<%=c.getCinema()%>&film=<%=p.getFilm().getCip()%>"><button class="btn btn-primary" type="button" name="info">
+										<a href="infoProjection.jsp?room=<%=projection.getRoom().getRoomNumber()%>&cinema=<%=cinema.getCinema()%>&film=<%=projection.getFilm().getCip()%>"><button class="btn btn-primary" type="button" name="info">
 												Projection Info</button></a>
 									</td>
 									<td>
-										<a href="../cinema/infoCinema.jsp?cinema=<%=c.getCinema() %>">
+										<a href="../cinema/infoCinema.jsp?cinema=<%=cinema.getCinema() %>">
 											<button class="btn btn-primary" type="button" name="cinema"
-												value='<%=c.getCinema()%>'>Cinema Info</button></a>
+												value='<%=cinema.getCinema()%>'>Cinema Info</button></a>
 									</td>
 								</tr>
 								<%}}}%>

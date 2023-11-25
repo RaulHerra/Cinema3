@@ -4,7 +4,6 @@ import java.sql.Date;
 import java.util.Objects;
 
 import com.jacaranda.exception.ProjectionException;
-import com.jacaranda.exception.RoomException;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -49,6 +48,7 @@ public class Projection {
 		setIncome(income);
 		setPremieredate(premiere_date);
 		setPremiereDays(premiere_days);
+		setSpectators(spectators);
 	}
 	//Este constructor es para buscar el proyecto en infoProjection
 	public Projection(Room room, Film film,Date premiere_date) throws ProjectionException {

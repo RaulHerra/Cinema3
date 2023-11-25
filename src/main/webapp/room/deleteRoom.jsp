@@ -1,3 +1,4 @@
+<%@page import="com.jacaranda.repository.RoomRepository"%>
 <%@page import="java.util.List"%>
 <%@page import="com.jacaranda.model.Cinema"%>
 <%@page import="com.jacaranda.model.Room"%>
@@ -9,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Info Room</title>
+<title>Delete Room</title>
 <!-- ======= LINKS BOOTSTRAP ======= -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -28,7 +29,7 @@
 	int capacity;
 	Room tmpRoom = null;
 	Cinema tmpCinema = null;
-
+	String error = null;
 	try {
 		//Validamos que ambos campos existan 
 		roomId = Integer.parseInt((String) request.getParameter("room"));
@@ -52,7 +53,7 @@
 					<div class="card-body p-4">
 
 						<div class="text-center">
-							<h1>Info about the room</h1>
+							<h1>Delete the room</h1>
 						</div>
 						<form id="addRoom" action="addRoom.jsp" method="get">
 							<div class="mb-3">
@@ -79,8 +80,27 @@
 									placeholder="Enter Room capacity" required readonly
 									value="<%= tmpRoom.getCapacity()%>">
 							</div>
-							<a href="editRoom.jsp?cinema=<%=tmpRoom.getCinema().getCinema()%>&room=<%=tmpRoom.getRoomNumber()%>"><button type="button" class="btn btn-warning">Edit</button></a>
-							<a href="deleteRoom.jsp?cinema=<%=tmpRoom.getCinema().getCinema()%>&room=<%=tmpRoom.getRoomNumber()%>"><button type="button" class="btn btn-danger">Delete</button></a>
+		
+							
+							<%
+							if(request.getParameter("delete") == null && request.getParameter("submit") == null && error == null){ /*Esto lo hago para que cuando pulse confirm se oculte el confirm ya que no será nulo*/%>
+				            	<button class="btn btn-danger" id="submitButton" type="submit" name="delete">Are you sure you want to delete it?</button>
+							<%}else if(request.getParameter("delete") != null && error == null){//Cuando le de al boton de borrar muestro el confirmar y el de retroceder%>
+								<button class="btn btn-danger" id="submitButton" type="submit" name="submit">Confirm</button>
+				            	<a href="./infoCinema.jsp?cinema=<%=request.getParameter("cinema")%>"><button class="btn btn-primary  " id="submitButton" type="button" name="undo">Undo</button></a>
+							<%}else if(error != null){ //Si hay algun error le doy la opción de reintentar%>
+								<a href="./listCinemas.jsp"><button class="btn btn-primary" id="submitButton" type="button">Retry</button></a>
+							<%}%>
+							
+							<%if(request.getParameter("submit") != null){ //Cuando le de a borrar confirmado borro el cinema
+								RoomRepository.delete(tmpRoom);
+								//Y muestro un botón de volver a la lista%>
+								
+								<a href="./listCinemas.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
+							<%}%>
+
+
+
 
 						</form>
 
