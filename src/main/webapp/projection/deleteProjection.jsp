@@ -136,14 +136,17 @@
 			            
 			            
 			            <!-- Submit button -->
-			           	<a href="deleteProjection.jsp?premiereDate=<%=premiereDate%>&room=<%=projection.getRoom().getRoomNumber()%>&projection=<%=projection.getPremiereDate()%>&cinema=<%=cinema.getCinema()%>&film=<%=projection.getFilm().getCip()%>"><button class="btn btn-danger " id="submitButton" value="delete" type="submit" name="delete">Delete</button></a>
-			          </form>
-			          <%}%>
 			          <%
 			      		if(error != null){ //En el caso de haya un erro muestro el error y pongo un boton de volver a la lista%>
 			            	<div class="textAreaInfoError " ><%=error%></div><br>
 			            	<a href="./listProjections.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
+			       		<%}else if(request.getParameter("delete") != null && error == null){%>
+			       			<div class="textAreaInfoSuccesfull" >Delete succes!</div><br>
+			            	<a href="./listProjections.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
 			       		<%}%>
+			           	<a href="deleteProjection.jsp?premiereDate=<%=premiereDate%>&room=<%=projection.getRoom().getRoomNumber()%>&projection=<%=projection.getPremiereDate()%>&cinema=<%=cinema.getCinema()%>&film=<%=projection.getFilm().getCip()%>"><button class="btn btn-danger " id="submitButton" value="delete" type="submit" name="delete">Delete</button></a>
+			          </form>
+			          <%}%>
 			        </div>
 			      </div>
 			    </div>
