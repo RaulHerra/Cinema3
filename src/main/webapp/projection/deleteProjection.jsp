@@ -50,7 +50,7 @@
 			if(cinemaParam != null){
 				 cinema = DbRepository.find(Cinema.class, cinemaParam);
 			}else{
-				error = "Error cinema  is empty";
+				error = "Error cinema is empty";
 			}
 			
 			try{
@@ -58,7 +58,7 @@
 				if(cinema != null){
 					room = new Room(cinema,roomParamInt,23);					
 				}else{
-					error = "cinema not valid";
+					error = "Cinema not valid";
 				}
 			}catch(Exception e){
 				error = "Error room number not valid";
@@ -72,14 +72,14 @@
 				
 				try{
 					 if(film != null)projectionFind = new Projection(room,film,premiereDate);
-					 else error = "film not valid";
+					 else error = "Film not valid";
 				}catch(Exception e){
 					error = e.getMessage();
 				}
 				
 				if(projectionFind != null){
 					projection = DbRepository.find(Projection.class,projectionFind);
-					if(projection == null) error = "projection not found";
+					if(projection == null) error = "Projection not found";
 				}
 			}
 		}catch(Exception e){
@@ -100,22 +100,22 @@
 			          <%if(projection != null){ //Si la proyeccion no es nula muestro los campos%>
 						<div class=" mb-3">
 							<label for="cinema" class="form-label">Cinema</label>
-						   <input type="text" class="form-control" id="cinema" name="cinema" value="<%=request.getParameter("cinema")%>" required readonly>
+						   <input type="text" class="form-control" id="cinema" name="cinema" value="<%=projection.getRoom().getCinema().getCinema()%>" required readonly>
 					 </div>
 
 			            <div class=" mb-3">
 			    			<label for="roomNumber" class="form-label">Room number</label>
-			    			<input type="text" class="form-control" id="roomNumber" name="room" value='<%=request.getParameter("room")%>'readonly required>
+			    			<input type="text" class="form-control" id="roomNumber" name="room" value='<%=projection.getRoom().getRoomNumber()%>'readonly required>
 			            </div>
 			
 			            <div class=" mb-3">
 			                <label for="cinemaCity" class="form-label">Film title</label>
-			    			<input type="text" class="form-control" id="filmTitle" name="film" value="<%=request.getParameter("film")%>" readonly required>
+			    			<input type="text" class="form-control" id="filmTitle" name="film" value="<%=projection.getFilm().getTitleP()%>" readonly required>
 			            </div>
 			
 			            <div class=" mb-3">
 							<label for="cinemaAddress" class="form-label">Premiere date</label>
-			    			<input type="text" step="1" class="form-control" id="premiereDate" name="premiereDate" readonly value="<%=premiereDate%>" readonly required>
+			    			<input type="text" step="1" class="form-control" id="premiereDate" name="premiereDate" readonly value="<%=projection.getPremiereDate()%>" readonly required>
 			            </div>
 			            
 						<div class=" mb-3">
