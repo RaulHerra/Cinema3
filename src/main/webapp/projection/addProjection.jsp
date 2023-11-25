@@ -30,7 +30,6 @@
 <body>
 
 <% 
-	LocalDate today = LocalDate.now();
 	List<Cinema> cinemas = new ArrayList<Cinema>();
 	List<Room> rooms = new ArrayList<Room>();
 	List<Film> films = new ArrayList<Film>();
@@ -73,27 +72,62 @@
 				}catch(Exception e){
 					error = "Error room number not valid";
 				}
+	
+				try{
+					premiereDate = Date.valueOf(request.getParameter("premiere_date"));
+				}catch(Exception e){
+					error = "Date not valid";
+
+				}
 				
-				if(room!=null && cinema!=null && film!=null){
-					Projection p = null;
+				int premiereDays = 0;
+				
+				try{
+					premiereDays = Integer.valueOf(request.getParameter("premiere_days"));
+				}catch(Exception e){
+					error = "Premiere Days not valid";
+				}
+				
+				int income = 0;
+				
+				try{
+					income = Integer.valueOf(request.getParameter("income"));
+				}catch(Exception e){
+					error = "Income Days not valid";
+				}
+				
+				int tmpSpectators = 0;
+				
+				try{
+					tmpSpectators = Integer.valueOf(request.getParameter("spectators"));
+				}catch(Exception e){
+					error = "Spectators not valid";
+				}
+
+				if(room!=null && cinema!=null && film!=null && error == null){
+					Projection projection = null;
 					try{
-						int tmpSpectators = Integer.valueOf(request.getParameter("spectators"));
-						
-						p = new Projection(room, film, Date.valueOf(request.getParameter("premiere_date")), 
-								Integer.valueOf(request.getParameter("premiere_days")), 
+						projection = new Projection(room, film, premiereDate, 
+								premiereDays, 
 								tmpSpectators,
-								Integer.valueOf(request.getParameter("income")));
+								income);
 		 
 					}catch(ProjectionException pe){
 						error = pe.getMessage();
 					}
 					
-					if(p!=null && DbRepository.find(Projection.class, p) == null){
-						DbRepository.addEntity(p);							
-					}else if(p!=null && DbRepository.find(Projection.class, p) != null){
+					if(projection!=null && DbRepository.find(Projection.class, projection) == null){
+						DbRepository.addEntity(projection);							
+					}else if(projection!=null && DbRepository.find(Projection.class, projection) != null){
 						error = "The projection already exist!";
 					}
 				
+				}else if(room == null){
+					error = "The room not valid";
+				}else if(cinema == null){
+					error = "The cinema not valid";
+				}else if(film == null){
+					error = "The film not valid";
 				}
 			}
 		}catch(Exception e){
@@ -123,8 +157,8 @@
 			           <label for="cinema" class="form-label">Select Cinema</label>
 			   		   <select id="cinema" name="cinema" class="form-select custom-select">
 			   		   		<option disabled selected>-- Select Cinema --</option>
-					      	<%for (Cinema c : cinemas){ %>
-					      		<option value="<%=c.getCinema()%>"><%=c.getCinema()%></option>
+					      	<%for (Cinema cinema : cinemas){ %>
+					      		<option value="<%=cinema.getCinema()%>"><%=cinema.getCinema()%></option>
 					      	<% }%>
 					   </select>
 	   	              	<button class="btn btn-success " id="selectCinema" type="submit" name="selectCinema">Select cinema</button>
@@ -155,8 +189,8 @@
 		           <label for="room" class="form-label">Select Room</label>
 		   		   <select id="room" name="room" class="form-select custom-select">
 		   		   		<option disabled selected >-- Select Room --</option>
-				      	<%for (Room r : cinemaRooms.getRooms()){ %>
-				      		<option value="<%=r.getRoomNumber()%>"><%=r.getRoomNumber()%></option>
+				      	<%for (Room room : cinemaRooms.getRooms()){ %>
+				      		<option value="<%=room.getRoomNumber()%>"><%=room.getRoomNumber()%></option>
 				      	<% } %>
 				   </select>
 	    		 </div>
@@ -165,15 +199,15 @@
 		           <label for="film" class="form-label">Select Film</label>
 		   		   <select id="film" name="film" class="form-select custom-select">
 		   		   		<option disabled selected>-- Select Film --</option>
-				      	<%for (Film f : films){ %>
-				      		<option value="<%=f.getCip()%>"><%=f.getTitleP()%></option>
+				      	<%for (Film film : films){ %>
+				      		<option value="<%=film.getCip()%>"><%=film.getTitleP()%></option>
 				      	<% } %>
 				   </select>
 	    		 </div>
 	    		 
 		           <div class=" mb-3">
 		               <label for="premiere_date" class="form-label">Premiere date</label>
-		   				<input type="date" class="form-control" id="premiere_date" name="premiere_date" max="<%=today%>" required>
+		   				<input type="date" class="form-control" id="premiere_date" name="premiere_date" required>
 		           </div>
 	
 		           <div class=" mb-3">
@@ -199,7 +233,6 @@
 		            <%
 		            }else if(request.getParameter("submit") != null && error == null){%>
 		            	<div class="textAreaInfoSuccesfull">Projection created successfully!</div>
-		            	
 		            <%} 
 		            %>
 	            <!-- Submit button -->
@@ -209,6 +242,7 @@
 	              	<%if(request.getParameter("submit") != null && error == null){%>
 				     	<a href="infoProjection.jsp?cinema=<%=request.getParameter("cinema")%>&room=<%=request.getParameter("room")%>&film=<%=request.getParameter("film")%>&premiereDate=<%=request.getParameter("premiere_date")%>"><button class="btn btn-primary" id="submitButton" type="button">Show projection</button></a>
 	              	<%}%>
+	              		<a href="addProjection.jsp"><button class="btn btn-warning" id="submitButton" type="button">Change cinema</button></a>	
 
 	          </form>
 	          <!-- End of contact form -->

@@ -13,15 +13,15 @@
 <body>
 	<%@include file="../nav.jsp"%>
 	<%
-	Task t = null;
+	Task task = null;
 	String error = null;
 	try{
 		if(request.getParameter("task") != null && DbRepository.find(Task.class, request.getParameter("task")) != null){//Lo primero antes de añadir una tarea comprobamos que existe
-			 t = DbRepository.find(Task.class, request.getParameter("task"));	//En el caso de que exista mostraran los valores
+			 task = DbRepository.find(Task.class, request.getParameter("task"));	//En el caso de que exista mostraran los valores
 			 if(request.getParameter("comfirmSubmit")!=null){//Si se le da a confirmar se cambian y cargan los nuevos valores
 				 try{
-					 t = new Task(request.getParameter("task"),request.getParameter("sex"));
-				 	 DbRepository.editEntity(t);
+					 task = new Task(request.getParameter("task"),request.getParameter("sex"));
+				 	 DbRepository.editEntity(task);
 				 }catch(TaskException e){
 					 error = e.getMessage();
 				 }
@@ -43,15 +43,15 @@
 	            <h1>Edit Task</h1>  
 	             
 	          </div>
-	          <%if(t != null){%>
+	          <%if(task != null){%>
 	          <form id="editTask" action="editTask.jsp" method="get">
 	            <div class=" mb-3">
 	              <label for="task" class="form-label">Task</label>
-	              <input class="form-control" name="task" type="text" value='<%=t.getTask()%>' readonly>
+	              <input class="form-control" name="task" type="text" value='<%=task.getTask()%>' readonly>
 	            </div>
 	            <div class=" mb-3">
 	              <label for="task" class="form-label">Sex</label>
-		          <input class="form-control" name="sex" type="text"  pattern="[H,M,O]" placeholder="Enter task's sex (H, M, or O)" value='<%=t.getSex()%>' required>
+		          <input class="form-control" name="sex" type="text"  pattern="[H,M,O]" placeholder="Enter task's sex (H, M, or O)" value='<%=task.getSex()%>' required>
 	            </div>
 	            <%}%>
 	            

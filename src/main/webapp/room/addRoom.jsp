@@ -45,25 +45,40 @@
 		&& request.getParameter("cinema") != null) {
 
 			Cinema tmpCinema = null;
-			int roomId;
-			int capacity;
+			int roomId = -1;
+			int capacity = -1;
+			
 			try {
-				roomId = Integer.parseInt((String) request.getParameter("room"));
-				capacity = Integer.parseInt((String) request.getParameter("capacity"));
-				tmpCinema = DbRepository.find(Cinema.class, request.getParameter("cinema"));
-				tmpRoom = new Room(tmpCinema, roomId, capacity);
-
-				try {
-					if (DbRepository.find(Room.class, tmpRoom) == null) {
-						DbRepository.addEntity(tmpRoom);
-					} else {
-						error = "Error. Room already exist ";
-					}
-				} catch (Exception e) {
-					error = "Error. Error adding to database ";
+				try{
+					roomId = Integer.parseInt((String) request.getParameter("room"));
+				}catch(Exception e){
+					error = "room not valid";
 				}
+				
+				try {
+					capacity = Integer.parseInt((String) request.getParameter("capacity"));
+				}catch(Exception e){
+					error = "capacity not valid";
+				}
+				
+				tmpCinema = DbRepository.find(Cinema.class, request.getParameter("cinema"));
+				
+				if(capacity != -1 && roomId != -1){
+					tmpRoom = new Room(tmpCinema, roomId, capacity);
+					
+					try {
+						if (DbRepository.find(Room.class, tmpRoom) == null) {
+							DbRepository.addEntity(tmpRoom);
+						} else {
+							error = "Error. Room already exist ";
+						}
+					} catch (Exception e) {
+						error = "Error. Error adding to database ";
+					}
+				}
+			
 			} catch (Exception e) {
-				error = "Error. Datas not valid";
+				error = e.getMessage();
 			}
 
 		} else {
@@ -107,7 +122,7 @@
 							<div class=" mb-3">
 								<label for="capacity" class="form-label">Capacity</label> <input
 									class="form-control" id="capacity" name="capacity"
-									type="number" min="20" step="1"
+									type="number" min="21" step="1"
 									placeholder="Enter Room capacity" required>
 							</div>
 

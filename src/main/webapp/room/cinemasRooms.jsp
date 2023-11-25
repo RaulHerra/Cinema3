@@ -28,19 +28,18 @@
 	String error = null;
 	try {
 		cinemaId = request.getParameter("cinema");
-
+		Cinema tmpCinema = null;
 		if (cinemaId == null) {
-			response.sendRedirect("../error.jsp?msg=Cinema not found in uri");
-			return;
+			error = "Cinema not found in uri";
+		}else{
+			 tmpCinema = (Cinema) DbRepository.find(Cinema.class, cinemaId);
 		}
-
-		Cinema tmpCinema = (Cinema) DbRepository.find(Cinema.class, cinemaId);
-
+		
 		if (tmpCinema == null) {
-			response.sendRedirect("../error.jsp?msg=Cinema doesn't exist");
-			return;
+			error = "Cinema doesn't exist";
+		}else{
+			rooms = tmpCinema.getRooms();
 		}
-		rooms = tmpCinema.getRooms();
 
 	} catch (Exception e) {
 		System.out.print(e.getMessage());
@@ -53,6 +52,7 @@
 			<div class="col-lg-8">
 				<div class="card border-0 rounded-3 shadow-lg">
 					<div class="card-body p-4">
+					<%if(rooms != null){%>
 						<h1 align="center"><%= request.getParameter("cinema")%>'s
 							rooms
 						</h1>
@@ -80,7 +80,10 @@
 							}
 							%>
 						</table>
-
+			            <%}if(error != null){%>
+			            	<div class="textAreaInfoError " ><%=error%></div>
+			            	<a href="../cinema/listCinemas.jsp"><button class="btn btn-primary " id="submitButton" type="button">Retry</button></a>
+			            <%}%>
 					</div>
 				</div>
 			</div>

@@ -68,7 +68,7 @@ public class Projection {
 
 	public void setRoom(Room room) throws ProjectionException {
 		if(room == null) {
-			throw new ProjectionException("Room cant be null");
+			throw new ProjectionException("Room not valid");
 		}
 		this.room = room;
 	}
@@ -79,7 +79,7 @@ public class Projection {
 
 	public void setFilm(Film film) throws ProjectionException {
 		if(film == null) {
-			throw new ProjectionException("Film cant be null");
+			throw new ProjectionException("Film not valid");
 		}
 		this.film = film;
 	}
@@ -90,7 +90,7 @@ public class Projection {
 
 	public void setPremiereDate(Date premiereDate) throws ProjectionException {
 		if(premiereDate == null) {
-			throw new ProjectionException("Premiere date cant be null");
+			throw new ProjectionException("Premiere date not valid");
 		}
 		this.premiereDate = premiereDate;
 	}

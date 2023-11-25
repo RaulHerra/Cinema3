@@ -54,18 +54,18 @@
 								%>
 
 								<tr>
-									<td colspan="7"><h3>
+									<th colspan="7"><h3>
 											Cinema:
-											<%=cinema.getCinema()%></h3></td>
+											<%=cinema.getCinema()%></h3></th>
 								</tr>
 
 								<%
 								for (Room room : CinemaRepository.getRooms(cinema.getCinema())) {
 								%>
 								<tr>
-									<td colspan="7"><h4>
+									<th colspan="7"><h4>
 											Sala:
-											<%=room.getRoomNumber()%></h4></td>
+											<%=room.getRoomNumber()%></h4></th>
 								</tr>
 
 								<tr>
@@ -87,7 +87,7 @@
 									<td><%=projection.getIncome()%></td>
 									<td><%=projection.getSpectators()%></td>
 									<td>
-										<a class="btn btn-primary" href="infoProjection.jsp?premiereDate=<%=projection.getPremiereDate()%>&room=<%=projection.getRoom().getRoomNumber()%>&projection=<%=projection.getPremiereDate()%>&cinema=<%=cinema.getCinema()%>&film=<%=projection.getFilm().getCip()%>">
+										<a class="btn btn-primary" href="infoProjection.jsp?premiereDate=<%=projection.getPremiereDate()%>&room=<%=projection.getRoom().getRoomNumber()%>&cinema=<%=cinema.getCinema()%>&film=<%=projection.getFilm().getCip()%>">
 												Projection Info</a>
 									</td>
 									<td>

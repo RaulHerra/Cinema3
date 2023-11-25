@@ -28,7 +28,7 @@
 	List<Character> characters = null;
 	List<Task> tasks = null;
 	//CREMOS EL TRABAJO, EL MENSAJE DE ERROR, Y RESCATAMOS EL BOTON DE ENVIAR
-	Work w = null;
+	Work work = null;
 	String error = null;
 	String agregate = request.getParameter("submit");
 
@@ -49,19 +49,20 @@
 			if (film == null || character == null || task == null) { //SI TODO ES NULO ENVIAREMOS UN MENSAJE DE ERROR
 				error = "Enter a valid movie, character or task.";
 			} else {
-				w = new Work(character, film, task); //SI TODO EXISTE CREAREMOS UN TRABAJO
+				work = new Work(character, film, task); //SI TODO EXISTE CREAREMOS UN TRABAJO
 			}
 
-			if (DbRepository.find(Work.class, w) != null) //SI EL TRABAJO ES DISTINTO DE NULO
+			if (DbRepository.find(Work.class, work) != null) //SI EL TRABAJO ES DISTINTO DE NULO
 				error = "Error: the character with the entered task already exists."; //ENVIAREMOS UN MENSAJE DE QUE EL TRABAJO YA EXISTE
 			else {
-				DbRepository.addEntity(w);//SI NO EXISTE LO AGREGAREMOS A LA BASE DE DATOS
+				DbRepository.addEntity(work);//SI NO EXISTE LO AGREGAREMOS A LA BASE DE DATOS
 			}
 
 		}
 
 	} catch (Exception e) {
-		error = "Enter a valid movie, character or task.";
+		response.sendRedirect("../error.jsp?msg=Failed to connect to database");
+		return;
 	}
 	%>
 	<div class="container px-5 my-5">
