@@ -17,11 +17,11 @@
 		<%@include file="../nav.jsp"%>
 	
 	<%
-		Task t =null;
+		Task task =null;
 	String error = null;
 		try{	
 			if(request.getParameter("task") != null && DbRepository.find(Task.class, request.getParameter("task")) != null){//Lo primero antes de añadir una tarea comprobamos que existe
-			 	t = DbRepository.find(Task.class, request.getParameter("task"));//En el caso de que exista mostraran los valores
+			 	task = DbRepository.find(Task.class, request.getParameter("task"));//En el caso de que exista mostraran los valores
 			}else{//En el caso de no existir nos mostrara el error correspondiente
 				error = "Error. This task does not exist";
 			}
@@ -40,14 +40,14 @@
 			            <h1>Info Task</h1>   
 			          </div>
 			          <form>
-			          <%if(t!=null) {%>
+			          <%if(task!=null) {%>
 			            <div class=" mb-3">
 			              <label for="task" class="form-label">Task</label>
-			              <input class="form-control" name="task" type="text" value='<%=t.getTask()%>' readonly>
+			              <input class="form-control" name="task" type="text" value='<%=task.getTask()%>' readonly>
 			            </div>
 			            <div class=" mb-3" >
 			              <label for="task" class="form-label">Sex</label>
-			              <input class="form-control" name="sex" type="text" value='<%=t.getSex()%>' readonly>
+			              <input class="form-control" name="sex" type="text" value='<%=task.getSex()%>' readonly>
 			            </div>
 			              <button class="btn btn-warning " id="submitButton" type="submit" name="editSubmit">Edit</button>
 			              <button class="btn btn-danger " id="submitButton" type="submit" name="deleteSubmit">Delete</button>			            

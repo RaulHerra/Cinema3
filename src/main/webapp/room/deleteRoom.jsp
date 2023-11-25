@@ -26,7 +26,6 @@
 	<%
 
 	int roomId;
-	int capacity;
 	Room tmpRoom = null;
 	Cinema tmpCinema = null;
 	String error = null;
@@ -35,6 +34,11 @@
 		roomId = Integer.parseInt((String) request.getParameter("room"));
 		tmpCinema = DbRepository.find(Cinema.class, request.getParameter("cinema"));
 		tmpRoom = DbRepository.find(Room.class, new Room(tmpCinema, roomId));
+		
+		if(tmpRoom == null){ 
+			error = "Error there is no rooom with the datas entered";
+		}
+		
 		
 	} catch (Exception e) {
 		System.out.println(e.getMessage());
@@ -55,7 +59,9 @@
 						<div class="text-center">
 							<h1>Delete the room</h1>
 						</div>
-						<form id="addRoom" action="addRoom.jsp" method="get">
+						<form method="get">
+						<%if(tmpRoom != null){ %>
+						
 							<div class="mb-3">
 								<label for="cinema" class="form-label">Cinema</label> 
 								<select id="cinema" name="cinema" class="form-select readonly" required >
@@ -81,7 +87,7 @@
 									value="<%= tmpRoom.getCapacity()%>">
 							</div>
 		
-							
+							<div> 
 							<%
 							if(request.getParameter("delete") == null && request.getParameter("submit") == null && error == null){ /*Esto lo hago para que cuando pulse confirm se oculte el confirm ya que no será nulo*/%>
 				            	<button class="btn btn-danger" id="submitButton" type="submit" name="delete">Are you sure you want to delete it?</button>
@@ -91,15 +97,37 @@
 							<%}else if(error != null){ //Si hay algun error le doy la opción de reintentar%>
 								<a href="./listCinemas.jsp"><button class="btn btn-primary" id="submitButton" type="button">Retry</button></a>
 							<%}%>
+							</div>
 							
-							<%if(request.getParameter("submit") != null){ //Cuando le de a borrar confirmado borro el cinema
+							<%}%>		
+												
+							<%
+							//Mensaje de error que salta si anteriormente ha saltado alguna excepcion.Mostrara el mensaje correspondiente
+							if (error != null) {
+							%>
+							<div class="textAreaInfoError"><%=error%></div>
+							<%
+							//Mensaje de exito que salta en el caso de que se crea con exito la tarea
+							} else if (request.getParameter("submit") != null && error == null) {
+							%>
+							<div class="textAreaInfoSuccesfull">Room deleted
+								successfully!</div>
+							<%
+							}
+							%>
+							
+							
+							
+							
+							
+							<%if((request.getParameter("submit") != null || error != null)&& tmpRoom != null){ 
 								RoomRepository.delete(tmpRoom);
 								//Y muestro un botón de volver a la lista%>
-								
-								<a href="./listCinemas.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
 							<%}%>
 
+							<a href="/CinemaTeam/room/cinemasRooms.jsp?cinema=<%= request.getParameter("cinema")%>"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
 
+						
 
 
 						</form>

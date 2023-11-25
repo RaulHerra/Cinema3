@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Info Cinema</title>
+<title>Edit projection</title>
 <!-- ======= LINKS BOOTSTRAP ======= -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
@@ -21,7 +21,7 @@
 <body>
 	<%@include file="../nav.jsp"%>
 	<%	
-		Projection p = null;
+		Projection projection = null;
 		Cinema cinema = null; 
 		Film film = null;
 		Room room = null;
@@ -71,7 +71,7 @@
 			}
 			
 			if(error == null){
-				p = DbRepository.find(Projection.class,projectionFind);				
+				projection = DbRepository.find(Projection.class,projectionFind);				
 			}
 
 			if(cinema == null || room==null || film==null){
@@ -81,9 +81,9 @@
 			
 			if(request.getParameter("submit")!=null){
 				
-				p = new Projection(room,film,premiereDate,Integer.valueOf(request.getParameter("premiereDays")),Integer.valueOf(request.getParameter("spectators")),Integer.valueOf(request.getParameter("income")));
+				projection = new Projection(room,film,premiereDate,Integer.valueOf(request.getParameter("premiereDays")),Integer.valueOf(request.getParameter("spectators")),Integer.valueOf(request.getParameter("income")));
 				
-				DbRepository.editEntity(p);
+				DbRepository.editEntity(projection);
 				
 			}
 		}catch(Exception e){
@@ -101,7 +101,7 @@
 			            <h1>Edit Proyection</h1>
 			          </div>
 			          <form>
-			          <%if(p != null){ //Si la proyeccion no es nula muestro los campos%>
+			          <%if(projection != null){ //Si la proyeccion no es nula muestro los campos%>
 			            <div class=" mb-3">
 			    			<label for="cinema" class="form-label">Room number</label>
 			    			<input type="text" class="form-control" id="roomNumber" name="roomNumber" value='<%=room.getRoomNumber()%>'readonly required>
@@ -119,22 +119,22 @@
 			            
 						<div class=" mb-3">
 							<label for="cinemaAddress" class="form-label">Premiere days</label>
-			    			<input type="text" step="1" class="form-control" id="premiereDay" name="premiereDay" value="<%=p.getPremiereDays()%>"  required>
+			    			<input type="text" step="1" class="form-control" id="premiereDay" name="premiereDay" value="<%=projection.getPremiereDays()%>"  required>
 			            </div>
 			            
 			            <div class=" mb-3">
 							<label for="cinemaAddress" class="form-label">Spectators</label>
-			    			<input type="text" step="1" class="form-control" id="spectators" name="spectators" value="<%=p.getSpectators()%>"  required>
+			    			<input type="text" step="1" class="form-control" id="spectators" name="spectators" value="<%=projection.getSpectators()%>"  required>
 			            </div>
 			            
 			            <div class=" mb-3">
 							<label for="cinemaAddress" class="form-label">Income</label>
-			    			<input type="text" step="1" class="form-control" id="income" name="income" value="<%=p.getIncome()%>"  required>
+			    			<input type="text" step="1" class="form-control" id="income" name="income" value="<%=projection.getIncome()%>"  required>
 			            </div>
 			            
 			            
 			            <!-- Submit button -->
-			              	<a href="editProjection.jsp?cinema=<%=cinema.getCinema()%>&room=<%=room.getRoomNumber()%>&film=<%=film.getCip()%>&premiereDate=<%=premiereDate%>&premiereDay=<%=p.getPremiereDays()%>&spectators=<%=p.getSpectators()%>&income=<%=p.getIncome()%>"><button name="submit" class="btn btn-warning">Confirm Edit</button></a>
+			              	<a href="editProjection.jsp?cinema=<%=cinema.getCinema()%>&room=<%=room.getRoomNumber()%>&film=<%=film.getCip()%>&premiereDate=<%=premiereDate%>&premiereDay=<%=projection.getPremiereDays()%>&spectators=<%=projection.getSpectators()%>&income=<%=projection.getIncome()%>"><button name="submit" class="btn btn-warning">Confirm Edit</button></a>
 			          </form>
 			          <%}%>
 			          <%
