@@ -102,8 +102,13 @@
 			          </div>
 			          <form>
 			          <%if(projection != null){ //Si la proyeccion no es nula muestro los campos%>
+						<div class=" mb-3">
+							<label for="cinema" class="form-label">Cinema</label>
+						   <input type="text" class="form-control" id="cinema" name="cinema" value="<%=request.getParameter("cinema")%>" required readonly>
+					 </div>
+
 			            <div class=" mb-3">
-			    			<label for="cinema" class="form-label">Room number</label>
+			    			<label for="roomNumber" class="form-label">Room number</label>
 			    			<input type="text" class="form-control" id="roomNumber" name="roomNumber" value='<%=room.getRoomNumber()%>'readonly required>
 			            </div>
 			
@@ -134,7 +139,7 @@
 			            
 			            
 			            <!-- Submit button -->
-			              	<a href="editProjection.jsp?cinema=<%=cinema.getCinema()%>&room=<%=room.getRoomNumber()%>&film=<%=film.getCip()%>&premiereDate=<%=premiereDate%>&premiereDay=<%=projection.getPremiereDays()%>&spectators=<%=projection.getSpectators()%>&income=<%=projection.getIncome()%>"><button name="submit" class="btn btn-warning">Confirm Edit</button></a>
+			           <button type="submit" name="submit" class="btn btn-danger">Confirm</button>
 			          </form>
 			          <%}%>
 			          <%
