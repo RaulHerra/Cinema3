@@ -31,16 +31,17 @@ input:read-only, .readonly{
 
 /*propuestas de css, borrad o modificad lo que querais*/
 .table td{
-	vertical-align: middle;
 	background: transparent;
 }
-
+	
 .tableLeft td{
-	vertical-align: middle;
 	text-align: left;	
 }
 
+
+
 .table{
+	vertical-align: middle;
     width: max-content;
     min-width: 50%;
     margin-left: auto;
@@ -63,4 +64,8 @@ tbody tr:hover{
 button{
 	margin-top: 5px;
 	margin-bottom: 5px;
+}
+
+th button{
+	margin-left: 5px;
 }

@@ -48,7 +48,7 @@
 					<div class="card border-0 rounded-3 shadow-lg">
 						<div class="card-body p-4">
 							<div class="text-center">
-								<h1 align="center">Cast of Characters from <br><%=film.getTitleP()%></h1>
+								<h1 align="center">Cast from <br><%=film.getTitleP()%></h1>
 								<br>
 									<table class="table">
 										<thead>

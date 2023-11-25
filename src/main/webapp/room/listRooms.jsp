@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Room list</title>
+<title>List of rooms</title>
 <!-- ======= LINKS BOOTSTRAP ======= -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -55,21 +55,16 @@
 			<div class="col-lg-8">
 				<div class="card border-0 rounded-3 shadow-lg">
 					<div class="card-body p-4">
-					
+						<h1 align="center">List of rooms</h1>
+										
 						<table class="table">
-							<thead>
-								<tr>
-									<td colspan="2">
-										<h1>List rooms</h1>
-									</td>
-								</tr>
-
-							</thead>
+				
 							<%
 							for (Cinema cinema : cinemas) {
 							%>
 							<tr>
-								<th colspan="2">Cinema: <%=cinema.getCinema()%></th>
+								<th colspan="2"><%=cinema.getCinema()%> 
+								<a href="/CinemaTeam/room/cinemasRooms.jsp?cinema=<%=cinema.getCinema()%>"><button type="button" class="btn btn-primary ">Info</button></a></th>
 							</tr>
 
 							<tr>

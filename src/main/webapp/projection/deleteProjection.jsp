@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Edit projection</title>
+<title>Delete Projection</title>
 <!-- ======= LINKS BOOTSTRAP ======= -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
@@ -94,7 +94,7 @@
 			      <div class="card border-0 rounded-3 shadow-lg">
 			        <div class="card-body p-4">
 			          <div class="text-center">
-			            <h1>Delete Proyection</h1>
+			            <h1>Delete Projection</h1>
 			          </div>
 			          <form>
 			          <%if(projection != null){ //Si la proyeccion no es nula muestro los campos%>

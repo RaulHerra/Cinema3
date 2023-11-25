@@ -13,7 +13,7 @@
 <!-- ======= LINK CSS ======= -->
 <link rel="stylesheet" href="../style/style.css">
 
-<title>List Task</title>
+<title>List of tasks</title>
 </head>
 <body>
 	<%@include file="../nav.jsp"%>
@@ -32,7 +32,7 @@
 				<div class="card border-0 rounded-3 shadow-lg">
 					<div class="card-body p-4">
 						<div class="text-center">
-							<h1 align="center">List of task</h1>
+							<h1 align="center">List of tasks</h1>
 							<br>
 							<table class="table tableLeft">
 								<% for (Task t: result){//Recorremos la lista%>

@@ -49,7 +49,7 @@
 			      <div class="card border-0 rounded-3 shadow-lg">
 			        <div class="card-body p-4">
 			          <div class="text-center">
-			            <h1>Edit Film</h1>
+			            <h1>Edit Cinema</h1>
 			          </div>
 					<%if(cinema != null){ //Si el cine no es nulo muestro los campos%>
 			          <form>

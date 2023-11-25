@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Info Character</title>
+<title>Character's info</title>
 </head>
 
 <!-- ======= LINKS BOOTSTRAP ======= -->
@@ -57,7 +57,7 @@
 	      <div class="card border-0 rounded-3 shadow-lg">
 	        <div class="card-body p-4">
 	          <div class="text-center">
-	            <h1>Info Character</h1>
+	            <h1>Character's info</h1>
 	          </div>
 
 				<form method="get">

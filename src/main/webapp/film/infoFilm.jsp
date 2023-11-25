@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Info Film</title>
+<title>Film's info</title>
 <!-- ======= LINKS BOOTSTRAP ======= -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
@@ -42,7 +42,7 @@
 			      <div class="card border-0 rounded-3 shadow-lg">
 			        <div class="card-body p-4">
 			          <div class="text-center">
-			            <h1>Info Film</h1>
+			            <h1>Film's info</h1>
 			          </div>
 			          <form>
 			          <%if(film != null){ /*Esto lo pongo porque si no hay peliculas con el cip 
@@ -91,8 +91,6 @@
 			            
 
 			            <!-- Submit button -->
-			              	<a href="editFilm.jsp?cip=<%=film.getCip()%>"><button class="btn btn-warning "  type="button" name="edit">Edit</button></a>
-			              	<a href= "deleteFilm.jsp?cip=<%=film.getCip()%>"><button class="btn btn-danger "  type="submit" name="delete">Delete</button></a>
 				          <%
 				           	/*Cuando el valor de la sessi�n no se nulo es que se ha producido un error entonces muestro
 				           	el textarea que tengo abajo con el valor de la sesi�n que ser� el mensaje de error correspondiente*/
@@ -104,7 +102,9 @@
 			          </form>
 			          <%}%>
 			          <% if (film != null) { %>
-					  	<a href="./castCharacters.jsp?filmCharacters=<%=film.getCip()%>"><button class="btn btn-primary " id="submitButton" value="<%=film.getCip()%>" name="filmCharacters">Cast of characters</button></a>
+			              	<a href="editFilm.jsp?cip=<%=film.getCip()%>"><button class="btn btn-warning "  type="button" name="edit">Edit</button></a>
+			              	<a href= "deleteFilm.jsp?cip=<%=film.getCip()%>"><button class="btn btn-danger "  type="submit" name="delete">Delete</button></a>
+					  	<a href="./castCharacters.jsp?filmCharacters=<%=film.getCip()%>"><button class="btn btn-primary " id="submitButton" value="<%=film.getCip()%>" name="filmCharacters">Cast</button></a>
 					  <%} %>
 			        </div>
 			      </div>

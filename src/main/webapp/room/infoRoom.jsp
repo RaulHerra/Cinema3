@@ -59,7 +59,7 @@
 					<div class="card-body p-4">
 
 						<div class="text-center">
-							<h1>Info about the room</h1>
+							<h1>Room's info</h1>
 						</div>
 						<%if(tmpRoom != null && error == null){%>
 						<form id="addRoom" action="addRoom.jsp" method="get">

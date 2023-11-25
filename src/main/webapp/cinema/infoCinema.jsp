@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Info Cinema</title>
+<title>Cinema's info</title>
 <!-- ======= LINKS BOOTSTRAP ======= -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
@@ -37,7 +37,7 @@
 			      <div class="card border-0 rounded-3 shadow-lg">
 			        <div class="card-body p-4">
 			          <div class="text-center">
-			            <h1>Info Cinema</h1>
+			            <h1>Cinema's info</h1>
 			          </div>
 			          <form>
 			          <%if(cinema != null){ //Si el cine no es nulo muestro los campos%>
@@ -69,8 +69,8 @@
 			       		<%}%>
 			          <!-- End of contact form -->
 			          	<% if (cinema != null) { %>
-			   				 <a href="../room/cinemasRooms.jsp?cinema=<%=cinema.getCinema()%>"><button class="btn btn-primary" id="submitButton" name="cinema">Rooms</button></a>
-						<%} %>
+			   				 <a href="../room/cinemasRooms.jsp?cinema=<%=cinema.getCinema()%>"><button class="btn btn-primary" id="rooms" name="rooms">Rooms</button></a>
+						<%}%>
 			        </div>
 			      </div>
 			    </div>

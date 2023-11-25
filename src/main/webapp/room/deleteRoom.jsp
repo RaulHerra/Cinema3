@@ -56,7 +56,7 @@
 					<div class="card-body p-4">
 
 						<div class="text-center">
-							<h1>Delete the room</h1>
+							<h1>Delete Room</h1>
 						</div>
 						<%if(tmpRoom != null){%>
 						<form method="get">
