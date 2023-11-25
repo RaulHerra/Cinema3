@@ -102,7 +102,7 @@
 					Projection projection = null;
 					try{
 						int tmpSpectators = Integer.valueOf(request.getParameter("spectators"));
-						p = new Projection(room, film, premiereDate, 
+						projection = new Projection(room, film, premiereDate, 
 								premiereDays, 
 								tmpSpectators,
 								income);
