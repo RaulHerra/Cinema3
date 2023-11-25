@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Info Cinema</title>
+<title>Edit projection</title>
 <!-- ======= LINKS BOOTSTRAP ======= -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
@@ -102,6 +102,10 @@
 			          </div>
 			          <form>
 			          <%if(p != null){ //Si la proyeccion no es nula muestro los campos%>
+					      <div class=" mb-3">
+				           		<label for="cinema" class="form-label">Cinema</label>
+				  				<input type="text" class="form-control" id="cinema" name="cinema" value="<%=request.getParameter("cinema")%>" required readonly>
+				   		 </div>
 			            <div class=" mb-3">
 			    			<label for="cinema" class="form-label">Room number</label>
 			    			<input type="text" class="form-control" id="roomNumber" name="roomNumber" value='<%=room.getRoomNumber()%>'readonly required>
@@ -134,7 +138,7 @@
 			            
 			            
 			            <!-- Submit button -->
-			              	<a href="editProjection.jsp?cinema=<%=cinema.getCinema()%>&room=<%=room.getRoomNumber()%>&film=<%=film.getCip()%>&premiereDate=<%=premiereDate%>&premiereDay=<%=p.getPremiereDays()%>&spectators=<%=p.getSpectators()%>&income=<%=p.getIncome()%>"><button name="submit" class="btn btn-warning">Confirm Edit</button></a>
+			           <button type="submit" name="submit" class="btn btn-danger">Confirm</button>
 			          </form>
 			          <%}%>
 			          <%

@@ -74,12 +74,17 @@
 				}catch(Exception e){
 					error = "Error room number not valid";
 				}
-				
-				if(room!=null && cinema!=null && film!=null){
+
+				try{
+					Date.valueOf(request.getParameter("premiere_date"));
+				}catch(Exception e){
+					error = "Date not valid";
+
+				}
+				if(room!=null && cinema!=null && film!=null && error == null){
 					Projection p = null;
 					try{
 						int tmpSpectators = Integer.valueOf(request.getParameter("spectators"));
-						
 						p = new Projection(room, film, Date.valueOf(request.getParameter("premiere_date")), 
 								Integer.valueOf(request.getParameter("premiere_days")), 
 								tmpSpectators,
@@ -95,6 +100,12 @@
 						error = "The projection already exist!";
 					}
 				
+				}else if(room == null){
+					error = "The room not valid";
+				}else if(cinema == null){
+					error = "The cinema not valid";
+				}else if(film == null){
+					error = "The film not valid";
 				}
 			}
 		}catch(Exception e){
