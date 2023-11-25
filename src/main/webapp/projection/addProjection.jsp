@@ -9,9 +9,11 @@
 <%@ page import="com.jacaranda.model.Cinema"%>
 <%@ page import="com.jacaranda.model.Film"%>
 <%@ page import="com.jacaranda.model.Room"%>
+<%@ page import="com.jacaranda.model.Film"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.time.LocalDate"%>
+<%@ page import="java.sql.Date"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,9 +43,6 @@
 		response.sendRedirect("../error.jsp?msg=Failed to connect to database");
 		return;
 	}
-	
-%>
-<%
 	String error = null;
 	try{
 		try{
@@ -135,7 +134,7 @@
 			error = e.getMessage();
 		}
 	}catch(Exception e){
-		response.sendRedirect("../error.jsp?msg=Imposible acceder a la base de datos");
+		response.sendRedirect("../error.jsp?msg=Can't access to data base");
 		return;
 	}
 
@@ -175,10 +174,17 @@
 			%>
 			
 	          <form method="get">
+	      	 <% if(requestCinema==null){ %>
 		         <div class=" mb-3">
 		           <label for="cinema" class="form-label">Cinema</label>
 	   				<input type="text" class="form-control" id="cinema" name="cinema" value="<%=request.getParameter("cinema")%>" required readonly>
 	    		 </div>
+	    		 <%} if(requestCinema!=null){ %>
+	    		 <div class=" mb-3">
+		               <label for="cinema" class="form-label">Selected Cinema</label>
+		   			<input type="text" class="form-control" id="cinema" name="cinema" value="<%= requestCinema %>" required readonly>
+		           </div>
+		           
 	    		 <div class=" mb-3">
 		           <label for="room" class="form-label">Select Room</label>
 		   		   <select id="room" name="room" class="form-select custom-select">
@@ -205,8 +211,8 @@
 		           </div>
 	
 		           <div class=" mb-3">
-					<label for="cinemaAddress" class="form-label">Premiere Days</label>
-		   			<input type="number" class="form-control" id="premiere_days" name="premiere_days" min="1" placeholder="Enter premiere days" required>
+					<label for="premiere_days" class="form-label">Premiere Days</label>
+		   			<input type="number" class="form-control" id="premiere_days" min="1" placeholder="Enter premiere days number" name="premiere_days" required>
 		           </div>
 		           
 		           <div class=" mb-3">
