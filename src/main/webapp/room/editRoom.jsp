@@ -102,47 +102,39 @@
 									placeholder="Enter Room capacity" required
 									value="<%=tmpRoom.getCapacity()%>">
 							</div>
-							
-							<%}%>		
+
+							<%
+							}
+							%>
 							<%
 							//Mensaje de error que salta si anteriormente ha saltado alguna excepcion.Mostrara el mensaje correspondiente
 							if (error != null) {
 							%>
-								<div class="textAreaInfoError"><%=error%></div>
-								<%if(tmpCinema != null){%>
-									<a href="cinemasRooms.jsp?cinema=<%=tmpCinema.getCinema()%>"><button class="btn btn-primary " id="submitButton" type="button">Retry</button></a>
-								<%}else{%>
-									<a href="../cinema/listCinemas.jsp"><button class="btn btn-primary " id="submitButton" type="button">Retry</button></a>
+							<div class="textAreaInfoError"><%=error%></div>
+							<%
+								if (tmpCinema != null) {%>
+									<a href="cinemasRooms.jsp?cinema=<%=tmpCinema.getCinema()%>"><button
+											class="btn btn-primary " id="submitButton" type="button">Retry</button></a>
+								<%} else {%>
+									<a href="../cinema/listCinemas.jsp"><button
+											class="btn btn-primary " id="submitButton" type="button">Retry</button></a>
 								<%}%>
 							<%
 							//Mensaje de exito que salta en el caso de que se crea con exito la tarea
-							} else if (request.getParameter("edit") != null && error == null) {
-							%>
-							<div class="textAreaInfoSuccesfull">Room edited
-								successfully!</div>
-							<%
-							}
-							%>
-
-
-								
-							<%
-							if (request.getParameter("edit") == null && error == null) {
-							%>
-							<button class="btn btn-danger" id="submitButton" type="submit" name="edit">Confirm</button>
-							<%
-							} else if (tmpRoom!= null && error == null){
-							%>
-								<a href="infoRoom.jsp?cinema=<%=tmpRoom.getCinema().getCinema()%>&room=<%=tmpRoom.getRoomNumber()%>"><button type="button" class="btn btn-primary">Show details</button></a>
-							<%
-							}
-							%>
-								
-								
-								
-
-						</form>
+							}else if (request.getParameter("edit") != null && error == null) {%>
+								<div class="textAreaInfoSuccesfull">Room edited successfully!</div>
+							<%}
+							
+							if (request.getParameter("edit") == null && error == null) {%>
+								<button class="btn btn-danger" id="submitButton" type="submit"
+								name="edit">Confirm</button>
+							<%} else if (tmpRoom != null && error == null) {%>
+							<a href="infoRoom.jsp?cinema=<%=tmpRoom.getCinema().getCinema()%>&room=<%=tmpRoom.getRoomNumber()%>">
+							<button	type="button" class="btn btn-primary">Show details</button></a>
+							
+							<%}%>
 					
+						</form>
 					</div>
 				</div>
 			</div>
