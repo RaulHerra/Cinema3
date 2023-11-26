@@ -86,7 +86,7 @@
 				projection = DbRepository.find(Projection.class,projectionFind);				
 			}
 				
-			if(request.getParameter("submit") != null){
+			if(request.getParameter("edit") != null){
 				int premiereDays = -1;
 				int spectators = -1;
 				int income = -1;
@@ -116,7 +116,6 @@
 							premiereDays, 
 							spectators,
 							income);
-					
 					DbRepository.editEntity(projection);
 				}
 				
@@ -154,22 +153,22 @@
 			
 			            <div class=" mb-3">
 							<label for="premiereDate" class="form-label">Premiere date</label>
-			    			<input type="text" step="1" class="form-control" id="premiereDate" name="premiereDate" value="<%=premiereDate%>" readonly required>
+			    			<input type="date" class="form-control" id="premiereDate" name="premiereDate" value="<%=premiereDate%>" readonly required>
 			            </div>
 			            
 						<div class=" mb-3">
 							<label for="premiereDays" class="form-label">Premiere days</label>
-			    			<input type="text" step="1" class="form-control" id="premiereDays" name="premiereDays" value="<%=projection.getPremiereDays()%>"  required>
+			    			<input type="number" min="1" class="form-control" id="premiereDays" name="premiereDays" value="<%=projection.getPremiereDays()%>"  required>
 			            </div>
 			            
 			            <div class=" mb-3">
 							<label for="spectators" class="form-label">Spectators</label>
-			    			<input type="text" step="1" class="form-control" id="spectators" name="spectators" value="<%=projection.getSpectators()%>"  required>
+			    			<input type="number" min="1" class="form-control" id="spectators" name="spectators" value="<%=projection.getSpectators()%>"  required>
 			            </div>
 			            
 			            <div class=" mb-3">
 							<label for="income" class="form-label">Income</label>
-			    			<input type="text" step="1" class="form-control" id="income" name="income" value="<%=projection.getIncome()%>"  required>
+			    			<input type="number" min="1" class="form-control" id="income" name="income" value="<%=projection.getIncome()%>"  required>
 			            </div>
 			            
 			            
