@@ -87,7 +87,7 @@
 			    <%} %>
 			  <% if (error != null) {%>
 				  <div class="textAreaInfoError" > <%=error%> </div>
-				  <a href="./listCharacters.jsp"> <button class="btn btn-primary " id="submitButton" type="button"> Return list </button></a>
+				  <a href="./listCharacters.jsp"> <button class="btn btn-info" id="submitButton" type="button"> Return list </button></a>
 			  <% }%>
 			<% if (character != null) { %>
 				<a href="./filmography.jsp?characterFilms=<%=character.getCharacterName()%>"><button class="btn btn-primary " id="submitButton" value="<%=character.getCharacterName()%>" name="characterFilms">See Filmography</button></a>

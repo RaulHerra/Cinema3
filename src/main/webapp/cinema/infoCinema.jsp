@@ -65,7 +65,7 @@
 			          <%
 			      		if(error != null){ //En el caso de haya un erro muestro el error y pongo un boton de volver a la lista%>
 			            	<div class="textAreaInfoError " ><%=error%></div><br>
-			            	<a href="./listCinemas.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
+			            	<a href="./listCinemas.jsp"><button class="btn btn-info" id="submitButton" type="button">Return list</button></a>
 			       		<%}%>
 			          <!-- End of contact form -->
 			          	<% if (cinema != null) { %>

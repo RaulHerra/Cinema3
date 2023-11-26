@@ -96,7 +96,7 @@
 				           	el textarea que tengo abajo con el valor de la sesi�n que ser� el mensaje de error correspondiente*/
 				      		if(error!= null){%>
 				            	<div class="textAreaInfoError" ><%=error%></div>
-				            	<a href="./listFilms.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
+				            	<a href="./listFilms.jsp"><button class="btn btn-info" id="submitButton" type="button">Return list</button></a>
 				       		<%}%>
 				          <!-- End of contact form -->
 			          </form>

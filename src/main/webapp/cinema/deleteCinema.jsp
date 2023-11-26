@@ -80,7 +80,7 @@
 								
 								try{
 									CinemaRepository.delete(cinema);%>
-									<a href="listCinemas.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
+									<a href="listCinemas.jsp"><button class="btn btn-info" id="submitButton" type="button">Return list</button></a>
 								<%}catch(Exception e){
 									error = "Cinema not found";
 								}

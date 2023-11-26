@@ -103,7 +103,7 @@
 								try{
 									RoomRepository.delete(tmpRoom);%>
 									<div class="textAreaInfoSuccesfull " >Room deleted successfully!</div> 
-									<a href="../cinema/listCinemas.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return list</button></a>
+									<a href="../cinema/listCinemas.jsp"><button class="btn btn-info" id="submitButton" type="button">Return list</button></a>
 								<%}catch(Exception e){
 									error = "Room not found";
 								}

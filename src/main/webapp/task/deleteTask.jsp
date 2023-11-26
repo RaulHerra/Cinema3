@@ -63,7 +63,7 @@
 				            	<button class="btn btn-danger " id="submitButton" type="submit" name="comfirmSubmit">Confirm</button>
 				            	<a href="infoTask.jsp?task=<%=request.getParameter("task")%>"><button class="btn btn-primary " id="submitButton" type="button" name="undo">Undo</button></a>	
 				            <%} else if(request.getParameter("comfirmSubmit") != null || error != null){//Una vez eliminado se da la opcion de volver a la lista de las demas tareas%>
-				            	<a href="listTasks.jsp"><button class="btn btn-primary " id="submitButton" type="button">Return List</button></a>
+				            	<a href="listTasks.jsp"><button class="btn btn-info" id="submitButton" type="button">Return List</button></a>
 				            <%}//Borramos la session para que no arrastre errores%>
 				            
 			          </form>	
