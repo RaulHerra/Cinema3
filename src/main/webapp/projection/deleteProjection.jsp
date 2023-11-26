@@ -105,13 +105,15 @@
 
 			            <div class=" mb-3">
 			    			<label for="roomNumber" class="form-label">Room number</label>
-			    			<input type="text" class="form-control" id="roomNumber" name="room" value='<%=projection.getRoom().getRoomNumber()%>'readonly required>
+			    			<input type="text" class="form-control" id="roomNumber" name="roomNumber" value='<%=projection.getRoom().getRoomNumber()%>'readonly required>
 			            </div>
 			
 			            <div class=" mb-3">
 			                <label for="cinemaCity" class="form-label">Film title</label>
 			    			<input type="text" class="form-control" id="filmTitle" name="film" value="<%=projection.getFilm().getTitleP()%>" readonly required>
+			    			<input type="text" class="form-control" id="filmCip" name="filmCip" value="<%=projection.getFilm().getCip()%>" readonly required hidden>
 			            </div>
+			            
 			
 			            <div class=" mb-3">
 							<label for="cinemaAddress" class="form-label">Premiere date</label>
