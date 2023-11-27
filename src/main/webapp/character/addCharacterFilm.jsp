@@ -105,7 +105,7 @@
 								<label for="film" class="form-label">Films</label>
 								<div class="mb-3">
 									<input value="<%=filmFind.getTitleP()%>" class="form-control"
-										name="filmTitle" readonly required> <input
+										readonly required> <input
 										value="<%=filmFind.getCip()%>" class="form-control"
 										name="films" hidden>
 								</div>
@@ -146,7 +146,7 @@
 								<label for="film" class="form-label">Films</label>
 								<div class="mb-3">
 									<input class="form-control"
-										value="<%=request.getParameter("filmTitle")%>"
+										value="<%=filmFind.getTitleP()%>"
 										name="filmTitle" readonly required> <input
 										value="<%=filmFind.getCip()%>" class="form-control"
 										name="films" hidden>
