@@ -58,8 +58,8 @@
 	            <%//Si hay errores se muestran
 	            if(error != null){%>
 	            	<div class="textAreaInfoError " ><%=error%></div>
-		            <%//Si da algun error tiene la opcion de volver a editar%>
-		            	<a href="editTask.jsp?task=<%=request.getParameter("task")%>"><button class="btn btn-primary " id="submitButton" type="button">Retry</button></a>
+  					<a href="listTasks.jsp"><button class="btn btn-info" id="submitButton" type="button">Return List</button></a>
+	            	
 	            	
 	            <%//En el caso de que no haya errores y se le de a confirmar se muestra el mensaje de exito
 	            }else if(request.getParameter("comfirmSubmit") != null && error == null){%>

@@ -60,7 +60,7 @@
 				if(cinema != null){
 					room = new Room(cinema,Integer.valueOf(roomParam),23);					
 				}else{
-					error = "cinema not valid";
+					error = "Error cinema not valid";
 				}
 			}catch(Exception e){
 				error = "Error room number not valid";
@@ -68,11 +68,11 @@
 			
 			
 		 	if(error == null && room == null){
-				error = "The room not valida";
+				error = "Error room not valida";
 			}else if(error == null && cinema == null){
-				error = "The cinema not valid";
+				error = "Error cinema not valid";
 			}else if(error == null && film == null){
-				error = "The film not valid";
+				error = "Error film not valid";
 			}
 			
 			Projection projectionFind = null;

@@ -25,8 +25,8 @@
 <body>
 	<%@include file="../nav.jsp"%>
 	<%
-		int roomId;
-		int capacity;
+		int roomId = -1;
+		int capacity = -1;
 		Room tmpRoom = null;
 		Cinema tmpCinema = null;
 		String error = null;
@@ -34,36 +34,43 @@
 		try {
 			//Validamos que ambos campos existan 
 			roomId = Integer.parseInt((String) request.getParameter("room"));
-			tmpCinema = DbRepository.find(Cinema.class, request.getParameter("cinema"));
-			tmpRoom = DbRepository.find(Room.class, new Room(tmpCinema, roomId));
-			
-			if(request.getParameter("edit") != null){
-				if(session.getAttribute("oldRoom") == null){
-					error = "Not editable room, try again";
-				}
-				
-				try {
-					capacity = Integer.parseInt((String) request.getParameter("capacity"));
-					tmpRoom = new Room(tmpCinema, roomId,capacity);
-					Room originalRoom = (Room) session.getAttribute("oldRoom");
-					RoomRepository.updateTo(originalRoom, tmpRoom);
-				} catch (RoomException e) {
-					error = e.getMessage();
-				} catch (Exception e) {
-					error = "Not editable room, try again";
-				}	
-				
-				session.removeAttribute("oldRoom");
-		} else {
-			session.setAttribute("oldRoom", tmpRoom);
+		} catch (Exception e) {
+			error = "Error: Room id isn't valid";
 		}
-
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-				response.sendRedirect("../error.jsp?msg=Failed to connect to database");
-				return;
+		if(error == null){
+			tmpCinema = DbRepository.find(Cinema.class, request.getParameter("cinema"));
+			if(tmpCinema != null){
+				tmpRoom = DbRepository.find(Room.class, new Room(tmpCinema, roomId));
+				if(tmpRoom == null && session.getAttribute("oldRoom") == null){
+					error = "Error: Room doesn't exist";
+				}
+			}else{
+				error = "Error: Cinema doesn't exist";
 			}
+		}
+			
 	
+				if(request.getParameter("edit") != null && error == null){
+					if(session.getAttribute("oldRoom") == null){
+						error = "Not editable room, try again";
+					}
+					
+					try {
+						capacity = Integer.parseInt((String) request.getParameter("capacity"));
+						tmpRoom = new Room(tmpCinema, roomId,capacity);
+						Room originalRoom = (Room) session.getAttribute("oldRoom");
+						RoomRepository.updateTo(originalRoom, tmpRoom);
+					} catch (RoomException e) {
+						error = e.getMessage();
+					} catch (Exception e) {
+						error = "Not editable room, try again";
+					}	
+					
+					session.removeAttribute("oldRoom");
+			} else if (error == null){
+				session.setAttribute("oldRoom", tmpRoom);
+			}
+
 	%>
 	
 	<div class="container px-5 my-5">
@@ -96,29 +103,23 @@
 								<label for="capacity" class="form-label">Capacity</label> 
 								<input
 									class="form-control" id="capacity" name="capacity"
-									type="number" min="20" step="1"
+									type="number" min="21" step="1"
 									placeholder="Enter Room capacity" required
 									value="<%=tmpRoom.getCapacity()%>">
 							</div>
 
 							<%
-							}else{
-								error = "Room not valid";
 							}
 							%>
 							<%
 							//Mensaje de error que salta si anteriormente ha saltado alguna excepcion.Mostrara el mensaje correspondiente
 							if (error != null) {
+									session.removeAttribute("oldRoom");
 							%>
 							<div class="textAreaInfoError"><%=error%></div>
-							<%
-								if (tmpCinema != null) {%>
-									<a href="cinemasRooms.jsp?cinema=<%=tmpCinema.getCinema()%>"><button
-											class="btn btn-primary " id="submitButton" type="button">Retry</button></a>
-								<%} else {%>
-									<a href="../cinema/listCinemas.jsp"><button
-											class="btn btn-primary " id="submitButton" type="button">Retry</button></a>
-								<%}%>
+	
+					            	<a href="../cinema/listCinemas.jsp"><button class="btn btn-info " id="submitButton" type="button">Return to cinemas</button></a>
+					            	<a href="../room/listRooms.jsp"><button class="btn btn-info " id="submitButton" type="button">Return to rooms</button></a>
 							<%
 							//Mensaje de exito que salta en el caso de que se crea con exito la tarea
 							}else if (request.getParameter("edit") != null && error == null) {%>

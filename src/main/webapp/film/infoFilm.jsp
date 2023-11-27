@@ -90,17 +90,13 @@
 			            </div>
 			            
 
-			            <!-- Submit button -->
+			          </form>
+			          <%}%>
 				          <%
-				           	/*Cuando el valor de la sessi�n no se nulo es que se ha producido un error entonces muestro
-				           	el textarea que tengo abajo con el valor de la sesi�n que ser� el mensaje de error correspondiente*/
 				      		if(error!= null){%>
 				            	<div class="textAreaInfoError" ><%=error%></div>
 				            	<a href="./listFilms.jsp"><button class="btn btn-info" id="submitButton" type="button">Return list</button></a>
 				       		<%}%>
-				          <!-- End of contact form -->
-			          </form>
-			          <%}%>
 			          <% if (film != null) { %>
 			              	<a href="editFilm.jsp?cip=<%=film.getCip()%>"><button class="btn btn-warning "  type="button" name="edit">Edit</button></a>
 			              	<a href= "deleteFilm.jsp?cip=<%=film.getCip()%>"><button class="btn btn-danger "  type="submit" name="delete">Delete</button></a>

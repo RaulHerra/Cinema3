@@ -82,7 +82,9 @@
 						</table>
 			            <%}if(error != null){%>
 			            	<div class="textAreaInfoError " ><%=error%></div>
-			            	<a href="../cinema/listCinemas.jsp"><button class="btn btn-primary " id="submitButton" type="button">Retry</button></a>
+			            	<a href="../cinema/listCinemas.jsp"><button class="btn btn-info " id="submitButton" type="button">Return to cinemas</button></a>
+			            	<a href="../room/listRooms.jsp"><button class="btn btn-info " id="submitButton" type="button">Return to rooms</button></a>
+			            	
 			            <%}%>
 					</div>
 				</div>

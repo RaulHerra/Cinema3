@@ -94,16 +94,19 @@
 				            	<a href="../cinema/infoCinema.jsp?cinema=<%=request.getParameter("cinema")%>"><button class="btn btn-primary  " id="submitButton" type="button" name="undo">Undo</button></a>
 							<%}else if(error != null){ //Si hay algun error le doy la opción de reintentar%>
 				            	<div class="textAreaInfoError" ><%=error%></div>
-								<a href="../cinema/listCinemas.jsp"><button class="btn btn-primary" id="submitButton" type="button">Retry</button></a>
+				            	<a href="../cinema/listCinemas.jsp"><button class="btn btn-info " id="submitButton" type="button">Return to cinemas</button></a>
+				            	<a href="../room/listRooms.jsp"><button class="btn btn-info " id="submitButton" type="button">Return to rooms</button></a>
 							<%}else if(tmpRoom == null){%>
 								<div class="textAreaInfoError" >Room not found</div>
-								<a href="../cinema/listCinemas.jsp"><button class="btn btn-primary" id="submitButton" type="button">Retry</button></a>
+				            	<a href="../cinema/listCinemas.jsp"><button class="btn btn-info " id="submitButton" type="button">Return to cinemas</button></a>
+				            	<a href="../room/listRooms.jsp"><button class="btn btn-info " id="submitButton" type="button">Return to rooms</button></a>
 							<%}else if(request.getParameter("submit") != null && error == null){ //Cuando le de a borrar confirmado borro el cinema
 
 								try{
 									RoomRepository.delete(tmpRoom);%>
 									<div class="textAreaInfoSuccesfull " >Room deleted successfully!</div> 
-									<a href="../cinema/listCinemas.jsp"><button class="btn btn-info" id="submitButton" type="button">Return list</button></a>
+					            	<a href="../cinema/listCinemas.jsp"><button class="btn btn-info " id="submitButton" type="button">Return to cinemas</button></a>
+					            	<a href="../room/listRooms.jsp"><button class="btn btn-info " id="submitButton" type="button">Return to rooms</button></a>
 								<%}catch(Exception e){
 									error = "Room not found";
 								}

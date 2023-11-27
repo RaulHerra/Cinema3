@@ -24,21 +24,27 @@
 	<%@include file="../nav.jsp"%>
 	<%
 
-	int roomId;
-	int capacity;
+	int roomId = -1;
+	int capacity = -1;
 	Room tmpRoom = null;
 	Cinema tmpCinema = null;
 	String error = null;
 	try {
 		//Validamos que ambos campos existan 
-		roomId = Integer.parseInt((String) request.getParameter("room"));
+		
+		try{
+			roomId = Integer.parseInt((String) request.getParameter("room"));
+		}catch(Exception e) {
+			error = "Error: id not valid";
+		}
+		
 		tmpCinema = DbRepository.find(Cinema.class, request.getParameter("cinema"));
-		if(tmpCinema == null){
-			error = "cinema not valid";
-		}else{
+		if(tmpCinema == null && error == null){
+			error = "Error: cinema not valid";
+		}else if (error == null){
 			tmpRoom = DbRepository.find(Room.class, new Room(tmpCinema, roomId));	
 			if(tmpRoom == null){
-				error = "room not valid";
+				error = "Error: room not valid";
 			}
 		}
 		
@@ -93,8 +99,9 @@
 						</form>
 						<%}else{%>
 							<div class="textAreaInfoError"><%=error%></div>
-							<a href="../cinema/listCinemas.jsp"><button
-											class="btn btn-primary " id="submitButton" type="button">Retry</button></a>
+			            	<a href="../cinema/listCinemas.jsp"><button class="btn btn-info " id="submitButton" type="button">Return to cinemas</button></a>
+			            	<a href="../room/listRooms.jsp"><button class="btn btn-info " id="submitButton" type="button">Return to rooms</button></a>
+
 						<%}%>
 					</div>
 				</div>

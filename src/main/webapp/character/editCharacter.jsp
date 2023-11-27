@@ -91,6 +91,8 @@
 			            textarea that I have below with the value of the session variable, that has the fitting error message*/
 			            if(error != null){%>
 			            	<div class="textAreaInfoError"><%=error%></div>
+							<a href="./listCharacters.jsp"><button class="btn btn-info" id="submitButton" type="button">Return to list</button></a>
+			            	
 			            <%/*Here, if the submit is sent, and the value of the session variable is null, that means that was edited correctly. Then, I show
 			            the success message*/
 			            }else if(request.getParameter("edit") != null && error == null) {%>
@@ -114,6 +116,7 @@
 					     		<a href="infoCharacter.jsp?characterName=<%=character.getCharacterName()%>"> <button class="btn btn-primary " id="submitButton" type="button">Show character</button></a>
 			            	
 			            	<%}%>
+	            	
 			              	
 
 			          </form>
