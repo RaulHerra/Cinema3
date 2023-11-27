@@ -11,8 +11,13 @@
 <body>
 	<%@include file="../nav.jsp"%>
 	<div class="textWelcome">Welcome to the cinema of the group of Gonzalo, Jesús, Francisco Javier and Raúl, have a good time!</div>
-	<div class="imgIndex">
-		<img src="https://images.unsplash.com/photo-1485095329183-d0797cdc5676?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
-	</div>
+	<div class="slider-frame">
+        <ul>
+            <li><img src="./img/imagen1.jpg"></li>
+            <li><img src="./img/imagen2.jpg"></li>
+            <li><img src="./img/imagen3.jpg"></li>
+            <li><img src="./img/imagen4.jpg"></li>
+        </ul>
+    </div>
 </body>
 </html>
