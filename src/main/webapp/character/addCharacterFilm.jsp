@@ -47,7 +47,7 @@
 			Task task = DbRepository.find(Task.class, request.getParameter("task"));//BUSCAMOS LA TAREA PASADA POR FORMULARIO
 
 			if (film == null || character == null || task == null) { //SI TODO ES NULO ENVIAREMOS UN MENSAJE DE ERROR
-				error = "Enter a valid movie, character or task.";
+				error = "Enter a valid film, character or task.";
 			} else {
 				work = new Work(character, film, task); //SI TODO EXISTE CREAREMOS UN TRABAJO
 			}
@@ -185,13 +185,11 @@
 						}
 						%>
 						<%
-						/*Cuando el valor de la sessi�n no se nulo es que se ha producido un error entonces muestro
-						el textarea que tengo abajo con el valor de la sesi�n que ser� el mensaje de error correspondiente*/
 						if (error != null) {
 							%>
 							<div class="textAreaInfoError"><%=error%></div>
 							<a href="addCharacterFilm.jsp" type="button" type="submit"
-								class="btn btn-info">Retry</a>
+								class="btn btn-info">Return to the form</a>
 						<%} else if (request.getParameter("submit") != null && error == null) {
 							%>
 							<div class="textAreaInfoSuccesfull ">Work created

@@ -110,7 +110,7 @@
 				  			  
 				  <!-- Div of the submit button and redirect to list button  -->
 				  	
-				  	<button class="btn btn-primary btn-success" id="submitButton" type="submit" name="submit"> Save </button>
+				  	<button class="btn  btn-success" id="submitButton" type="submit" name="submit"> Save </button>
 				  	
 				  	<% if ((request.getParameter("submit") != null) && (error == null) && (character != null)) { %>
 						<a href="infoCharacter.jsp?characterName=<%=character.getCharacterName()%> "> 

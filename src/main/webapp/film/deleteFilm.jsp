@@ -24,7 +24,7 @@
 			/*Si existe la pelicula que he recogio con el parametro cip que viene de la pagina de info*/
 			film = DbRepository.find(Film.class, request.getParameter("cip"));
 			if(film == null){
-				error = "Error there is no movie with the cip entered";
+				error = "Error there is no film with the cip entered";
 			}
 		}catch(Exception e){
 			response.sendRedirect("../error.jsp?msg=Failed to connect to database");
@@ -106,14 +106,14 @@
 								<button class="btn btn-danger" id="submitButton" type="submit" name="submit">Confirm</button>
 				            	<a href="./infoFilm.jsp?cip=<%=request.getParameter("cip")%>"><button class="btn btn-primary  " id="submitButton" type="button" name="undo">Undo</button></a>
 							<%}else if(error != null){%>
-								<a href="./listFilms.jsp"><button class="btn btn-info" id="submitButton" type="button">Return list</button></a>
+								<a href="./listFilms.jsp"><button class="btn btn-info" id="submitButton" type="button">Return to list</button></a>
 							<%}%>
 							
 							<%if(request.getParameter("submit") != null && error == null){
 								FilmRepository.delete(film);%>
 								<!-- Una vez que haya confirmado que borra la pelicula borro la pelicual y pongo un botón para que pueda volver a la lista de peliculas
 								para confirmar que se ha borrado -->
-								<a href="./listFilms.jsp"><button class="btn btn-info" id="submitButton" type="button">Return list</button></a>
+								<a href="./listFilms.jsp"><button class="btn btn-info" id="submitButton" type="button">Return to list</button></a>
 							<%}%>
 			          </form>
 			        </div>

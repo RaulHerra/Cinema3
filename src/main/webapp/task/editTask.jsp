@@ -58,7 +58,7 @@
 	            <%//Si hay errores se muestran
 	            if(error != null){%>
 	            	<div class="textAreaInfoError " ><%=error%></div>
-  					<a href="listTasks.jsp"><button class="btn btn-info" id="submitButton" type="button">Return List</button></a>
+  					<a href="listTasks.jsp"><button class="btn btn-info" id="submitButton" type="button">Return to List</button></a>
 	            	
 	            	
 	            <%//En el caso de que no haya errores y se le de a confirmar se muestra el mensaje de exito

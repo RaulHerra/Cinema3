@@ -100,7 +100,7 @@
 									<div class="textAreaInfoError"><%=error%></div>
 								</div>
 									<a href="./listFilms.jsp"><button class="btn btn-info"
-											id="submitButton" type="button">Return</button></a>
+											id="submitButton" type="button">Return to list</button></a>
 							</div>
 						</div>
 					</div>

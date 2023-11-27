@@ -35,15 +35,15 @@
 							<h1 align="center">List of tasks</h1>
 							<br>
 							<table class="table tableLeft">
-								<% for (Task t: result){//Recorremos la lista%>
+								<% for (Task task: result){//Recorremos la lista%>
 								<tr>
-									<td><%=t.getTask()%></td>
+									<td><%=task.getTask()%></td>
 
 
 									<td>
 										<form action="infoTask.jsp">
 											<%//Asignamos un boton para ver los detalles de cada tarea %>
-											<input type="text" name="task" value='<%=t.getTask()%>'
+											<input type="text" name="task" value='<%=task.getTask()%>'
 												hidden>
 											<button class="btn btn-primary " type="submit">Info</button>
 										</form>

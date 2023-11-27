@@ -61,7 +61,7 @@ public class Cinema {
 
 	public void setCityCinema(String cityCinema) throws CinemaException {
 		if(cityCinema == null || cityCinema.length() > MAX_LENGTH_CITY_CINEMA || cityCinema.equals("")) {
-			throw new CinemaException("The length of the movie city must be less than 25 characters and cannot be empty");
+			throw new CinemaException("The length of the film city must be less than 25 characters and cannot be empty");
 		}
 		this.cityCinema = cityCinema;
 	}

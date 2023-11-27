@@ -177,7 +177,7 @@
 			          <%
 			         if(error != null){%>
 		            	<div class="textAreaInfoError " ><%=error%></div>
-		            	<a href="listProjections.jsp"><button class="btn btn-primary " id="submitButton" type="button">Retry</button></a>
+		            	<a href="listProjections.jsp"><button class="btn btn-info " id="submitButton" type="button">Return to list</button></a>
 		            <%/*Y aqui si se ha enviado el edit y en valor de la variable es nulo significa que se ha editado correctamente, entoces muestro
 		            el mensaje de éxito*/
 		            }else if(request.getParameter("edit") != null && error == null){%>
