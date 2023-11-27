@@ -40,14 +40,19 @@
 	100% {margin-left: -300%;}
 }
 
-.textWelcome{
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	margin-top: 1%;
-	margin-bottom: 1%;
-	font-size: 15pt;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+.welcome {
+    font-size: 88px;
+    color: #FF5733;
+    text-align: center;
+	font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.textWelcome {
+    font-size: 15px;
+    color: cadetblue; 
+    text-align: center;
+    margin-top: 20px; 
+    font-weight: bold;
 }
 
 img{

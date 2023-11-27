@@ -10,7 +10,8 @@
 </head>
 <body>
 	<%@include file="../nav.jsp"%>
-	<div class="textWelcome">Welcome to the cinema of the group of Gonzalo, Jesús, Francisco Javier and Raúl, have a good time!</div>
+	<h1 class="welcome">WELCOME</h1>
+	<div class="textWelcome text-center">This is the cinema of the group of Gonzalo, Jesús, Francisco Javier and Raúl, have a good time!</div>
 	<div class="slider-frame">
         <ul>
             <li><img src="./img/imagen1.jpg"></li>
