@@ -95,7 +95,7 @@
 								you selected doesn't exist</div>
 						</div>
 						<a href="./listCharacters.jsp">
-							<button class="btn btn-info " id="submitButton" type="button">Return</button>
+							<button class="btn btn-info " id="submitButton" type="button">Return to list</button>
 						</a>
 					</div>
 				</div>

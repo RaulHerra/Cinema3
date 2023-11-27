@@ -56,7 +56,7 @@
 			      		if(error!= null){//En el caso de que no exista se muestra el valor y da la opcion al usuario de volver a la lista de tareas
 			      		%>
 			            	<div class="textAreaInfoError" ><%=error%></div>
-			            	<a href="listTasks.jsp"><button class="btn btn-info" id="submitButton" type="button">Return list</button></a>
+			            	<a href="listTasks.jsp"><button class="btn btn-info" id="submitButton" type="button">Return to list</button></a>
 			       		<%};//Borramos la session para que no arrastre errores
 			       		%>
 			          </form>

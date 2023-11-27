@@ -75,12 +75,12 @@
 								<button class="btn btn-danger" id="submitButton" type="submit" name="submit">Confirm</button>
 				            	<a href="./infoCinema.jsp?cinema=<%=request.getParameter("cinema")%>"><button class="btn btn-primary  " id="submitButton" type="button" name="undo">Undo</button></a>
 							<%}else if(error != null){ //Si hay algun error le doy la opción de reintentar%>
-								<a href="./listCinemas.jsp"><button class="btn btn-primary" id="submitButton" type="button">Retry</button></a>
+								<a href="./listCinemas.jsp"><button class="btn btn-info" id="submitButton" type="button">Return to list</button></a>
 							<%}else if(request.getParameter("submit") != null && error == null){ //Cuando le de a borrar confirmado borro el cinema
 								
 								try{
 									CinemaRepository.delete(cinema);%>
-									<a href="listCinemas.jsp"><button class="btn btn-info" id="submitButton" type="button">Return list</button></a>
+									<a href="listCinemas.jsp"><button class="btn btn-info" id="submitButton" type="button">Return to list</button></a>
 								<%}catch(Exception e){
 									error = "Cinema not found";
 								}

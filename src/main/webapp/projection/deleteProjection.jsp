@@ -155,7 +155,7 @@
 								<button class="btn btn-danger" id="submitButton" type="submit" name="submit">Confirm</button>
 				            	<a href="infoProjection.jsp?premiereDate=<%=projection.getPremiereDate()%>&room=<%=projection.getRoom().getRoomNumber()%>&cinema=<%=cinema.getCinema()%>&film=<%=projection.getFilm().getCip()%>"><button class="btn btn-primary" id="submitButton" type="button" name="undo">Undo</button></a>
 							<%}else if(error != null){ //Si hay algun error le doy la opción de reintentar%>
-								<a href="./listProjections.jsp"><button class="btn btn-primary" id="submitButton" type="button">Retry</button></a>
+								<a href="./listProjections.jsp"><button class="btn btn-info id="submitButton" type="button">Return to list</button></a>
 							<%}else if(request.getParameter("submit") != null && error == null){ //Cuando le de a borrar confirmado borro
 								try{
 									DbRepository.deleteEntity(projection);%>

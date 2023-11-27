@@ -42,7 +42,7 @@
 			/*Si no existe ninguna pelicula con el cip que le hemos pasado por parametro a la session de error
 			 * le asigno el error de que no hay niguna pelicula con ese cip*/
 			}else{
-				error = "Error there is no movie with the cip entered";
+				error = "Error there is no film with the cip entered";
 			}
 		}catch(Exception e){
 			response.sendRedirect("../error.jsp?msg=Failed to connect to database");
@@ -107,7 +107,7 @@
 			            	<div class="textAreaInfoError " ><%=error%></div>
 			            	<!-- Este botón no es necesario, pero si me da algún error que no se quede solo con el error, le he puesto un botón para 
 			            	que reintente editar la pelicula si quiere-->
-			            		<a href="editFilm.jsp?cip=<%=request.getParameter("cip")%>"><button class="btn btn-primary " id="submitButton" type="button">Retry</button></a>
+			            		<a href="listFilms.jsp"><button class="btn btn-info " id="submitButton" type="button">Return to list</button></a>
 			            <%/*Y aqui si se ha enviado el edit y en valor de la session es nulo significa que se ha editado correctamente, entoces muestro
 			            el mensaje de éxito*/
 			            }else if(request.getParameter("edit") != null && error == null){%>
@@ -121,7 +121,7 @@
 					     	<%}else if(request.getParameter("edit") != null && error == null){ %>
 					     		<!-- Y cuando le haya dado a confirmar y no haya ningún error le muestro este botón para que pueda ver los detalles de la pelicula -->
 					     		<a href="infoFilm.jsp?cip=<%=request.getParameter("cip")%>"><button class="btn btn-primary " id="submitButton" type="button">Show film</button></a>
-			            	<%}%>
+			            	<%}%>	
 			          </form>
 
 			        </div>

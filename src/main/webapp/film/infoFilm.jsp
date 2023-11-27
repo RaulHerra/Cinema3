@@ -25,7 +25,7 @@
 			if( request.getParameter("cip") != null){
 				film = DbRepository.find(Film.class, request.getParameter("cip"));
 				if(film == null){
-					error = "Error there is no task with the cip entered";
+					error = "Error there is no film with the cip entered";
 				}
 			}else{
 				error = "Not cip found in the uri";

@@ -229,7 +229,7 @@
 		            }
 		            if(error != null){%>
 		            	<div class="textAreaInfoError" ><%=error%></div>
-		            	<a href="addProjection.jsp"><button class="btn btn-info" id="submitButton" type="button" name="submit">Retry</button></a>
+		            	<a href="addProjection.jsp"><button class="btn btn-info" id="submitButton" type="button" name="submit">Return to the form</button></a>
 		            <%
 		            }else if(request.getParameter("submit") != null && error == null){%>
 		            	<div class="textAreaInfoSuccesfull">Projection created successfully!</div>
