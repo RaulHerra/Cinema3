@@ -17,6 +17,16 @@
 <body>
 	<%@include file="../nav.jsp"%>	
 	<%	
+	try{
+		String user = session.getAttribute("user").toString();
+		if(!session.getAttribute("role").equals("ADMIN")){
+			response.sendRedirect("../signup.jsp");
+			return;
+		}
+	}catch(Exception e){
+		response.sendRedirect("../login.jsp");
+		return;
+	}
 		Cinema cinema = null; 
 		String error = null;
 		try{

@@ -30,6 +30,16 @@
 <body>
 
 <% 
+try{
+	String user = session.getAttribute("user").toString();
+	if(!session.getAttribute("role").equals("ADMIN")){
+		response.sendRedirect("../signup.jsp");
+		return;
+	}
+}catch(Exception e){
+	response.sendRedirect("../login.jsp");
+	return;
+}
 	List<Cinema> cinemas = new ArrayList<Cinema>();
 	List<Room> rooms = new ArrayList<Room>();
 	List<Film> films = new ArrayList<Film>();

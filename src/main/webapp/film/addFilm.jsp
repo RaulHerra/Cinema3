@@ -17,6 +17,16 @@ F<%@page import="com.jacaranda.repository.DbRepository"%>
 <body>
 	<%@include file="../nav.jsp"%>
 	<%
+	try{
+		String user = session.getAttribute("user").toString();
+		if(!session.getAttribute("role").equals("ADMIN")){
+			response.sendRedirect("../signup.jsp");
+			return;
+		}
+	}catch(Exception e){
+		response.sendRedirect("../login.jsp");
+		return;
+	}
 	String error = null;
 	try{
 		/*Compruebo si ya hay alguna pelicula con el cip introducido*/
