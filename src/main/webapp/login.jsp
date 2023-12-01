@@ -1,3 +1,7 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.jacaranda.model.User"%>
+<%@page import="java.util.List"%>
+<%@page import="com.jacaranda.repository.DbRepository"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -13,6 +17,21 @@
 <link rel="stylesheet" href="../style/style.css">
 </head>
 <body>
+<%
+	String error = null;
+	List<User> users = new ArrayList<User>();
+	try{
+		users = DbRepository.findAll(User.class);		
+	}catch(Exception e){
+		error = e.getMessage();
+	}
+	
+	if(users.indexOf(session.getAttribute("username"))!=-1){
+		response.sendRedirect("./index.jsp");
+		return;
+	}
+%>
+
 <!-- ======= NAVBAR ======= -->
 <%@include file="../nav.jsp"%>
 <!-- ======= INPUTS FORM ======= -->
@@ -25,7 +44,7 @@
 	            <h1>Log in</h1>
 	          </div>
 
-				<form method="get" action="index.html">
+				<form method="get">
 				
 				  <!-- Div of the input 'inputName' of the character's name  -->
 				  <div>
@@ -44,7 +63,6 @@
 					    <label for="password" class="form-label">Password</label>
 					    <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
 					</div>
-					
 				  </div>
 				  			  
 				  <!-- Div of the submit button and redirect to list button  -->
