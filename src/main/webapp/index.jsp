@@ -9,9 +9,27 @@
 <link rel="stylesheet" href="./style/style.css">
 </head>
 <body>
+
+<% 
+	//when the user click on log out, this will trigger
+	if(request.getParameter("logout")!=null){
+		session.removeAttribute("username");
+		session.removeAttribute("userRole");
+	}
+%>
 	<%@include file="../nav.jsp"%>
 	<h1 class="welcome">WELCOME</h1>
-	<div class="textWelcome text-center">This is the cinema of the group of Gonzalo, Jesús, Francisco Javier and Raúl, have a good time!</div>
+	<div class="textWelcome text-center">This is the cinema of the group of Gonzalo, Jesús, Francisco Javier and Raúl. <br> Modified By Raúl Herrá for Sprint 3</div>
+	
+	<div align="center">
+	<% if(session.getAttribute("username")==null){ %>
+	<div>It looks like you don't have log in yet <br> Create an account?</div>
+     <form action="/CinemaTeam/signup.jsp">
+	    <button class="btn btn-outline-success me-2" type="submit">Sign up</button>				  
+	 </form>
+  	<% } %>
+	</div>
+	
 	<div class="slider-frame">
         <ul>
             <li><img src="./img/imagen1.jpg"></li>

@@ -19,20 +19,11 @@ public class Ticket {
 	private int id;
 	
 	@ManyToOne
-	@JoinColumn(name="cine")
-	private Cinema cinema;
-	
-	@ManyToOne
-	@JoinColumns({@JoinColumn(name="sala"),@JoinColumn(name="cine")})
-	private Room room;
-	
-	@ManyToOne
-	@JoinColumn(name="cip")
-	private Film film;
-	
-	@ManyToOne
-	@JoinColumn(name="fecha_estreno")
-	private Date premiereDate;
+	@JoinColumns({@JoinColumn(name="sala"),
+				@JoinColumn(name="cine"),
+				@JoinColumn(name="cip"),
+				@JoinColumn(name="fecha_estreno")})
+	private Projection projection;
 	
 	@ManyToOne
 	@JoinColumn(name="usuario")
@@ -40,6 +31,19 @@ public class Ticket {
 	
 	@Column(name="fecha_compra")
 	private Date buyDate;
+
+	public Ticket(int id, Cinema cinema, Projection projection, User user, Date buyDate) {
+		super();
+		this.id = id;
+		this.projection = projection;
+		this.user = user;
+		this.buyDate = buyDate;
+	}
+	
+	public Ticket() {
+		super();
+	}
+	
 	
 	
 }

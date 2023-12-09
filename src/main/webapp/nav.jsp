@@ -24,14 +24,15 @@
 				     <li>
 		       			 <a class="dropdown-item " href="/CinemaTeam/film/listFilms.jsp">List films</a>
 				     </li>
-				     
-		            <li>
-		       			 <a class="dropdown-item " href="/CinemaTeam/film/addFilm.jsp">Add film</a>
-				    </li>
-				    
-		            <li>
-		        		<a class="dropdown-item " href="/CinemaTeam/character/addCharacterFilm.jsp">Add character to Film</a>
-				    </li>				    
+				     <% if(session.getAttribute("username")!=null && session.getAttribute("userRole").equals("ADMIN")){ %>
+			            <li>
+			       			 <a class="dropdown-item " href="/CinemaTeam/film/addFilm.jsp">Add film</a>
+					    </li>
+					    
+			            <li>
+			        		<a class="dropdown-item " href="/CinemaTeam/character/addCharacterFilm.jsp">Add character to Film</a>
+					    </li>
+					  <% } %>				    
 		          </ul>
 	      	 </li>				      
 		      
@@ -43,13 +44,14 @@
 				     <li>
 		        		<a class="dropdown-item " href="/CinemaTeam/character/listCharacters.jsp">List characters</a>
 				     </li>
-				     
-		            <li>
-		       			 <a class="dropdown-item " href="/CinemaTeam/character/addCharacter.jsp">Add character</a>
-				    </li>
-		            <li>
-		        		<a class="dropdown-item " href="/CinemaTeam/character/addCharacterFilm.jsp">Add character to Film</a>
-				    </li>	
+				     <% if(session.getAttribute("username")!=null && session.getAttribute("userRole").equals("ADMIN")){ %>
+			            <li>
+			       			 <a class="dropdown-item " href="/CinemaTeam/character/addCharacter.jsp">Add character</a>
+					    </li>
+			            <li>
+			        		<a class="dropdown-item " href="/CinemaTeam/character/addCharacterFilm.jsp">Add character to Film</a>
+					    </li>
+				    <% } %>
 				  </ul>
 	      	 </li>				      
 		      
@@ -62,11 +64,11 @@
 				     <li>
 		       		 <a class="dropdown-item " href="/CinemaTeam/task/listTasks.jsp">List tasks</a>
 				     </li>
-				     
+				     <% if(session.getAttribute("username")!=null && session.getAttribute("userRole").equals("ADMIN")){ %>
 		            <li>
 		        		<a class="dropdown-item " href="/CinemaTeam/task/addTask.jsp">Add task</a>
 				    </li>
-				    
+				    <% } %>
 		          </ul>
 	      	 </li>		      
 		      
@@ -79,10 +81,11 @@
 				     <li>
 				     	<a class="dropdown-item " href="/CinemaTeam/cinema/listCinemas.jsp">List cinemas</a>
 				     </li>
-				     
+				     <% if(session.getAttribute("username")!=null && session.getAttribute("userRole").equals("ADMIN")){ %>
 		            <li>
 				    	<a class="dropdown-item " href="/CinemaTeam/cinema/addCinema.jsp">Add cinema</a>
 				    </li>
+				    <% } %>
 		          </ul>
 	      	 </li>
 		      
@@ -95,10 +98,11 @@
 				     <li>
 				     	<a class="dropdown-item " href="/CinemaTeam/projection/listProjections.jsp">List projections</a>
 				     </li>
-				     
+				     <% if(session.getAttribute("username")!=null && session.getAttribute("userRole").equals("ADMIN")){ %>
 		            <li>
 				    	<a class="dropdown-item " href="/CinemaTeam/projection/addProjection.jsp">Add projection</a>
 				    </li>
+				    <% } %>
 		          </ul>
 	      	 </li>
 	      	 
@@ -111,17 +115,42 @@
 				     <li>
 				     	<a class="dropdown-item " href="/CinemaTeam/room/listRooms.jsp">List room</a>
 				     </li>
-				     
+				     <% if(session.getAttribute("username")!=null && session.getAttribute("userRole").equals("ADMIN")){ %>
 		            <li>
 				    	<a class="dropdown-item " href="/CinemaTeam/room/addRoom.jsp">Add room</a>
 				    </li>
+				    <% } %>
 		          </ul>
-	      	 </li>	  
+	      	 </li>
+	      	 
+		     <% if(session.getAttribute("username")!=null && session.getAttribute("userRole").equals("ADMIN")){ %>
+	      	 <li class="nav-item dropdown">
+		          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		            	Users
+		          </a>
+		          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+		          
+				     <li>
+		       			 <a class="dropdown-item " href="/CinemaTeam/film/listFilms.jsp">List Users</a>
+				     </li>
+			            <li>
+			       			 <a class="dropdown-item " href="/CinemaTeam/film/addFilm.jsp">Add User</a>
+					    </li>
+		          </ul>
+	      	 </li>			
+			 <% } %>				    
+	      	 	  
 		    </ul>
 		  </div>
+		  	<% if(session.getAttribute("username")==null){ %>
 			     <form class="d-flex" action="/CinemaTeam/login.jsp">
 				    <button class="btn btn-outline-success me-2" type="submit">Log in</button>				  
 				  </form>
+		  	<% }else{ %>
+			  	<form class="d-flex" action="/CinemaTeam/index.jsp">
+				    <button class="btn btn-outline-success me-2" name="logout" type="submit">Log out</button>				  
+				</form>
+		  	<% } %>
 		  </div>
 		</nav>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

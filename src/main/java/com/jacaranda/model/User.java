@@ -2,11 +2,12 @@ package com.jacaranda.model;
 
 import java.util.Objects;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import org.apache.commons.codec.digest.DigestUtils;
 
 @Entity
 @Table(name="Usuario")
