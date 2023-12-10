@@ -131,11 +131,8 @@
 		          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 		          
 				     <li>
-		       			 <a class="dropdown-item " href="/CinemaTeam/film/listFilms.jsp">List Users</a>
+		       			 <a class="dropdown-item " href="/CinemaTeam/user/listUsers.jsp">List Users</a>
 				     </li>
-			            <li>
-			       			 <a class="dropdown-item " href="/CinemaTeam/film/addFilm.jsp">Add User</a>
-					    </li>
 		          </ul>
 	      	 </li>			
 			 <% } %>				    

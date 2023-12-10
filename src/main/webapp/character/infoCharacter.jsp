@@ -80,15 +80,16 @@
 					    <input type="text" class="form-control" id="inputSex" name="inputSex" value="<%= character.getCharacterSex() %>" readonly required>
 					</div>				
 				  <!-- Div of the submit button and redirect to list button  -->
+				  <% if(session.getAttribute("userRole").equals("ADMIN")){%>
 				    <a href="editCharacter.jsp?characterName=<%=character.getCharacterName()%>"><button class="btn btn-warning" id="submitButton" value="edit" type="button" name="edit">Edit</button></a>
 		            <a href="deleteCharacter.jsp?characterName=<%=character.getCharacterName()%>"><button class="btn btn-danger" id="submitButton" value="delete" type="button" name="delete">Delete</button></a>
-				  
+				  <% } %>
 			    </form>
 			    <%} %>
 			  <% if (error != null) {%>
 				  <div class="textAreaInfoError" > <%=error%> </div>
-				  <a href="./listCharacters.jsp"> <button class="btn btn-info" id="submitButton" type="button"> Return list </button></a>
 			  <% }%>
+				  <a href="./listCharacters.jsp"> <button class="btn btn-info" id="submitButton" type="button"> Return list </button></a>
 			<% if (character != null) { %>
 				<a href="./filmography.jsp?characterFilms=<%=character.getCharacterName()%>"><button class="btn btn-primary " id="submitButton" value="<%=character.getCharacterName()%>" name="characterFilms">See Filmography</button></a>
 			<%} %>

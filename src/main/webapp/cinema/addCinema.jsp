@@ -18,9 +18,9 @@
 	<%@include file="../nav.jsp"%>
 	<%
 	try{
-		String user = session.getAttribute("user").toString();
-		if(!session.getAttribute("role").equals("ADMIN")){
-			response.sendRedirect("../signup.jsp");
+		String user = session.getAttribute("username").toString();
+		if(!session.getAttribute("userRole").equals("ADMIN")){
+			response.sendRedirect("../index.jsp");
 			return;
 		}
 	}catch(Exception e){

@@ -95,13 +95,13 @@
 				          <%
 				      		if(error!= null){%>
 				            	<div class="textAreaInfoError" ><%=error%></div>
-				            	<a href="./listFilms.jsp"><button class="btn btn-info" id="submitButton" type="button">Return list</button></a>
 				       		<%}%>
-			          <% if (film != null) { %>
+				            	<a href="./listFilms.jsp"><button class="btn btn-info" id="submitButton" type="button">Return list</button></a>
+			          <% if (film != null && session.getAttribute("userRole").equals("ADMIN")) { %>
 			              	<a href="editFilm.jsp?cip=<%=film.getCip()%>"><button class="btn btn-warning "  type="button" name="edit">Edit</button></a>
 			              	<a href= "deleteFilm.jsp?cip=<%=film.getCip()%>"><button class="btn btn-danger "  type="submit" name="delete">Delete</button></a>
-					  	<a href="./castCharacters.jsp?filmCharacters=<%=film.getCip()%>"><button class="btn btn-primary " id="submitButton" value="<%=film.getCip()%>" name="filmCharacters">Cast</button></a>
 					  <%} %>
+					  	<a href="./castCharacters.jsp?filmCharacters=<%=film.getCip()%>"><button class="btn btn-primary " id="submitButton" value="<%=film.getCip()%>" name="filmCharacters">Cast</button></a>
 			        </div>
 			      </div>
 			    </div>

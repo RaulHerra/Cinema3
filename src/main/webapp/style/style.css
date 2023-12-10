@@ -152,3 +152,7 @@ th button{
 small{
 	color: red;
 }
+
+small.advice{
+	color: #999999;
+}

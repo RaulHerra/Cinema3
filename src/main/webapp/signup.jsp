@@ -46,10 +46,10 @@
 					DbRepository.addEntity(newUser);
 					
 					response.sendRedirect("./login.jsp?newUserCreated=");
-					return;
 				}else{
 					error = "Some data is wrong, please try again";
 				}
+				return;
 				
 			}catch(Exception e){
 				error = "Something went wrong, try again";
@@ -126,7 +126,7 @@
 					</div>
 				  </div>
 				  	
-				  	<button class="btn  btn-success" id="formButton" type="submit" name="submit"> Create account </button>			  
+				  	<button class="btn  btn-success" id="formButton" type="submit" name="submit"> Create account </button>	  
 				  
 			    </form>
 			</div>

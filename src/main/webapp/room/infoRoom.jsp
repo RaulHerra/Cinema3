@@ -93,16 +93,16 @@
 									placeholder="Enter Room capacity" required readonly
 									value="<%= tmpRoom.getCapacity()%>">
 							</div>
-							<a href="editRoom.jsp?cinema=<%=tmpRoom.getCinema().getCinema()%>&room=<%=tmpRoom.getRoomNumber()%>"><button type="button" class="btn btn-warning">Edit</button></a>
-							<a href="deleteRoom.jsp?cinema=<%=tmpRoom.getCinema().getCinema()%>&room=<%=tmpRoom.getRoomNumber()%>"><button type="button" class="btn btn-danger">Delete</button></a>
-
+							<% if(session.getAttribute("userRole").equals("ADMIN")){%>
+								<a href="editRoom.jsp?cinema=<%=tmpRoom.getCinema().getCinema()%>&room=<%=tmpRoom.getRoomNumber()%>"><button type="button" class="btn btn-warning">Edit</button></a>
+								<a href="deleteRoom.jsp?cinema=<%=tmpRoom.getCinema().getCinema()%>&room=<%=tmpRoom.getRoomNumber()%>"><button type="button" class="btn btn-danger">Delete</button></a>
+							<%}%>
 						</form>
 						<%}else{%>
 							<div class="textAreaInfoError"><%=error%></div>
+						<%}%>
 			            	<a href="../cinema/listCinemas.jsp"><button class="btn btn-info " id="submitButton" type="button">Return to cinemas</button></a>
 			            	<a href="../room/listRooms.jsp"><button class="btn btn-info " id="submitButton" type="button">Return to rooms</button></a>
-
-						<%}%>
 					</div>
 				</div>
 			</div>

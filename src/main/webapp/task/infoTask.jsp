@@ -49,16 +49,16 @@
 			              <label for="task" class="form-label">Sex</label>
 			              <input class="form-control" name="sex" type="text" value='<%=task.getSex()%>' readonly>
 			            </div>
+			            <% if(session.getAttribute("userRole").equals("ADMIN")){%>
 			              <button class="btn btn-warning " id="submitButton" type="submit" name="editSubmit">Edit</button>
 			              <button class="btn btn-danger " id="submitButton" type="submit" name="deleteSubmit">Delete</button>			            
-			            <% } %>
+			            <% }} %>
 			             <%
 			      		if(error!= null){//En el caso de que no exista se muestra el valor y da la opcion al usuario de volver a la lista de tareas
 			      		%>
 			            	<div class="textAreaInfoError" ><%=error%></div>
+			       		<%};//Borramos la session para que no arrastre errores%>
 			            	<a href="listTasks.jsp"><button class="btn btn-info" id="submitButton" type="button">Return to list</button></a>
-			       		<%};//Borramos la session para que no arrastre errores
-			       		%>
 			          </form>
 			        </div>
 			      </div>

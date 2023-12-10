@@ -58,15 +58,17 @@
 			            
 
 			            <!-- Submit button -->
+			            <% if(session.getAttribute("userRole").equals("ADMIN")){%>
 			              	<a href="editCinema.jsp?cinema=<%=cinema.getCinema()%>"><button class="btn btn-warning " id="submitButton" value="edit" type="button" name="edit">Edit</button></a>
 			              	<a href="deleteCinema.jsp?cinema=<%=cinema.getCinema()%>"><button class="btn btn-danger " id="submitButton" value="delete" type="button" name="delete">Delete</button></a>
+			            <% } %>
 			          </form>
 			          <%}%>
 			          <%
 			      		if(error != null){ //En el caso de haya un erro muestro el error y pongo un boton de volver a la lista%>
 			            	<div class="textAreaInfoError " ><%=error%></div><br>
-			            	<a href="./listCinemas.jsp"><button class="btn btn-info" id="submitButton" type="button">Return to list</button></a>
 			       		<%}%>
+			            	<a href="./listCinemas.jsp"><button class="btn btn-info" id="submitButton" type="button">Return to list</button></a>
 			          <!-- End of contact form -->
 			          	<% if (cinema != null) { %>
 			   				 <a href="../room/cinemasRooms.jsp?cinema=<%=cinema.getCinema()%>"><button class="btn btn-primary" id="rooms" name="rooms">Rooms</button></a>

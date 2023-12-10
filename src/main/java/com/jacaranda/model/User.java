@@ -54,7 +54,7 @@ public class User {
 		return password;
 	}
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = DigestUtils.md5Hex(password);
 	}
 	public String getName() {
 		return name;
