@@ -13,7 +13,9 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="Entrada")
 public class Ticket {
-
+	
+	static private int autoIncrementId = 0;
+	
 	@Id
 	@Column(name = "idEntrada")
 	private int id;
@@ -32,9 +34,9 @@ public class Ticket {
 	@Column(name="fecha_compra")
 	private Date buyDate;
 
-	public Ticket(int id, Cinema cinema, Projection projection, User user, Date buyDate) {
+	public Ticket(Projection projection, User user, Date buyDate) {
 		super();
-		this.id = id;
+		this.id = autoIncrementId++;
 		this.projection = projection;
 		this.user = user;
 		this.buyDate = buyDate;
@@ -43,7 +45,33 @@ public class Ticket {
 	public Ticket() {
 		super();
 	}
-	
-	
+
+	public Projection getProjection() {
+		return projection;
+	}
+
+	public void setProjection(Projection projection) {
+		this.projection = projection;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Date getBuyDate() {
+		return buyDate;
+	}
+
+	public void setBuyDate(Date buyDate) {
+		this.buyDate = buyDate;
+	}
+
+	public int getId() {
+		return id;
+	}
 	
 }

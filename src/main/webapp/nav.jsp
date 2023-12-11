@@ -103,6 +103,9 @@
 				    	<a class="dropdown-item " href="/CinemaTeam/projection/addProjection.jsp">Add projection</a>
 				    </li>
 				    <% } %>
+				     <li>
+				     	<a class="dropdown-item " href="/CinemaTeam/projection/listActualProjections.jsp">List actual projections</a>
+				     </li>
 		          </ul>
 	      	 </li>
 	      	 
@@ -139,12 +142,16 @@
 	      	 	  
 		    </ul>
 		  </div>
+		   <% if(session.getAttribute("username")!=null){ %>
+		          <a href="/CinemaTeam/myPurchases.jsp" class="my">My Purchases</a>
+			 <% } %>		
+		  
 		  	<% if(session.getAttribute("username")==null){ %>
 			     <form class="d-flex" action="/CinemaTeam/login.jsp">
 				    <button class="btn btn-outline-success me-2" type="submit">Log in</button>				  
 				  </form>
 		  	<% }else{ %>
-		  		<a href="/CinemaTeam/myAccount.jsp" class="myAccount">My account</a>
+		  		<a href="/CinemaTeam/myAccount.jsp" class="my">My account</a>
 			  	<form class="d-flex" action="/CinemaTeam/index.jsp">
 				    <button class="btn btn-outline-success me-2" name="logout" type="submit">Log out</button>				  
 				</form>
