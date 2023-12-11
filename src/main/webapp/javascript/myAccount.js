@@ -1,6 +1,13 @@
 const pass = document.getElementById("password");
+const repass = document.getElementById("repassword");
+const email = document.getElementById("email");
 const formButton = document.getElementById("formButton");
 document.addEventListener('DOMContentLoaded', () => {
+
+	const isEmailValid = (email) => {
+	    const re = /^(([^<>()\].,;:\s@"]+(\.[()\[\\.,;:\s@"]+)*)|(".+"))@(([0-9]1,3\.[0-9]1,3\.[0-9]1,3\.[0-9]1,3)|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	    return re.test(email);
+	};
 
     function isPasswordValid(data){
         const re = /^(?=.*[A-z])(?=.*[0-9])(?=.*[¿?¡!@\_\-#\$%\^&*])(?=.{6,})/;
@@ -37,8 +44,31 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
+    repass.addEventListener("change", () => {
+        if(isPasswordValid(repass.value) && repass.value==pass.value){
+            showSuccess(repass); 
+        }else{
+            showError(repass,"The password must meet minimum security requirements, such as minimum length (6 characters) and the inclusion of special characters (*?¿!), numbers (at least 1) and letters (at least 1) and must be equal to the previous one");
+        }
+    });
+    
+    email.addEventListener("change", () => {
+	    if(isEmailValid(email.value)){
+            showSuccess(email); 
+	    }else{
+			showError(email,"Not valid format");
+	    }
+	});
+	
+	function isFormValid(){
+		return isEmailValid(email.value)
+		&& isPasswordValid(pass.value)
+		&& isPasswordValid(repass.value)
+		&& pass.value==repass.value;
+	}
+    
     formButton.addEventListener("click", () => {
-		if(!(isPasswordValid(pass.value)) && pass.value.trim()!=""){
+		if(!(isFormValid()) && pass.value.trim()!="" && repass.value.trim()!=""){
 			event.preventDefault();
 		}
 	});

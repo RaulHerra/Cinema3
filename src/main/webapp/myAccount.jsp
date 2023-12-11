@@ -14,39 +14,28 @@
 	crossorigin="anonymous">
 
 <!-- ======= LINK CSS ======= -->
-<link rel="stylesheet" href="../style/style.css">
-<title>Edit user</title>
+<link rel="stylesheet" href="./style/style.css">
+<title>Edit my account</title>
 </head>
 <body>
 	<%@include file="../nav.jsp"%>
-	<% 
-	try{
-		String user = session.getAttribute("username").toString();
-		if(!session.getAttribute("userRole").equals("ADMIN")){
-			response.sendRedirect("../index.jsp");
-			return;
-		}
-	}catch(Exception e){
-		response.sendRedirect("../login.jsp");
-		return;
-	}
-	
+	<%	
 	
 	//We recover the user to check if it exists
 	User user = null;
 	boolean modified = false;
 	try{
-		String userReq = request.getParameter("User");
-		user = DbRepository.find(User.class, userReq);
+		String userSession = session.getAttribute("username").toString();
+		user = DbRepository.find(User.class, userSession);
 		
 		if(user==null){
-			response.sendRedirect("../error.jsp?msg=user%20"+userReq+"%20not%20found");
+			response.sendRedirect("./error.jsp?msg=user%20"+userSession+"%20not%20found");
 			return;
 		}else{
 			//if the admin is trying to modify an user
 			if(request.getParameter("submit")!=null){
 				//We set the new role (if it didn't change, nothing happens)
-				user.setRole(request.getParameter("role"));
+				user.setEmail(request.getParameter("email"));
 				
 				//If the password input is empty, we don't modificate the password
 				if(!request.getParameter("password").trim().equals("")){
@@ -60,7 +49,7 @@
 		}
 		
 	}catch(Exception e){
-		response.sendRedirect("../error.jsp?msg=Not%20user%20found");
+		response.sendRedirect("./error.jsp?msg=Not%20user%20found");
 		return;
 	}
 	%>
@@ -85,7 +74,7 @@
 						 <div>
 				    <div class=" mb-3">
 					    <label for="username" class="form-label">Email</label>
-					    <input type="email" class="form-control" id="email" name="email" value="<%= user.getEmail() %>" placeholder="Email" required readonly>
+					    <input type="email" class="form-control" id="email" name="email" value="<%= user.getEmail() %>" placeholder="Email" required>
 					    <small></small>
 					</div>
 				  </div>
@@ -115,27 +104,26 @@
 					</div>
 				  </div>
 				  
-				  <label for="role" class="form-label">Role</label>
-				  <select id="role" name="role" class="form-select custom-select">
-		   		   		<% if(user.getRole().equals("ADMIN")){ %>
-			   		   		<option value="ADMIN">Admin</option>
-			   		   		<option value="USER">User</option>
-		   		   		<% }else{ %>
-			   		   		<option value="USER">User</option>
-			   		   		<option value="ADMIN">Admin</option>
-		   		   		<% } %>
-				   </select>
+				  <div>
+				    <div class=" mb-3">
+					    <label for="repassword" class="form-label">Old Password</label>
+					    <input type="password" class="form-control" id="repassword" name="repassword" placeholder="Password">
+					    <small></small>
+					    <small class="advice">Empty to not change</small>
+					</div>
+				  </div>
+				  
 					<button class="btn  btn-success" id="formButton" type="submit" name="submit"> Modify account </button>
 						</form>
 						<% }else{ %>
 						<div class="textAreaInfoSuccesfull " >User <%= user.getUsername()%> edited successfully!</div>
 					<% } %>
-					<a href="./listUsers.jsp"><button class="btn btn-info" id="submitButton" type="button">Return list</button></a>
+					<a href="./index.jsp"><button class="btn btn-info" id="submitButton" type="button">Return index</button></a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="../javascript/editUser.js"></script>
+	<script type="text/javascript" src="./javascript/myAccount.js"></script>
 </body>
 </html>

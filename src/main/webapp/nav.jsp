@@ -144,6 +144,7 @@
 				    <button class="btn btn-outline-success me-2" type="submit">Log in</button>				  
 				  </form>
 		  	<% }else{ %>
+		  		<a href="/CinemaTeam/myAccount.jsp" class="myAccount">My account</a>
 			  	<form class="d-flex" action="/CinemaTeam/index.jsp">
 				    <button class="btn btn-outline-success me-2" name="logout" type="submit">Log out</button>				  
 				</form>
